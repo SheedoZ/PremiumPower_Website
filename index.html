@@ -1,12 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
-    <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <title>Diesel Generators Egypt | Perkins, Volvo & Doosan | Premium Power LLC</title>
     <meta name="description" content="Authorized supplier of Diesel Generators in Egypt. We provide Perkins, Volvo, and Doosan generators from 9 KVA to 3000 KVA. Installation, spare parts, and maintenance in Cairo, New Capital, and nationwide.">
     <meta name="keywords" content="Diesel Generator Egypt, Perkins Generator Prices, Volvo Penta Egypt, Generator Maintenance Cairo, Power Rental Egypt, مولدات كهرباء, Premium Power">
+    <meta name="robots" content="index, follow">
+    <meta name="author" content="Premium Power LLC">
+    
+    <link rel="canonical" href="https://premiumpower-eg.com">
+    <link rel="alternate" hreflang="ar" href="https://premiumpower-eg.com?lang=ar">
+    <link rel="alternate" hreflang="en" href="https://premiumpower-eg.com">
     
     <meta property="og:title" content="Diesel Generators Egypt | Premium Power LLC">
     <meta property="og:description" content="Reliable power solutions in Egypt. Perkins, Volvo, and Doosan generators with 24/7 support.">
@@ -14,16 +21,21 @@
     <meta property="og:url" content="https://premiumpower-eg.com">
     <meta property="og:type" content="website">
     
+    <!-- Security Headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+    
     <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?v=3.4.1"></script>
     
     <!-- Lucide Icons -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://unpkg.com/lucide@0.263.1" defer></script>
     
     <!-- AOS Animation Library CSS -->
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-   <script>
+    <script>
         tailwind.config = {
             theme: {
                 extend: {
@@ -40,14 +52,13 @@
                     animation: {
                         'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'float': 'float 6s ease-in-out infinite',
-                        'marquee': 'marquee 80s linear infinite', /* 80s for slow motion */
+                        'marquee': 'marquee 80s linear infinite',
                     },
                     keyframes: {
                         float: {
                             '0%, 100%': { transform: 'translateY(0)' },
                             '50%': { transform: 'translateY(-20px)' },
                         },
-                        /* Move exactly 50% (the width of one set) then snap back */
                         marquee: {
                             '0%': { transform: 'translateX(0%)' },
                             '100%': { transform: 'translateX(-50%)' },
@@ -70,7 +81,7 @@
             backdrop-filter: blur(10px);
             border: 1px solid rgba(255, 255, 255, 0.5);
         }
-        /* Custom Font for Arabic to improve RTL display */
+        /* Custom Font for Arabic */
         .font-arabic {
             font-family: Tahoma, 'Noto Sans Arabic', sans-serif;
         }
@@ -88,12 +99,12 @@
             text-transform: uppercase;
         }
         .premium-column {
-            background-color: #e0f2fe; /* Light Blue BG */
+            background-color: #e0f2fe;
             color: #003087;
             font-weight: 700;
         }
         .premium-column .lucide {
-            color: #10b981; /* Green checkmark */
+            color: #10b981;
         }
         
         /* Chat Menu Animation */
@@ -114,7 +125,7 @@
             transition: max-height 0.4s ease-in-out;
         }
         .spec-open {
-            max-height: 300px; /* Arbitrary large height */
+            max-height: 300px;
         }
         
         /* Map Container */
@@ -124,6 +135,24 @@
         }
         .map-container iframe:hover {
             filter: grayscale(0%) contrast(1) opacity(1);
+        }
+
+        /* Prevent iOS zoom on input focus */
+        input, textarea, select {
+            font-size: 16px;
+        }
+
+        /* Marquee pause on hover */
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
+
+        /* iOS sticky fix */
+        @supports (-webkit-touch-callout: none) {
+            .fixed {
+                position: -webkit-sticky;
+                position: sticky;
+            }
         }
     </style>
 
@@ -172,9 +201,9 @@
     "https://www.linkedin.com/in/premium-power-4430a3399"
   ]
 }
-</script>
+    </script>
 
-<script type="application/ld+json">
+    <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ItemList",
@@ -271,7 +300,8 @@
     }
   ]
 }
-</script>  
+    </script>
+    
     <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -303,18 +333,18 @@
     }
   ]
 }
-</script>
+    </script>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 selection:bg-paypal-light selection:text-white overflow-x-hidden" dir="ltr">
 
-    <!-- Feature 6: Improved Floating Action Button (Dual Mode) -->
+    <!-- Floating Action Button (Dual Mode) -->
     <div class="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4" data-aos="fade-left" data-aos-delay="1000">
         
         <!-- The Menu (Hidden by default) -->
-        <div id="chat-menu" class="opacity-0 transform scale-90 translate-y-4 pointer-events-none flex flex-col gap-3 mb-2">
+        <div id="chat-menu" class="opacity-0 transform scale-90 translate-y-4 pointer-events-none flex flex-col gap-3 mb-2" role="menu" aria-label="Contact options">
             <!-- Option 1: Sales -->
-            <a href="https://wa.me/201062070276" target="_blank" class="flex items-center gap-3 bg-white text-gray-800 p-3 pr-6 pl-4 rounded-full shadow-xl hover:bg-green-50 transition-colors border border-green-100 group">
-                <div class="bg-green-500 text-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform">
+            <a href="https://wa.me/201062070276" target="_blank" rel="noopener noreferrer" class="flex items-center gap-3 bg-white text-gray-800 p-3 pr-6 pl-4 rounded-full shadow-xl hover:bg-green-50 transition-colors border border-green-100 group" role="menuitem">
+                <div class="bg-green-500 text-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform" aria-hidden="true">
                     <i data-lucide="message-circle" class="w-5 h-5"></i>
                 </div>
                 <div class="flex flex-col items-start">
@@ -324,8 +354,8 @@
             </a>
             
             <!-- Option 2: Emergency -->
-            <a href="tel:+201062070276" class="flex items-center gap-3 bg-white text-gray-800 p-3 pr-6 pl-4 rounded-full shadow-xl hover:bg-red-50 transition-colors border border-red-100 group">
-                <div class="bg-red-600 text-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform animate-pulse">
+            <a href="tel:+201062070276" class="flex items-center gap-3 bg-white text-gray-800 p-3 pr-6 pl-4 rounded-full shadow-xl hover:bg-red-50 transition-colors border border-red-100 group" role="menuitem">
+                <div class="bg-red-600 text-white p-2 rounded-full shadow-sm group-hover:scale-110 transition-transform animate-pulse" aria-hidden="true">
                     <i data-lucide="phone-call" class="w-5 h-5"></i>
                 </div>
                 <div class="flex flex-col items-start">
@@ -336,16 +366,16 @@
         </div>
 
         <!-- The Trigger Button -->
-        <button onclick="toggleChatMenu()" class="bg-paypal-dark text-white p-4 rounded-full shadow-xl hover:bg-paypal-light hover:scale-110 transition-all duration-300 flex items-center justify-center w-14 h-14 group ring-4 ring-blue-500/20">
-            <i data-lucide="headset" class="w-7 h-7 fill-current transform group-hover:rotate-12 transition-transform"></i>
+        <button onclick="toggleChatMenu()" aria-label="Open contact menu" aria-expanded="false" aria-controls="chat-menu" class="bg-paypal-dark text-white p-4 rounded-full shadow-xl hover:bg-paypal-light hover:scale-110 transition-all duration-300 flex items-center justify-center w-14 h-14 group ring-4 ring-blue-500/20">
+            <i data-lucide="headset" class="w-7 h-7 fill-current transform group-hover:rotate-12 transition-transform" aria-hidden="true"></i>
         </button>
     </div>
 
     <!-- Navbar -->
-    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-6">
+    <nav id="navbar" class="fixed w-full z-40 transition-all duration-300 py-6" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-6 flex justify-between items-center">
             
-            <a href="#home" class="flex items-center gap-2 group">
+            <a href="#home" class="flex items-center gap-2 group" aria-label="Premium Power - Home">
                 <div class="flex flex-col leading-none">
                     <span id="brand-1" class="font-bold text-2xl tracking-tight text-white transition-colors duration-300">Premium</span>
                     <span id="brand-2" class="font-bold text-2xl tracking-tight text-blue-200 transition-colors duration-300">Power</span>
@@ -353,9 +383,9 @@
             </a>
             <div class="hidden md:flex items-center gap-8">
                 <div class="flex items-center gap-2 mr-4">
-                    <button onclick="switchLanguage('en')" class="lang-btn text-white/80 hover:text-white font-bold transition-colors text-sm" data-lang="en">EN</button>
-                    <span class="text-white/30">|</span>
-                    <button onclick="switchLanguage('ar')" class="lang-btn text-white/80 hover:text-white font-bold transition-colors text-sm" data-lang="ar">ع</button>
+                    <button onclick="switchLanguage('en')" class="lang-btn text-white/80 hover:text-white font-bold transition-colors text-sm" data-lang="en" aria-label="Switch to English">EN</button>
+                    <span class="text-white/30" aria-hidden="true">|</span>
+                    <button onclick="switchLanguage('ar')" class="lang-btn text-white/80 hover:text-white font-bold transition-colors text-sm" data-lang="ar" aria-label="Switch to Arabic">ع</button>
                 </div>
 
                 <a href="#about" class="nav-link text-white/90 hover:text-white font-medium text-sm transition-colors" data-i18n="navAbout">About</a>
@@ -365,41 +395,44 @@
                 <a href="#projects-gallery" class="nav-link text-white/90 hover:text-white font-medium text-sm transition-colors" data-i18n="navProjects">Projects</a>
                 <a href="#contact" class="nav-link text-white/90 hover:text-white font-medium text-sm transition-colors" data-i18n="navContact">Contact</a>
 
-                <button onclick="document.getElementById('contact').scrollIntoView()" id="nav-btn" class="px-6 py-2 rounded-full border-2 border-white/30 text-white font-bold hover:bg-white/10 text-xs transition-all shadow-md" data-i18n="btnQuote"> Get Quote </button>
+                <button onclick="document.getElementById('contact').scrollIntoView()" id="nav-btn" class="px-6 py-2 rounded-full border-2 border-white/30 text-white font-bold hover:bg-white/10 text-xs transition-all shadow-md" data-i18n="btnQuote">Get Quote</button>
             </div>
-            <button class="md:hidden text-white transition-colors" id="mobile-menu-btn" onclick="toggleMenu()"><i data-lucide="menu"></i></button>
+            <button class="md:hidden text-white transition-colors" id="mobile-menu-btn" onclick="toggleMenu()" aria-label="Toggle mobile menu" aria-expanded="false" aria-controls="mobile-menu">
+                <i data-lucide="menu" aria-hidden="true"></i>
+            </button>
         </div>
-        <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 pt-24 px-6 md:hidden">
-            <a href="#home" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navHome">Home</a>
-            <a href="#about" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navAbout">About</a>
-            <a href="#clients" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navClients">Clients</a>
-            <a href="#services" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navProducts">Products</a>
-            <a href="#calculator" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navCalc">Calculator</a>
-            <a href="#projects-gallery" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navProjects">Projects</a>
-            <a href="#contact" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navContact">Contact</a>
+        <div id="mobile-menu" class="hidden fixed inset-0 bg-white z-40 pt-24 px-6 md:hidden" role="menu">
+            <a href="#home" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navHome" role="menuitem">Home</a>
+            <a href="#about" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navAbout" role="menuitem">About</a>
+            <a href="#clients" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navClients" role="menuitem">Clients</a>
+            <a href="#services" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navProducts" role="menuitem">Products</a>
+            <a href="#calculator" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navCalc" role="menuitem">Calculator</a>
+            <a href="#projects-gallery" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navProjects" role="menuitem">Projects</a>
+            <a href="#contact" class="block text-xl font-bold text-gray-800 border-b border-gray-100 pb-4 mb-4" onclick="toggleMenu()" data-i18n="navContact" role="menuitem">Contact</a>
             
             <div class="flex justify-center gap-4 mt-8">
-                 <button onclick="switchLanguage('en'); toggleMenu()" class="px-6 py-2 bg-gray-100 rounded-lg font-bold">English</button>
-                 <button onclick="switchLanguage('ar'); toggleMenu()" class="px-6 py-2 bg-gray-100 rounded-lg font-bold">العربية</button>
+                 <button onclick="switchLanguage('en'); toggleMenu()" class="px-6 py-2 bg-gray-100 rounded-lg font-bold" aria-label="Switch to English">English</button>
+                 <button onclick="switchLanguage('ar'); toggleMenu()" class="px-6 py-2 bg-gray-100 rounded-lg font-bold" aria-label="Switch to Arabic">العربية</button>
             </div>
         </div>
     </nav>
+
     <!-- Hero Section -->
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden bg-paypal-dark">
         <div class="absolute inset-0 bg-gradient-to-br from-[#002870] via-paypal-dark to-paypal-light"></div>
-        <div class="absolute -top-40 -right-40 w-[800px] h-[800px] bg-paypal-light rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-pulse-slow"></div>
+        <div class="absolute -top-40 -right-40 w-[800px] h-[800px] bg-paypal-light rounded-full mix-blend-multiply filter blur-[128px] opacity-40 animate-pulse-slow" aria-hidden="true"></div>
         
         <div class="max-w-7xl mx-auto px-6 relative z-10 w-full grid md:grid-cols-2 gap-16 items-center text-white">
             <div class="space-y-8 py-16" data-aos="fade-right" data-aos-duration="1000">
                 <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-dark text-blue-100 text-sm font-medium shadow-inner">
-                    <i data-lucide="shield" class="w-4 h-4"></i> <span data-i18n="trustedBy">Trusted by Top Contractors in Egypt</span>
+                    <i data-lucide="shield" class="w-4 h-4" aria-hidden="true"></i> <span data-i18n="trustedBy">Trusted by Top Contractors in Egypt</span>
                 </div>
                 <h1 class="text-4xl md:text-6xl font-extrabold leading-tight" data-i18n="heroTitle">
-    Diesel Generators... <br/>
-    <span class="text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2">
-        Power You Can Rely On.
-    </span>
-</h1>
+                    Diesel Generators... <br/>
+                    <span class="text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2">
+                        Power You Can Rely On.
+                    </span>
+                </h1>
                 <p class="text-xl text-blue-100/90 max-w-lg leading-relaxed font-light" data-i18n="heroSub">
                     Engineering-grade diesel generator solutions from 8 KVA to 3000 KVA. Professional installation and 24/7 support.
                 </p>
@@ -408,13 +441,13 @@
                         Find Your Generator
                     </button>
                     <button onclick="document.getElementById('contact').scrollIntoView()" class="px-8 py-4 rounded-full font-bold border border-white/30 hover:bg-white/20 flex items-center gap-2 transition-all shadow-md" data-i18n="btnContactSales">
-                        Contact Sales <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                        Contact Sales <i data-lucide="chevron-right" class="w-4 h-4" aria-hidden="true"></i>
                     </button>
                 </div>
             </div>
 
             <!-- Hero Graphic -->
-            <div class="relative hidden md:block" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+            <div class="relative hidden md:block" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200" aria-hidden="true">
                 <div class="glass-dark p-8 rounded-3xl shadow-2xl transform rotate-3 hover:rotate-0 transition-all duration-500 border border-white/10 hover:shadow-blue-500/30 animate-float">
                     <div class="flex justify-between items-start mb-8">
                         <div class="p-3 bg-blue-500/20 rounded-xl"><i data-lucide="zap" class="w-8 h-8 text-blue-200"></i></div>
@@ -442,7 +475,7 @@
         </div>
     </section>
 
-    <!-- Client Logos Section (Trust Signal) -->
+    <!-- Client Logos Section -->
     <section id="clients" class="py-24 bg-white border-y border-gray-100 overflow-hidden">
         <div class="max-w-7xl mx-auto px-6 mb-12">
             <div class="text-center" data-aos="fade-up">
@@ -452,65 +485,65 @@
             </div>
         </div>
 
-        <div class="relative w-full overflow-hidden">
-            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none"></div>
-            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none"></div>
+        <div class="relative w-full overflow-hidden" aria-label="Client showcase">
+            <div class="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-white to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
+            <div class="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-white to-transparent z-20 pointer-events-none" aria-hidden="true"></div>
 
-            <div class="flex w-max animate-marquee hover:[animation-play-state:paused]">
+            <div class="flex w-max animate-marquee">
                 
                 <div class="flex gap-8 pr-8">
                     
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80" alt="Hospital" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800&h=600" alt="Egyptian Ambulance Organization - Hospital facility" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client1">Egyptian Ambulance Organization</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80" alt="Factory" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80&w=800&h=600" alt="Canal For Sugar - Industrial factory" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client2">Canal For Sugar</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?auto=format&fit=crop&q=80" alt="Cinco Mall" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?auto=format&fit=crop&q=80&w=800&h=600" alt="Upwyde Cinco Mall - Shopping center" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client3">Upwyde - Cinco Mall</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1590579491624-f98f36d4c763?auto=format&fit=crop&q=80" alt="Construction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1590579491624-f98f36d4c763?auto=format&fit=crop&q=80&w=800&h=600" alt="SODIC Ogami North Coast - Construction site" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client4">SODIC - Ogami North Coast</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Government" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800&h=600" alt="Concord New Mansoura Water Sewage - Government facility" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client5">Concord - New Mansoura Water Sewage</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80" alt="Agriculture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800&h=600" alt="OliveLand Agriculture - Farm land" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client6">OliveLand Agriculture</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&q=80" alt="School" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&q=80&w=800&h=600" alt="Salah Eldin International School - Educational facility" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client7">Salah Eldin International School</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Government" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800&h=600" alt="New Urban Communities Authority - Government building" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client8">New Urban Communities Authority</h3>
                         </div>
@@ -518,59 +551,60 @@
 
                 </div>
 
-                <div class="flex gap-8 pr-8">
+                <!-- Duplicate for seamless loop -->
+                <div class="flex gap-8 pr-8" aria-hidden="true">
                     
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80" alt="Hospital" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-5194940268928-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=800&h=600" alt="Egyptian Ambulance Organization" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client1">Egyptian Ambulance Organization</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80" alt="Factory" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80&w=800&h=600" alt="Canal For Sugar" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client2">Canal For Sugar</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?auto=format&fit=crop&q=80" alt="Cinco Mall" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1555636222-cae831e670b3?auto=format&fit=crop&q=80&w=800&h=600" alt="Upwyde Cinco Mall" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client3">Upwyde - Cinco Mall</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1590579491624-f98f36d4c763?auto=format&fit=crop&q=80" alt="Construction" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1590579491624-f98f36d4c763?auto=format&fit=crop&q=80&w=800&h=600" alt="SODIC Ogami" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client4">SODIC - Ogami North Coast</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Government" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800&h=600" alt="Concord New Mansoura" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client5">Concord - New Mansoura Water Sewage</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80" alt="Agriculture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1500937386664-56d1dfef3854?auto=format&fit=crop&q=80&w=800&h=600" alt="OliveLand Agriculture" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client6">OliveLand Agriculture</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&q=80" alt="School" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1525921429624-479b6a26d84d?auto=format&fit=crop&q=80&w=800&h=600" alt="Salah Eldin School" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client7">Salah Eldin International School</h3>
                         </div>
                     </div>
 
                     <div class="relative flex-none w-[350px] h-64 rounded-2xl overflow-hidden shadow-xl border border-blue-900/10 group cursor-pointer">
-                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80" alt="Government" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                        <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?auto=format&fit=crop&q=80&w=800&h=600" alt="New Urban Communities" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600" loading="lazy">
                         <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/95 via-paypal-dark/60 to-transparent flex flex-col justify-end p-6">
                             <h3 class="text-white text-lg font-bold leading-tight" data-i18n="client8">New Urban Communities Authority</h3>
                         </div>
@@ -587,7 +621,7 @@
                 <p class="text-sm text-gray-600 mt-1" data-i18n="stat1">Projects Completed</p>
             </div>
             <div class="text-center">
-                <div class="text-3xl font-extrabold text-paypal-dark counter" data-target="15">18+</div>
+                <div class="text-3xl font-extrabold text-paypal-dark counter" data-target="18">18+</div>
                 <p class="text-sm text-gray-600 mt-1" data-i18n="stat2">Years Experience</p>
             </div>
             <div class="text-center">
@@ -610,58 +644,57 @@
                 <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-lg" data-i18n="servicesSub">Complete power solutions from equipment supply to long-term maintenance support.</p>
             </div>
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <!-- Service Cards with Staggered Animation -->
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="0">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="zap" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service1Title">Open-Type Generators</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service1Desc">Standard generators for industrial sites with robust frames and weather protection.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="100">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="volume-x" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service2Title">Soundproof Canopies</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service2Desc">Custom acoustic enclosures reducing noise to 65dB for residential and sensitive areas.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="200">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="activity" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service3Title">Low Voltage Panels</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service3Desc">ATS, synchronization, and distribution panels engineered to meet your load profile.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="300">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="droplets" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service4Title">External Fuel Tanks</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service4Desc">Single and Double-wall fuel storage tanks from 500L to 30,000L with leak detection systems.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="400">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="package" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service5Title">Spare Parts</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service5Desc">100% genuine OEM parts for Perkins, Volvo, and Doosan available from local stock.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="500">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="wrench" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service6Title">Installation Services</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service6Desc">Complete turnkey installation including foundation, fuel lines, and commissioning.</p>
                 </div>
                 <div class="group bg-gray-50 border border-gray-200 rounded-2xl p-6 hover:border-paypal-light hover:shadow-xl transition-all duration-300 cursor-default" data-aos="fade-up" data-aos-delay="600">
-                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300">
+                    <div class="w-14 h-14 bg-paypal-light/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-paypal-light group-hover:scale-110 transition-all duration-300" aria-hidden="true">
                         <i data-lucide="settings" class="w-7 h-7 text-paypal-light group-hover:text-white"></i>
                     </div>
                     <h3 class="text-lg font-bold text-paypal-dark mb-2" data-i18n="service7Title">Maintenance Services</h3>
                     <p class="text-sm text-gray-600 leading-relaxed" data-i18n="service7Desc">Preventative and corrective maintenance contracts with 24/7 emergency response.</p>
                 </div>
                 <div class="group bg-gradient-to-br from-paypal-dark to-paypal-light text-white rounded-2xl p-6 flex flex-col justify-center items-center text-center hover:shadow-2xl transition-all duration-300 cursor-pointer" onclick="document.getElementById('contact').scrollIntoView()" data-aos="zoom-in" data-aos-delay="700">
-                    <i data-lucide="headset" class="w-12 h-12 mb-3 opacity-90 animate-bounce"></i>
+                    <i data-lucide="headset" class="w-12 h-12 mb-3 opacity-90 animate-bounce" aria-hidden="true"></i>
                     <h3 class="text-lg font-bold mb-2" data-i18n="servicesCTA">Need a Custom Solution?</h3>
                     <p class="text-sm text-blue-100 mb-4" data-i18n="servicesCTADesc">Contact our engineering team for tailored packages.</p>
                     <button class="px-4 py-2 bg-white/20 rounded-full text-sm font-bold hover:bg-white/30 transition-colors" data-i18n="servicesCTABtn">Get Started</button>
@@ -684,24 +717,27 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
+                <article class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="0">
                     <div class="h-48 bg-gray-50 flex items-center justify-center relative overflow-hidden group-hover:bg-white transition-colors duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500" aria-hidden="true"></div>
                         
                         <img src="images/brands/perkins.svg" 
                              alt="Perkins Engine Logo" 
-                             class="h-16 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out">
+                             class="h-16 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out"
+                             width="120"
+                             height="64"
+                             loading="lazy">
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="perkinsTitle">Perkins Series</h3>
                         <p class="text-sm text-gray-500 mb-4" data-i18n="perkinsLoc">United Kingdom • 9 KVA to 2500 KVA</p>
                         <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-i18n="perkinsDesc">The industry standard for reliability and fuel efficiency. Ideal for all climates and load profiles.</p>
                         
-                        <button onclick="toggleSpec('spec-perkins')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors">
+                        <button onclick="toggleSpec('spec-perkins')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors" aria-expanded="false" aria-controls="spec-perkins">
                             <span data-i18n="btnTechSpecs">View Technical Specs</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-perkins"></i>
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-perkins" aria-hidden="true"></i>
                         </button>
-                        <div id="spec-perkins" class="spec-content bg-blue-50 rounded-lg mb-4 px-4">
+                        <div id="spec-perkins" class="spec-content bg-blue-50 rounded-lg mb-4 px-4" role="region" aria-label="Perkins technical specifications">
                             <ul class="py-4 space-y-2 text-xs text-gray-600">
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specCyl">Cylinders:</span> <span>3 - 16 In-Line/V-Type</span></li>
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specGov">Governor:</span> <span data-i18n="specMechElec">Mech / Electronic</span></li>
@@ -709,30 +745,33 @@
                             </ul>
                         </div>
 
-                        <a href="perkins-specs.pdf" download="Premium_Power_Perkins_Specs.pdf" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
-                            <span data-i18n="btnDownload">Download Spec Sheet</span>
+                        <a href="#contact" onclick="fillQuoteRequest('Perkins')" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
+                            <span data-i18n="btnDownload">Request Quote</span>
                         </a>
                     </div>
-                </div>
+                </article>
 
-                <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
+                <article class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="200">
                     <div class="h-48 bg-gray-50 flex items-center justify-center relative overflow-hidden group-hover:bg-white transition-colors duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500" aria-hidden="true"></div>
                         
                         <img src="images/brands/volvo.svg" 
                              alt="Volvo Penta Logo" 
-                             class="h-14 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out">
+                             class="h-14 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out"
+                             width="120"
+                             height="56"
+                             loading="lazy">
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="volvoTitle">Volvo Penta</h3>
                         <p class="text-sm text-gray-500 mb-4" data-i18n="volvoLoc">Sweden • 85 KVA to 700 KVA</p>
                         <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-i18n="volvoDesc">Rapid load acceptance and superior performance in heavy-duty applications and mining.</p>
                         
-                        <button onclick="toggleSpec('spec-volvo')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors">
+                        <button onclick="toggleSpec('spec-volvo')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors" aria-expanded="false" aria-controls="spec-volvo">
                             <span data-i18n="btnTechSpecs">View Technical Specs</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-volvo"></i>
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-volvo" aria-hidden="true"></i>
                         </button>
-                        <div id="spec-volvo" class="spec-content bg-blue-50 rounded-lg mb-4 px-4">
+                        <div id="spec-volvo" class="spec-content bg-blue-50 rounded-lg mb-4 px-4" role="region" aria-label="Volvo technical specifications">
                             <ul class="py-4 space-y-2 text-xs text-gray-600">
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specCyl">Cylinders:</span> <span>6 In-Line</span></li>
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specGov">Governor:</span> <span data-i18n="specEms">EMS 2.0 (Fully Elec)</span></li>
@@ -740,30 +779,33 @@
                             </ul>
                         </div>
 
-                        <a href="volvo-specs.pdf" download="Premium_Power_Volvo_Specs.pdf" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
-                            <span data-i18n="btnDownload">Download Spec Sheet</span>
+                        <a href="#contact" onclick="fillQuoteRequest('Volvo Penta')" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
+                            <span data-i18n="btnDownload">Request Quote</span>
                         </a>
                     </div>
-                </div>
+                </article>
 
-                <div class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
+                <article class="group bg-white border border-gray-200 rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500 transform hover:-translate-y-1" data-aos="fade-up" data-aos-delay="400">
                     <div class="h-48 bg-gray-50 flex items-center justify-center relative overflow-hidden group-hover:bg-white transition-colors duration-500">
-                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500"></div>
+                        <div class="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 opacity-50 group-hover:opacity-0 transition-opacity duration-500" aria-hidden="true"></div>
                         
                         <img src="images/brands/doosan.svg" 
                              alt="Doosan Logo" 
-                             class="h-14 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out">
+                             class="h-14 w-auto object-contain filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-110 transition-all duration-500 ease-out"
+                             width="120"
+                             height="56"
+                             loading="lazy">
                     </div>
                     <div class="p-8">
                         <h3 class="text-2xl font-bold text-gray-800 mb-2" data-i18n="doosanTitle">Doosan</h3>
                         <p class="text-sm text-gray-500 mb-4" data-i18n="doosanLoc">South Korea • 150 KVA to 825 KVA</p>
                         <p class="text-gray-600 mb-6 text-sm leading-relaxed" data-i18n="doosanDesc">Excellent value for money with robust durability for construction sites and continuous prime power.</p>
                         
-                         <button onclick="toggleSpec('spec-doosan')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors">
+                         <button onclick="toggleSpec('spec-doosan')" class="w-full flex justify-between items-center text-sm font-bold text-paypal-light mb-4 hover:text-paypal-dark transition-colors" aria-expanded="false" aria-controls="spec-doosan">
                             <span data-i18n="btnTechSpecs">View Technical Specs</span>
-                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-doosan"></i>
+                            <i data-lucide="chevron-down" class="w-4 h-4 transition-transform duration-300" id="icon-spec-doosan" aria-hidden="true"></i>
                         </button>
-                        <div id="spec-doosan" class="spec-content bg-blue-50 rounded-lg mb-4 px-4">
+                        <div id="spec-doosan" class="spec-content bg-blue-50 rounded-lg mb-4 px-4" role="region" aria-label="Doosan technical specifications">
                             <ul class="py-4 space-y-2 text-xs text-gray-600">
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specCyl">Cylinders:</span> <span>6 - 12 V-Type</span></li>
                                 <li class="flex justify-between"><span class="font-bold" data-i18n="specGov">Governor:</span> <span data-i18n="specElectronic">Electronic (ECU)</span></li>
@@ -771,14 +813,15 @@
                             </ul>
                         </div>
 
-                        <a href="doosan-specs.pdf" download="Premium_Power_Doosan_Specs.pdf" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
-                            <span data-i18n="btnDownload">Download Spec Sheet</span>
+                        <a href="#contact" onclick="fillQuoteRequest('Doosan')" class="block w-full text-center py-3 border-2 border-paypal-light text-paypal-light rounded-xl font-bold hover:bg-paypal-light hover:text-white transition-all text-sm shadow-md cursor-pointer decoration-0">
+                            <span data-i18n="btnDownload">Request Quote</span>
                         </a>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
+
     <!-- Workflow Section (About) -->
     <section id="about" class="py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-6">
@@ -787,31 +830,30 @@
                 <h2 class="text-4xl font-bold mt-2 text-paypal-dark" data-i18n="howWeWork">How We Work</h2>
             </div>
             <div class="grid md:grid-cols-4 gap-8 text-center relative">
-                <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-blue-100 z-0"></div>
-                <!-- Steps with zoom animation -->
+                <div class="hidden md:block absolute top-8 left-0 w-full h-1 bg-blue-100 z-0" aria-hidden="true"></div>
                 <div class="relative z-10 bg-gray-50 p-4 pt-0 group cursor-default" data-aos="zoom-in" data-aos-delay="0">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300" aria-hidden="true">
                         <i data-lucide="file-search" class="w-8 h-8"></i>
                     </div>
                     <h3 class="font-bold text-xl text-paypal-dark" data-i18n="step1">1. Assessment</h3>
                     <p class="text-sm text-gray-500 mt-2" data-i18n="step1D">Technical site survey & load analysis</p>
                 </div>
                 <div class="relative z-10 bg-gray-50 p-4 pt-0 group cursor-default" data-aos="zoom-in" data-aos-delay="200">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300" aria-hidden="true">
                         <i data-lucide="pen-tool" class="w-8 h-8"></i>
                     </div>
                     <h3 class="font-bold text-xl text-paypal-dark" data-i18n="step2">2. Proposal</h3>
                     <p class="text-sm text-gray-500 mt-2" data-i18n="step2D">Detailed quotation & Contract</p>
                 </div>
                 <div class="relative z-10 bg-gray-50 p-4 pt-0 group cursor-default" data-aos="zoom-in" data-aos-delay="400">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300" aria-hidden="true">
                         <i data-lucide="truck" class="w-8 h-8"></i>
                     </div>
                     <h3 class="font-bold text-xl text-paypal-dark" data-i18n="step3">3. Delivery</h3>
                     <p class="text-sm text-gray-500 mt-2" data-i18n="step3D">Logistics, installation & setup</p>
                 </div>
                 <div class="relative z-10 bg-gray-50 p-4 pt-0 group cursor-default" data-aos="zoom-in" data-aos-delay="600">
-                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300">
+                    <div class="w-16 h-16 mx-auto rounded-full bg-paypal-light text-white flex items-center justify-center mb-4 shadow-xl border-4 border-white transition-transform group-hover:scale-110 group-hover:rotate-12 group-hover:shadow-paypal-light/50 duration-300" aria-hidden="true">
                         <i data-lucide="check-circle" class="w-8 h-8"></i>
                     </div>
                     <h3 class="font-bold text-xl text-paypal-dark" data-i18n="step4">4. Support</h3>
@@ -823,7 +865,7 @@
 
     <!-- Calculator Section -->
     <section id="calculator" class="py-24 bg-white relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-full h-full bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10"></div>
+        <div class="absolute top-0 left-0 w-full h-full bg-grid-slate-100 [mask-image:linear-gradient(0deg,white,rgba(255,255,255,0.6))] -z-10" aria-hidden="true"></div>
         <div class="max-w-5xl mx-auto px-6">
             <div class="text-center mb-16" data-aos="fade-down">
                 <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="tool">Interactive Tool</span>
@@ -838,66 +880,79 @@
                         <h3 class="font-bold text-xl text-paypal-dark border-b pb-3 mb-4" data-i18n="equipment">Your Equipment</h3>
                         
                         <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                            <div>
+                            <label for="calc-ac1" class="cursor-pointer">
                                 <p class="font-medium" data-i18n="ac1">AC (1.5 HP)</p>
                                 <p class="text-xs text-gray-400" data-i18n="ac1W">Approx 1200W</p>
-                            </div>
-                            <input type="number" id="calc-ac1" min="0" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all">
+                            </label>
+                            <input type="number" id="calc-ac1" min="0" max="50" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" aria-label="Number of 1.5 HP air conditioners">
                         </div>
 
                         <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                            <div>
+                            <label for="calc-ac3" class="cursor-pointer">
                                 <p class="font-medium" data-i18n="ac3">AC (3.0 HP)</p>
                                 <p class="text-xs text-gray-400" data-i18n="ac3W">Approx 2400W</p>
-                            </div>
-                            <input type="number" id="calc-ac3" min="0" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all">
+                            </label>
+                            <input type="number" id="calc-ac3" min="0" max="50" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" aria-label="Number of 3.0 HP air conditioners">
                         </div>
 
                         <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                            <div>
+                            <label for="calc-pump" class="cursor-pointer">
                                 <p class="font-medium" data-i18n="pump">Water Pump (1 HP)</p>
                                 <p class="text-xs text-gray-400" data-i18n="pumpW">Approx 750W</p>
-                            </div>
-                            <input type="number" id="calc-pump" min="0" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all">
+                            </label>
+                            <input type="number" id="calc-pump" min="0" max="50" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" aria-label="Number of water pumps">
                         </div>
 
                         <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                            <div>
+                            <label for="calc-pc" class="cursor-pointer">
                                 <p class="font-medium" data-i18n="pc">Office PC / Laptop</p>
                                 <p class="text-xs text-gray-400" data-i18n="pcW">Approx 200W</p>
-                            </div>
-                            <input type="number" id="calc-pc" min="0" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all">
+                            </label>
+                            <input type="number" id="calc-pc" min="0" max="50" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" aria-label="Number of computers">
                         </div>
 
                         <div class="flex items-center justify-between hover:bg-gray-100 p-2 rounded-lg transition-colors">
-                            <div>
+                            <label for="calc-light" class="cursor-pointer">
                                 <p class="font-medium" data-i18n="light">Standard Lighting (Room)</p>
                                 <p class="text-xs text-gray-400" data-i18n="lightW">Approx 100W</p>
-                            </div>
-                            <input type="number" id="calc-light" min="0" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all">
+                            </label>
+                            <input type="number" id="calc-light" min="0" max="50" value="0" oninput="calculateKVA()" class="w-20 p-2 border rounded-lg text-center focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" aria-label="Number of lighting rooms">
                         </div>
                     </div>
 
                     <!-- Result -->
                     <div class="bg-paypal-dark text-white rounded-2xl p-8 flex flex-col justify-between items-center text-center relative overflow-hidden shadow-2xl shadow-blue-800/50">
-                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full blur-3xl opacity-20 animate-pulse"></div>
+                        <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500 rounded-full blur-3xl opacity-20 animate-pulse" aria-hidden="true"></div>
                         
                         <div class="w-full">
                             <p class="text-blue-200 text-sm uppercase tracking-widest mb-2" data-i18n="estimated">Estimated Requirement</p>
-                            <div class="text-7xl font-extrabold mb-2 transform scale-y-105" id="result-kva">0</div>
+                            <div class="text-7xl font-extrabold mb-2 transform scale-y-105" id="result-kva" aria-live="polite">0</div>
                             <div class="text-2xl font-medium mb-4" data-i18n="kva">KVA</div>
 
-                            <!-- Feature 2: Fuel Estimator -->
+                            <!-- Fuel Estimator -->
                             <div class="bg-white/10 rounded-lg p-3 mb-6 border border-white/10 backdrop-blur-sm">
                                 <div class="flex items-center justify-center gap-2 text-fuel-main mb-1">
-                                    <i data-lucide="droplets" class="w-4 h-4 fill-current"></i>
+                                    <i data-lucide="droplets" class="w-4 h-4 fill-current" aria-hidden="true"></i>
                                     <span class="font-bold text-sm uppercase tracking-wider" data-i18n="fuelTitle">Est. Fuel Consumption</span>
                                 </div>
                                 <div class="flex items-baseline justify-center gap-1">
-                                    <span class="text-2xl font-bold text-white" id="result-fuel">0</span>
+                                    <span class="text-2xl font-bold text-white" id="result-fuel" aria-live="polite">0</span>
                                     <span class="text-sm text-gray-300" data-i18n="fuelUnit">Liters/Hour</span>
                                 </div>
                                 <p class="text-[10px] text-gray-400 mt-1" data-i18n="fuelNote">@ 75% Prime Load</p>
+                            </div>
+
+                            <!-- Cost Estimator -->
+                            <div class="bg-white/10 rounded-lg p-3 mb-6 border border-white/10 backdrop-blur-sm">
+                                <div class="flex items-center justify-center gap-2 mb-1">
+                                    <i data-lucide="banknote" class="w-4 h-4" aria-hidden="true"></i>
+                                    <span class="font-bold text-sm uppercase tracking-wider" data-i18n="costTitle">Daily Fuel Cost</span>
+                                </div>
+                                <div class="flex items-baseline justify-center gap-1">
+                                    <span class="text-2xl font-bold text-white" id="result-cost" aria-live="polite">0</span>
+                                    <span class="text-sm text-gray-300">EGP</span>
+                                </div>
+                                <p class="text-[10px] text-gray-400 mt-1">@ 12 EGP/L diesel price</p>
                             </div>
                         </div>
                         
@@ -906,8 +961,8 @@
                                 *This is an estimate including a 25% safety margin. Starting currents for motors (ACs/Pumps) may vary.
                             </p>
                             <button onclick="fillQuoteRequest()" class="w-full py-3 bg-white text-paypal-dark font-bold rounded-xl hover:bg-blue-50 transition-colors shadow-lg hover:shadow-xl group relative overflow-hidden">
-                                <span class="relative z-10" data-i18n="btnRequestQuote">Request Quote for this Size</span>
-                                <div class="absolute inset-0 bg-blue-100 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></div>
+                                <span class="relative z-10" data-i18n="btnRequestQuote">Get Free Quote in 24 Hours</span>
+                                <div class="absolute inset-0 bg-blue-100 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" aria-hidden="true"></div>
                             </button>
                         </div>
                     </div>
@@ -916,25 +971,25 @@
         </div>
     </section>
 
-    <!-- Feature 4: Sound Attenuation Visualizer -->
+    <!-- Sound Attenuation Visualizer -->
     <section class="py-20 bg-gray-50 relative overflow-hidden border-t border-b border-gray-200">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="soundHeader">Acoustic Engineering</span>
             <h2 class="text-4xl font-bold mt-2 mb-8 text-paypal-dark" data-i18n="soundTitle">Hear the Difference</h2>
             
             <div class="bg-white rounded-3xl shadow-xl p-8 border border-gray-100" data-aos="zoom-in">
-                <div class="flex justify-center gap-6 mb-8">
-                    <button onclick="setSoundMode('open')" id="btn-sound-open" class="px-6 py-2 rounded-full border-2 border-red-500 bg-red-500 text-white font-bold transition-all" data-i18n="soundOpen">Standard (Open)</button>
-                    <button onclick="setSoundMode('silent')" id="btn-sound-silent" class="px-6 py-2 rounded-full border-2 border-gray-200 text-gray-500 font-bold hover:border-paypal-light hover:text-paypal-light transition-all" data-i18n="soundSilent">Premium Soundproof</button>
+                <div class="flex justify-center gap-6 mb-8" role="tablist" aria-label="Sound level comparison">
+                    <button onclick="setSoundMode('open')" id="btn-sound-open" class="px-6 py-2 rounded-full border-2 border-red-500 bg-red-500 text-white font-bold transition-all" data-i18n="soundOpen" role="tab" aria-selected="true" aria-controls="sound-display">Standard (Open)</button>
+                    <button onclick="setSoundMode('silent')" id="btn-sound-silent" class="px-6 py-2 rounded-full border-2 border-gray-200 text-gray-500 font-bold hover:border-paypal-light hover:text-paypal-light transition-all" data-i18n="soundSilent" role="tab" aria-selected="false" aria-controls="sound-display">Premium Soundproof</button>
                 </div>
 
-                <div class="relative h-32 bg-gray-100 rounded-xl overflow-hidden mb-6 flex items-center justify-center">
+                <div id="sound-display" class="relative h-32 bg-gray-100 rounded-xl overflow-hidden mb-6 flex items-center justify-center" role="tabpanel">
                     <!-- Dynamic Bar -->
-                    <div id="sound-bar" class="absolute left-0 h-full bg-red-500 transition-all duration-700 ease-out w-[85%] opacity-80"></div>
+                    <div id="sound-bar" class="absolute left-0 h-full bg-red-500 transition-all duration-700 ease-out w-[85%] opacity-80" aria-hidden="true"></div>
                     
                     <!-- Label on Bar -->
                     <div class="relative z-10 flex flex-col items-center">
-                        <span id="sound-val" class="text-5xl font-black text-gray-800 drop-shadow-lg transition-all duration-300">85 db</span>
+                        <span id="sound-val" class="text-5xl font-black text-gray-800 drop-shadow-lg transition-all duration-300" aria-live="polite">85 dB</span>
                         <span id="sound-desc" class="text-sm font-bold text-gray-600 uppercase tracking-widest bg-white/80 px-3 py-1 rounded-full mt-2 backdrop-blur-sm" data-i18n="soundTraffic">Traffic Noise</span>
                     </div>
                 </div>
@@ -956,9 +1011,8 @@
             </div>
 
             <div class="grid md:grid-cols-3 gap-8">
-                <!-- Project 1 -->
-                <div class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="0">
-                    <img loading="lazy" src="https://placehold.co/800x600/003087/ffffff?text=Medical+Center+Backup" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80';" alt="Industrial Generator" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <article class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="0">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1581094288338-2314dddb7ece?auto=format&fit=crop&q=80&w=800&h=600" alt="Medical Center Backup Power Installation - New Cairo" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600">
                     <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/90 to-transparent flex flex-col justify-end p-8">
                         <span class="text-blue-300 text-xs font-bold uppercase tracking-wider mb-1" data-i18n="proj1Loc">New Cairo</span>
                         <h3 class="text-white text-2xl font-bold mb-2" data-i18n="proj1Title">Medical Center Backup</h3>
@@ -966,11 +1020,10 @@
                             Installed 2x 500 KVA Perkins units with ATS synchronization panel.
                         </p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 2 -->
-                <div class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
-                    <img loading="lazy" src="https://placehold.co/800x600/0070BA/ffffff?text=Construction+Power" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80';" alt="Construction Site" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <article class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="200">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1504328345606-18bbc8c9d7d1?auto=format&fit=crop&q=80&w=800&h=600" alt="Construction Site Power - New Capital" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600">
                     <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/90 to-transparent flex flex-col justify-end p-8">
                         <span class="text-blue-300 text-xs font-bold uppercase tracking-wider mb-1" data-i18n="proj2Loc">New Capital</span>
                         <h3 class="text-white text-2xl font-bold mb-2" data-i18n="proj2Title">Construction Power</h3>
@@ -978,680 +1031,800 @@
                             Provided 4x 250 KVA Volvo Penta generators for site operations.
                         </p>
                     </div>
-                </div>
+                </article>
 
-                <!-- Project 3 -->
-                <div class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="400">
-                    <img loading="lazy" src="https://placehold.co/800x600/009cde/ffffff?text=Data+Center+Power" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80';" alt="Commercial Tower" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110">
+                <article class="group relative overflow-hidden rounded-2xl h-80 shadow-xl hover:shadow-2xl transition-all duration-500 cursor-pointer" data-aos="fade-up" data-aos-delay="400">
+                    <img loading="lazy" src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800&h=600" alt="Bank HQ Data Center Power - Maadi" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" width="800" height="600">
                     <div class="absolute inset-0 bg-gradient-to-t from-paypal-dark/90 to-transparent flex flex-col justify-end p-8">
                         <span class="text-blue-300 text-xs font-bold uppercase tracking-wider mb-1" data-i18n="proj3Loc">Maadi</span>
                         <h3 class="text-white text-2xl font-bold mb-2" data-i18n="proj3Title">Bank HQ Data Center</h3>
                         <p class="text-gray-300 text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300 transform translate-y-4 group-hover:translate-y-0" data-i18n="proj3Desc">
-                            High-precision 1000 KVA Doosan unit with soundproof canopy (65db).
+                            High-precision 1000 KVA Doosan unit with soundproof canopy (65dB).
                         </p>
                     </div>
-                </div>
+                </article>
             </div>
         </div>
     </section>
 
-    
-    <!-- New Gallery Section -->
+    <!-- Gallery Section -->
     <section id="gallery" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="galleryHeader">Gallery</span>
-                <h2 class="text-4xl font-bold mt-2 text-paypal-dark" data-i18n="galleryTitle">Real-Time Diesel Generator Photos</h2>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
-                <!-- Image 1 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_1.webp" alt="Diesel Generator Photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 1</span>
-                    </div>
-                </div>
-                <!-- Image 2 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_2.webp" alt="Diesel Generator Photo 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 2</span>
-                    </div>
-                </div>
-                <!-- Image 3 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_3.webp" alt="Diesel Generator Photo 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 3</span>
-                    </div>
-                </div>
-                <!-- Image 4 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_4.webp" alt="Diesel Generator Photo 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 4</span>
-                    </div>
-                </div>
-                <!-- Image 5 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_5.webp" alt="Diesel Generator Photo 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 5</span>
-                    </div>
-                </div>
-                <!-- Image 6 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_6.webp" alt="Diesel Generator Photo 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 6</span>
-                    </div>
-                </div>
-                <!-- Image 7 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_7.webp" alt="Diesel Generator Photo 7" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 7</span>
-                    </div>
-                </div>
-                <!-- Image 8 -->
-                <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
-                    <img src="./images/gallery/gen_8.webp" alt="Diesel Generator Photo 8" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">Generator 8</span>
-                    </div>
-                </div>
-            </div>
+<div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="galleryHeader">Gallery</span>
+            <h2 class="text-4xl font-bold mt-2 text-paypal-dark" data-i18n="galleryTitle">Real-Time Diesel Generator Photos</h2>
         </div>
-    </section>
-    <!-- End New Gallery Section -->
 
-<!-- Comparison Table -->
-    <section id="comparison" class="py-24 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="comparisonHeader">The Premium Difference</span>
-                <h2 class="text-4xl font-bold mt-2 text-paypal-dark" data-i18n="comparisonTitle">Why Premium Power is the Right Choice</h2>
-                <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-lg" data-i18n="comparisonSub">We set the standard for quality and service in the Egyptian power generation sector.</p>
-            </div>
-
-            <div class="overflow-x-auto rounded-2xl shadow-2xl border border-gray-100 ring-4 ring-blue-50/50" data-aos="fade-up" data-aos-delay="100">
-                <table class="min-w-full bg-white divide-y divide-gray-200">
-                    <thead class="comparison-header">
-                        <tr>
-                            <th class="comparison-cell text-left px-4" data-i18n="tableFeature">Feature</th>
-                            <th class="comparison-cell text-center premium-column" data-i18n="tableUs">Premium Power</th>
-                            <th class="comparison-cell text-center" data-i18n="tableCompetitor">Standard Competitor</th>
-                        </tr>
-                    </thead>
-                    <tbody class="divide-y divide-gray-100">
-                        <tr>
-                            <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableResponse">Emergency Response Time</td>
-                            <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
-                                <i data-lucide="zap" class="w-5 h-5 text-paypal-light"></i> <span data-i18n="tableResponseUs">Within 24 Hours</span>
-                            </td>
-                            <td class="comparison-cell text-center text-gray-500" data-i18n="tableResponseComp">3-5 Days (Often Longer)</td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableParts">Spare Parts Authenticity</td>
-                            <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
-                                <i data-lucide="check-circle" class="w-5 h-5"></i> <span data-i18n="tablePartsUs">100% Genuine (OEM)</span>
-                            </td>
-                            <td class="comparison-cell text-center text-gray-500" data-i18n="tablePartsComp">Aftermarket/Generic</td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableWarranty">Standard Warranty</td>
-                            <td class="comparison-cell text-center premium-column" data-i18n="tableWarrantyUs">1 Year / 1000 Hours</td>
-                            <td class="comparison-cell text-center text-gray-500" data-i18n="tableWarrantyComp">6 Months or Less</td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableTechnicians">Technician Expertise</td>
-                            <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
-                                <i data-lucide="user-check" class="w-5 h-5"></i> <span data-i18n="tableTechniciansUs">Certified Engineering Team</span>
-                            </td>
-                            <td class="comparison-cell text-center text-gray-500" data-i18n="tableTechniciansComp">Contracted Labor</td>
-                        </tr>
-                        <tr>
-                            <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableCommissioning">Load Testing / Commissioning</td>
-                            <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
-                                <i data-lucide="activity" class="w-5 h-5 text-paypal-light"></i> <span data-i18n="tableCommissioningUs">Standard Inclusion</span>
-                            </td>
-                            <td class="comparison-cell text-center text-gray-500" data-i18n="tableCommissioningComp">Optional / Extra Charge</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="py-24 bg-white">
-        <div class="max-w-3xl mx-auto px-6">
-            <h2 class="text-3xl font-bold text-center text-paypal-dark mb-12" data-i18n="faqTitle" data-aos="fade-up">Frequently Asked Questions</h2>
-            <div class="space-y-4 shadow-xl rounded-xl bg-white p-6 border border-gray-100" id="faq-container" data-aos="fade-up" data-aos-delay="100">
-                <!-- FAQs injected via JS -->
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section (Smart Form + Map) -->
-    <section id="contact" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="bg-paypal-dark rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row shadow-blue-800/20" data-aos="fade-up">
-                
-                <!-- Contact Info Column (Includes Map) -->
-                <div class="p-10 md:p-16 md:w-5/12 bg-blue-900 text-white flex flex-col justify-between">
-                    <div>
-                        <h2 class="text-4xl font-extrabold mb-6" data-i18n="contactTitle">Get In Touch</h2>
-                        <p class="text-blue-200 mb-10 text-lg font-light" data-i18n="contactSub">Ready to power your project? Contact our engineering sales team for a precise quote.</p>
-                        
-                        <div class="space-y-8">
-                            <div class="flex items-start gap-4">
-                                <i data-lucide="phone" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <h4 class="font-bold text-xl" data-i18n="callUs">Call Us</h4>
-                                    <p class="text-blue-100">01229 688 688</p>
-                                    <p class="text-blue-100">01273 353 355</p>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <i data-lucide="mail" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <h4 class="font-bold text-xl" data-i18n="emailUs">Email Us</h4>
-                                    <a href="mailto:info@premiumpower-eg.com" class="text-blue-100 break-all hover:text-white transition-colors underline decoration-blue-400/50">info@premiumpower-eg.com</a>
-                                </div>
-                            </div>
-                            <div class="flex items-start gap-4">
-                                <i data-lucide="map-pin" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0"></i>
-                                <div>
-                                    <h4 class="font-bold text-xl" data-i18n="visitUs">Visit Us</h4>
-                                    <p class="text-blue-100">40 El Hegaz St., Heliopolis, Cairo, Egypt</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- New Map Integration -->
-                    <div class="mt-8 rounded-xl overflow-hidden shadow-lg h-56 w-full border-2 border-blue-400/30 map-container">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.688647087627!2d31.3426!3d30.1056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145815dcc3e4e599%3A0x6c67c22e4aa39206!2sEl-Hegaz%20St%2C%20El-Nozha%2C%20Cairo%20Governorate!5e0!3m2!1sen!2seg!4v1625680000000!5m2!1sen!2seg" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-                    </div>
-                </div>
-
-                <!-- Form Column -->
-                <div class="p-10 md:p-16 md:w-7/12 bg-white">
-                    <h3 class="text-3xl font-bold text-paypal-dark mb-8" data-i18n="inquiryTitle">Send an Inquiry</h3>
-                    <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-6">
-                        <div class="grid md:grid-cols-2 gap-6">
-                            <input id="contact-name" type="text" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" placeholder="Your Name" data-i18n-placeholder="yourName" required>
-                            <input id="contact-phone" type="tel" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" placeholder="Phone Number" data-i18n-placeholder="phoneNumber" required>
-                        </div>
-                        <textarea id="contact-message" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none h-32 resize-none transition-all" placeholder="How can we help you? (e.g., Requesting a 500 KVA Perkins quote)" data-i18n-placeholder="howHelp" required></textarea>
-                        <button type="submit" class="w-full py-4 text-xl font-extrabold text-white bg-paypal-light rounded-full hover:bg-paypal-dark transition shadow-lg shadow-blue-300/50 hover:shadow-xl hover:scale-[1.01]">
-                            <span data-i18n="btnSend">Send Message</span>
-                        </button>
-                    </form>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_1.webp" alt="Diesel Generator Installation Photo 1" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 1</span>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="bg-paypal-dark text-white py-16">
-        <div class="max-w-7xl mx-auto px-6 text-center">
-            <h2 class="text-2xl font-bold mb-6">Premium Power LLC</h2>
-            <p class="text-blue-200 max-w-lg mx-auto mb-8 font-light" data-i18n="footerSub">Delivering high-quality diesel generator solutions with fast service, trusted performance, and professional support.</p>
-            <div class="flex justify-center gap-8 mb-8">
-                 <a href="https://www.facebook.com/profile.php?id=61583941521978" target="_blank" class="text-blue-300 hover:text-white transition-colors"><i data-lucide="facebook" class="w-6 h-6"></i></a>
-                 <a href="https://www.linkedin.com/in/premium-power-4430a3399" target="_blank" class="text-blue-300 hover:text-white transition-colors"><i data-lucide="linkedin" class="w-6 h-6"></i></a>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_2.webp" alt="Diesel Generator Installation Photo 2" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 2</span>
+                </div>
             </div>
-            <p class="text-blue-300/50 text-sm">© 2025 Premium Power LLC. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <!-- Custom Message Box -->
-    <div id="message-box" class="fixed inset-0 bg-black/50 z-[99] hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0">
-        <div class="bg-white rounded-xl p-6 w-full max-w-sm shadow-2xl space-y-4 transform scale-95 transition-transform duration-300">
-            <h3 class="text-xl font-bold text-paypal-dark" data-i18n="messageBoxTitle">Notification</h3>
-            <p id="message-box-content" class="text-gray-600"></p>
-            <button onclick="document.getElementById('message-box').classList.add('opacity-0'); document.getElementById('message-box').querySelector('div').classList.add('scale-95'); setTimeout(() => document.getElementById('message-box').classList.add('hidden'), 300);" class="w-full py-2 bg-paypal-light text-white font-bold rounded-lg hover:bg-paypal-dark transition-colors" data-i18n="messageBoxClose">Close</button>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_3.webp" alt="Diesel Generator Installation Photo 3" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 3</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_4.webp" alt="Diesel Generator Installation Photo 4" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 4</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_5.webp" alt="Diesel Generator Installation Photo 5" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 5</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_6.webp" alt="Diesel Generator Installation Photo 6" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 6</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_7.webp" alt="Diesel Generator Installation Photo 7" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 7</span>
+                </div>
+            </div>
+            <div class="relative overflow-hidden rounded-lg shadow-lg group aspect-square">
+                <img src="./images/gallery/gen_8.webp" alt="Diesel Generator Installation Photo 8" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" width="400" height="400" loading="lazy">
+                <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span class="text-white font-bold text-lg">Generator 8</span>
+                </div>
+            </div>
         </div>
     </div>
+</section>
+
+<!-- Comparison Table -->
+<section id="comparison" class="py-24 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-paypal-light font-extrabold text-sm uppercase tracking-widest" data-i18n="comparisonHeader">The Premium Difference</span>
+            <h2 class="text-4xl font-bold mt-2 text-paypal-dark" data-i18n="comparisonTitle">Why Premium Power is the Right Choice</h2>
+            <p class="text-gray-500 mt-4 max-w-2xl mx-auto text-lg" data-i18n="comparisonSub">We set the standard for quality and service in the Egyptian power generation sector.</p>
+        </div>
+
+        <div class="overflow-x-auto rounded-2xl shadow-2xl border border-gray-100 ring-4 ring-blue-50/50" data-aos="fade-up" data-aos-delay="100">
+            <table class="min-w-full bg-white divide-y divide-gray-200">
+                <thead class="comparison-header">
+                    <tr>
+                        <th scope="col" class="comparison-cell text-left px-4" data-i18n="tableFeature">Feature</th>
+                        <th scope="col" class="comparison-cell text-center premium-column" data-i18n="tableUs">Premium Power</th>
+                        <th scope="col" class="comparison-cell text-center" data-i18n="tableCompetitor">Standard Competitor</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-100">
+                    <tr>
+                        <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableResponse">Emergency Response Time</td>
+                        <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
+                            <i data-lucide="zap" class="w-5 h-5 text-paypal-light" aria-hidden="true"></i> <span data-i18n="tableResponseUs">Within 24 Hours</span>
+                        </td>
+                        <td class="comparison-cell text-center text-gray-500" data-i18n="tableResponseComp">3-5 Days (Often Longer)</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableParts">Spare Parts Authenticity</td>
+                        <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5" aria-hidden="true"></i> <span data-i18n="tablePartsUs">100% Genuine (OEM)</span>
+                        </td>
+                        <td class="comparison-cell text-center text-gray-500" data-i18n="tablePartsComp">Aftermarket/Generic</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableWarranty">Standard Warranty</td>
+                        <td class="comparison-cell text-center premium-column" data-i18n="tableWarrantyUs">1 Year / 1000 Hours</td>
+                        <td class="comparison-cell text-center text-gray-500" data-i18n="tableWarrantyComp">6 Months or Less</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableTechnicians">Technician Expertise</td>
+                        <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
+                            <i data-lucide="user-check" class="w-5 h-5" aria-hidden="true"></i> <span data-i18n="tableTechniciansUs">Certified Engineering Team</span>
+                        </td>
+                        <td class="comparison-cell text-center text-gray-500" data-i18n="tableTechniciansComp">Contracted Labor</td>
+                    </tr>
+                    <tr>
+                        <td class="comparison-cell text-left font-medium text-gray-700" data-i18n="tableCommissioning">Load Testing / Commissioning</td>
+                        <td class="comparison-cell text-center premium-column flex items-center justify-center gap-3">
+                            <i data-lucide="activity" class="w-5 h-5 text-paypal-light" aria-hidden="true"></i> <span data-i18n="tableCommissioningUs">Standard Inclusion</span>
+                        </td>
+                        <td class="comparison-cell text-center text-gray-500" data-i18n="tableCommissioningComp">Optional / Extra Charge</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="py-24 bg-white">
+    <div class="max-w-3xl mx-auto px-6">
+        <h2 class="text-3xl font-bold text-center text-paypal-dark mb-12" data-i18n="faqTitle" data-aos="fade-up">Frequently Asked Questions</h2>
+        <div class="space-y-4 shadow-xl rounded-xl bg-white p-6 border border-gray-100" id="faq-container" data-aos="fade-up" data-aos-delay="100">
+            <!-- FAQs injected via JS using details/summary for accessibility -->
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section id="contact" class="py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="bg-paypal-dark rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row shadow-blue-800/20" data-aos="fade-up">
+            
+            <!-- Contact Info Column -->
+            <div class="p-10 md:p-16 md:w-5/12 bg-blue-900 text-white flex flex-col justify-between">
+                <div>
+                    <h2 class="text-4xl font-extrabold mb-6" data-i18n="contactTitle">Get In Touch</h2>
+                    <p class="text-blue-200 mb-10 text-lg font-light" data-i18n="contactSub">Ready to power your project? Contact our engineering sales team for a precise quote.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="phone" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                            <div>
+                                <h3 class="font-bold text-xl" data-i18n="callUs">Call Us</h3>
+                                <p class="text-blue-100"><a href="tel:+201229688688" class="hover:text-white transition-colors">01229 688 688</a></p>
+                                <p class="text-blue-100"><a href="tel:+201273353355" class="hover:text-white transition-colors">01273 353 355</a></p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="mail" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                            <div>
+                                <h3 class="font-bold text-xl" data-i18n="emailUs">Email Us</h3>
+                                <a href="mailto:info@premiumpower-eg.com" class="text-blue-100 break-all hover:text-white transition-colors underline decoration-blue-400/50">info@premiumpower-eg.com</a>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4">
+                            <i data-lucide="map-pin" class="w-7 h-7 text-blue-400 mt-1 flex-shrink-0" aria-hidden="true"></i>
+                            <div>
+                                <h3 class="font-bold text-xl" data-i18n="visitUs">Visit Us</h3>
+                                <p class="text-blue-100">40 El Hegaz St., Heliopolis, Cairo, Egypt</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Map Integration -->
+                <div class="mt-8 rounded-xl overflow-hidden shadow-lg h-56 w-full border-2 border-blue-400/30 map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3451.688647087627!2d31.3426!3d30.1056!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x145815dcc3e4e599%3A0x6c67c22e4aa39206!2sEl-Hegaz%20St%2C%20El-Nozha%2C%20Cairo%20Governorate!5e0!3m2!1sen!2seg!4v1625680000000!5m2!1sen!2seg" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" title="Premium Power LLC Location Map"></iframe>
+                </div>
+            </div>
+
+            <!-- Form Column -->
+            <div class="p-10 md:p-16 md:w-7/12 bg-white">
+                <h3 class="text-3xl font-bold text-paypal-dark mb-8" data-i18n="inquiryTitle">Send an Inquiry</h3>
+                <form id="contact-form" onsubmit="submitContactForm(event)" class="space-y-6" novalidate>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <input id="contact-name" type="text" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" placeholder="Your Name" data-i18n-placeholder="yourName" required aria-required="true">
+                        <input id="contact-phone" type="tel" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none transition-all" placeholder="Phone Number" data-i18n-placeholder="phoneNumber" required aria-required="true">
+                    </div>
+                    <div id="phone-error" class="text-red-600 text-sm hidden" role="alert"></div>
+                    <textarea id="contact-message" class="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-4 focus:ring-paypal-light/50 focus:border-paypal-light outline-none h-32 resize-none transition-all" placeholder="How can we help you? (e.g., Requesting a 500 KVA Perkins quote)" data-i18n-placeholder="howHelp" required aria-required="true"></textarea>
+                    <button type="submit" class="w-full py-4 text-xl font-extrabold text-white bg-paypal-light rounded-full hover:bg-paypal-dark transition shadow-lg shadow-blue-300/50 hover:shadow-xl hover:scale-[1.01]">
+                        <span data-i18n="btnSend">Send Message</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-paypal-dark text-white py-16">
+    <div class="max-w-7xl mx-auto px-6 text-center">
+        <h2 class="text-2xl font-bold mb-6">Premium Power LLC</h2>
+        <p class="text-blue-200 max-w-lg mx-auto mb-8 font-light" data-i18n="footerSub">Delivering high-quality diesel generator solutions with fast service, trusted performance, and professional support.</p>
+        <div class="flex justify-center gap-8 mb-8">
+             <a href="https://www.facebook.com/profile.php?id=61583941521978" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-white transition-colors" aria-label="Visit our Facebook page">
+                <i data-lucide="facebook" class="w-6 h-6" aria-hidden="true"></i>
+             </a>
+             <a href="https://www.linkedin.com/in/premium-power-4430a3399" target="_blank" rel="noopener noreferrer" class="text-blue-300 hover:text-white transition-colors" aria-label="Visit our LinkedIn page">
+                <i data-lucide="linkedin" class="w-6 h-6" aria-hidden="true"></i>
+             </a>
+        </div>
+        <p class="text-blue-300/50 text-sm">© 2025 Premium Power LLC. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- Custom Message Box -->
+<div id="message-box" class="fixed inset-0 bg-black/50 z-[99] hidden flex items-center justify-center p-4 transition-opacity duration-300 opacity-0" role="dialog" aria-labelledby="message-box-title" aria-modal="true">
+    <div class="bg-white rounded-xl p-6 w-full max-w-sm shadow-2xl space-y-4 transform scale-95 transition-transform duration-300">
+        <h3 id="message-box-title" class="text-xl font-bold text-paypal-dark" data-i18n="messageBoxTitle">Notification</h3>
+        <p id="message-box-content" class="text-gray-600"></p>
+        <button onclick="closeMessageBox()" class="w-full py-2 bg-paypal-light text-white font-bold rounded-lg hover:bg-paypal-dark transition-colors" data-i18n="messageBoxClose">Close</button>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    // Initialize Animations
+    AOS.init({
+        once: true,
+        offset: 100,
+        duration: 800,
+        easing: 'ease-out-cubic',
+    });
     
-    <!-- Scripts -->
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        // Initialize Animations
-        AOS.init({
-            once: true, // Animation happens only once - while scrolling down
-            offset: 100, // Offset (in px) from the original trigger point
-            duration: 800,
-            easing: 'ease-out-cubic',
+    // Initialize Icons (deferred)
+    document.addEventListener('DOMContentLoaded', () => {
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    });
+    
+    // --- TRANSLATION LOGIC ---
+    const translations = {
+        en: {
+            pageTitle: "Premium Power LLC | Power You Can Trust",
+            chatSales: "Sales Inquiry", chatEmergency: "24/7 Emergency", chatWhatsApp: "WhatsApp", chatCall: "Direct Call",
+            trustedBy: "Trusted by Top Contractors in Egypt",
+            navHome: "Home", navAbout: "About", navProducts: "Generators", navCalc: "Calculator", navContact: "Contact", navProjects: "Projects", navComparison: "Compare",
+            heroTitle: "Diesel Generators... <br/><span class='text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2'>Power You Can Rely On.</span>",
+            heroSub: "Engineering-grade diesel generator solutions from 8 KVA to 3000 KVA. Professional installation and 24/7 support.",
+            btnQuote: "Get Quote", btnFindGen: "Find Your Generator", btnContactSales: "Contact Sales",
+            capacity: "Power Capacity", engine: "Engine", alternator: "Alternator",
+            tool: "Interactive Tool", calcTitle: "Power Size Calculator", calcSub: "Not sure what capacity you need? Enter your appliances below to get an estimated generator size recommendation.",
+            equipment: "Your Equipment", ac1: "AC (1.5 HP)", ac1W: "Approx 1200W", ac3: "AC (3.0 HP)", ac3W: "Approx 2400W", pump: "Water Pump (1 HP)", pumpW: "Approx 750W", pc: "Office PC / Laptop", pcW: "Approx 200W", light: "Standard Lighting (Room)", lightW: "Approx 100W",
+            estimated: "Estimated Requirement", kva: "KVA", safetyNote: "*This is an estimate including a 25% safety margin. Starting currents for motors (ACs/Pumps) may vary.", 
+            fuelTitle: "Est. Fuel Consumption", fuelUnit: "Liters/Hour", fuelNote: "@ 75% Prime Load",
+            costTitle: "Daily Fuel Cost",
+            btnRequestQuote: "Get Free Quote in 24 Hours",
+            workflow: "Workflow", howWeWork: "How We Work", step1: "1. Assessment", step1D: "Technical site survey & load analysis", step2: "2. Proposal", step2D: "Detailed quotation & Contract", step3: "3. Delivery", step3D: "Logistics, installation & setup", step4: "4. Support", step4D: "Commissioning, load test & 24/7 care",
+            catalog: "Catalog", engineBrands: "Engine Brands", brandsSub: "We supply generators powered by the world's most reliable engines. Choose your preferred brand below.",
+            perkinsTitle: "Perkins Series", perkinsLoc: "United Kingdom • 9 KVA to 2500 KVA", perkinsDesc: "The industry standard for reliability and fuel efficiency. Ideal for all climates and load profiles.",
+            volvoTitle: "Volvo Penta", volvoLoc: "Sweden • 85 KVA to 700 KVA", volvoDesc: "Rapid load acceptance and superior performance in heavy-duty applications and mining.",
+            doosanTitle: "Doosan", doosanLoc: "South Korea • 150 KVA to 825 KVA", doosanDesc: "Excellent value for money with robust durability for construction sites and continuous prime power.",
+            navClients: "Clients", navProducts: "Products",
+            servicesHeader: "Our Offerings", servicesTitle: "Products & Services", servicesSub: "Complete power solutions from equipment supply to long-term maintenance support.",
+            service1Title: "Open-Type Generators", service1Desc: "Standard generators for industrial sites with robust frames and weather protection.",
+            service2Title: "Soundproof Canopies", service2Desc: "Custom acoustic enclosures reducing noise to 65dB for residential and sensitive areas.",
+            service3Title: "Low Voltage Panels", service3Desc: "ATS, synchronization, and distribution panels engineered to meet your load profile.",
+            service4Title: "External Fuel Tanks", service4Desc: "Single and Double-wall fuel storage tanks from 500L to 30,000L with leak detection systems.",
+            service5Title: "Spare Parts", service5Desc: "100% genuine OEM parts for Perkins, Volvo, and Doosan available from local stock.",
+            service6Title: "Installation Services", service6Desc: "Complete turnkey installation including foundation, fuel lines, and commissioning.",
+            service7Title: "Maintenance Services", service7Desc: "Preventative and corrective maintenance contracts with 24/7 emergency response.",
+            servicesCTA: "Need a Custom Solution?", servicesCTADesc: "Contact our engineering team for tailored packages.", servicesCTABtn: "Get Started",
+            clientsHeader: "Our Partners", clientsTitle: "Trusted by Leading Organizations", clientsSub: "Powering critical operations across healthcare, manufacturing, hospitality, and infrastructure sectors.",
+            client1: "Egyptian Ambulance Organization", client2: "Canal For Sugar", client3: "Upwyde - Cinco Mall", client4: "SODIC - Ogami North Coast",
+            client5: "Concord - New Mansoura Water Sewage", client6: "OliveLand Agriculture", client7: "Salah Eldin International School", client8: "New Urban Communities Authority",
+            stat1: "Projects Completed", stat2: "Years Experience", stat3: "Active Contracts", stat4: "Uptime Guarantee",
+            btnDownload: "Request Quote", btnTechSpecs: "View Technical Specs",
+            specCyl: "Cylinders:", specGov: "Governor:", specAsp: "Aspiration:",
+            specMechElec: "Mech / Electronic", specTurbo: "Turbocharged",
+            specEms: "EMS 2.0 (Fully Elec)", specTurboInt: "Turbo + Intercooler",
+            specElectronic: "Electronic (ECU)", specTurboAfter: "Turbo + Aftercooler",
+            soundHeader: "Acoustic Engineering", soundTitle: "Hear the Difference", soundOpen: "Standard (Open)", soundSilent: "Premium Soundproof", soundTraffic: "Traffic Noise", soundOffice: "Office Silence", soundInfo: "Our custom-fabricated soundproof canopies reduce noise levels significantly, making them suitable for residential areas, hospitals, and offices.",
+            portfolio: "Portfolio", recentInstalls: "Recent Installations", projectsSub: "Delivering power to Egypt's most critical sectors.",
+            proj1Loc: "New Cairo", proj1Title: "Medical Center Backup", proj1Desc: "Installed 2x 500 KVA Perkins units with ATS synchronization panel.",
+            proj2Loc: "New Capital", proj2Title: "Construction Power", proj2Desc: "Provided 4x 250 KVA Volvo Penta generators for site operations.",
+            proj3Loc: "Maadi", proj3Title: "Bank HQ Data Center", proj3Desc: "High-precision 1000 KVA Doosan unit with soundproof canopy (65dB).",
+            galleryHeader: "Gallery", galleryTitle: "Real-Time Diesel Generator Photos",
+            comparisonHeader: "The Premium Difference", comparisonTitle: "Why Premium Power is the Right Choice", comparisonSub: "We set the standard for quality and service in the Egyptian power generation sector.",
+            tableFeature: "Feature", tableUs: "Premium Power", tableCompetitor: "Standard Competitor",
+            tableResponse: "Emergency Response Time", tableResponseUs: "Within 24 Hours", tableResponseComp: "3-5 Days (Often Longer)",
+            tableParts: "Spare Parts Authenticity", tablePartsUs: "100% Genuine (OEM)", tablePartsComp: "Aftermarket/Generic",
+            tableWarranty: "Standard Warranty", tableWarrantyUs: "1 Year / 1000 Hours", tableWarrantyComp: "6 Months or Less",
+            tableTechnicians: "Technician Expertise", tableTechniciansUs: "Certified Engineering Team", tableTechniciansComp: "Contracted Labor",
+            tableCommissioning: "Load Testing / Commissioning", tableCommissioningUs: "Standard Inclusion", tableCommissioningComp: "Optional / Extra Charge",
+            faqTitle: "Frequently Asked Questions",
+            contactTitle: "Get In Touch", contactSub: "Ready to power your project? Contact our engineering sales team for a precise quote.",
+            callUs: "Call Us", emailUs: "Email Us", visitUs: "Visit Us", inquiryTitle: "Send an Inquiry",
+            yourName: "Your Name", phoneNumber: "Phone Number", howHelp: "How can we help you? (e.g., Requesting a 500 KVA Perkins quote)", btnSend: "Send Message",
+            footerSub: "Delivering high-quality diesel generator solutions with fast service, trusted performance, and professional support.",
+            messageBoxTitle: "Notification", messageBoxClose: "Close",
+            formSubmitted: "Message sent! We will contact you shortly.",
+            invalidPhone: "Please enter a valid Egyptian phone number (e.g., 01XXXXXXXXX)"
+        },
+        ar: {
+            pageTitle: "بريميوم باور | طاقة يمكنك الاعتماد عليها",
+            chatSales: "المبيعات", chatEmergency: "طوارئ 24/7", chatWhatsApp: "واتساب", chatCall: "اتصال مباشر",
+            trustedBy: "موثوق به من قبل كبرى المقاولين في مصر",
+            navHome: "الرئيسية", navAbout: "عن الشركة", navProducts: "المولدات", navCalc: "حاسبة القدرة", navContact: "تواصل معنا", navProjects: "المشاريع", navComparison: "مقارنة",
+            heroTitle: "مولدات ديزل... <br/><span class='text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2'>طاقة يمكنك الاعتماد عليها.</span>",
+            heroSub: "حلول مولدات الديزل الهندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. تركيب احترافي ودعم 24/7.",
+            btnQuote: "اطلب عرض سعر", btnFindGen: "ابحث عن مولدك", btnContactSales: "اتصل بالمبيعات",
+            capacity: "قدرة المولد", engine: "المحرك", alternator: "المولد الكهربائي",
+            tool: "أداة تفاعلية", calcTitle: "حاسبة قدرة المولد", calcSub: "هل أنت غير متأكد من السعة التي تحتاجها؟ أدخل أجهزتك أدناه للحصول على تقدير لحجم المولد الموصى به.",
+            equipment: "معداتك", ac1: "تكييف (1.5 حصان)", ac1W: "تقريبًا 1200 واط", ac3: "تكييف (3.0 حصان)", ac3W: "تقريبًا 2400 واط", pump: "مضخة مياه (1 حصان)", pumpW: "تقريبًا 750 واط", pc: "كمبيوتر مكتبي / محمول", pcW: "تقريبًا 200 واط", light: "إضاءة قياسية (غرفة)", lightW: "تقريبًا 100 واط",
+            estimated: "المتطلبات المقدرة", kva: "ك.ف.أ", safetyNote: "*هذا تقدير يتضمن هامش أمان بنسبة 25٪. قد تختلف تيارات بدء تشغيل المحركات (مكيفات/مضخات).",
+            fuelTitle: "استهلاك الوقود التقديري", fuelUnit: "لتر/ساعة", fuelNote: "@ 75% حمل أساسي",
+            costTitle: "تكلفة الوقود اليومية",
+            btnRequestQuote: "احصل على عرض سعر مجاني خلال 24 ساعة",
+            workflow: "سير العمل", howWeWork: "كيف نعمل", step1: "1. تقييم", step1D: "مسح فني للموقع وتحليل الأحمال", step2: "2. عرض سعر", step2D: "عرض أسعار مفصل وعقد", step3: "3. توصيل", step3D: "اللوجستيات والتركيب والإعداد", step4: "4. دعم", step4D: "التشغيل واختبار الحمل والرعاية على مدار الساعة",
+            catalog: "الكتالوج", engineBrands: "ماركات المحركات", brandsSub: "نقوم بتوريد مولدات تعمل بأكثر المحركات موثوقية في العالم. اختر علامتك التجارية المفضلة أدناه.",
+            perkinsTitle: "سلسلة بيركنز", perkinsLoc: "المملكة المتحدة • 9 ك.ف.أ إلى 2500 ك.ف.أ", perkinsDesc: "المعيار الصناعي للموثوقية وكفاءة استهلاك الوقود. مثالية لجميع المناخات وأنماط الأحمال.",
+            volvoTitle: "فولفو بنتا", volvoLoc: "السويد • 85 ك.ف.أ إلى 700 ك.ف.أ", volvoDesc: "تشتهر بالاستجابة السريعة للحمل والأداء المتفوق في التطبيقات الشاقة والتعدين.",
+            doosanTitle: "دوسان", doosanLoc: "كوريا الجنوبية • 150 ك.ف.أ إلى 825 ك.ف.أ", doosanDesc: "قيمة ممتازة مقابل المال مع متانة قوية لمواقع البناء والطاقة الأولية المستمرة.",
+            navClients: "العملاء", navProducts: "المنتجات",
+            servicesHeader: "عروضنا", servicesTitle: "المنتجات والخدمات", servicesSub: "حلول طاقة كاملة من توريد المعدات إلى دعم الصيانة طويلة الأجل.",
+            service1Title: "مولدات مفتوحة", service1Desc: "مولدات قياسية للمواقع الصناعية بإطارات قوية وحماية من الطقس.",
+            service2Title: "كبائن عازلة للصوت", service2Desc: "هياكل صوتية مخصصة تقلل الضوضاء إلى 65 ديسيبل للمناطق السكنية والحساسة.",
+            service3Title: "لوحات الجهد المنخفض", service3Desc: "لوحات ATS والمزامنة والتوزيع المصممة هندسيًا لتناسب ملف الحمل الخاص بك.",
+            service4Title: "خزانات وقود خارجية", service4Desc: "خزانات وقود بجدار أو جدار مزدوج من 500 لتر إلى 30,000 لتر مع أنظمة كشف التسرب.",
+            service5Title: "قطع غيار", service5Desc: "قطع غيار أصلية 100% من OEM لبيركنز وفولفو ودوسان متاحة من المخزون المحلي.",
+            service6Title: "خدمات التركيب", service6Desc: "تركيب كامل وشامل بما في ذلك الأساس وخطوط الوقود والتشغيل.",
+            service7Title: "خدمات الصيانة", service7Desc: "عقود صيانة وقائية وتصحيحية مع استجابة طوارئ على مدار الساعة.",
+            servicesCTA: "هل تحتاج إلى حل مخصص؟", servicesCTADesc: "اتصل بفريقنا الهندسي للحصول على باقات مخصصة.", servicesCTABtn: "ابدأ الآن",
+            clientsHeader: "شركاؤنا", clientsTitle: "موثوق بها من قبل المؤسسات الرائدة", clientsSub: "تشغيل العمليات الحيوية في قطاعات الرعاية الصحية والتصنيع والضيافة والبنية التحتية.",
+            client1: "هيئة الإسعاف المصرية", client2: "مصنع القناة للسكر", client3: "أب وايد - سينكو مول", client4: "سوديك - عجيمي الساحل الشمالي",
+            client5: "كونكورد - محطة المنصورة الجديدة", client6: "مزارع أوليف لاند", client7: "مجمع مدارس صلاح الدين", client8: "هيئة المجتمعات العمرانية",
+            stat1: "المشاريع المكتملة", stat2: "سنوات الخبرة", stat3: "العقود النشطة", stat4: "ضمان وقت التشغيل",
+            btnDownload: "طلب عرض سعر", btnTechSpecs: "عرض المواصفات الفنية",
+            specCyl: "السلندرات:", specGov: "الحاكم:", specAsp: "التنفس:",
+            specMechElec: "ميكانيكي / إلكتروني", specTurbo: "تيربو",
+            specEms: "EMS 2.0 (إلكتروني كامل)", specTurboInt: "تيربو + مبرد داخلي",
+            specElectronic: "إلكتروني (ECU)", specTurboAfter: "تيربو + مبرد لاحق",
+            soundHeader: "الهندسة الصوتية", soundTitle: "اسمع الفرق", soundOpen: "قياسي (مفتوح)", soundSilent: "كاتم للصوت (بريميوم)", soundTraffic: "ضوضاء المرور", soundOffice: "هدوء المكتب", soundInfo: "تعمل الكبائن الكاتمة للصوت المصنعة خصيصاً لدينا على تقليل مستويات الضوضاء بشكل كبير، مما يجعلها مناسبة للمناطق السكنية والمستشفيات والمكاتب.",
+            portfolio: "معرض الأعمال", recentInstalls: "أحدث التركيبات", projectsSub: "توفير الطاقة لأهم القطاعات في مصر.",
+            proj1Loc: "القاهرة الجديدة", proj1Title: "دعم مركز طبي", proj1Desc: "تم تركيب 2 مولد 500 ك.ف.أ بيركنز مع لوحة تزامن ATS.",
+            proj2Loc: "العاصمة الجديدة", proj2Title: "طاقة مواقع الإنشاءات", proj2Desc: "تم توفير 4 مولدات 250 ك.ف.أ فولفو بنتا لعمليات الموقع.",
+            proj3Loc: "المعادي", proj3Title: "مركز بيانات البنك الرئيسي", proj3Desc: "وحدة دوسان عالية الدقة 1000 ك.ف.أ بكابينة عازلة للصوت (65 ديسيبل).",
+            galleryHeader: "معرض الصور", galleryTitle: "صور مولدات الديزل الحقيقية",
+            comparisonHeader: "الفرق المميز", comparisonTitle: "لماذا بريميوم باور هو الخيار الصحيح", comparisonSub: "نحن نضع معيار الجودة والخدمة في قطاع توليد الطاقة المصري.",
+            tableFeature: "الميزة", tableUs: "بريميوم باور", tableCompetitor: "المنافس العادي",
+            tableResponse: "وقت الاستجابة للطوارئ", tableResponseUs: "في غضون 24 ساعة", tableResponseComp: "3-5 أيام (غالباً أطول)",
+            tableParts: "أصالة قطع الغيار", tablePartsUs: "أصلية 100% (OEM)", tablePartsComp: "ما بعد البيع/عامة",
+            tableWarranty: "الضمان القياسي", tableWarrantyUs: "سنة واحدة / 1000 ساعة", tableWarrantyComp: "6 أشهر أو أقل",
+            tableTechnicians: "خبرة الفنيين", tableTechniciansUs: "فريق هندسي معتمد", tableTechniciansComp: "عمالة متعاقدة",
+            tableCommissioning: "اختبار الحمل / التشغيل", tableCommissioningUs: "مضمنة بشكل قياسي", tableCommissioningComp: "اختياري / تكلفة إضافية",
+            faqTitle: "الأسئلة الشائعة",
+            contactTitle: "تواصل معنا", contactSub: "هل أنت مستعد لتزويد مشروعك بالطاقة؟ اتصل بفريق المبيعات الهندسية لدينا للحصول على عرض أسعار دقيق.",
+            callUs: "اتصل بنا", emailUs: "راسلنا بالبريد الإلكتروني", visitUs: "قم بزيارتنا", inquiryTitle: "إرسال استفسار",
+            yourName: "اسمك", phoneNumber: "رقم الهاتف", howHelp: "كيف يمكننا مساعدتك؟ (مثال: طلب عرض سعر لمولد بيركنز 500 ك.ف.أ)", btnSend: "أرسل الرسالة",
+            footerSub: "تقديم حلول مولدات الديزل عالية الجودة مع خدمة سريعة وأداء موثوق وخبرة هندسية.",
+            messageBoxTitle: "إشعار", messageBoxClose: "إغلاق",
+            formSubmitted: "تم إرسال رسالتك! سنتواصل معك قريباً.",
+            invalidPhone: "الرجاء إدخال رقم هاتف مصري صحيح (مثال: 01XXXXXXXXX)"
+        }
+    };
+
+    let currentLang = 'en';
+    let calcTimeout = null;
+
+    // Toggle Chat Menu with ARIA
+    function toggleChatMenu() {
+        const menu = document.getElementById('chat-menu');
+        const button = menu.previousElementSibling;
+        const isOpen = menu.classList.contains('chat-open');
+        
+        menu.classList.toggle('chat-open');
+        button.setAttribute('aria-expanded', !isOpen);
+    }
+
+    // Accordion Toggle with ARIA
+    function toggleSpec(id) {
+        const element = document.getElementById(id);
+        const button = element.previousElementSibling;
+        const icon = document.getElementById('icon-' + id);
+        
+        const isOpen = element.classList.contains('spec-open');
+        
+        // Close all others
+        document.querySelectorAll('.spec-content').forEach(el => {
+            if (el.id !== id) {
+                el.classList.remove('spec-open');
+                const btn = el.previousElementSibling;
+                if (btn) btn.setAttribute('aria-expanded', 'false');
+            }
         });
+        document.querySelectorAll('[id^="icon-spec-"]').forEach(el => {
+            if (el.id !== icon.id) {
+                el.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Toggle current
+        element.classList.toggle('spec-open');
+        button.setAttribute('aria-expanded', !isOpen);
+        icon.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
+
+    // Sound Visualizer with ARIA
+    function setSoundMode(mode) {
+        const bar = document.getElementById('sound-bar');
+        const val = document.getElementById('sound-val');
+        const desc = document.getElementById('sound-desc');
+        const btnOpen = document.getElementById('btn-sound-open');
+        const btnSilent = document.getElementById('btn-sound-silent');
+
+        if (mode === 'open') {
+            bar.style.width = '85%';
+            bar.classList.remove('bg-green-500');
+            bar.classList.add('bg-red-500');
+            
+            val.innerText = '85 dB';
+            desc.innerText = currentLang === 'ar' ? translations['ar']['soundTraffic'] : translations['en']['soundTraffic'];
+
+            btnOpen.classList.add('bg-red-500', 'text-white', 'border-red-500');
+            btnOpen.classList.remove('text-gray-500', 'border-gray-200');
+            btnOpen.setAttribute('aria-selected', 'true');
+
+            btnSilent.classList.remove('bg-paypal-light', 'text-white', 'border-paypal-light');
+            btnSilent.classList.add('text-gray-500', 'border-gray-200');
+            btnSilent.setAttribute('aria-selected', 'false');
+
+        } else {
+            bar.style.width = '65%';
+            bar.classList.remove('bg-red-500');
+            bar.classList.add('bg-green-500');
+            
+            val.innerText = '65 dB';
+            desc.innerText = currentLang === 'ar' ? translations['ar']['soundOffice'] : translations['en']['soundOffice'];
+
+            btnOpen.classList.remove('bg-red-500', 'text-white', 'border-red-500');
+            btnOpen.classList.add('text-gray-500', 'border-gray-200');
+            btnOpen.setAttribute('aria-selected', 'false');
+
+            btnSilent.classList.add('bg-paypal-light', 'text-white', 'border-paypal-light');
+            btnSilent.classList.remove('text-gray-500', 'border-gray-200');
+            btnSilent.setAttribute('aria-selected', 'true');
+        }
+    }
+
+    // Smart Form Auto-Fill
+    function fillQuoteRequest(brand) {
+        const kva = document.getElementById('result-kva').innerText;
+        const msgField = document.getElementById('contact-message');
         
-        // Initialize Icons
-        lucide.createIcons();
+        let text = "";
+        if (currentLang === 'ar') {
+            text = brand 
+                ? `مرحباً، أنا مهتم بمولد ${brand} بقدرة تقريبية ${kva} ك.ف.أ. يرجى التواصل معي للتفاصيل.`
+                : `مرحباً، بناءً على حساب الأحمال على الموقع، أنا مهتم بمولد بقدرة تقريبية ${kva} ك.ف.أ. يرجى التواصل معي للتفاصيل.`;
+        } else {
+            text = brand
+                ? `Hello, I am interested in a ${brand} generator with approximately ${kva} KVA capacity. Please contact me with details.`
+                : `Hello, based on the load calculator on your website, I am interested in a generator with approximately ${kva} KVA capacity. Please contact me with details.`;
+        }
+
+        msgField.value = text;
+        document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    // Message Box
+    function showMessageBox(message) {
+        const box = document.getElementById('message-box');
+        const content = document.getElementById('message-box-content');
+        content.innerText = message;
         
-        // --- ARABIC TRANSLATION LOGIC ---
-        const translations = {
-            en: {
-                pageTitle: "Premium Power LLC | Power You Can Trust",
-                chatSales: "Sales Inquiry", chatEmergency: "24/7 Emergency", chatWhatsApp: "WhatsApp", chatCall: "Direct Call",
-                trustedBy: "Trusted by Top Contractors in Egypt",
-                navHome: "Home", navAbout: "About", navProducts: "Generators", navCalc: "Calculator", navContact: "Contact", navProjects: "Projects", navComparison: "Compare",
-                heroTitle: "Diesel Generators... <br/><span class='text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2'>Power You Can Rely On.</span>",
-                heroSub: "Engineering-grade diesel generator solutions from 8 KVA to 3000 KVA. Professional installation and 24/7 support.",
-                btnQuote: "Get Quote", btnFindGen: "Find Your Generator", btnContactSales: "Contact Sales",
-                capacity: "Power Capacity", engine: "Engine", alternator: "Alternator",
-                tool: "Interactive Tool", calcTitle: "Power Size Calculator", calcSub: "Not sure what capacity you need? Enter your appliances below to get an estimated generator size recommendation.",
-                equipment: "Your Equipment", ac1: "AC (1.5 HP)", ac1W: "Approx 1200W", ac3: "AC (3.0 HP)", ac3W: "Approx 2400W", pump: "Water Pump (1 HP)", pumpW: "Approx 750W", pc: "Office PC / Laptop", pcW: "Approx 200W", light: "Standard Lighting (Room)", lightW: "Approx 100W",
-                estimated: "Estimated Requirement", kva: "KVA", safetyNote: "*This is an estimate including a 25% safety margin. Starting currents for motors (ACs/Pumps) may vary.", 
-                fuelTitle: "Est. Fuel Consumption", fuelUnit: "Liters/Hour", fuelNote: "@ 75% Prime Load",
-                btnRequestQuote: "Request Quote for this Size",
-                workflow: "Workflow", howWeWork: "How We Work", step1: "1. Assessment", step1D: "Technical site survey & load analysis", step2: "2. Proposal", step2D: "Detailed quotation & Contract", step3: "3. Delivery", step3D: "Logistics, installation & setup", step4: "4. Support", step4D: "Commissioning, load test & 24/7 care",
-                catalog: "Catalog", engineBrands: "Engine Brands", brandsSub: "We supply generators powered by the world's most reliable engines. Choose your preferred brand below.",
-                perkinsTitle: "Perkins Series", perkinsLoc: "United Kingdom • 9 KVA to 2500 KVA", perkinsDesc: "The industry standard for reliability and fuel efficiency. Ideal for all climates and load profiles.",
-                volvoTitle: "Volvo Penta", volvoLoc: "Sweden • 85 KVA to 700 KVA", volvoDesc: "Rapid load acceptance and superior performance in heavy-duty applications and mining.",
-                doosanTitle: "Doosan", doosanLoc: "South Korea • 150 KVA to 825 KVA", doosanDesc: "Excellent value for money with robust durability for construction sites and continuous prime power.",
-                navClients: "Clients", navProducts: "Products",
-                servicesHeader: "Our Offerings", servicesTitle: "Products & Services", servicesSub: "Complete power solutions from equipment supply to long-term maintenance support.",
-                service1Title: "Open-Type Generators", service1Desc: "Standard generators for industrial sites with robust frames and weather protection.",
-                service2Title: "Soundproof Canopies", service2Desc: "Custom acoustic enclosures reducing noise to 65dB for residential and sensitive areas.",
-                service3Title: "Low Voltage Panels", service3Desc: "ATS, synchronization, and distribution panels engineered to meet your load profile.",
-                service4Title: "External Fuel Tanks", service4Desc: "Single and Double-wall fuel storage tanks from 500L to 30,000L with leak detection systems.",
-                service5Title: "Spare Parts", service5Desc: "100% genuine OEM parts for Perkins, Volvo, and Doosan available from local stock.",
-                service6Title: "Installation Services", service6Desc: "Complete turnkey installation including foundation, fuel lines, and commissioning.",
-                service7Title: "Maintenance Services", service7Desc: "Preventative and corrective maintenance contracts with 24/7 emergency response.",
-                servicesCTA: "Need a Custom Solution?", servicesCTADesc: "Contact our engineering team for tailored packages.", servicesCTABtn: "Get Started",
-                clientsHeader: "Our Partners", clientsTitle: "Trusted by Leading Organizations", clientsSub: "Powering critical operations across healthcare, manufacturing, hospitality, and infrastructure sectors.",
-                client1: "Egyptian Ambulance Organization", client2: "Canal For Sugar", client3: "Upwyde - Cinco Mall", client4: "SODIC - Ogami North Coast",
-                client5: "Concord - New Mansoura Water Sewage", client6: "OliveLand Agriculture", client7: "Salah Eldin International School", client8: "New Urban Communities Authority",
-                stat1: "Projects Completed", stat2: "Years Experience", stat3: "Active Contracts", stat4: "Uptime Guarantee",
-                btnDownload: "Download Spec Sheet", btnTechSpecs: "View Technical Specs",
-                specCyl: "Cylinders:", specGov: "Governor:", specAsp: "Aspiration:",
-                specMechElec: "Mech / Electronic", specTurbo: "Turbocharged",
-                specEms: "EMS 2.0 (Fully Elec)", specTurboInt: "Turbo + Intercooler",
-                specElectronic: "Electronic (ECU)", specTurboAfter: "Turbo + Aftercooler",
-                soundHeader: "Acoustic Engineering", soundTitle: "Hear the Difference", soundOpen: "Standard (Open)", soundSilent: "Premium Soundproof", soundTraffic: "Traffic Noise", soundOffice: "Office Silence", soundInfo: "Our custom-fabricated soundproof canopies reduce noise levels significantly, making them suitable for residential areas, hospitals, and offices.",
-                portfolio: "Portfolio", recentInstalls: "Recent Installations", projectsSub: "Delivering power to Egypt's most critical sectors.",
-                proj1Loc: "New Cairo", proj1Title: "Medical Center Backup", proj1Desc: "Installed 2x 500 KVA Perkins units with ATS synchronization panel.",
-                proj2Loc: "New Capital", proj2Title: "Construction Power", proj2Desc: "Provided 4x 250 KVA Volvo Penta generators for site operations.",
-                proj3Loc: "Maadi", proj3Title: "Bank HQ Data Center", proj3Desc: "High-precision 1000 KVA Doosan unit with soundproof canopy (65db).",
-                comparisonHeader: "The Premium Difference", comparisonTitle: "Why Premium Power is the Right Choice", comparisonSub: "We set the standard for quality and service in the Egyptian power generation sector.",
-                tableFeature: "Feature", tableUs: "Premium Power", tableCompetitor: "Standard Competitor",
-                tableResponse: "Emergency Response Time", tableResponseUs: "Within 24 Hours", tableResponseComp: "3-5 Days (Often Longer)",
-                tableParts: "Spare Parts Authenticity", tablePartsUs: "100% Genuine (OEM)", tablePartsComp: "Aftermarket/Generic",
-                tableWarranty: "Standard Warranty", tableWarrantyUs: "1 Year / 1000 Hours", tableWarrantyComp: "6 Months or Less",
-                tableTechnicians: "Technician Expertise", tableTechniciansUs: "Certified Engineering Team", tableTechniciansComp: "Contracted Labor",
-                tableCommissioning: "Load Testing / Commissioning", tableCommissioningUs: "Standard Inclusion", tableCommissioningComp: "Optional / Extra Charge",
-                faqTitle: "Frequently Asked Questions",
-                contactTitle: "Get In Touch", contactSub: "Ready to power your project? Contact our engineering sales team for a precise quote.",
-                callUs: "Call Us", emailUs: "Email Us", visitUs: "Visit Us", inquiryTitle: "Send an Inquiry",
-                yourName: "Your Name", phoneNumber: "Phone Number", howHelp: "How can we help you? (e.g., Requesting a 500 KVA Perkins quote)", btnSend: "Send Message",
-                footerSub: "Delivering high-quality diesel generator solutions with fast service, trusted performance, and professional support.",
-                messageBoxTitle: "Notification", messageBoxClose: "Close",
-                downloadStarting: "Spec sheet download is starting now. If the download does not start, please contact us.",
-                formSubmitted: "Message sent! We will contact you shortly."
-            },
-            ar: {
-                pageTitle: "بريميوم باور | طاقة يمكنك الاعتماد عليها",
-                chatSales: "المبيعات", chatEmergency: "طوارئ 24/7", chatWhatsApp: "واتساب", chatCall: "اتصال مباشر",
-                trustedBy: "موثوق به من قبل كبرى المقاولين في مصر",
-                navHome: "الرئيسية", navAbout: "عن الشركة", navProducts: "المولدات", navCalc: "حاسبة القدرة", navContact: "تواصل معنا", navProjects: "المشاريع", navComparison: "مقارنة",
-                heroTitle: "مولدات ديزل... <br/><span class='text-3xl md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white block mt-2'>طاقة يمكنك الاعتماد عليها.</span>",
-                heroSub: "حلول مولدات الديزل الهندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. تركيب احترافي ودعم 24/7.",
-                btnQuote: "اطلب عرض سعر", btnFindGen: "ابحث عن مولدك", btnContactSales: "اتصل بالمبيعات",
-                capacity: "قدرة المولد", engine: "المحرك", alternator: "المولد الكهربائي",
-                tool: "أداة تفاعلية", calcTitle: "حاسبة قدرة المولد", calcSub: "هل أنت غير متأكد من السعة التي تحتاجها؟ أدخل أجهزتك أدناه للحصول على تقدير لحجم المولد الموصى به.",
-                equipment: "معداتك", ac1: "تكييف (1.5 حصان)", ac1W: "تقريبًا 1200 واط", ac3: "تكييف (3.0 حصان)", ac3W: "تقريبًا 2400 واط", pump: "مضخة مياه (1 حصان)", pumpW: "تقريبًا 750 واط", pc: "كمبيوتر مكتبي / محمول", pcW: "تقريبًا 200 واط", light: "إضاءة قياسية (غرفة)", lightW: "تقريبًا 100 واط",
-                estimated: "المتطلبات المقدرة", kva: "ك.ف.أ", safetyNote: "*هذا تقدير يتضمن هامش أمان بنسبة 25٪. قد تختلف تيارات بدء تشغيل المحركات (مكيفات/مضخات).",
-                fuelTitle: "استهلاك الوقود التقديري", fuelUnit: "لتر/ساعة", fuelNote: "@ 75% حمل أساسي",
-                btnRequestQuote: "اطلب عرض سعر لهذا الحجم",
-                workflow: "سير العمل", howWeWork: "كيف نعمل", step1: "1. تقييم", step1D: "مسح فني للموقع وتحليل الأحمال", step2: "2. عرض سعر", step2D: "عرض أسعار مفصل وعقد", step3: "3. توصيل", step3D: "اللوجستيات والتركيب والإعداد", step4: "4. دعم", step4D: "التشغيل واختبار الحمل والرعاية على مدار الساعة",
-                catalog: "الكتالوج", engineBrands: "ماركات المحركات", brandsSub: "نقوم بتوريد مولدات تعمل بأكثر المحركات موثوقية في العالم. اختر علامتك التجارية المفضلة أدناه.",
-                perkinsTitle: "سلسلة بيركنز", perkinsLoc: "المملكة المتحدة • 9 ك.ف.أ إلى 2500 ك.ف.أ", perkinsDesc: "المعيار الصناعي للموثوقية وكفاءة استهلاك الوقود. مثالية لجميع المناخات وأنماط الأحمال.",
-                volvoTitle: "فولفو بنتا", volvoLoc: "السويد • 85 ك.ف.أ إلى 700 ك.ف.أ", volvoDesc: "تشتهر بالاستجابة السريعة للحمل والأداء المتفوق في التطبيقات الشاقة والتعدين.",
-                doosanTitle: "دوسان", doosanLoc: "كوريا الجنوبية • 150 ك.ف.أ إلى 825 ك.ف.أ", doosanDesc: "قيمة ممتازة مقابل المال مع متانة قوية لمواقع البناء والطاقة الأولية المستمرة.",
-                navClients: "العملاء", navProducts: "المنتجات",
-                servicesHeader: "عروضنا", servicesTitle: "المنتجات والخدمات", servicesSub: "حلول طاقة كاملة من توريد المعدات إلى دعم الصيانة طويلة الأجل.",
-                service1Title: "مولدات مفتوحة", service1Desc: "مولدات قياسية للمواقع الصناعية بإطارات قوية وحماية من الطقس.",
-                service2Title: "كبائن عازلة للصوت", service2Desc: "هياكل صوتية مخصصة تقلل الضوضاء إلى 65 ديسيبل للمناطق السكنية والحساسة.",
-                service3Title: "لوحات الجهد المنخفض", service3Desc: "لوحات ATS والمزامنة والتوزيع المصممة هندسيًا لتناسب ملف الحمل الخاص بك.",
-                service4Title: "خزانات وقود خارجية", service4Desc: "خزانات وقود بجدار أو جدار مزدوج من 500 لتر إلى 30,000 لتر مع أنظمة كشف التسرب.",
-                service5Title: "قطع غيار", service5Desc: "قطع غيار أصلية 100% من OEM لبيركنز وفولفو ودوسان متاحة من المخزون المحلي.",
-                service6Title: "خدمات التركيب", service6Desc: "تركيب كامل وشامل بما في ذلك الأساس وخطوط الوقود والتشغيل.",
-                service7Title: "خدمات الصيانة", service7Desc: "عقود صيانة وقائية وتصحيحية مع استجابة طوارئ على مدار الساعة.",
-                servicesCTA: "هل تحتاج إلى حل مخصص؟", servicesCTADesc: "اتصل بفريقنا الهندسي للحصول على باقات مخصصة.", servicesCTABtn: "ابدأ الآن",
-                clientsHeader: "شركاؤنا", clientsTitle: "موثوق بها من قبل المؤسسات الرائدة", clientsSub: "تشغيل العمليات الحيوية في قطاعات الرعاية الصحية والتصنيع والضيافة والبنية التحتية.",
-                client1: "هيئة الإسعاف المصرية", client2: "مصنع القناة للسكر", client3: "أب وايد - سينكو مول", client4: "سوديك - عجيمي الساحل الشمالي",
-                client5: "كونكورد - محطة المنصورة الجديدة", client6: "مزارع أوليف لاند", client7: "مجمع مدارس صلاح الدين", client8: "هيئة المجتمعات العمرانية",
-                stat1: "المشاريع المكتملة", stat2: "سنوات الخبرة", stat3: "العقود النشطة", stat4: "ضمان وقت التشغيل",
-                btnDownload: "تنزيل ورقة المواصفات", btnTechSpecs: "عرض المواصفات الفنية",
-                specCyl: "السلندرات:", specGov: "الحاكم:", specAsp: "التنفس:",
-                specMechElec: "ميكانيكي / إلكتروني", specTurbo: "تيربو",
-                specEms: "EMS 2.0 (إلكتروني كامل)", specTurboInt: "تيربو + مبرد داخلي",
-                specElectronic: "إلكتروني (ECU)", specTurboAfter: "تيربو + مبرد لاحق",
-                soundHeader: "الهندسة الصوتية", soundTitle: "اسمع الفرق", soundOpen: "قياسي (مفتوح)", soundSilent: "كاتم للصوت (بريميوم)", soundTraffic: "ضوضاء المرور", soundOffice: "هدوء المكتب", soundInfo: "تعمل الكبائن الكاتمة للصوت المصنعة خصيصاً لدينا على تقليل مستويات الضوضاء بشكل كبير، مما يجعلها مناسبة للمناطق السكنية والمستشفيات والمكاتب.",
-                portfolio: "معرض الأعمال", recentInstalls: "أحدث التركيبات", projectsSub: "توفير الطاقة لأهم القطاعات في مصر.",
-                proj1Loc: "القاهرة الجديدة", proj1Title: "دعم مركز طبي", proj1Desc: "تم تركيب 2 مولد 500 ك.ف.أ بيركنز مع لوحة تزامن ATS.",
-                proj2Loc: "العاصمة الجديدة", proj2Title: "طاقة مواقع الإنشاءات", proj2Desc: "تم توفير 4 مولدات 250 ك.ف.أ فولفو بنتا لعمليات الموقع.",
-                proj3Loc: "المعادي", proj3Title: "مركز بيانات البنك الرئيسي", proj3Desc: "وحدة دوسان عالية الدقة 1000 ك.ف.أ بكابينة عازلة للصوت (65 ديسيبل).",
-                comparisonHeader: "الفرق المميز", comparisonTitle: "لماذا بريميوم باور هو الخيار الصحيح", comparisonSub: "نحن نضع معيار الجودة والخدمة في قطاع توليد الطاقة المصري.",
-                tableFeature: "الميزة", tableUs: "بريميوم باور", tableCompetitor: "المنافس العادي",
-                tableResponse: "وقت الاستجابة للطوارئ", tableResponseUs: "في غضون 24 ساعة", tableResponseComp: "3-5 أيام (غالباً أطول)",
-                tableParts: "أصالة قطع الغيار", tablePartsUs: "أصلية 100% (OEM)", tablePartsComp: "ما بعد البيع/عامة",
-                tableWarranty: "الضمان القياسي", tableWarrantyUs: "سنة واحدة / 1000 ساعة", tableWarrantyComp: "6 أشهر أو أقل",
-                tableTechnicians: "خبرة الفنيين", tableTechniciansUs: "فريق هندسي معتمد", tableTechniciansComp: "عمالة متعاقدة",
-                tableCommissioning: "اختبار الحمل / التشغيل", tableCommissioningUs: "مضمنة بشكل قياسي", tableCommissioningComp: "اختياري / تكلفة إضافية",
-                faqTitle: "الأسئلة الشائعة",
-                contactTitle: "تواصل معنا", contactSub: "هل أنت مستعد لتزويد مشروعك بالطاقة؟ اتصل بفريق المبيعات الهندسية لدينا للحصول على عرض أسعار دقيق.",
-                callUs: "اتصل بنا", emailUs: "راسلنا بالبريد الإلكتروني", visitUs: "قم بزيارتنا", inquiryTitle: "إرسال استفسار",
-                yourName: "اسمك", phoneNumber: "رقم الهاتف", howHelp: "كيف يمكننا مساعدتك؟ (مثال: طلب عرض سعر لمولد بيركنز 500 ك.ف.أ)", btnSend: "أرسل الرسالة",
-                footerSub: "تقديم حلول مولدات الديزل عالية الجودة مع خدمة سريعة وأداء موثوق وخبرة هندسية.",
-                messageBoxTitle: "إشعار", messageBoxClose: "إغلاق",
-                downloadStarting: "يتم بدء تحميل ورقة المواصفات الآن. إذا لم يبدأ التحميل، يرجى التواصل معنا.",
-                formSubmitted: "تم إرسال رسالتك! سنتواصل معك قريباً."
-            }
-        };
+        box.classList.remove('hidden');
+        setTimeout(() => {
+            box.classList.add('opacity-100');
+            box.querySelector('div').classList.remove('scale-95');
+        }, 10);
+        
+        switchLanguage(currentLang, true);
+    }
 
-        let currentLang = 'en';
+    function closeMessageBox() {
+        const box = document.getElementById('message-box');
+        box.classList.add('opacity-0');
+        box.querySelector('div').classList.add('scale-95');
+        setTimeout(() => box.classList.add('hidden'), 300);
+    }
 
-        // Feature 6: Toggle Chat Menu
-        function toggleChatMenu() {
-            const menu = document.getElementById('chat-menu');
-            menu.classList.toggle('chat-open');
+    // Form Submission with Validation
+    function submitContactForm(e) {
+        e.preventDefault();
+        
+        const name = document.getElementById('contact-name').value.trim();
+        const phone = document.getElementById('contact-phone').value.trim();
+        const message = document.getElementById('contact-message').value.trim();
+        const phoneError = document.getElementById('phone-error');
+        
+        // Egyptian phone validation
+        const egyptianPhoneRegex = /^(\+?20)?1[0-9]{9}$/;
+        
+        if (!egyptianPhoneRegex.test(phone.replace(/\s/g, ''))) {
+            phoneError.innerText = currentLang === 'ar' 
+                ? translations['ar']['invalidPhone'] 
+                : translations['en']['invalidPhone'];
+            phoneError.classList.remove('hidden');
+            document.getElementById('contact-phone').focus();
+            return;
         }
-
-        // Feature 7: Accordion Toggle
-        function toggleSpec(id) {
-            const element = document.getElementById(id);
-            const icon = document.getElementById('icon-' + id);
-            
-            // Check if currently open
-            if (element.classList.contains('spec-open')) {
-                element.classList.remove('spec-open');
-                icon.style.transform = 'rotate(0deg)';
-            } else {
-                // Close others
-                document.querySelectorAll('.spec-content').forEach(el => {
-                    el.classList.remove('spec-open');
-                });
-                document.querySelectorAll('[id^="icon-spec-"]').forEach(el => {
-                    el.style.transform = 'rotate(0deg)';
-                });
-
-                element.classList.add('spec-open');
-                icon.style.transform = 'rotate(180deg)';
-            }
+        
+        phoneError.classList.add('hidden');
+        
+        const subject = currentLang === 'ar' ? 'استفسار جديد من الموقع' : 'New inquiry from website';
+        const body = currentLang === 'ar'
+            ? `الاسم: ${name}\nالهاتف: ${phone}\nالرسالة:\n${message}`
+            : `Name: ${name}\nPhone: ${phone}\nMessage:\n${message}`;
+        
+        const link = `mailto:info@premiumpower-eg.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+        window.location.href = link;
+        
+        const successMsg = currentLang === 'ar' ? translations['ar']['formSubmitted'] : translations['en']['formSubmitted'];
+        showMessageBox(successMsg);
+        document.getElementById('contact-form').reset();
+        
+        // Track with analytics if available
+        if (typeof gtag !== 'undefined') {
+            gtag('event', 'form_submit', {
+                'event_category': 'contact',
+                'event_label': 'contact_form'
+            });
         }
+    }
 
-        // Feature 4: Sound Visualizer Logic
-        function setSoundMode(mode) {
-            const bar = document.getElementById('sound-bar');
-            const val = document.getElementById('sound-val');
-            const desc = document.getElementById('sound-desc');
-            const btnOpen = document.getElementById('btn-sound-open');
-            const btnSilent = document.getElementById('btn-sound-silent');
-
-            if (mode === 'open') {
-                bar.style.width = '85%';
-                bar.classList.remove('bg-green-500');
-                bar.classList.add('bg-red-500');
-                
-                val.innerText = '85 db';
-                desc.innerText = currentLang === 'ar' ? translations['ar']['soundTraffic'] : translations['en']['soundTraffic'];
-
-                btnOpen.classList.add('bg-red-500', 'text-white', 'border-red-500');
-                btnOpen.classList.remove('text-gray-500', 'border-gray-200');
-
-                btnSilent.classList.remove('bg-paypal-light', 'text-white', 'border-paypal-light');
-                btnSilent.classList.add('text-gray-500', 'border-gray-200');
-
-            } else {
-                bar.style.width = '65%';
-                bar.classList.remove('bg-red-500');
-                bar.classList.add('bg-green-500');
-                
-                val.innerText = '65 db';
-                desc.innerText = currentLang === 'ar' ? translations['ar']['soundOffice'] : translations['en']['soundOffice'];
-
-                btnOpen.classList.remove('bg-red-500', 'text-white', 'border-red-500');
-                btnOpen.classList.add('text-gray-500', 'border-gray-200');
-
-                btnSilent.classList.add('bg-paypal-light', 'text-white', 'border-paypal-light');
-                btnSilent.classList.remove('text-gray-500', 'border-gray-200');
-            }
-        }
-
-        // Feature 1: Smart Form Auto-Fill
-        function fillQuoteRequest() {
-            const kva = document.getElementById('result-kva').innerText;
-            const msgField = document.getElementById('contact-message');
-            
-            let text = "";
-            if (currentLang === 'ar') {
-                text = `مرحباً، بناءً على حساب الأحمال على الموقع، أنا مهتم بمولد بقدرة تقريبية ${kva} ك.ف.أ. يرجى التواصل معي للتفاصيل.`;
-            } else {
-                text = `Hello, based on the load calculator on your website, I am interested in a generator with approximately ${kva} KVA capacity. Please contact me with details.`;
-            }
-
-            msgField.value = text;
-            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-        }
-
-        // Message Box Logic
-        function showMessageBox(message) {
-            const box = document.getElementById('message-box');
-            const content = document.getElementById('message-box-content');
-            content.innerText = message;
-            
-            // Show the box with fade and scale transition
-            box.classList.remove('hidden');
-            setTimeout(() => {
-                box.classList.add('opacity-100');
-                box.querySelector('div').classList.remove('scale-95');
-            }, 10);
-            
-            // Re-run i18n for the modal title/button
-            switchLanguage(currentLang, true);
-        }
-
-        function submitContactForm(e) {
-            e.preventDefault();
-            const name = document.getElementById('contact-name').value.trim();
-            const phone = document.getElementById('contact-phone').value.trim();
-            const message = document.getElementById('contact-message').value.trim();
-            const subject = currentLang === 'ar' ? 'استفسار جديد من الموقع' : 'New inquiry from website';
-            const body = currentLang === 'ar'
-                ? `الاسم: ${name}\nالهاتف: ${phone}\nالرسالة:\n${message}`
-                : `Name: ${name}\nPhone: ${phone}\nMessage:\n${message}`;
-            const link = `mailto:info@premiumpower-eg.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            window.location.href = link;
-            const successMsg = currentLang === 'ar' ? translations['ar']['formSubmitted'] : translations['en']['formSubmitted'];
-            showMessageBox(successMsg);
-            document.getElementById('contact-form').reset();
-        }
-
-        function calculateKVA() {
-            const WATTS_AC1 = 1200;  // 1.5HP
-            const WATTS_AC3 = 2400;  // 3.0HP
-            const WATTS_PUMP = 750;  // 1HP Pump
+    // Calculator with Debouncing and Validation
+    function calculateKVA() {
+        clearTimeout(calcTimeout);
+        
+        calcTimeout = setTimeout(() => {
+            const WATTS_AC1 = 1200;
+            const WATTS_AC3 = 2400;
+            const WATTS_PUMP = 750;
             const WATTS_PC = 200;
             const WATTS_LIGHT = 100;
+            const DIESEL_PRICE_PER_LITER = 12; // EGP
 
-            const qtyAC1 = parseInt(document.getElementById('calc-ac1').value) || 0;
-            const qtyAC3 = parseInt(document.getElementById('calc-ac3').value) || 0;
-            const qtyPump = parseInt(document.getElementById('calc-pump').value) || 0;
-            const qtyPC = parseInt(document.getElementById('calc-pc').value) || 0;
-            const qtyLight = parseInt(document.getElementById('calc-light').value) || 0;
+            // Validate and limit inputs
+            const qtyAC1 = Math.max(0, Math.min(50, parseInt(document.getElementById('calc-ac1').value) || 0));
+            const qtyAC3 = Math.max(0, Math.min(50, parseInt(document.getElementById('calc-ac3').value) || 0));
+            const qtyPump = Math.max(0, Math.min(50, parseInt(document.getElementById('calc-pump').value) || 0));
+            const qtyPC = Math.max(0, Math.min(50, parseInt(document.getElementById('calc-pc').value) || 0));
+            const qtyLight = Math.max(0, Math.min(50, parseInt(document.getElementById('calc-light').value) || 0));
 
             let totalWatts = (qtyAC1 * WATTS_AC1) + (qtyAC3 * WATTS_AC3) + (qtyPump * WATTS_PUMP) + (qtyPC * WATTS_PC) + (qtyLight * WATTS_LIGHT);
             let totalKW = totalWatts / 1000;
-            let requiredKVA = totalKW / 0.8; // Assume 0.8 Power Factor
+            let requiredKVA = totalKW / 0.8; // 0.8 Power Factor
             let finalKVA = requiredKVA * 1.25; // 25% Safety Margin
             let displayKVA = Math.ceil(finalKVA);
             
             if (displayKVA < 0) displayKVA = 0;
             document.getElementById('result-kva').innerText = displayKVA;
 
-            // Feature 2: Fuel Consumption Logic
+            // Fuel Consumption (Approx 0.21 L/kVA/hour @ 75% load)
             let estimatedFuel = Math.ceil(displayKVA * 0.21);
             if (displayKVA === 0) estimatedFuel = 0;
             document.getElementById('result-fuel').innerText = estimatedFuel;
-        }
 
-        // FAQ Data
-        const faqs = [
-            { q_en: "How long does delivery and installation take?", a_en: "Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics.", q_ar: "كم تستغرق عملية التوصيل والتركيب؟", a_ar: "يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد واللوجستيات الخاصة بالموقع." },
-            { q_en: "Do you provide installation services and ATS panels?", a_en: "Yes, we offer full turnkey installation, including site assessment, positioning, cabling, Automatic Transfer Switch (ATS) panels, and commissioning.", q_ar: "هل تقدمون خدمات التركيب ولوحات ATS؟", a_ar: "نعم، نحن نقدم تركيبًا كاملاً وشاملاً، بما في ذلك تقييم الموقع، وتحديد الموقع، والكابلات، ولوحات مفاتيح التحويل التلقائي (ATS)، والتشغيل." },
-            { q_en: "What is the warranty period and coverage?", a_en: "We provide a standard warranty of 1 year or 1000 operating hours (whichever comes first) covering manufacturing defects in the engine and alternator, supported locally.", q_ar: "ما هي فترة الضمان والتغطية؟", a_ar: "نقدم ضمانًا قياسيًا لمدة عام واحد أو 1000 ساعة تشغيل (أيهما يأتي أولاً) يغطي عيوب التصنيع في المحرك والمولد الكهربائي، مع دعم محلي." },
-            { q_en: "Do you have spare parts and maintenance contracts?", a_en: "Yes, we maintain a comprehensive stock of genuine OEM spare parts for all our brands. We also offer tailored preventative maintenance contracts.", q_ar: "هل تتوفر لديكم قطع غيار وعقود صيانة؟", a_ar: "نعم، نحتفظ بمخزون شامل من قطع الغيار الأصلية (OEM) لجميع علاماتنا التجارية. كما نقدم عقود صيانة وقائية مصممة خصيصًا." }
-        ];
-
-        function renderFAQs(lang) {
-            const faqContainer = document.getElementById('faq-container');
-            faqContainer.innerHTML = ''; // Clear existing
-            faqs.forEach(item => {
-                const q = lang === 'ar' ? item.q_ar : item.q_en;
-                const a = lang === 'ar' ? item.a_ar : item.a_en;
-                
-                const div = document.createElement('div');
-                div.className = "border-b border-gray-100 last:border-b-0";
-                div.innerHTML = `
-                    <button class="w-full flex justify-between items-center font-bold text-lg text-paypal-dark py-4 hover:text-paypal-light transition-colors" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('svg').classList.toggle('rotate-180')" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
-                        ${q} <i data-lucide="chevron-down" class="w-6 h-6 text-paypal-light transition-transform duration-300 transform"></i>
-                    </button>
-                    <p class="hidden text-gray-600 pb-4 leading-relaxed" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">${a}</p>
-                `;
-                faqContainer.appendChild(div);
-            });
-            lucide.createIcons();
-        }
-
-        // Language Switcher Logic
-        function switchLanguage(lang, skipBody = false) {
-            currentLang = lang;
-            const elements = document.querySelectorAll('[data-i18n]');
-            const placeholders = document.querySelectorAll('[data-i18n-placeholder]');
-            const body = document.body;
+            // Daily Cost Estimate
+            let dailyCost = estimatedFuel * 24 * DIESEL_PRICE_PER_LITER;
+            document.getElementById('result-cost').innerText = dailyCost.toLocaleString();
             
-            if (!skipBody) {
-                if (lang === 'ar') {
-                    body.dir = "rtl";
-                    body.classList.add('font-arabic');
-                } else {
-                    body.dir = "ltr";
-                    body.classList.remove('font-arabic');
-                }
+            // Track with analytics if available
+            if (typeof gtag !== 'undefined' && displayKVA > 0) {
+                gtag('event', 'calculate_kva', {
+                    'event_category': 'calculator',
+                    'event_label': displayKVA + ' KVA'
+                });
             }
+        }, 300);
+    }
 
-            elements.forEach(el => {
-                const key = el.getAttribute('data-i18n');
-                if (translations[lang][key]) {
-                    el.innerHTML = translations[lang][key];
-                }
-            });
-
-            placeholders.forEach(el => {
-                const key = el.getAttribute('data-i18n-placeholder');
-                if (translations[lang][key]) {
-                    el.placeholder = translations[lang][key];
-                }
-            });
-            
-            renderFAQs(lang);
-            lucide.createIcons();
-            
-            // Refresh Sound Display Text if active
-            const isSilent = document.getElementById('btn-sound-silent').classList.contains('bg-paypal-light');
-            setSoundMode(isSilent ? 'silent' : 'open');
+    // FAQ Data
+    const faqs = [
+        { 
+            q_en: "How long does delivery and installation take?", 
+            a_en: "Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics.", 
+            q_ar: "كم تستغرق عملية التوصيل والتركيب؟", 
+            a_ar: "يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد واللوجستيات الخاصة بالموقع." 
+        },
+        { 
+            q_en: "Do you provide installation services and ATS panels?", 
+            a_en: "Yes, we offer full turnkey installation, including site assessment, positioning, cabling, Automatic Transfer Switch (ATS) panels, and commissioning.", 
+            q_ar: "هل تقدمون خدمات التركيب ولوحات ATS؟", 
+            a_ar: "نعم، نحن نقدم تركيبًا كاملاً وشاملاً، بما في ذلك تقييم الموقع، وتحديد الموقع، والكابلات، ولوحات مفاتيح التحويل التلقائي (ATS)، والتشغيل." 
+        },
+        { 
+            q_en: "What is the warranty period and coverage?", 
+            a_en: "We provide a standard warranty of 1 year or 1000 operating hours (whichever comes first) covering manufacturing defects in the engine and alternator, supported locally.", 
+            q_ar: "ما هي فترة الضمان والتغطية؟", 
+            a_ar: "نقدم ضمانًا قياسيًا لمدة عام واحد أو 1000 ساعة تشغيل (أيهما يأتي أولاً) يغطي عيوب التصنيع في المحرك والمولد الكهربائي، مع دعم محلي." 
+        },
+        { 
+            q_en: "Do you have spare parts and maintenance contracts?", 
+            a_en: "Yes, we maintain a comprehensive stock of genuine OEM spare parts for all our brands. We also offer tailored preventative maintenance contracts.", 
+            q_ar: "هل تتوفر لديكم قطع غيار وعقود صيانة؟", 
+            a_ar: "نعم، نحتفظ بمخزون شامل من قطع الغيار الأصلية (OEM) لجميع علاماتنا التجارية. كما نقدم عقود صيانة وقائية مصممة خصيصًا." 
         }
+    ];
 
-        // --- Navbar Scroll & Toggle Logic ---
+    function renderFAQs(lang) {
+        const faqContainer = document.getElementById('faq-container');
+        faqContainer.innerHTML = '';
         
-        const navbar = document.getElementById('navbar');
-        const navLinks = document.querySelectorAll('.nav-link');
-        const langBtns = document.querySelectorAll('.lang-btn');
-        const brand1 = document.getElementById('brand-1');
-        const brand2 = document.getElementById('brand-2');
-        const navBtn = document.getElementById('nav-btn');
-        const menuIcon = document.querySelector('[data-lucide="menu"]');
-        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
-
-         function updateNavColors(isScrolled) {
-            // Force white bg if menu is open on mobile to match dropdown
-            const isMenuOpen = !document.getElementById('mobile-menu').classList.contains('hidden');
+        faqs.forEach(item => {
+            const q = lang === 'ar' ? item.q_ar : item.q_en;
+            const a = lang === 'ar' ? item.a_ar : item.a_en;
             
-            if (isScrolled || isMenuOpen) {
-                navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
-                navbar.classList.remove('py-6');
-                
-                navLinks.forEach(link => {
-                    link.classList.remove('text-white/90', 'hover:text-white');
-                    link.classList.add('text-gray-600', 'hover:text-paypal-dark');
-                });
-                
-                langBtns.forEach(btn => {
-                     btn.classList.remove('text-white/80', 'hover:text-white');
-                     btn.classList.add('text-gray-600', 'hover:text-paypal-dark');
-                });
-                
-                brand1.classList.remove('text-white');
-                brand1.classList.add('text-paypal-dark');
-                
-                brand2.classList.remove('text-blue-200');
-                brand2.classList.add('text-paypal-light');
-                
-                navBtn.classList.remove('border-white/30', 'text-white', 'hover:bg-white/10');
-                navBtn.classList.add('bg-paypal-light', 'text-white', 'hover:bg-paypal-dark', 'border-transparent');
-                
-                mobileMenuBtn.classList.remove('text-white');
-                mobileMenuBtn.classList.add('text-paypal-dark');
-            } else {
-                navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
-                navbar.classList.add('py-6');
-                
-                navLinks.forEach(link => {
-                    link.classList.add('text-white/90', 'hover:text-white');
-                    link.classList.remove('text-gray-600', 'hover:text-paypal-dark');
-                });
-                
-                langBtns.forEach(btn => {
-                     btn.classList.add('text-white/80', 'hover:text-white');
-                     btn.classList.remove('text-gray-600', 'hover:text-paypal-dark');
-                });
-                
-                brand1.classList.add('text-white');
-                brand1.classList.remove('text-paypal-dark');
-                
-                brand2.classList.add('text-blue-200');
-                brand2.classList.remove('text-paypal-light');
-                
-                navBtn.classList.add('border-white/30', 'text-white', 'hover:bg-white/10');
-                navBtn.classList.remove('bg-paypal-light', 'text-white', 'hover:bg-paypal-dark', 'border-transparent');
+            const details = document.createElement('details');
+            details.className = "border-b border-gray-100 last:border-b-0";
+            details.innerHTML = `
+                <summary class="cursor-pointer font-bold text-lg text-paypal-dark py-4 hover:text-paypal-light transition-colors flex justify-between items-center" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">
+                    <span>${q}</span>
+                    <i data-lucide="chevron-down" class="w-6 h-6 text-paypal-light transition-transform duration-300 details-icon" aria-hidden="true"></i>
+                </summary>
+                <p class="text-gray-600 pb-4 leading-relaxed" dir="${lang === 'ar' ? 'rtl' : 'ltr'}">${a}</p>
+            `;
+            
+            // Add event listener for icon rotation
+            details.addEventListener('toggle', function() {
+                const icon = this.querySelector('.details-icon');
+                if (this.open) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0deg)';
+                }
+            });
+            
+            faqContainer.appendChild(details);
+        });
+        
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+        }
+    }
 
-                mobileMenuBtn.classList.add('text-white');
-                mobileMenuBtn.classList.remove('text-paypal-dark');
+    // Language Switcher
+    function switchLanguage(lang, skipBody = false) {
+        currentLang = lang;
+        const elements = document.querySelectorAll('[data-i18n]');
+        const placeholders = document.querySelectorAll('[data-i18n-placeholder]');
+        const body = document.body;
+        const html = document.documentElement;
+        
+        if (!skipBody) {
+            if (lang === 'ar') {
+                body.dir = "rtl";
+                html.lang = "ar";
+                body.classList.add('font-arabic');
+                document.title = translations['ar']['pageTitle'];
+            } else {
+                body.dir = "ltr";
+                html.lang = "en";
+                body.classList.remove('font-arabic');
+                document.title = translations['en']['pageTitle'];
             }
         }
 
-        window.addEventListener('scroll', () => {
-            updateNavColors(window.scrollY > 20);
+        elements.forEach(el => {
+            const key = el.getAttribute('data-i18n');
+            if (translations[lang][key]) {
+                el.innerHTML = translations[lang][key];
+            }
         });
 
-        function toggleMenu() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
-            
-            // If we just opened the menu, force the nav to be white/solid for visibility
-            // If closed, check scroll position
-            updateNavColors(window.scrollY > 20);
+        placeholders.forEach(el => {
+            const key = el.getAttribute('data-i18n-placeholder');
+            if (translations[lang][key]) {
+                el.placeholder = translations[lang][key];
+            }
+        });
+        
+        renderFAQs(lang);
+        
+        if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
         }
+        
+        // Refresh Sound Display
+        const isSilent = document.getElementById('btn-sound-silent').classList.contains('bg-paypal-light');
+        setSoundMode(isSilent ? 'silent' : 'open');
+    }
 
-        // Initial Load
-        document.addEventListener('DOMContentLoaded', () => {
-            switchLanguage('en');
-            calculateKVA(); 
-        });
-    </script>
-</body>
-</html>
+    // Navbar Scroll & Toggle
+    const navbar = document.getElementById('navbar');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const langBtns = document.querySelectorAll('.lang-btn');
+    const brand1 = document.getElementById('brand-1');
+    const brand2 = document.getElementById('brand-2');
+    const navBtn = document.getElementById('nav-btn');
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+
+    function updateNavColors(isScrolled) {
+        const isMenuOpen = !document.getElementById('mobile-menu').classList.contains('hidden');
+        
+        if (isScrolled || isMenuOpen) {
+            navbar.classList.add('bg-white/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
+            navbar.classList.remove('py-6');
+            
+            navLinks.forEach(link => {
+                link.classList.remove('text-white/90', 'hover:text-white');
+                link.classList.add('text-gray-600', 'hover:text-paypal-dark');
+            });
+            
+            langBtns.forEach(btn => {
+                 btn.classList.remove('text-white/80', 'hover:text-white');
+                 btn.classList.add('text-gray-600', 'hover:text-paypal-dark');
+            });
+            
+            brand1.classList.remove('text-white');
+            brand1.classList.add('text-paypal-dark');
+            
+            brand2.classList.remove('text-blue-200');
+            brand2.classList.add('text-paypal-light');
+            
+            navBtn.classList.remove('border-white/30', 'text-white', 'hover:bg-white/10');
+            navBtn.classList.add('bg-paypal-light', 'text-white', 'hover:bg-paypal-dark', 'border-transparent');
+            
+            mobileMenuBtn.classList.remove('text-white');
+            mobileMenuBtn.classList.add('text-paypal-dark');
+        } else {
+            navbar.classList.remove('bg-white/95', 'backdrop-blur-md', 'shadow-lg', 'py-3');
+            navbar.classList.add('py-6');
+            
+            navLinks.forEach(link => {
+                link.classList.add('text-white/90', 'hover:text-white');
+                link.classList.remove('text-gray-600', 'hover:text-paypal-dark');
+            });
+            
+            langBtns.forEach(btn => {
+                 btn.classList.add('text-white/80', 'hover:text-white');
+                 btn.classList.remove('text-gray-600', 'hover:text-paypal-dark');
+            });
+            
+            brand1.classList.add('text-white');
+            brand1.classList.remove('text-paypal-dark');
+            
+            brand2.classList.add('text-blue-200');
+            brand2.classList.remove('text-paypal-light');
+            
+            navBtn.classList.add('border-white/30', 'text-white', 'hover:bg-white/10');
+            navBtn.classList.remove('bg-paypal-light', 'text-white', 'hover:bg-paypal-dark', 'border-transparent');
+
+            mobileMenuBtn.classList.add('text-white');
+            mobileMenuBtn.classList.remove('text-paypal-dark');
+        }
+    }
+
+    window.addEventListener('scroll', () => {
+        updateNavColors(window.scrollY > 20);
+    });
+
+    function toggleMenu() {
+        const menu = document.getElementById('mobile-menu');
+        const button = document.getElementById('mobile-menu-btn');
+        const isOpen = !menu.classList.contains('hidden');
+        
+        menu.classList.toggle('hidden');
+        button.setAttribute('aria-expanded', !isOpen);
+        
+        updateNavColors(window.scrollY > 20);
+    }
+
+    // Initial Load
+    document.addEventListener('DOMContentLoaded', () => {
+        switchLanguage('en');
+        calculateKVA();
+        
+        // Initialize icons after delay to ensure library is loaded
+        setTimeout(() => {
+            if (typeof lucide !== 'undefined') {
+                lucide.createIcons();
+            }
+        }, 100);
+    });
+</script>
