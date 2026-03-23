@@ -38,7 +38,7 @@
 {"@context":"https://schema.org","@type":"LocalBusiness","name":"Premium Power LLC","image":["https://premiumpower-eg.com/images/logo.png"],"@id":"https://premiumpower-eg.com","url":"https://premiumpower-eg.com","telephone":"+201229688688","priceRange":"$$$","address":{"@type":"PostalAddress","streetAddress":"40 El Hegaz St., Heliopolis","addressLocality":"Cairo","addressRegion":"Cairo","postalCode":"11757","addressCountry":"EG"},"geo":{"@type":"GeoCoordinates","latitude":30.1056,"longitude":31.3426},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=61583941521978","https://www.linkedin.com/in/premium-power-4430a3399"]}
 </script>
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does generator delivery and installation take in Egypt?","acceptedAnswer":{"@type":"Answer","text":"Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics."}},{"@type":"Question","name":"Do you provide ATS panels with the generators?","acceptedAnswer":{"@type":"Answer","text":"Yes, Premium Power offers full turnkey installation including ATS panels, cabling, and site commissioning."}},{"@type":"Question","name":"Are your spare parts genuine?","acceptedAnswer":{"@type":"Answer","text":"Yes, we guarantee 100% genuine OEM spare parts for Perkins, Volvo, and Doosan generators."}},{"@type":"Question","name":"Do you have maintenance contracts?","acceptedAnswer":{"@type":"Answer","text":"Yes, we offer tailored preventative maintenance contracts with 24/7 emergency response."}}]}
+{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"How long does generator delivery and installation take in Egypt?","acceptedAnswer":{"@type":"Answer","text":"Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics. Larger projects requiring civil works may take 3–4 weeks."}},{"@type":"Question","name":"Do you provide ATS panels and full turnkey installation?","acceptedAnswer":{"@type":"Answer","text":"Yes, Premium Power offers complete turnkey installation including site assessment, civil foundation, cabling, ATS panels, fuel piping, and commissioning. Civil works is a standard inclusion, not an optional extra."}},{"@type":"Question","name":"What is the warranty on your generators?","acceptedAnswer":{"@type":"Answer","text":"We provide a standard warranty of 1 year or 1,000 operating hours covering manufacturing defects. An extended warranty with unlimited operating hours is available as an upgrade."}},{"@type":"Question","name":"Are your spare parts 100% genuine OEM?","acceptedAnswer":{"@type":"Answer","text":"Yes, we guarantee 100% genuine OEM spare parts for Perkins, Volvo Penta, and Doosan. Every part comes with a Certificate of Origin. We do not use aftermarket or generic alternatives."}},{"@type":"Question","name":"What maintenance contract options are available?","acceptedAnswer":{"@type":"Answer","text":"We offer Standard AMC (4 visits/year, 24h response, 5% parts discount) and Premium+ AMC (12 visits/year, 4h response, 15% parts discount). Both include genuine OEM parts and a technical report after every visit."}},{"@type":"Question","name":"Can you supply soundproof canopies for hospitals or residential areas?","acceptedAnswer":{"@type":"Answer","text":"Yes. Our Super Silent canopy reduces noise to 65 dB at 1 meter using 2mm ST.37 steel with high-density Rockwool insulation, making it fully suitable for hospitals, hotels, and residential compounds."}},{"@type":"Question","name":"Do you offer synchronization for multiple generators?","acceptedAnswer":{"@type":"Answer","text":"Yes. We design and install advanced synchronization panels including load sharing, totalizing panels, and Grid-Sync for peak looping, using ComAp InteliGen controllers."}},{"@type":"Question","name":"What fuel storage solutions do you provide?","acceptedAnswer":{"@type":"Answer","text":"We supply custom steel fuel tanks from 500L to 30,000L (single and double-wall), complete Schedule 40/80 piping networks, and automatic transfer pump systems for unattended operation."}},{"@type":"Question","name":"Which areas of Egypt do you cover?","acceptedAnswer":{"@type":"Answer","text":"We operate nationwide from Cairo HQ in Heliopolis, with facilities in 6th of October City, Shebin El-Kom, and Giza. We serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates."}},{"@type":"Question","name":"Can you handle SCADA integration and remote monitoring?","acceptedAnswer":{"@type":"Answer","text":"Yes. We install SCADA and remote monitoring systems using GSM/Ethernet modules with cloud logging, SMS alerts, and real-time asset monitoring accessible from any device."}}]}
 </script>
 
 <style>
@@ -2153,10 +2153,66 @@ ar:{
 
 // ── FAQ data ─────────────────────────────────────────────────────
 const FAQS=[
-  {q_en:'How long does delivery and installation take?',a_en:'Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics.',q_ar:'كم تستغرق عملية التوصيل والتركيب؟',a_ar:'يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع.'},
-  {q_en:'Do you provide ATS panels and full installation?',a_en:'Yes — we offer complete turnkey installation including site assessment, civil foundation, cabling, ATS panels, and commissioning.',q_ar:'هل تقدمون خدمات التركيب الكاملة ولوحات ATS؟',a_ar:'نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS والتشغيل.'},
-  {q_en:'What is the warranty period?',a_en:'We provide a standard warranty of 1 year or 1,000 operating hours, covering manufacturing defects in the engine and alternator, with full local support.',q_ar:'ما هي فترة الضمان والتغطية؟',a_ar:'نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي، مع دعم محلي كامل.'},
-  {q_en:'Do you stock spare parts and offer maintenance contracts?',a_en:'Yes — we hold comprehensive stock of genuine OEM parts for all three brands and offer tailored preventive maintenance contracts with 24/7 emergency response.',q_ar:'هل تتوفر قطع غيار وعقود صيانة؟',a_ar:'نعم، نحتفظ بمخزون شامل من القطع الأصلية للماركات الثلاث ونقدم عقود صيانة وقائية مصممة خصيصاً مع استجابة طوارئ 24/7.'},
+  {
+    q_en:'How long does delivery and installation take?',
+    a_en:'Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics. Larger projects requiring civil works may take 3–4 weeks.',
+    q_ar:'كم تستغرق عملية التوصيل والتركيب؟',
+    a_ar:'يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع.'
+  },
+  {
+    q_en:'Do you provide ATS panels and full turnkey installation?',
+    a_en:'Yes — we offer complete turnkey installation including site assessment, civil foundation, cabling, ATS panels, fuel piping, and commissioning. Civil works is included as a standard part of our service, not an optional extra.',
+    q_ar:'هل تقدمون لوحات ATS والتركيب المتكامل؟',
+    a_ar:'نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية.'
+  },
+  {
+    q_en:'What is the warranty on your generators?',
+    a_en:'We provide a standard warranty of 1 year or 1,000 operating hours covering manufacturing defects in the engine and alternator. An extended warranty with unlimited operating hours is available as an upgrade.',
+    q_ar:'ما هي فترة ضمان المولدات؟',
+    a_ar:'نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية.'
+  },
+  {
+    q_en:'Are your spare parts 100% genuine OEM?',
+    a_en:'Yes — we guarantee 100% genuine OEM spare parts for Perkins, Volvo Penta, and Doosan. Every part comes with a Certificate of Origin. We do not use aftermarket or generic alternatives.',
+    q_ar:'هل قطع الغيار أصلية 100% من الشركة الأم؟',
+    a_ar:'نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة.'
+  },
+  {
+    q_en:'What maintenance contract options are available?',
+    a_en:'We offer two AMC tiers. Standard: 4 visits/year, 24h emergency response, 5% parts discount. Premium+: 12 visits/year, 4h emergency response, 15% parts discount, and priority scheduling. Both include genuine OEM parts and a technical report after every visit.',
+    q_ar:'ما خيارات عقود الصيانة السنوية المتاحة؟',
+    a_ar:'نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة.'
+  },
+  {
+    q_en:'Can you supply soundproof canopies for residential or hospital use?',
+    a_en:'Yes — we fabricate custom soundproof canopies locally using 2mm ST.37 steel with high-density Rockwool insulation (>70 kg/m³). Our Super Silent canopy reduces noise to 65 dB at 1 meter, making it fully suitable for hospitals, hotels, and residential compounds.',
+    q_ar:'هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟',
+    a_ar:'نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (>70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد.'
+  },
+  {
+    q_en:'Do you offer synchronization for multiple generators?',
+    a_en:'Yes — we design and install advanced synchronization panels for multi-generator setups, including load sharing, totalizing panels, and Grid-Sync for peak looping applications. We use ComAp InteliGen controllers for parallel operation.',
+    q_ar:'هل تقدمون خدمات المزامنة بين عدة مولدات؟',
+    a_ar:'نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen.'
+  },
+  {
+    q_en:'What fuel storage solutions do you provide?',
+    a_en:'We supply custom cylindrical and rectangular steel fuel tanks from 500L to 30,000L (single and double-wall). We also install complete Schedule 40/80 fuel piping networks and automatic transfer pump systems with float switches for unattended operation.',
+    q_ar:'ما حلول تخزين الوقود التي تقدمونها؟',
+    a_ar:'نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة من النوع 40/80 وأنظمة مضخات نقل أوتوماتيكية.'
+  },
+  {
+    q_en:'Which areas of Egypt do you cover?',
+    a_en:'We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in 6th of October City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.',
+    q_ar:'ما المناطق التي تغطونها في مصر؟',
+    a_ar:'نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي ومنيا الصحراء.'
+  },
+  {
+    q_en:'Can you handle SCADA integration and remote monitoring?',
+    a_en:'Yes — we design and install SCADA and remote monitoring systems using GSM/Ethernet modules linked to BMS infrastructure. Features include cloud-based logging, SMS alerts, and real-time asset monitoring accessible from any device.',
+    q_ar:'هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟',
+    a_ar:'نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز.'
+  },
 ];
 
 // ── PDF config ───────────────────────────────────────────────────
