@@ -1,0 +1,11 @@
+{
+  "name": "premiumpower-reels",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Deterministic frame-by-frame product feature reel renderer.",
+  "scripts": {
+    "spot": "node render.mjs --spot",
+    "render": "node render.mjs"
+  }
+}

@@ -1,0 +1,6 @@
+node_modules/
+# Capture working dirs (frames + generated stage.html). The deliverables that
+# live directly in out/ — the .mp4 and the spot contact sheet — are tracked.
+out/*/
+!out/*.mp4
+!out/*.jpg
