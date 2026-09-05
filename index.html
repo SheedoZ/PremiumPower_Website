@@ -385,6 +385,7 @@ body::before {
   padding: 1rem 0; border-bottom: 1px solid var(--border);
 }
 .calc-row:last-child { border-bottom: none; }
+.calc-row-hours { border-top: 2px solid var(--border2); margin-top: .5rem; padding-top: 1.4rem; }
 .calc-label { font-size: .9rem; color: var(--off); }
 .calc-sub { font-size: .75rem; color: var(--muted); }
 .calc-input {
@@ -1249,6 +1250,10 @@ footer {
           <label for="c-light" style="cursor:pointer"><div class="calc-label" data-i18n="light">Lighting (Room)</div><div class="calc-sub" data-i18n="lightW">≈ 100 W each</div></label>
           <input type="number" id="c-light" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of rooms">
         </div>
+        <div class="calc-row calc-row-hours">
+          <label for="c-hours" style="cursor:pointer"><div class="calc-label" data-i18n="calcHours">Operating Hours / Day</div><div class="calc-sub" data-i18n="calcHoursSub">How long the generator runs each day</div></label>
+          <input type="number" id="c-hours" class="calc-input" min="0" max="24" value="0" oninput="app.calcKVA()" aria-label="Operating hours per day">
+        </div>
       </div>
 
       <!-- Result -->
@@ -2001,7 +2006,7 @@ en:{
   step4:'Installation',step4D:'Power cabling, exhaust ducting, fuel piping, and full control panel termination.',
   step5:'Commissioning',step5D:'Load testing, safety verification, and full handover training for your operations team.',
   calcLabel:'Interactive Tool',calcTitle:'POWER SIZE\nCALCULATOR',calcSub:'Enter your equipment below to get an instant KVA estimate with fuel consumption and daily cost.',
-  calcEquipment:'YOUR EQUIPMENT',calcHint:'Enter your appliances to see the recommended generator size.',calcEstimate:'ESTIMATED REQUIREMENT',
+  calcEquipment:'YOUR EQUIPMENT',calcHours:'Operating Hours / Day',calcHoursSub:'How long the generator runs each day',calcHint:'Enter your appliances to see the recommended generator size.',calcEstimate:'ESTIMATED REQUIREMENT',
   ac1:'AC Unit (1.5 HP)',ac1W:'≈ 1,200 W each',ac3:'AC Unit (3.0 HP)',ac3W:'≈ 2,400 W each',
   pump:'Water Pump (1 HP)',pumpW:'≈ 750 W each',pc:'PC / Workstation',pcW:'≈ 200 W each',light:'Lighting (Room)',lightW:'≈ 100 W each',
   fuelLabel:'Fuel Consumption',fuelUnit:'L/hr',costLabel:'Daily Fuel Cost',
@@ -2137,7 +2142,7 @@ ar:{
   step4:'التركيب',step4D:'كابلات القوى وقنوات العادم وأنابيب الوقود وتوصيل لوحة التحكم الكاملة.',
   step5:'التشغيل',step5D:'اختبار الحمل والتحقق من السلامة والتسليم مع تدريب كامل لفريق تشغيلكم.',
   calcLabel:'أداة تفاعلية',calcTitle:'حاسبة\nقدرة المولد',calcSub:'أدخل معداتك أدناه للحصول على تقدير فوري للـ KVA مع استهلاك الوقود والتكلفة اليومية.',
-  calcEquipment:'معداتك',calcHint:'أدخل أجهزتك لرؤية حجم المولد الموصى به.',calcEstimate:'المتطلبات المقدرة',
+  calcEquipment:'معداتك',calcHours:'ساعات التشغيل / يوم',calcHoursSub:'كم ساعة يعمل المولد يومياً',calcHint:'أدخل أجهزتك لرؤية حجم المولد الموصى به.',calcEstimate:'المتطلبات المقدرة',
   ac1:'مكيف (1.5 حصان)',ac1W:'≈ 1,200 واط لكل وحدة',ac3:'مكيف (3.0 حصان)',ac3W:'≈ 2,400 واط لكل وحدة',
   pump:'مضخة مياه (1 حصان)',pumpW:'≈ 750 واط لكل وحدة',pc:'كمبيوتر / محطة عمل',pcW:'≈ 200 واط لكل وحدة',light:'إضاءة (غرفة)',lightW:'≈ 100 واط لكل غرفة',
   fuelLabel:'استهلاك الوقود',fuelUnit:'لتر/ساعة',costLabel:'تكلفة الوقود اليومية',
@@ -2403,10 +2408,11 @@ function calcKVA(){
     const kva=Math.ceil((w/1000/0.8)*1.25);
     // 500 KVA at 75% load burns 75 L/hr, so 0.15 L/hr per KVA.
     const fuel=kva>0?Math.round(kva*0.15*10)/10:0;
-    const cost=Math.round(fuel*24*20);
+    const hours=Math.max(0,Math.min(24,parseInt(document.getElementById('c-hours').value)||0));
+    const cost=Math.round(fuel*hours*20);
     document.getElementById('r-kva').textContent=kva;
     document.getElementById('r-fuel').textContent=fuel;
-    document.getElementById('r-cost').textContent=cost.toLocaleString();
+    document.getElementById('r-cost').textContent=hours>0?cost.toLocaleString():'—';
     if(!calcShown&&kva>0){
       calcShown=true;
       document.getElementById('calc-placeholder').style.display='none';
