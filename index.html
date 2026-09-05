@@ -293,6 +293,7 @@ body::before {
 .sec-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
 .sec-header { margin-bottom: 4rem; }
 .sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; }
+.sec-title .accent { color: var(--copper); }
 .sec-desc { color: var(--muted); max-width: 560px; margin-top: 1rem; font-weight: 300; }
 
 /* ── Products / Brands ── */
@@ -466,26 +467,43 @@ body::before {
 
 /* ── Comparison ── */
 #comparison { background: var(--bg2); border-top: 1px solid var(--border); }
-.comp-table { width: 100%; border-collapse: collapse; margin-top: 3rem; }
-.comp-table thead th {
-  padding: 1.25rem 1.5rem; font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
-  font-weight: 600; background: var(--bg3); border-bottom: 2px solid var(--border2);
-  text-align: left;
+.comp-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; align-items: start; }
+.comp-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; }
+.comp-card.us {
+  border: 2px solid var(--copper); box-shadow: 0 8px 30px rgba(0,156,222,.13); position: relative;
 }
-.comp-table thead th:nth-child(2) { color: var(--copper); border-bottom-color: var(--copper); }
-.comp-table tbody td {
-  padding: 1.2rem 1.5rem; font-size: .88rem; border-bottom: 1px solid var(--border);
+.comp-tag {
+  position: absolute; top: -11px; inset-inline-start: 2rem;
+  background: var(--copper); color: #fff; font-size: .6rem; letter-spacing: .14em;
+  font-weight: 700; padding: .25rem .7rem; text-transform: uppercase;
 }
-.comp-table tbody tr:hover td { background: var(--bg3); }
-.comp-table td:nth-child(2) {
-  color: var(--copper); font-weight: 600; background: rgba(0,156,222,.06);
+.comp-card-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .05em; }
+.comp-card.us .comp-card-h { color: var(--copper3); }
+.comp-card.them .comp-card-h { color: var(--muted); }
+.comp-card-s {
+  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 1.5rem; font-weight: 600;
 }
-.comp-check { color: var(--copper); font-weight: 700; }
-.comp-muted { color: var(--muted); }
-.comp-badge {
-  display: inline-flex; align-items: center; gap: .4rem;
-  font-size: .78rem;
+.comp-list { list-style: none; }
+.comp-list li {
+  display: flex; gap: .8rem; align-items: flex-start;
+  padding: .85rem 0; border-bottom: 1px solid var(--border); font-size: .9rem;
 }
+.comp-list li:last-child { border-bottom: 0; }
+.comp-ic {
+  flex: 0 0 20px; height: 20px; border-radius: 50%; margin-top: 2px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: .7rem; font-weight: 700;
+}
+.comp-card.us .comp-ic { background: var(--copper); color: #fff; }
+.comp-card.them .comp-ic { background: var(--border2); color: #fff; }
+.comp-k {
+  display: block; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); font-weight: 600; margin-bottom: 1px;
+}
+.comp-v { display: block; }
+.comp-card.us .comp-v { font-weight: 600; color: var(--copper3); }
+.comp-card.them .comp-v { color: var(--muted); }
 
 /* ── How We Work ── */
 #workflow { background: var(--bg); border-top: 1px solid var(--border); }
@@ -834,6 +852,7 @@ footer {
   .footer-grid { grid-template-columns: 1fr; }
   .form-grid { grid-template-columns: 1fr; }
   .brand-grid { grid-template-columns: 1fr; }
+  .comp-cards { grid-template-columns: 1fr; }
 }
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: 1fr 1fr; }
@@ -1447,23 +1466,30 @@ footer {
       <div class="copper-line"></div>
       <h2 class="sec-title reveal" data-i18n="compTitle">THE PREMIUM<br><span style="color:var(--copper)">DIFFERENCE</span></h2>
     </div>
-    <div class="reveal" style="overflow-x:auto">
-      <table class="comp-table">
-        <thead>
-          <tr>
-            <th data-i18n="compFeature">Feature</th>
-            <th data-i18n="compUs">Premium Power ✦</th>
-            <th data-i18n="compThem">Standard Competitor</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr><td data-i18n="compR1">Emergency Response Time</td><td class="comp-badge"><span class="comp-check">⚡</span> <span data-i18n="compR1Us">Within 24 Hours</span></td><td class="comp-muted" data-i18n="compR1Them">3–5 Days (Often Longer)</td></tr>
-          <tr><td data-i18n="compR2">Spare Parts Authenticity</td><td class="comp-badge"><span class="comp-check">✓</span> <span data-i18n="compR2Us">100% Genuine OEM</span></td><td class="comp-muted" data-i18n="compR2Them">Aftermarket / Generic</td></tr>
-          <tr><td data-i18n="compR3">Standard Warranty</td><td data-i18n="compR3Us">1 Year / 1,000 Hours</td><td class="comp-muted" data-i18n="compR3Them">6 Months or Less</td></tr>
-          <tr><td data-i18n="compR4">Technician Expertise</td><td class="comp-badge"><span class="comp-check">✓</span> <span data-i18n="compR4Us">Certified Engineers</span></td><td class="comp-muted" data-i18n="compR4Them">Contracted Labour</td></tr>
-          <tr><td data-i18n="compR5">Load Testing & Commissioning</td><td data-i18n="compR5Us">Always Included</td><td class="comp-muted" data-i18n="compR5Them">Optional / Extra Charge</td></tr>
-        </tbody>
-      </table>
+    <div class="comp-cards">
+      <div class="comp-card us reveal">
+        <span class="comp-tag" data-i18n="compRecommended">Recommended</span>
+        <div class="comp-card-h" data-i18n="compUs">Premium Power ✦</div>
+        <div class="comp-card-s" data-i18n="compUsSub">What You Get</div>
+        <ul class="comp-list">
+        <li><span class="comp-ic">⚡</span><span><span class="comp-k" data-i18n="compR1"></span><span class="comp-v" data-i18n="compR1Us"></span></span></li>
+        <li><span class="comp-ic">✓</span><span><span class="comp-k" data-i18n="compR2"></span><span class="comp-v" data-i18n="compR2Us"></span></span></li>
+        <li><span class="comp-ic">✓</span><span><span class="comp-k" data-i18n="compR3"></span><span class="comp-v" data-i18n="compR3Us"></span></span></li>
+        <li><span class="comp-ic">✓</span><span><span class="comp-k" data-i18n="compR4"></span><span class="comp-v" data-i18n="compR4Us"></span></span></li>
+        <li><span class="comp-ic">✓</span><span><span class="comp-k" data-i18n="compR5"></span><span class="comp-v" data-i18n="compR5Us"></span></span></li>
+        </ul>
+      </div>
+      <div class="comp-card them reveal reveal-delay-1">
+        <div class="comp-card-h" data-i18n="compThem">Standard Competitor</div>
+        <div class="comp-card-s" data-i18n="compThemSub">What You Settle For</div>
+        <ul class="comp-list">
+        <li><span class="comp-ic">–</span><span><span class="comp-k" data-i18n="compR1"></span><span class="comp-v" data-i18n="compR1Them"></span></span></li>
+        <li><span class="comp-ic">–</span><span><span class="comp-k" data-i18n="compR2"></span><span class="comp-v" data-i18n="compR2Them"></span></span></li>
+        <li><span class="comp-ic">–</span><span><span class="comp-k" data-i18n="compR3"></span><span class="comp-v" data-i18n="compR3Them"></span></span></li>
+        <li><span class="comp-ic">–</span><span><span class="comp-k" data-i18n="compR4"></span><span class="comp-v" data-i18n="compR4Them"></span></span></li>
+        <li><span class="comp-ic">–</span><span><span class="comp-k" data-i18n="compR5"></span><span class="comp-v" data-i18n="compR5Them"></span></span></li>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
@@ -1749,7 +1775,7 @@ footer {
           <div class="contact-icon">✉</div>
           <div>
             <div class="contact-detail-label" data-i18n="ctEmail">Email</div>
-            <div class="contact-detail-val"><a href="/cdn-cgi/l/email-protection#c9a0a7afa689b9bbaca4a0bca4b9a6beacbbe4acaee7aaa6a4"><span class="__cf_email__" data-cfemail="21484f474e615153444c48544c514e5644530c44460f424e4c">[email&#160;protected]</span></a></div>
+            <div class="contact-detail-val"><a href="mailto:info@premiumpower-eg.com">info@premiumpower-eg.com</a></div>
           </div>
         </div>
         <div class="contact-detail">
@@ -1865,7 +1891,7 @@ footer {
 </div>
 
 <!-- Scripts -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+<script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
 <script>
 (function(){
 'use strict';
@@ -1968,7 +1994,7 @@ en:{
   proj3Loc:'Maadi',proj3Title:'Bank HQ Data Center',proj3Desc:'1000 KVA Doosan in soundproof canopy (65 dB) for a tier-3 bank data center.',
   galleryLabel:'Our Work',galleryTitle:'GENERATOR\nGALLERY',
   compLabel:'Why Choose Us',compTitle:'THE PREMIUM\nDIFFERENCE',
-  compFeature:'Feature',compUs:'Premium Power ✦',compThem:'Standard Competitor',
+  compFeature:'Feature',compUs:'Premium Power ✦',compThem:'Standard Competitor',compUsSub:'What You Get',compThemSub:'What You Settle For',compRecommended:'Recommended',
   compR1:'Emergency Response',compR1Us:'Within 24 Hours',compR1Them:'3–5 Days (Often Longer)',
   compR2:'Spare Parts',compR2Us:'100% Genuine OEM',compR2Them:'Aftermarket / Generic',
   compR3:'Warranty',compR3Us:'1 Year / 1,000 Hours',compR3Them:'6 Months or Less',
@@ -2104,7 +2130,7 @@ ar:{
   proj3Loc:'المعادي',proj3Title:'مركز بيانات البنك',proj3Desc:'1000 ك.ف.أ دوسان في كابينة عازلة للصوت (65 ديسيبل) لمركز بيانات بنكي.',
   galleryLabel:'معرض أعمالنا',galleryTitle:'معرض\nالمولدات',
   compLabel:'لماذا تختارنا',compTitle:'الفرق\nالمميز',
-  compFeature:'الميزة',compUs:'بريميوم باور ✦',compThem:'المنافس العادي',
+  compFeature:'الميزة',compUs:'بريميوم باور ✦',compThem:'المنافس العادي',compUsSub:'ما تحصل عليه',compThemSub:'ما تقبل به',compRecommended:'الأفضل',
   compR1:'وقت الاستجابة للطوارئ',compR1Us:'خلال 24 ساعة',compR1Them:'3–5 أيام (غالباً أطول)',
   compR2:'أصالة قطع الغيار',compR2Us:'أصلية 100% (OEM)',compR2Them:'ما بعد البيع / عامة',
   compR3:'الضمان',compR3Us:'سنة واحدة / 1,000 ساعة',compR3Them:'6 أشهر أو أقل',
@@ -2385,7 +2411,7 @@ function submitForm(e){
   const msg=document.getElementById('f-msg').value.trim();
   const err=document.getElementById('phone-err');
   const t=T[lang];
-  if(!/^(\+?20)?1[0-9]{9}$/.test(phone.replace(/\s/g,''))){
+  if(!/^(?:(?:\+|00)?20|0)?1[0-9]{9}$/.test(phone.replace(/[\s\-()]/g,''))){
     err.textContent=t.formInvalidPhone; err.classList.add('show');
     document.getElementById('f-phone').focus(); return;
   }
@@ -2442,7 +2468,11 @@ function switchLanguage(l){
   else { document.body.dir='ltr'; document.body.classList.remove('rtl'); }
   document.querySelectorAll('[data-i18n]').forEach(el=>{
     const k=el.getAttribute('data-i18n');
-    if(t[k]!==undefined) el.innerHTML=t[k];
+    if(t[k]===undefined) return;
+    // Section titles carry a \n line break; the part after it takes the accent colour.
+    el.innerHTML = el.classList.contains('sec-title')
+      ? t[k].split('\n').map((part,i)=> i ? '<span class="accent">'+part+'</span>' : part).join('<br>')
+      : t[k];
   });
   renderFAQs();
   // refresh sound
