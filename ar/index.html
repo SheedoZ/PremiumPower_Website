@@ -177,7 +177,7 @@ body::before {
   mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 70%);
 }
 .hero-inner {
-  max-width: 1280px; margin: 0 auto; padding: 8rem 2rem 4rem;
+  max-width: 1280px; margin: 0 auto; padding: 7rem 2rem 4rem;
   display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
   width: 100%; position: relative; z-index: 1;
 }
@@ -200,7 +200,7 @@ body::before {
 }
 .hero-sub {
   font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 520px;
-  line-height: 1.8; margin-bottom: 2.5rem; font-weight: 300;
+  line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300;
 }
 .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
 .btn-primary {
@@ -219,6 +219,12 @@ body::before {
   transition: border-color .2s, color .2s; display: inline-flex; align-items: center; gap: .6rem;
 }
 .btn-outline:hover { border-color: var(--copper); color: var(--copper); }
+.btn-primary:focus-visible, .btn-outline:focus-visible, .nav-cta:focus-visible,
+.btn-amc-cta:focus-visible, .btn-submit:focus-visible, .btn-brand-primary:focus-visible,
+.btn-brand-outline:focus-visible, .fab-trigger:focus-visible, .lang-btn:focus-visible {
+  outline: 3px solid var(--copper); outline-offset: 3px;
+}
+.enquiry-path-btn { flex: 1 1 0; min-width: 0; padding: 1.1rem 1.2rem; justify-content: center; }
 
 /* Hero card */
 .hero-card {
@@ -567,6 +573,15 @@ body::before {
 .amc-feature:last-of-type { border-bottom: none; }
 .amc-check { color: var(--copper); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
 .amc-card.featured .amc-check { color: var(--copper); }
+.btn-amc-cta {
+  width: 100%; margin-top: 1.5rem; padding: .85rem 1rem;
+  background: transparent; color: var(--copper); border: 1px solid currentColor;
+  font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .08em;
+  text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s;
+}
+.btn-amc-cta:hover { background: var(--copper); color: #000; }
+.amc-card.featured .btn-amc-cta { color: #fff; border-color: rgba(255,255,255,.65); }
+.amc-card.featured .btn-amc-cta:hover { color: #000; border-color: var(--copper); }
 .amc-scope-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 1.5px; }
 .amc-scope-card { background: var(--bg3); padding: 1.5rem; display: flex; gap: .75rem; align-items: flex-start; }
 .amc-scope-icon { font-size: 1.2rem; flex-shrink: 0; }
@@ -641,8 +656,25 @@ body::before {
   font-family: 'Outfit', sans-serif; outline: none; transition: border-color .2s;
 }
 .form-input:focus, .form-textarea:focus { border-color: var(--copper); background: #fff; }
+.form-input:focus-visible, .form-textarea:focus-visible, .form-select:focus-visible {
+  outline: 3px solid rgba(0,156,222,.28); outline-offset: 1px;
+}
+.form-select { appearance: auto; }
 .form-textarea { height: 130px; resize: none; }
 .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-note { color: var(--muted); font-size: .78rem; line-height: 1.6; margin: -.5rem 0 1.5rem; }
+.form-status { min-height: 1.5rem; margin-top: 1rem; color: var(--muted); font-size: .82rem; line-height: 1.6; }
+.form-status[hidden] { display: none; }
+.form-status.success { color: var(--green); }
+.form-status.error { color: #B52E2E; }
+.form-status.uncertain { color: #986515; }
+.form-status a { color: inherit; font-weight: 600; }
+.form-status a:hover { color: var(--copper2); }
+.form-status:focus { outline: 2px solid var(--copper); outline-offset: 3px; }
+.form-submit-wrap { display: flex; flex-direction: column; }
+.form-note a { color: var(--copper2); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
+.form-note a:hover { color: var(--copper); }
+.form-fallback { margin: 1rem 0 0; }
 .form-error { color: #E05050; font-size: .78rem; margin-top: .4rem; display: none; }
 .form-error.show { display: block; }
 .btn-submit {
@@ -858,6 +890,8 @@ footer {
   .form-grid { grid-template-columns: 1fr; }
   .brand-grid { grid-template-columns: 1fr; }
   .comp-cards { grid-template-columns: 1fr; }
+  .enquiry-path-btn { flex: 0 0 100%; width: 100%; min-height: 5rem; }
+  .contact-form-wrap { padding: 2rem 1.25rem; }
 }
 @media (max-width: 1450px) {
   .nav-links { gap: 1.25rem; }
@@ -905,7 +939,7 @@ footer {
       <a href="#calculator" data-i18n="navCalc">الحاسبة</a>
       <a href="#portfolio" data-i18n="navPortfolio">سابقة أعمال</a>
       <a href="#contact" data-i18n="navContact">اتصل بنا</a>
-      <button class="nav-cta" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" data-i18n="btnQuote">اطلب عرضاً</button>
+      <button class="nav-cta" onclick="app.openEnquiry('sales')" data-i18n="btnQuote">اطلب عرضاً</button>
     </div>
     <button class="hamburger" onclick="app.toggleMenu()" aria-label="Toggle menu" aria-expanded="false" id="hamburger-btn">☰</button>
   </div>
@@ -945,12 +979,12 @@ footer {
         <span class="stroke" data-i18n="heroLine3">مصر</span>
       </h1>
       <p class="hero-sub reveal reveal-delay-1" data-i18n="heroSub">حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.</p>
-      <div class="hero-btns reveal reveal-delay-2">
-        <button class="btn-primary" onclick="document.getElementById('calculator').scrollIntoView({behavior:'smooth'})">
-          <span>⚡</span> <span data-i18n="btnFindGen">ابحث عن مولدك</span>
+      <div class="hero-btns reveal reveal-delay-2" aria-label="Enquiry options">
+        <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('sales')">
+          <span>⚡</span> <span data-i18n="btnGeneratorQuote">اطلب عرض سعر لمولد</span>
         </button>
-        <button class="btn-outline" onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})">
-          <span data-i18n="btnContact">تواصل معنا</span> →
+        <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('maintenance')">
+          <span data-i18n="btnMaintenanceAssessment">اطلب تقييماً للصيانة</span> →
         </button>
       </div>
     </div>
@@ -1700,6 +1734,7 @@ footer {
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcStdF3">خصم 5% على قطع الغيار</span></div>
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcStdF4">قطع غيار OEM أصلية فقط</span></div>
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcStdF5">تقرير فني بعد كل زيارة</span></div>
+        <button class="btn-amc-cta" type="button" onclick="app.openEnquiry('maintenance','standard')" data-i18n="amcStdCta">استفسر عن عقد الصيانة القياسي</button>
       </div>
 
       <div class="amc-card featured reveal reveal-delay-1">
@@ -1711,6 +1746,7 @@ footer {
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcPremF3">خصم 15% على قطع الغيار</span></div>
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcPremF4">قطع غيار OEM أصلية فقط</span></div>
         <div class="amc-feature"><span class="amc-check">✓</span><span data-i18n="amcPremF5">جدولة أولوية — 24/7</span></div>
+        <button class="btn-amc-cta" type="button" onclick="app.openEnquiry('maintenance','premium')" data-i18n="amcPremCta">استفسر عن عقد الصيانة بريميوم+</button>
       </div>
 
     </div>
@@ -1838,7 +1874,7 @@ footer {
     <div class="contact-layout reveal">
 
       <div class="contact-info">
-        <p style="color:rgba(255,255,255,0.7);font-size:.95rem;line-height:1.8;margin-bottom:3rem;font-weight:300" data-i18n="contactSub">فريق مبيعاتنا الهندسي جاهز لتحديد الحل المناسب لحمولتك وتقديم عرض أسعار دقيق خلال 24 ساعة.</p>
+        <p style="color:rgba(255,255,255,0.7);font-size:.95rem;line-height:1.8;margin-bottom:3rem;font-weight:300" data-i18n="contactSub">تواصل مع فريقنا لطلب عرض سعر لمولد أو تقييم للصيانة. شارك احتياجات موقعك وسنساعدك في تحديد الخطوة التالية.</p>
         <div class="contact-detail">
           <div class="contact-icon">📞</div>
           <div>
@@ -1877,24 +1913,57 @@ footer {
 
       <div class="contact-form-wrap">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--muted);margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1rem" data-i18n="formTitle">إرسال استفسار</div>
-        <form id="contact-form" onsubmit="app.submitForm(event)" novalidate="">
+        <form id="contact-form" method="post" onsubmit="event.preventDefault(); app.submitForm(event)" novalidate="">
           <div class="form-grid">
             <div class="form-group">
               <label for="f-name" class="form-label"><span data-i18n="fName">اسمك</span><span class="req">*</span></label>
-              <input id="f-name" type="text" class="form-input" placeholder="Mohamed Ahmed" required="" aria-required="true">
+              <input id="f-name" name="name" type="text" class="form-input" placeholder="محمد أحمد" data-i18n-placeholder="fNamePlaceholder" autocomplete="name" required="" aria-required="true">
             </div>
             <div class="form-group">
               <label for="f-phone" class="form-label"><span data-i18n="fPhone">رقم الهاتف</span><span class="req">*</span></label>
-              <input id="f-phone" type="tel" class="form-input" placeholder="01XXXXXXXXX" required="" aria-required="true">
+              <input id="f-phone" name="phone" type="tel" class="form-input" placeholder="01XXXXXXXXX" data-i18n-placeholder="fPhonePlaceholder" autocomplete="tel" required="" aria-required="true">
             </div>
           </div>
           <div id="phone-err" class="form-error" role="alert"></div>
-          <div class="form-group">
-            <label for="f-msg" class="form-label"><span data-i18n="fMessage">الرسالة</span><span class="req">*</span></label>
-            <textarea id="f-msg" class="form-textarea" placeholder="e.g. I need a 500 KVA Perkins quote for a construction site in New Capital." required="" aria-required="true"></textarea>
+          <div class="form-grid">
+            <div class="form-group">
+              <label for="f-location" class="form-label"><span data-i18n="fLocation">موقع المشروع</span><span class="req">*</span></label>
+              <input id="f-location" name="location" type="text" class="form-input" placeholder="القاهرة / المحافظة" data-i18n-placeholder="fLocationPlaceholder" autocomplete="address-level1" required="" aria-required="true">
+            </div>
+            <div class="form-group">
+              <label for="f-type" class="form-label"><span data-i18n="fType">نوع الاستفسار</span><span class="req">*</span></label>
+              <select id="f-type" name="enquiry_type" class="form-input form-select" required="" aria-required="true">
+                <option value="sales" data-i18n="fTypeSales">عرض سعر لمولد</option>
+                <option value="maintenance" data-i18n="fTypeMaintenance">تقييم للصيانة</option>
+              </select>
+            </div>
           </div>
-          <button type="submit" class="btn-submit" data-i18n="fSubmit">إرسال الرسالة ←</button>
+          <div class="form-group" id="plan-group" hidden="">
+            <label for="f-plan" class="form-label"><span data-i18n="fPlan">خطة الصيانة</span><span class="req">*</span></label>
+            <select id="f-plan" name="maintenance_plan" class="form-input form-select" disabled="" aria-required="false">
+              <option value="assessment" data-i18n="fPlanAssessment">التقييم أولاً</option>
+              <option value="standard" data-i18n="fPlanStandard">عقد الصيانة القياسي</option>
+              <option value="premium" data-i18n="fPlanPremium">عقد الصيانة بريميوم+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="f-msg" class="form-label"><span data-i18n="fMessage">الرسالة</span></label>
+            <textarea id="f-msg" name="message" class="form-textarea" placeholder="اذكر طبيعة الاستخدام والقدرة المطلوبة إن كانت معروفة والموعد المناسب. يمكننا مساعدتك في تحديد القدرة." data-i18n-placeholder="fMessagePlaceholder" aria-required="false"></textarea>
+          </div>
+          <p class="form-note" data-i18n="fNote">شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.</p>
+          <div class="form-submit-wrap">
+            <button id="f-submit" type="submit" class="btn-submit" data-i18n="fSubmit">إرسال الاستفسار ←</button>
+            <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true" hidden=""></div>
+          </div>
         </form>
+        <p class="form-note form-fallback" data-i18n="fDataUse">نستخدم البيانات التي تقدمها للرد على استفسارك.</p>
+        <p class="form-note form-fallback">
+          <span data-i18n="fFallbackLabel">إذا تعذر إرسال النموذج،</span>
+          <a href="tel:+201229688688" data-i18n="fFallbackCall">اتصل على 012 2968 8688</a>
+          <span data-i18n="fFallbackOr">أو</span>
+          <a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer" data-i18n="fFallbackWhatsapp">راسلنا عبر واتساب</a>.
+        </p>
+        <noscript><p class="form-note form-fallback">JavaScript is required to send this form. Use the phone or WhatsApp links above. / يلزم تشغيل JavaScript لإرسال النموذج. استخدم روابط الهاتف أو واتساب أعلاه.</p></noscript>
       </div>
 
     </div>
@@ -1970,6 +2039,8 @@ footer {
 
 <!-- Scripts -->
 <script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
+<script src="/enquiry-config.js?v=20260908-1"></script>
+<script src="/enquiry.js"></script>
 <script>
 (function(){
 'use strict';
@@ -1989,7 +2060,7 @@ en:{
   heroSub:'Engineering-grade generator solutions from 8 KVA to 3000 KVA. Perkins, Volvo Penta & Doosan — with professional installation and 24/7 support.',
   heroCardTitle:'Power Range',engine:'Engine',alternator:'Alternator',heroSupport:'Support',heroWarranty:'Warranty',
   scrollHint:'Scroll',
-  btnFindGen:'Find Your Generator',btnContact:'Get in Touch',btnQuote:'Get Quote',
+  btnFindGen:'Find Your Generator',btnContact:'Get in Touch',btnQuote:'Get Quote',btnGeneratorQuote:'Request a Generator Quote',btnMaintenanceAssessment:'Request a Maintenance Assessment',
   navClients:'Clients',navProducts:'Generators',navCalc:'Calculator',navProjects:'Projects',navContact:'Contact',navHome:'Home',navServices:'Services',navPortfolio:'Portfolio',navLocations:'Locations',navVision:'About Us',navAMC:'Maintenance',navSpecs:'Tech Specs',navFuel:'Fuel Systems',navCerts:'Certifications',navCert:'Certifications',
   stat1:'Projects Completed',stat2:'Years Experience',stat3:'Active Contracts',stat4:'Uptime Guarantee',
   clientsLabel:'Our Clients',clientsTitle:'TRUSTED BY\nEGYPT\'S LEADERS',clientsSub:'Powering critical operations across healthcare, manufacturing, infrastructure, and real estate.',
@@ -2019,8 +2090,8 @@ en:{
   fuelPiping:'Fuel Piping Networks',fuelPipingDesc:'Complete seamless black steel piping networks (Schedule 40/80) with necessary strainers, check valves, solenoid valves, and pressure gauges.',
   fuelPump:'Transfer Pump Systems',fuelPumpDesc:'Automatic fuel transfer systems with float switches and control panels to manage daily service tanks from main bulk storage without manual intervention.',
   amcLabel:'Support & Care',amcTitle:'MAINTENANCE\nCONTRACTS',amcDesc:'Annual Maintenance Contracts (AMC) designed to keep your generator at peak performance year-round — with guaranteed response times and genuine OEM parts.',
-  amcStdTier:'Standard AMC',amcStdName:'Standard',amcStdF1:'4 Routine Visits / Year',amcStdF2:'24h Emergency Response Time',amcStdF3:'5% Spare Parts Discount',amcStdF4:'Genuine OEM Parts Only',amcStdF5:'Technical Report After Each Visit',
-  amcPremTier:'Premium AMC+',amcPremName:'Premium',amcPremF1:'12 Routine Visits / Year',amcPremF2:'4h Emergency Response Time',amcPremF3:'15% Spare Parts Discount',amcPremF4:'Genuine OEM Parts Only',amcPremF5:'Priority Scheduling — 24/7',
+  amcStdTier:'Standard AMC',amcStdName:'Standard',amcStdF1:'4 Routine Visits / Year',amcStdF2:'24h Emergency Response Time',amcStdF3:'5% Spare Parts Discount',amcStdF4:'Genuine OEM Parts Only',amcStdF5:'Technical Report After Each Visit',amcStdCta:'Ask About Standard AMC',
+  amcPremTier:'Premium AMC+',amcPremName:'Premium',amcPremF1:'12 Routine Visits / Year',amcPremF2:'4h Emergency Response Time',amcPremF3:'15% Spare Parts Discount',amcPremF4:'Genuine OEM Parts Only',amcPremF5:'Priority Scheduling — 24/7',amcPremCta:'Ask About Premium AMC+',
   amcPopular:'Most Popular',amcScopeLabel:'WHAT EVERY VISIT COVERS',
   amcS1:'Engine Health Check',amcS1D:'Oil level, belts, filters, and all mechanical wear points inspected.',
   amcS2:'Coolant & Oil Analysis',amcS2D:'Fluid condition, concentration levels, and contamination checks.',
@@ -2080,9 +2151,10 @@ en:{
   compR5:'Load Testing',compR5Us:'Always Included',compR5Them:'Optional / Extra Charge',
   faqLabel:'Common Questions',faqTitle:'FREQUENTLY\nASKED',
   contactLabel:'Get in Touch',contactTitle:"LET'S POWER\nYOUR PROJECT",
-  contactSub:'Our engineering sales team is ready to size the right solution for your load and deliver a precise quote within 24 hours.',
+  contactSub:'Contact our team for a generator quote or a maintenance assessment. Share your site needs and we will help you choose the next step.',
   ctPhone:'Phone',ctEmail:'Email',ctAddress:'Address',ctHours:'Office Hours',ctHoursVal:'Sun – Thu, 9:00 AM – 5:00 PM',
-  formTitle:'SEND AN INQUIRY',fName:'Your Name',fPhone:'Phone Number',fMessage:'Message',fSubmit:'Send Message →',
+  formTitle:'SEND AN INQUIRY',fName:'Your Name',fNamePlaceholder:'Mohamed Ahmed',fPhone:'Phone Number',fPhonePlaceholder:'01XXXXXXXXX',fLocation:'Project Location',fLocationPlaceholder:'Cairo / governorate',fType:'Enquiry Type',fTypeSales:'Generator quote',fTypeMaintenance:'Maintenance assessment',fPlan:'Maintenance Plan',fPlanAssessment:'Assessment first',fPlanStandard:'Standard AMC',fPlanPremium:'Premium AMC+',fMessage:'Message',fMessagePlaceholder:'Tell us what you know: load, brand, or running hours (optional).',fNote:'Share the details you have — load, preferred brand, running hours, or site needs — and our team will guide the next step.',fSubmit:'Send Enquiry →',
+  fDataUse:'We use the details you submit to respond to your enquiry.',fFallbackLabel:'If the form is unavailable,',fFallbackCall:'call 012 2968 8688',fFallbackOr:'or',fFallbackWhatsapp:'message us on WhatsApp',
   pdfMobile:'PDF preview unavailable on mobile. Download to view.',
   footerTagline:'Delivering engineering-grade generator solutions with trusted performance and professional support since 2006.',
   footerProducts:'Products',footerCompany:'Company',footerSoundproof:'Soundproof Canopies',footerParts:'OEM Spare Parts',
@@ -2125,7 +2197,7 @@ ar:{
   heroSub:'حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.',
   heroCardTitle:'نطاق القدرة',engine:'المحرك',alternator:'المولد',heroSupport:'الدعم',heroWarranty:'الضمان',
   scrollHint:'تمرير',
-  btnFindGen:'ابحث عن مولدك',btnContact:'تواصل معنا',btnQuote:'اطلب عرضاً',
+  btnFindGen:'ابحث عن مولدك',btnContact:'تواصل معنا',btnQuote:'اطلب عرضاً',btnGeneratorQuote:'اطلب عرض سعر لمولد',btnMaintenanceAssessment:'اطلب تقييماً للصيانة',
   navClients:'العملاء',navProducts:'المولدات',navCalc:'الحاسبة',navProjects:'المشاريع',navContact:'اتصل بنا',navHome:'الرئيسية',navServices:'الخدمات',navPortfolio:'سابقة أعمال',navLocations:'مواقعنا',navVision:'عن الشركة',navAMC:'الصيانة',navSpecs:'المواصفات',navFuel:'أنظمة الوقود',navCerts:'الشهادات',navCert:'الشهادات',
   stat1:'مشروع مكتمل',stat2:'سنة خبرة',stat3:'عقد نشط',stat4:'ضمان وقت التشغيل',
   clientsLabel:'عملاؤنا',clientsTitle:'موثوق بنا من قبل\nكبرى المؤسسات',clientsSub:'تشغيل العمليات الحيوية في قطاعات الرعاية الصحية والتصنيع والبنية التحتية والعقارات.',
@@ -2155,8 +2227,8 @@ ar:{
   fuelPiping:'شبكات أنابيب الوقود',fuelPipingDesc:'شبكات كاملة من أنابيب الفولاذ الأسود السلس (جدول 40/80) مع المصافي وصمامات الاسترجاع والصمامات الكهرومغناطيسية ومقاييس الضغط.',
   fuelPump:'أنظمة مضخات النقل',fuelPumpDesc:'أنظمة نقل وقود أوتوماتيكية بمفاتيح عوامة ولوحات تحكم لإدارة خزانات الخدمة اليومية من التخزين الرئيسي دون تدخل يدوي.',
   amcLabel:'الدعم والرعاية',amcTitle:'عقود\nالصيانة',amcDesc:'عقود صيانة سنوية (AMC) مصممة للحفاظ على مولدك بأعلى كفاءة على مدار العام — مع أوقات استجابة مضمونة وقطع غيار أصلية.',
-  amcStdTier:'عقد صيانة قياسي',amcStdName:'قياسي',amcStdF1:'4 زيارات دورية / السنة',amcStdF2:'وقت استجابة للطوارئ 24 ساعة',amcStdF3:'خصم 5% على قطع الغيار',amcStdF4:'قطع غيار أصلية OEM فقط',amcStdF5:'تقرير فني بعد كل زيارة',
-  amcPremTier:'عقد صيانة بريميوم+',amcPremName:'بريميوم',amcPremF1:'12 زيارة دورية / السنة',amcPremF2:'وقت استجابة للطوارئ 4 ساعات',amcPremF3:'خصم 15% على قطع الغيار',amcPremF4:'قطع غيار أصلية OEM فقط',amcPremF5:'جدولة ذات أولوية — 24/7',
+  amcStdTier:'عقد صيانة قياسي',amcStdName:'قياسي',amcStdF1:'4 زيارات دورية / السنة',amcStdF2:'وقت استجابة للطوارئ 24 ساعة',amcStdF3:'خصم 5% على قطع الغيار',amcStdF4:'قطع غيار أصلية OEM فقط',amcStdF5:'تقرير فني بعد كل زيارة',amcStdCta:'استفسر عن عقد الصيانة القياسي',
+  amcPremTier:'عقد صيانة بريميوم+',amcPremName:'بريميوم',amcPremF1:'12 زيارة دورية / السنة',amcPremF2:'وقت استجابة للطوارئ 4 ساعات',amcPremF3:'خصم 15% على قطع الغيار',amcPremF4:'قطع غيار أصلية OEM فقط',amcPremF5:'جدولة ذات أولوية — 24/7',amcPremCta:'استفسر عن عقد الصيانة بريميوم+',
   amcPopular:'الأكثر طلباً',amcScopeLabel:'ما يشمله كل زيارة',
   amcS1:'فحص صحة المحرك',amcS1D:'فحص مستوى الزيت والأحزمة والفلاتر وجميع نقاط التآكل الميكانيكي.',
   amcS2:'تحليل سائل التبريد والزيت',amcS2D:'فحص حالة السوائل ومستويات التركيز واختبار التلوث.',
@@ -2216,9 +2288,10 @@ ar:{
   compR5:'اختبار الحمل',compR5Us:'مضمن دائماً',compR5Them:'اختياري / رسوم إضافية',
   faqLabel:'أسئلة شائعة',faqTitle:'الأسئلة\nالمتكررة',
   contactLabel:'تواصل معنا',contactTitle:'لنشغّل\nمشروعك',
-  contactSub:'فريق مبيعاتنا الهندسي جاهز لتحديد الحل المناسب لحمولتك وتقديم عرض أسعار دقيق خلال 24 ساعة.',
+  contactSub:'تواصل مع فريقنا لطلب عرض سعر لمولد أو تقييم للصيانة. شارك احتياجات موقعك وسنساعدك في تحديد الخطوة التالية.',
   ctPhone:'الهاتف',ctEmail:'البريد الإلكتروني',ctAddress:'العنوان',ctHours:'ساعات العمل',ctHoursVal:'الأحد – الخميس، 9:00 صباحاً – 5:00 مساءً',
-  formTitle:'إرسال استفسار',fName:'اسمك',fPhone:'رقم الهاتف',fMessage:'الرسالة',fSubmit:'إرسال الرسالة ←',
+  formTitle:'إرسال استفسار',fName:'اسمك',fNamePlaceholder:'محمد أحمد',fPhone:'رقم الهاتف',fPhonePlaceholder:'01XXXXXXXXX',fLocation:'موقع المشروع',fLocationPlaceholder:'القاهرة / المحافظة',fType:'نوع الاستفسار',fTypeSales:'عرض سعر لمولد',fTypeMaintenance:'تقييم للصيانة',fPlan:'خطة الصيانة',fPlanAssessment:'التقييم أولاً',fPlanStandard:'عقد الصيانة القياسي',fPlanPremium:'عقد الصيانة بريميوم+',fMessage:'الرسالة',fMessagePlaceholder:'اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري).',fNote:'شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.',fSubmit:'إرسال الاستفسار ←',
+  fDataUse:'نستخدم البيانات التي تقدمها للرد على استفسارك.',fFallbackLabel:'إذا تعذر إرسال النموذج،',fFallbackCall:'اتصل على 012 2968 8688',fFallbackOr:'أو',fFallbackWhatsapp:'راسلنا عبر واتساب',
   pdfMobile:'معاينة PDF غير متاحة على الجوال. حمّل الملف للمشاهدة.',
   footerTagline:'تقديم حلول مولدات هندسية بأداء موثوق ودعم احترافي منذ 2006.',
   footerProducts:'المنتجات',footerCompany:'الشركة',footerSoundproof:'كبائن عازلة للصوت',footerParts:'قطع غيار OEM',
@@ -2473,34 +2546,36 @@ function calcKVA(){
 
 // ── Request quote (autofill form) ────────────────────────────────
 function requestQuote(brand){
-  const kva=document.getElementById('r-kva')?document.getElementById('r-kva').textContent:'0';
+  const form=document.getElementById('contact-form');
   const f=document.getElementById('f-msg');
-  if(lang==='ar'){
-    f.value=brand?`مرحباً، أنا مهتم بمولد ${brand} بقدرة تقريبية ${kva} ك.ف.أ. يرجى التواصل معي للتفاصيل.`:`مرحباً، بناءً على الحاسبة أنا بحاجة لمولد بقدرة ${kva} ك.ف.أ تقريباً.`;
-  } else {
-    f.value=brand?`Hello, I'm interested in a ${brand} generator with approx. ${kva} KVA capacity. Please contact me with details.`:`Hello, based on the calculator I need a generator with approx. ${kva} KVA. Please send me a quote.`;
+  const kvaText=document.getElementById('r-kva')?.textContent||'';
+  const kva=Number.parseInt(kvaText,10);
+  if(!window.PremiumPowerEnquiry.open('sales')) return;
+  if(form){
+    if(brand) form.dataset.brand=String(brand);
+    if(Number.isFinite(kva)&&kva>0) form.dataset.capacity=String(kva);
   }
-  document.getElementById('contact').scrollIntoView({behavior:'smooth'});
+  if(f&&!f.value.trim()){
+    if(lang==='ar'){
+      f.value=brand
+        ? `مرحباً، أنا مهتم بمولد ${brand}${kva>0?` بقدرة تقريبية ${kva} ك.ف.أ`:''}. يرجى التواصل معي للتفاصيل.`
+        : `مرحباً، أحتاج إلى مساعدة في اختيار المولد المناسب${kva>0?` (بقدرة تقريبية ${kva} ك.ف.أ)`:''}. يرجى إرسال عرض سعر.`;
+    } else {
+      f.value=brand
+        ? `Hello, I'm interested in a ${brand} generator${kva>0?` with approx. ${kva} KVA capacity`:''}. Please contact me with details.`
+        : `Hello, I need help selecting the right generator${kva>0?` (approx. ${kva} KVA)`:''}. Please send me a quote.`;
+    }
+  }
 }
 
 // ── Contact form ─────────────────────────────────────────────────
 function submitForm(e){
-  e.preventDefault();
-  const name=document.getElementById('f-name').value.trim();
-  const phone=document.getElementById('f-phone').value.trim();
-  const msg=document.getElementById('f-msg').value.trim();
-  const err=document.getElementById('phone-err');
-  const t=T[lang];
-  if(!/^(?:(?:\+|00)?20|0)?1[0-9]{9}$/.test(phone.replace(/[\s\-()]/g,''))){
-    err.textContent=t.formInvalidPhone; err.classList.add('show');
-    document.getElementById('f-phone').focus(); return;
-  }
-  err.classList.remove('show');
-  const subj=lang==='ar'?'استفسار جديد من الموقع':'New inquiry from website';
-  const body=lang==='ar'?`الاسم: ${name}\nالهاتف: ${phone}\nالرسالة:\n${msg}`:`Name: ${name}\nPhone: ${phone}\nMessage:\n${msg}`;
-  window.location.href=`mailto:info@premiumpower-eg.com?subject=${encodeURIComponent(subj)}&body=${encodeURIComponent(body)}`;
-  showNotif(t.formSuccess);
-  document.getElementById('contact-form').reset();
+  return window.PremiumPowerEnquiry.submitForm(e);
+}
+
+// ── Enquiry path entry point ─────────────────────────────────────
+function openEnquiry(type,plan){
+  return window.PremiumPowerEnquiry.open(type,plan);
 }
 
 // ── Notification ─────────────────────────────────────────────────
@@ -2554,6 +2629,13 @@ function switchLanguage(l){
       ? t[k].split('\n').map((part,i)=> i ? '<span class="accent">'+part+'</span>' : part).join('<br>')
       : t[k];
   });
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-placeholder');
+    if(t[k]!==undefined) el.setAttribute('placeholder',t[k]);
+  });
+  if(window.PremiumPowerEnquiry&&typeof window.PremiumPowerEnquiry.refreshLanguage==='function'){
+    window.PremiumPowerEnquiry.refreshLanguage();
+  }
   renderFAQs();
   // refresh sound
   const ts=document.getElementById('tier-silent'),tsStd=document.getElementById('tier-standard');
@@ -2582,7 +2664,7 @@ switchLanguage('ar');
 // ── Expose ─────────────────────────────────────────────────────
 window.app={
   toggleMenu,toggleFab,toggleSpec,setSound,
-  openPdf,closePdf,calcKVA,requestQuote,
+  openPdf,closePdf,calcKVA,requestQuote,openEnquiry,
   submitForm,closeNotif,switchLanguage
 };
 
