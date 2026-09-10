@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://www.premiumpower-eg.com/images/BC.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="en_US">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.premiumpower-eg.com/"}, {"@type": "ListItem", "position": 2, "name": "Perkins Diesel Generators in Egypt", "item": "https://www.premiumpower-eg.com/perkins-generators-egypt/"}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.premiumpower-eg.com/"}, {"@type": "ListItem", "position": 2, "name": "Perkins Diesel Generators in Egypt", "item": "https://www.premiumpower-eg.com/perkins-generators-egypt/"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the difference between the Prime and Standby ratings?", "acceptedAnswer": {"@type": "Answer", "text": "Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% overload available for one hour in every twelve. Standby (ESP) covers only the duration of a utility outage and permits no overload. Both figures are listed against every model in the table above."}}, {"@type": "Question", "name": "Which engines are used across the Perkins range?", "acceptedAnswer": {"@type": "Answer", "text": "The range is built on these Perkins engines: 404A-22G1, 1103A-33G, 1103A-33TG1, 1103A-33TG2, 1104C-44TAG2, 1106A-70TAG2, 1106A-70TAG4, 1506A-E88TAG3, 2206A-E13TAG2, 2206A-E13TAG3, 2506A-E15TAG2, 2806A-E18TAG1A, 2806A-E18TTAG4, 4006-23TAG2A, 2806A-E18TTAG5, 4006-23TAG3A, 4008TAG1A, 4008TAG2A. Each one is listed against the rating it drives in the table above."}}, {"@type": "Question", "name": "Which alternator is fitted?", "acceptedAnswer": {"@type": "Answer", "text": "LeroySomer / Stamford, with Class H — IP23 insulation and Brushless / PMG excitation."}}, {"@type": "Question", "name": "Which control panel is supplied?", "acceptedAnswer": {"@type": "Answer", "text": "DSE 6110 / 7320 / ComAp. The panel is configured for the application, whether that is a single set, an automatic transfer scheme or a synchronised installation."}}]}]</script>
 <style>
 :root {
   --bg: #FFFFFF; --bg2: #F3F4F6; --bg3: #F5F7FA;
@@ -157,6 +157,38 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .foot { flex-direction: column; }
 }
 
+/* ── Availability note ── */
+.avail {
+  margin-top: 1rem; padding: .9rem 1.1rem; background: var(--bg3);
+  border-inline-start: 3px solid var(--copper); font-size: .85rem; color: var(--off);
+}
+
+/* ── Most requested ── */
+.popular { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.popular li {
+  border: 1px solid var(--border); border-top: 3px solid var(--copper);
+  padding: 1.2rem; display: flex; flex-direction: column; gap: .2rem;
+}
+.popular b { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .04em; color: var(--copper3); }
+.popular span { font-size: .8rem; color: var(--muted); }
+.popular em { font-style: normal; font-weight: 600; font-size: .95rem; margin-top: .35rem; }
+
+/* ── Why ── */
+.why { max-width: 72ch; color: var(--off); line-height: 1.8; }
+
+/* ── FAQ ── */
+.faqs { max-width: 78ch; }
+.faqs details { border-bottom: 1px solid var(--border); }
+.faqs summary {
+  cursor: pointer; padding: .95rem 0; font-weight: 600; font-size: .92rem;
+  list-style: none; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+}
+.faqs summary::-webkit-details-marker { display: none; }
+.faqs summary::after { content: '+'; color: var(--copper); font-weight: 700; font-size: 1.1rem; }
+.faqs details[open] summary::after { content: '−'; }
+.faqs summary:hover { color: var(--copper2); }
+.faqs p { padding: 0 0 1.1rem; color: var(--muted); font-size: .88rem; line-height: 1.75; }
+
 </style>
 </head>
 <body>
@@ -209,7 +241,22 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
         </tbody>
       </table>
     </div>
+    <p class="avail">The table lists the main models. Ratings from 9 to 2500 kVA are available; models outside the table are supplied to order.</p>
     <p class="note">Ratings at 50 Hz, 400/230 V, 0.8 power factor. Prime (PRP) is continuous supply at variable load for unlimited hours, with 10% overload available for one hour in every twelve. Standby (ESP) covers the duration of a utility outage and permits no overload.</p>
+  </section>
+
+  <section>
+    <h2>Most Requested</h2>
+    <ul class="popular">
+      <li><b>G60PL</b><span>1103A-33TG2</span><em>60.0 kVA</em></li>
+      <li><b>G100PL</b><span>1104C-44TAG2</span><em>100.0 kVA</em></li>
+      <li><b>G500PL</b><span>2506A-E15TAG2</span><em>500.0 kVA</em></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Why Perkins</h2>
+    <p class="why">The widest span in our catalogue: 18 standard models from 20 to 1000 kVA, with ratings either side supplied to order. Perkins is also offered with a mechanical or an electronic governor. A mechanical set runs without an engine control unit, which means it can be serviced in the field with ordinary tools and is less sensitive to fuel quality — a real advantage on sites far from a service centre. Perkins ElectropaK engines with electronic governing conform to ISO 8528-5 class G3, and the larger models to class G2.</p>
   </section>
 
   <section>
@@ -235,6 +282,16 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
       <li><a href="/#amc">Maintenance Contracts</a></li>
       <li><a href="/#services">Load Bank Testing</a></li>
     </ul>
+  </section>
+
+  <section>
+    <h2>Common Questions</h2>
+    <div class="faqs">
+      <details><summary>What is the difference between the Prime and Standby ratings?</summary><p>Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% overload available for one hour in every twelve. Standby (ESP) covers only the duration of a utility outage and permits no overload. Both figures are listed against every model in the table above.</p></details>
+      <details><summary>Which engines are used across the Perkins range?</summary><p>The range is built on these Perkins engines: 404A-22G1, 1103A-33G, 1103A-33TG1, 1103A-33TG2, 1104C-44TAG2, 1106A-70TAG2, 1106A-70TAG4, 1506A-E88TAG3, 2206A-E13TAG2, 2206A-E13TAG3, 2506A-E15TAG2, 2806A-E18TAG1A, 2806A-E18TTAG4, 4006-23TAG2A, 2806A-E18TTAG5, 4006-23TAG3A, 4008TAG1A, 4008TAG2A. Each one is listed against the rating it drives in the table above.</p></details>
+      <details><summary>Which alternator is fitted?</summary><p>LeroySomer / Stamford, with Class H — IP23 insulation and Brushless / PMG excitation.</p></details>
+      <details><summary>Which control panel is supplied?</summary><p>DSE 6110 / 7320 / ComAp. The panel is configured for the application, whether that is a single set, an automatic transfer scheme or a synchronised installation.</p></details>
+    </div>
   </section>
 
   <section class="cta">

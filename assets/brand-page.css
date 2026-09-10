@@ -132,3 +132,35 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .specs { grid-template-columns: 1fr; }
   .foot { flex-direction: column; }
 }
+
+/* ── Availability note ── */
+.avail {
+  margin-top: 1rem; padding: .9rem 1.1rem; background: var(--bg3);
+  border-inline-start: 3px solid var(--copper); font-size: .85rem; color: var(--off);
+}
+
+/* ── Most requested ── */
+.popular { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.popular li {
+  border: 1px solid var(--border); border-top: 3px solid var(--copper);
+  padding: 1.2rem; display: flex; flex-direction: column; gap: .2rem;
+}
+.popular b { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .04em; color: var(--copper3); }
+.popular span { font-size: .8rem; color: var(--muted); }
+.popular em { font-style: normal; font-weight: 600; font-size: .95rem; margin-top: .35rem; }
+
+/* ── Why ── */
+.why { max-width: 72ch; color: var(--off); line-height: 1.8; }
+
+/* ── FAQ ── */
+.faqs { max-width: 78ch; }
+.faqs details { border-bottom: 1px solid var(--border); }
+.faqs summary {
+  cursor: pointer; padding: .95rem 0; font-weight: 600; font-size: .92rem;
+  list-style: none; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+}
+.faqs summary::-webkit-details-marker { display: none; }
+.faqs summary::after { content: '+'; color: var(--copper); font-weight: 700; font-size: 1.1rem; }
+.faqs details[open] summary::after { content: '−'; }
+.faqs summary:hover { color: var(--copper2); }
+.faqs p { padding: 0 0 1.1rem; color: var(--muted); font-size: .88rem; line-height: 1.75; }

@@ -20,7 +20,7 @@
 <meta property="og:image" content="https://www.premiumpower-eg.com/images/BC.jpg">
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ar_EG">
-<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://www.premiumpower-eg.com/ar/"}, {"@type": "ListItem", "position": 2, "name": "مولدات دوسان الديزل في مصر", "item": "https://www.premiumpower-eg.com/ar/doosan-generators-egypt/"}]}</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "الرئيسية", "item": "https://www.premiumpower-eg.com/ar/"}, {"@type": "ListItem", "position": 2, "name": "مولدات دوسان الديزل في مصر", "item": "https://www.premiumpower-eg.com/ar/doosan-generators-egypt/"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "ما الفرق بين القدرة المستمرة وقدرة الطوارئ؟", "acceptedAnswer": {"@type": "Answer", "text": "القدرة المستمرة (PRP) هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل زيادة 10% لمدة ساعة كل اثنتي عشرة ساعة. أما قدرة الطوارئ (ESP) فتغطي مدة انقطاع الشبكة فقط ولا تسمح بأي زيادة في الحمل. والقيمتان مذكورتان أمام كل موديل في الجدول أعلاه."}}, {"@type": "Question", "name": "ما المحركات المستخدمة في نطاق دوسان؟", "acceptedAnswer": {"@type": "Answer", "text": "يقوم النطاق على محركات دوسان التالية: P086TI-1، P086TI، P126TI، P126TI-II، DP126LB، P158LE، DP158LC، DP158LD، DP222CB. وكل محرك مذكور أمام القدرة التي يشغّلها في الجدول أعلاه."}}, {"@type": "Question", "name": "ما المولد (الألترنيتور) المركّب؟", "acceptedAnswer": {"@type": "Answer", "text": "LeroySomer / Stamford، بعزل Class H — IP23 وإثارة Brushless / PMG."}}, {"@type": "Question", "name": "ما لوحة التحكم المورَّدة؟", "acceptedAnswer": {"@type": "Answer", "text": "DSE 8610 / ComAp InteliGen. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي أو تركيبة متزامنة."}}]}]</script>
 <style>
 :root {
   --bg: #FFFFFF; --bg2: #F3F4F6; --bg3: #F5F7FA;
@@ -157,6 +157,38 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
   .foot { flex-direction: column; }
 }
 
+/* ── Availability note ── */
+.avail {
+  margin-top: 1rem; padding: .9rem 1.1rem; background: var(--bg3);
+  border-inline-start: 3px solid var(--copper); font-size: .85rem; color: var(--off);
+}
+
+/* ── Most requested ── */
+.popular { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+.popular li {
+  border: 1px solid var(--border); border-top: 3px solid var(--copper);
+  padding: 1.2rem; display: flex; flex-direction: column; gap: .2rem;
+}
+.popular b { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .04em; color: var(--copper3); }
+.popular span { font-size: .8rem; color: var(--muted); }
+.popular em { font-style: normal; font-weight: 600; font-size: .95rem; margin-top: .35rem; }
+
+/* ── Why ── */
+.why { max-width: 72ch; color: var(--off); line-height: 1.8; }
+
+/* ── FAQ ── */
+.faqs { max-width: 78ch; }
+.faqs details { border-bottom: 1px solid var(--border); }
+.faqs summary {
+  cursor: pointer; padding: .95rem 0; font-weight: 600; font-size: .92rem;
+  list-style: none; display: flex; justify-content: space-between; gap: 1rem; align-items: baseline;
+}
+.faqs summary::-webkit-details-marker { display: none; }
+.faqs summary::after { content: '+'; color: var(--copper); font-weight: 700; font-size: 1.1rem; }
+.faqs details[open] summary::after { content: '−'; }
+.faqs summary:hover { color: var(--copper2); }
+.faqs p { padding: 0 0 1.1rem; color: var(--muted); font-size: .88rem; line-height: 1.75; }
+
 </style>
 </head>
 <body>
@@ -200,7 +232,21 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
         </tbody>
       </table>
     </div>
+    <p class="avail">الجدول يعرض الموديلات الأساسية. القدرات من 150 إلى 825 ك.ف.أ متاحة، والموديلات خارج الجدول تُورَّد حسب الطلب.</p>
     <p class="note">القدرات على تردد 50 هرتز، جهد 400/230 فولت، معامل قدرة 0.8. القدرة المستمرة (PRP) هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل زيادة 10% لمدة ساعة كل اثنتي عشرة ساعة. قدرة الطوارئ (ESP) تغطي مدة انقطاع الشبكة ولا تسمح بأي زيادة حمل.</p>
+  </section>
+
+  <section>
+    <h2>الأكثر طلباً</h2>
+    <ul class="popular">
+      <li><b>G300DL</b><span>P126TI-II</span><em>300.0 ك.ف.أ</em></li>
+      <li><b>G360DL</b><span>DP126LB</span><em>363.0 ك.ف.أ</em></li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>لماذا دوسان؟</h2>
+    <p class="why">محركات بتكوين V من 6 إلى 12 أسطوانة، بشحن توربيني ومبرّد لاحق وإدارة عبر وحدة تحكم إلكترونية ECU. النطاق مبني للتشغيل المستمر بأعلى قيمة مقابل السعر في كتالوجنا — الخيار العملي لمواقع المقاولات والمصانع حيث تعمل الوحدة ساعات طويلة بدلاً من انتظارها كاحتياطي. وتُصنَّع المحركات لدى HD Hyundai Infracore، المعروفة سابقاً باسم Doosan Infracore.</p>
   </section>
 
   <section>
@@ -226,6 +272,16 @@ td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
       <li><a href="/ar/#amc">عقود صيانة</a></li>
       <li><a href="/ar/#services">اختبار الحمل</a></li>
     </ul>
+  </section>
+
+  <section>
+    <h2>أسئلة شائعة</h2>
+    <div class="faqs">
+      <details><summary>ما الفرق بين القدرة المستمرة وقدرة الطوارئ؟</summary><p>القدرة المستمرة (PRP) هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل زيادة 10% لمدة ساعة كل اثنتي عشرة ساعة. أما قدرة الطوارئ (ESP) فتغطي مدة انقطاع الشبكة فقط ولا تسمح بأي زيادة في الحمل. والقيمتان مذكورتان أمام كل موديل في الجدول أعلاه.</p></details>
+      <details><summary>ما المحركات المستخدمة في نطاق دوسان؟</summary><p>يقوم النطاق على محركات دوسان التالية: P086TI-1، P086TI، P126TI، P126TI-II، DP126LB، P158LE، DP158LC، DP158LD، DP222CB. وكل محرك مذكور أمام القدرة التي يشغّلها في الجدول أعلاه.</p></details>
+      <details><summary>ما المولد (الألترنيتور) المركّب؟</summary><p>LeroySomer / Stamford، بعزل Class H — IP23 وإثارة Brushless / PMG.</p></details>
+      <details><summary>ما لوحة التحكم المورَّدة؟</summary><p>DSE 8610 / ComAp InteliGen. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي أو تركيبة متزامنة.</p></details>
+    </div>
   </section>
 
   <section class="cta">

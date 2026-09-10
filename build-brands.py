@@ -22,9 +22,58 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.premiumpower-eg.com"
 
 BRANDS = {
-    "perkins": {"slug": "perkins-generators-egypt", "pdf": "perkins-specs.pdf"},
-    "volvo":   {"slug": "volvo-penta-generators-egypt", "pdf": "volvo-specs.pdf"},
-    "doosan":  {"slug": "doosan-generators-egypt", "pdf": "doosan-specs.pdf"},
+    "perkins": {"slug": "perkins-generators-egypt", "pdf": "perkins-specs.pdf",
+                "popular": ["G60PL", "G100PL", "G500PL"]},
+    "volvo":   {"slug": "volvo-penta-generators-egypt", "pdf": "volvo-specs.pdf",
+                "popular": ["G300VL", "G350VL"]},
+    "doosan":  {"slug": "doosan-generators-egypt", "pdf": "doosan-specs.pdf",
+                "popular": ["G300DL", "G360DL"]},
+}
+
+# Why a buyer picks this marque. Each claim traces to the spec table in
+# index.html, the catalogue PDFs, or the manufacturer's own published material --
+# nothing here is inferred from a model the catalogues do not list.
+WHY = {
+    "perkins": {
+        "en": "The widest span in our catalogue: 18 standard models from 20 to 1000 kVA, with "
+              "ratings either side supplied to order. Perkins is also offered with a mechanical "
+              "or an electronic governor. A mechanical set runs without an engine control unit, "
+              "which means it can be serviced in the field with ordinary tools and is less "
+              "sensitive to fuel quality — a real advantage on sites far from a service centre. "
+              "Perkins ElectropaK engines with electronic governing conform to ISO 8528-5 "
+              "class G3, and the larger models to class G2.",
+        "ar": "أوسع مدى في كتالوجنا: 18 موديلاً قياسياً من 20 إلى 1000 ك.ف.أ، والقدرات خارج هذا "
+              "النطاق تُورَّد حسب الطلب. وتتوفر بيركنز بمنظّم ميكانيكي أو إلكتروني. الوحدة "
+              "الميكانيكية تعمل دون وحدة تحكم إلكترونية، أي يمكن صيانتها في الموقع بأدوات عادية "
+              "وهي أقل حساسية لجودة الوقود — ميزة حقيقية في المواقع البعيدة عن مراكز الخدمة. "
+              "ومحركات بيركنز ElectropaK ذات التحكم الإلكتروني مطابقة للفئة G3 من معيار "
+              "ISO 8528-5، والموديلات الأكبر للفئة G2.",
+    },
+    "volvo": {
+        "en": "Fully electronic EMS 2.0 engine management, with turbocharging and an "
+              "intercooler across the range. Volvo Penta genset engines comply with ISO 8528 "
+              "class G3, the strictest load-acceptance class in the standard: the set reaches "
+              "stable voltage and frequency faster after the mains drop. That recovery time is "
+              "what makes this the range to specify for data centres, hospitals and any load "
+              "that will not tolerate a long transient.",
+        "ar": "نظام إدارة محرك إلكتروني بالكامل EMS 2.0، مع شحن توربيني ومبرّد بيني في كامل "
+              "النطاق. ومحركات فولفو بنتا للمولدات مطابقة للفئة G3 من معيار ISO 8528، وهي أعلى "
+              "فئات استجابة الحمل في المعيار: تصل الوحدة إلى جهد وتردد مستقرين أسرع بعد انقطاع "
+              "الشبكة. زمن الاستقرار هذا هو ما يجعلها الخيار المحدَّد لمراكز البيانات والمستشفيات "
+              "وأي حمل لا يحتمل اضطراباً طويلاً.",
+    },
+    "doosan": {
+        "en": "V-configuration engines from 6 to 12 cylinders, turbocharged with an aftercooler "
+              "and managed by an electronic ECU. The range is built for continuous prime duty at "
+              "the strongest value in our catalogue — the practical choice for contracting and "
+              "manufacturing sites where the set runs for long hours rather than sitting on "
+              "standby. The engines are built by HD Hyundai Infracore, formerly Doosan Infracore.",
+        "ar": "محركات بتكوين V من 6 إلى 12 أسطوانة، بشحن توربيني ومبرّد لاحق وإدارة عبر وحدة "
+              "تحكم إلكترونية ECU. النطاق مبني للتشغيل المستمر بأعلى قيمة مقابل السعر في "
+              "كتالوجنا — الخيار العملي لمواقع المقاولات والمصانع حيث تعمل الوحدة ساعات طويلة "
+              "بدلاً من انتظارها كاحتياطي. وتُصنَّع المحركات لدى HD Hyundai Infracore، "
+              "المعروفة سابقاً باسم Doosan Infracore.",
+    },
 }
 
 # Copy that has no source in index.html or the PDFs.
@@ -45,6 +94,23 @@ UI = {
         "backHome": "Back to the main site",
         "distributor": "Authorized Distributor in Egypt",
         "modelsCount": "{n} models · {lo}–{hi} kVA",
+        "why": "Why {brand}", "popular": "Most Requested",
+        "faq": "Common Questions",
+        "rangeAvail": "The table lists the main models. Ratings from {lo} to {hi} kVA are "
+                      "available; models outside the table are supplied to order.",
+        "q1": "What is the difference between the Prime and Standby ratings?",
+        "a1": "Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% "
+              "overload available for one hour in every twelve. Standby (ESP) covers only the "
+              "duration of a utility outage and permits no overload. Both figures are listed "
+              "against every model in the table above.",
+        "q2": "Which engines are used across the {brand} range?",
+        "a2": "The range is built on these {brand} engines: {engines}. Each one is listed "
+              "against the rating it drives in the table above.",
+        "q3": "Which alternator is fitted?",
+        "a3": "{alt}, with {ins} insulation and {exc} excitation.",
+        "q4": "Which control panel is supplied?",
+        "a4": "{ctrl}. The panel is configured for the application, whether that is a single set, "
+              "an automatic transfer scheme or a synchronised installation.",
     },
     "ar": {
         "dir": "rtl", "home": "الرئيسية", "generators": "المولدات",
@@ -61,6 +127,23 @@ UI = {
         "backHome": "العودة للموقع الرئيسي",
         "distributor": "موزّع معتمد في مصر",
         "modelsCount": "{n} موديل · {lo}–{hi} ك.ف.أ",
+        "why": "لماذا {brand}؟", "popular": "الأكثر طلباً",
+        "faq": "أسئلة شائعة",
+        "rangeAvail": "الجدول يعرض الموديلات الأساسية. القدرات من {lo} إلى {hi} ك.ف.أ متاحة، "
+                      "والموديلات خارج الجدول تُورَّد حسب الطلب.",
+        "q1": "ما الفرق بين القدرة المستمرة وقدرة الطوارئ؟",
+        "a1": "القدرة المستمرة (PRP) هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل "
+              "زيادة 10% لمدة ساعة كل اثنتي عشرة ساعة. أما قدرة الطوارئ (ESP) فتغطي مدة انقطاع "
+              "الشبكة فقط ولا تسمح بأي زيادة في الحمل. والقيمتان مذكورتان أمام كل موديل في "
+              "الجدول أعلاه.",
+        "q2": "ما المحركات المستخدمة في نطاق {brand}؟",
+        "a2": "يقوم النطاق على محركات {brand} التالية: {engines}. وكل محرك مذكور أمام القدرة "
+              "التي يشغّلها في الجدول أعلاه.",
+        "q3": "ما المولد (الألترنيتور) المركّب؟",
+        "a3": "{alt}، بعزل {ins} وإثارة {exc}.",
+        "q4": "ما لوحة التحكم المورَّدة؟",
+        "a4": "{ctrl}. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي "
+              "أو تركيبة متزامنة.",
     },
 }
 
@@ -159,6 +242,42 @@ def page(brand, lang, cfg, copy, models, specs, css):
                 f"Full ratings, engine and alternator codes, with installation, genuine OEM "
                 f"parts and maintenance from Premium Power, authorized distributor in Egypt.")
 
+    # Site-stated span, which reaches past the catalogue: the extra ratings are built to order.
+    span = re.findall(r"([\d,]+)\s*(?:KVA|ك\.ف\.أ)", copy[lang]["origin"])
+    site_lo, site_hi = (span + [lo, hi])[:2] if len(span) >= 2 else (lo, hi)
+
+    spec = dict(specs[lang])
+    def spec_val(*names):
+        for n in names:
+            if n in spec:
+                return spec[n]
+        return ""
+
+    # Listed verbatim from the catalogue. Deriving a "family" name from these codes
+    # guesses at each maker's naming scheme and gets it wrong; the codes are also what
+    # a buyer who already knows the engine actually searches for.
+    seen, families = set(), []
+    for m in models:
+        if m["engine"] not in seen:
+            seen.add(m["engine"])
+            families.append(m["engine"])
+    faqs = [
+        (t["q1"], t["a1"]),
+        (t["q2"].format(brand=name), t["a2"].format(brand=name, engines="، ".join(families) if lang == "ar" else ", ".join(families))),
+        (t["q3"], t["a3"].format(alt=spec_val("Alternator", "المولد"), ins=spec_val("Insulation", "العزل"), exc=spec_val("Excitation", "الإثارة"))),
+        (t["q4"], t["a4"].format(ctrl=spec_val("Control", "التحكم"))),
+    ]
+    faq_html = "\n".join(
+        f'      <details><summary>{e(q)}</summary><p>{e(a)}</p></details>'
+        for q, a in faqs)
+
+    by_model = {m["model"]: m for m in models}
+    popular = [by_model[c] for c in cfg.get("popular", []) if c in by_model]
+    popular_html = "\n".join(
+        f'      <li><b>{e(m["model"])}</b><span>{e(m["engine"])}</span>'
+        f'<em>{e(m["prime"])} {"ك.ف.أ" if lang == "ar" else "kVA"}</em></li>'
+        for m in popular)
+
     rows = "\n".join(
         f'      <tr><th scope="row">{e(m["model"])}</th><td>{e(m["engine"])}</td>'
         f'<td>{e(m["alt"])}</td><td class="num">{e(m["prime"])}</td>'
@@ -169,12 +288,15 @@ def page(brand, lang, cfg, copy, models, specs, css):
     provided = "\n".join(f'      <li><a href="{home}{href}">{e(label)}</a></li>'
                          for label, href in PROVIDED[lang])
 
-    ld = json.dumps({
-        "@context": "https://schema.org", "@type": "BreadcrumbList",
-        "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": t["home"], "item": SITE + home},
-            {"@type": "ListItem", "position": 2, "name": h1, "item": self_url},
-        ]}, ensure_ascii=False)
+    ld = json.dumps([
+        {"@context": "https://schema.org", "@type": "BreadcrumbList",
+         "itemListElement": [
+             {"@type": "ListItem", "position": 1, "name": t["home"], "item": SITE + home},
+             {"@type": "ListItem", "position": 2, "name": h1, "item": self_url}]},
+        {"@context": "https://schema.org", "@type": "FAQPage",
+         "mainEntity": [{"@type": "Question", "name": q,
+                         "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
+    ], ensure_ascii=False)
 
     return f"""<!DOCTYPE html>
 <html lang="{lang}" dir="{t['dir']}">
@@ -236,7 +358,20 @@ def page(brand, lang, cfg, copy, models, specs, css):
         </tbody>
       </table>
     </div>
+    <p class="avail">{e(t['rangeAvail'].format(lo=site_lo, hi=site_hi))}</p>
     <p class="note">{e(t['rangeNote'])}</p>
+  </section>
+
+  <section>
+    <h2>{e(t['popular'])}</h2>
+    <ul class="popular">
+{popular_html}
+    </ul>
+  </section>
+
+  <section>
+    <h2>{e(t['why'].format(brand=name))}</h2>
+    <p class="why">{e(WHY[brand][lang])}</p>
   </section>
 
   <section>
@@ -251,6 +386,13 @@ def page(brand, lang, cfg, copy, models, specs, css):
     <ul class="provided">
 {provided}
     </ul>
+  </section>
+
+  <section>
+    <h2>{e(t['faq'])}</h2>
+    <div class="faqs">
+{faq_html}
+    </div>
   </section>
 
   <section class="cta">
