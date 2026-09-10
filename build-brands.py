@@ -17,17 +17,18 @@ with plausible-sounding copy.
 Requires pdftotext (poppler-utils).
 """
 import html, json, os, re, subprocess, sys
+from urllib.parse import quote_plus
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.premiumpower-eg.com"
 
 BRANDS = {
     "perkins": {"slug": "perkins-generators-egypt", "pdf": "perkins-specs.pdf",
-                "popular": ["G60PL", "G100PL", "G500PL"]},
+                "popular": ["G60PL", "G100PL", "G500PL"], "marque": "Perkins"},
     "volvo":   {"slug": "volvo-penta-generators-egypt", "pdf": "volvo-specs.pdf",
-                "popular": ["G300VL", "G350VL"]},
+                "popular": ["G300VL", "G350VL"], "marque": "Volvo Penta"},
     "doosan":  {"slug": "doosan-generators-egypt", "pdf": "doosan-specs.pdf",
-                "popular": ["G300DL", "G360DL"]},
+                "popular": ["G300DL", "G360DL"], "marque": "Doosan"},
 }
 
 # Why a buyer picks this marque. Each claim traces to the spec table in
@@ -397,7 +398,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 
   <section class="cta">
     <a class="btn ghost" href="/{cfg['pdf']}" download>{e(t['pdf'])}</a>
-    <a class="btn solid" href="{home}#contact">{e(t['quote'])}</a>
+    <a class="btn solid" href="{home}?brand={quote_plus(cfg['marque'])}#contact">{e(t['quote'])}</a>
   </section>
 </main>
 

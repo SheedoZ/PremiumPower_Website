@@ -2664,6 +2664,16 @@ document.addEventListener('click',e=>{
 // ── Init ─────────────────────────────────────────────────────────
 switchLanguage('ar');
 
+// A brand page hands the form its context through /?brand=Perkins#contact.
+// Matched against the known marques rather than used as given, so the query
+// string cannot put arbitrary text into the enquiry.
+const wantedBrand=new URLSearchParams(location.search).get('brand');
+if(wantedBrand){
+  const known=['Perkins','Volvo Penta','Doosan']
+    .find(b=>b.toLowerCase()===wantedBrand.trim().toLowerCase());
+  if(known) requestQuote(known);
+}
+
 // ── Expose ─────────────────────────────────────────────────────
 window.app={
   toggleMenu,toggleFab,toggleSpec,setSound,
