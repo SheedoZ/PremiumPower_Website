@@ -345,7 +345,7 @@ body::before {
   transition: background .2s; display: flex; align-items: center; justify-content: center; gap: .5rem;
 }
 .btn-brand-primary:hover { background: var(--copper2); }
-.btn-brand-outline {
+.btn-brand-outline { text-decoration: none; 
   background: transparent; color: var(--muted);
   padding: .75rem 1.5rem; font-size: .78rem; font-weight: 600;
   letter-spacing: .08em; text-transform: uppercase;
@@ -1110,6 +1110,7 @@ footer {
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('perkins')">📄 <span data-i18n="btnViewSpec">View Spec Sheet</span></button>
+          <a class="btn-brand-outline" href="/perkins-generators-egypt/" data-i18n="btnAllModels">All Models &amp; Ratings</a>
           <button class="btn-brand-outline" onclick="app.requestQuote('Perkins')">✉ <span data-i18n="btnRequestQuote">Request Quote</span></button>
         </div>
       </article>
@@ -1137,6 +1138,7 @@ footer {
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('volvo')">📄 <span data-i18n="btnViewSpec">View Spec Sheet</span></button>
+          <a class="btn-brand-outline" href="/volvo-penta-generators-egypt/" data-i18n="btnAllModels">All Models &amp; Ratings</a>
           <button class="btn-brand-outline" onclick="app.requestQuote('Volvo Penta')">✉ <span data-i18n="btnRequestQuote">Request Quote</span></button>
         </div>
       </article>
@@ -1164,6 +1166,7 @@ footer {
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('doosan')">📄 <span data-i18n="btnViewSpec">View Spec Sheet</span></button>
+          <a class="btn-brand-outline" href="/doosan-generators-egypt/" data-i18n="btnAllModels">All Models &amp; Ratings</a>
           <button class="btn-brand-outline" onclick="app.requestQuote('Doosan')">✉ <span data-i18n="btnRequestQuote">Request Quote</span></button>
         </div>
       </article>
@@ -1951,7 +1954,7 @@ en:{
   perkinsName:'Perkins Series',perkinsOrigin:'United Kingdom · 9 KVA – 2500 KVA',perkinsDesc:'The industry benchmark for reliability and fuel efficiency. Engineered for every climate and load profile — from residential backup to heavy industrial prime power.',
   volvoName:'Volvo Penta',volvoOrigin:'Sweden · 85 KVA – 700 KVA',volvoDesc:'Swedish precision meets extreme-duty performance. Renowned for rapid load acceptance and minimal transient response — the preferred choice for data centers and critical infrastructure.',
   doosanName:'Doosan',doosanOrigin:'South Korea · 150 KVA – 825 KVA',doosanDesc:'Robust Korean engineering built for continuous prime power. Outstanding durability in construction, manufacturing, and utility applications with exceptional value for money.',
-  btnSpecs:'Technical Specifications',btnViewSpec:'View Spec Sheet',btnRequestQuote:'Request Quote',btnDownloadPdf:'Download PDF',
+  btnSpecs:'Technical Specifications',btnViewSpec:'View Spec Sheet',btnAllModels:'All Models & Ratings',btnRequestQuote:'Request Quote',btnDownloadPdf:'Download PDF',
   specCyl:'Cylinders',specGov:'Governor',specAsp:'Aspiration',specMechElec:'Mechanical / Electronic',specTurbo:'Turbocharged',specTurboInt:'Turbo + Intercooler',specEcu:'Electronic (ECU)',specTurboAfter:'Turbo + Aftercooler',
   servicesLabel:'What We Offer',servicesTitle:'COMPLETE\nPOWER SOLUTIONS',
   svc1:'Open-Type Generators',svc1Desc:'Robust industrial frames with full weather protection for outdoor and factory deployments.',
@@ -2087,7 +2090,7 @@ ar:{
   perkinsName:'سلسلة بيركنز',perkinsOrigin:'المملكة المتحدة · 9 ك.ف.أ – 2500 ك.ف.أ',perkinsDesc:'المعيار الصناعي للموثوقية وكفاءة استهلاك الوقود. مصممة لكل المناخات وأنماط الأحمال.',
   volvoName:'فولفو بنتا',volvoOrigin:'السويد · 85 ك.ف.أ – 700 ك.ف.أ',volvoDesc:'دقة سويدية مع أداء متطرف. مشهورة بالاستجابة السريعة للأحمال — الخيار المفضل لمراكز البيانات والبنية التحتية الحيوية.',
   doosanName:'دوسان',doosanOrigin:'كوريا الجنوبية · 150 ك.ف.أ – 825 ك.ف.أ',doosanDesc:'هندسة كورية متينة مبنية للطاقة الأولية المستمرة. متانة استثنائية في مواقع البناء والتصنيع والمرافق.',
-  btnSpecs:'المواصفات الفنية',btnViewSpec:'عرض الكتيب',btnRequestQuote:'طلب عرض سعر',btnDownloadPdf:'تحميل PDF',
+  btnSpecs:'المواصفات الفنية',btnViewSpec:'عرض الكتيب',btnAllModels:'كل الموديلات والقدرات',btnRequestQuote:'طلب عرض سعر',btnDownloadPdf:'تحميل PDF',
   specCyl:'السلندرات',specGov:'الحاكم',specAsp:'التنفس',specMechElec:'ميكانيكي / إلكتروني',specTurbo:'توربو',specTurboInt:'توربو + مبرد',specEcu:'إلكتروني (ECU)',specTurboAfter:'توربو + مبرد لاحق',
   servicesLabel:'خدماتنا',servicesTitle:'حلول طاقة\nكاملة',
   svc1:'مولدات مفتوحة',svc1Desc:'هياكل صناعية متينة مع حماية كاملة من الطقس للبيئات الخارجية والمصانع.',
