@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Premium Power Showreel</title>
+<style>
+  @font-face { font-family: 'League Gothic'; src: url('../.cache/fonts/LeagueGothic-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'Inter'; font-weight: 500; src: url('../.cache/fonts/Inter-Medium.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-weight: 600; src: url('../.cache/fonts/Inter-SemiBold.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter'; font-weight: 700; src: url('../.cache/fonts/Inter-Bold.ttf') format('truetype'); }
+  @font-face { font-family: 'Inter Display'; font-weight: 900; src: url('../.cache/fonts/InterDisplay-Black.ttf') format('truetype'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 400; src: url('../.cache/fonts/JetBrainsMono-Regular.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 500; src: url('../.cache/fonts/JetBrainsMono-Medium.woff2') format('woff2'); }
+  @font-face { font-family: 'JetBrains Mono'; font-weight: 700; src: url('../.cache/fonts/JetBrainsMono-Bold.woff2') format('woff2'); }
+  @font-face { font-family: 'IBM Plex Sans Arabic'; font-weight: 700; src: url('../.cache/fonts/IBMPlexSansArabic-Bold.woff2') format('woff2'); }
+  :root { color-scheme: dark; }
+  html, body { margin: 0; background: #02060d; color: #e8f1fa; font: 14px/1.4 system-ui, sans-serif; }
+  canvas { display: block; width: 100%; max-width: calc(100vh * 16 / 9); margin: 0 auto; aspect-ratio: 16 / 9; }
+  #ui { display: flex; gap: 12px; align-items: center; max-width: 960px; margin: 12px auto; padding: 0 16px; }
+  #ui[hidden] { display: none; }
+  #ui button { min-width: 140px; padding: 8px 14px; border: 1px solid #009cde; background: #003087; color: #fff; border-radius: 6px; cursor: pointer; }
+  #ui input { flex: 1; }
+  #clock { font-variant-numeric: tabular-nums; min-width: 110px; text-align: right; }
+</style>
+</head>
+<body>
+<canvas id="c" width="1920" height="1080"></canvas>
+<div id="ui" hidden>
+  <button id="play" disabled>Play</button>
+  <input id="scrub" type="range" min="0" max="30" step="0.01" value="0">
+  <span id="clock">00.00 / 30.00</span>
+</div>
+<script type="module" src="main.js"></script>
+</body>
+</html>
