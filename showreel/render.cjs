@@ -162,9 +162,10 @@ async function openPage(browser, base) {
   return page;
 }
 
-// Loudness to -14 LUFS with a peak limiter at -1.5 dBFS running at 4x the
+// Loudness to -14 LUFS with a peak limiter at -2.2 dBFS running at 4x the
 // sample rate (so it also catches inter-sample peaks): measure, apply one
-// gain plus the limiter, measure again and correct if needed.
+// gain plus the limiter, measure again and correct if needed. The margin
+// keeps the true peak under -1 dBTP after AAC encoding.
 function measureLoudness(file) {
   return new Promise((resolve, reject) => {
     const p = spawn(FFMPEG, ['-hide_banner', '-i', file, '-af', 'ebur128=peak=true', '-f', 'null', '-']);
@@ -184,7 +185,7 @@ async function normalise(src, dst) {
   let after;
   for (let pass = 0; pass < 3; pass++) {
     await run(FFMPEG, ['-hide_banner', '-loglevel', 'error', '-y', '-i', src, '-af',
-      `volume=${gain.toFixed(2)}dB,aresample=192000:resampler=soxr,alimiter=limit=0.84:attack=1:release=50:level=disabled:asc=1,aresample=48000:resampler=soxr`,
+      `volume=${gain.toFixed(2)}dB,aresample=192000:resampler=soxr,alimiter=limit=0.78:attack=1:release=50:level=disabled:asc=1,aresample=48000:resampler=soxr`,
       '-ar', '48000', '-c:a', 'pcm_s24le', dst]);
     after = await measureLoudness(dst);
     if (Math.abs(after.i + 14) < 0.2) break;

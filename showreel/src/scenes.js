@@ -1431,7 +1431,7 @@ function sceneServices(ctx, t) {
   const ls = lerp(22, 8, ease.out3(clamp(lt / 0.25)));
   if (style === 'stroke') {
     ctx.strokeStyle = C.white;
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4.5;
     drawText(ctx, word, 0, 85, { align: 'center', ls, stroke: true });
   } else {
     ctx.fillStyle = style === 'cyan' ? C.cyan : C.white;
@@ -1942,11 +1942,11 @@ function sceneCta(ctx, t) {
   particles(ctx, t, T.cta, CX, 560, 110, 2600, { speed: 1600, life: 1.1 });
 
   // LET'S POWER / YOUR PROJECT.
-  const out = P(t, T.endCard - 0.15, T.endCard + 0.2, ease.in3);
+  const out = P(t, T.endCard - 0.3, T.endCard - 0.02, ease.in2);
   if (out < 1) {
     ctx.save();
     ctx.globalAlpha = 1 - out;
-    ctx.translate(0, -out * 120);
+    ctx.translate(0, -out * 160);
     const words = [
       { s: "LET'S ", c: C.white, t0: T.ctaWords[0], line: 0 },
       { s: 'POWER', c: C.cyan, t0: T.ctaWords[1], line: 0, glow: true },
