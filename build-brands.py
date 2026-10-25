@@ -1,23 +1,11 @@
 #!/usr/bin/env python3
-"""Generate the per-brand generator pages, English and Arabic.
-
-The model tables that make these pages worth having live in the spec PDFs at
-the repository root, where search engines read them poorly. This lifts the same
-rows into real HTML pages -- one per brand per language -- and leaves the PDFs
-in place as downloads.
-
-Everything published here comes from a file already in the repository: the model
-rows from the PDFs, the brand blurbs and technical specs from index.html.
-Nothing is invented. Sections that need the customer's own words (best sellers,
-why this brand, common questions) are deliberately absent rather than filled
-with plausible-sounding copy.
-
-    python3 build-brands.py
-
-Requires pdftotext (poppler-utils).
+"""Generate English and Arabic model catalogues with filtering and inline enquiries.
+Ratings come from the repository PDFs. Shared form text comes from index.html.
+Run python3 build-brands.py after editing source data, template or form copy.
+Requires Python 3, Node.js and pdftotext (poppler-utils).
 """
 import html, json, os, re, subprocess, sys
-from urllib.parse import quote_plus
+from site_markup import copy_tables, translate
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = "https://www.premiumpower-eg.com"
@@ -274,16 +262,27 @@ def page(brand, lang, cfg, copy, models, specs, css):
 
     by_model = {m["model"]: m for m in models}
     popular = [by_model[c] for c in cfg.get("popular", []) if c in by_model]
+    ar = lang == 'ar'
+    def label(en, ar_text): return ar_text if ar else en
     popular_html = "\n".join(
-        f'      <li><b>{e(m["model"])}</b><span>{e(m["engine"])}</span>'
-        f'<em>{e(m["prime"])} {"ك.ف.أ" if lang == "ar" else "kVA"}</em></li>'
+        f'<li><span class="eyebrow">{e(cfg["marque"])}</span><b>{e(m["model"])}</b>'
+        f'<span dir="ltr">{e(m["engine"])}</span><em>{e(m["prime"])} kVA <small>Prime</small></em>'
+        f'<span>{e(m["standby"])} kVA Standby</span>'
+        f'<button type="button" class="btn ghost" data-quote="{e(m["model"])}">{e(t["quote"])}</button></li>'
         for m in popular)
-
     rows = "\n".join(
-        f'      <tr><th scope="row">{e(m["model"])}</th><td>{e(m["engine"])}</td>'
-        f'<td>{e(m["alt"])}</td><td class="num">{e(m["prime"])}</td>'
-        f'<td class="num">{e(m["standby"])}</td></tr>'
+        f'<tr data-model="{e(m["model"])}" data-engine="{e(m["engine"])}" data-alt="{e(m["alt"])}" data-prime="{e(m["prime"])}" data-standby="{e(m["standby"])}">'
+        f'<th scope="row" dir="ltr">{e(m["model"])}</th><td data-label="{e(t["engine"])}"><bdi>{e(m["engine"])}</bdi></td>'
+        f'<td data-label="{e(t["alt"])}"><bdi>{e(m["alt"])}</bdi></td><td data-label="{e(t["prime"])}">{e(m["prime"])}</td>'
+        f'<td data-label="{e(t["standby"])}">{e(m["standby"])}</td><td class="model-actions">'
+        f'<button type="button" class="btn solid" data-quote="{e(m["model"])}">{e(t["quote"])}</button>'
+        f'<label><input type="checkbox" class="compare-check" value="{e(m["model"])}"> {label("Compare","قارن")} <span class="sr-only">{e(m["model"])}</span></label></td></tr>'
         for m in models)
+    source=read('index.html')
+    form=re.search(r'<form id="contact-form".*?</form>',source,re.S).group(0)
+    form=form.replace('event.preventDefault(); app.submitForm(event)','window.PremiumPowerEnquiry.submitForm(event)')
+    form=translate(form,copy_tables(source)['T'][lang])
+    brand_nav=''.join(f'<a href="{home}{v["slug"]}/"'+(' aria-current="page"' if k==brand else '')+f'>{e(v["marque"])}</a>' for k,v in BRANDS.items())
     spec_html = "\n".join(f'      <div class="spec-row"><span>{e(k)}</span><b>{e(v)}</b></div>'
                           for k, v in specs[lang])
     provided = "\n".join(f'      <li><a href="{home}{href}">{e(label)}</a></li>'
@@ -311,7 +310,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <link rel="alternate" hreflang="en" href="{url_en}">
 <link rel="alternate" hreflang="ar" href="{url_ar}">
 <link rel="alternate" hreflang="x-default" href="{url_en}">
-<link rel="icon" type="image/png" href="/images/logo.png">
+<link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -322,90 +321,70 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <meta property="og:type" content="website">
 <meta property="og:locale" content="{'ar_EG' if lang == 'ar' else 'en_US'}">
 <script type="application/ld+json">{ld}</script>
-<style>
-{css}
-</style>
+<link rel="stylesheet" href="/assets/brand-page.css?v=20261025">
 </head>
-<body>
-<a href="#main" class="skip">{'تخطي إلى المحتوى' if lang == 'ar' else 'Skip to content'}</a>
+<body data-brand="{e(cfg['marque'])}">
+<a href="#main" class="skip">{label('Skip to content','تخطي إلى المحتوى')}</a>
 <header class="bar">
   <a class="logo" href="{home}">PREMIUM<span>POWER</span></a>
-  <nav class="langs" aria-label="{'اللغة' if lang == 'ar' else 'Language'}">
-    <a href="/{slug}/" hreflang="en" lang="en"{' class="on" aria-current="page"' if lang == 'en' else ''}>EN</a>
-    <a href="/ar/{slug}/" hreflang="ar" lang="ar"{' class="on" aria-current="page"' if lang == 'ar' else ''}>ع</a>
+  <nav class="langs" aria-label="{label('Language','اللغة')}">
+    <a href="/{slug}/" hreflang="en" lang="en"{' aria-current="page"' if not ar else ''}>EN</a>
+    <a href="/ar/{slug}/" hreflang="ar" lang="ar"{' aria-current="page"' if ar else ''}>عربي</a>
   </nav>
 </header>
-
 <main id="main">
-  <nav class="crumbs" aria-label="{'مسار التنقل' if lang == 'ar' else 'Breadcrumb'}">
-    <a href="{home}">{e(t['home'])}</a> <span>›</span> <a href="{home}#products">{e(t['generators'])}</a> <span>›</span> {e(name)}
-  </nav>
-
+  <nav class="crumbs" aria-label="{label('Breadcrumb','مسار التنقل')}"><a href="{home}">{e(t['home'])}</a> / <a href="{home}#products">{e(t['generators'])}</a> / {e(name)}</nav>
   <section class="hero">
-    <p class="eyebrow">{e(t['distributor'])}</p>
-    <h1>{e(h1)}</h1>
-    <p class="origin">{e(copy[lang]['origin'])}</p>
-    <p class="lede">{e(copy[lang]['desc'])}</p>
-    <p class="count">{e(t['modelsCount'].format(n=len(models), lo=lo, hi=hi))}</p>
-  </section>
-
-  <section>
-    <h2>{e(t['range'])}</h2>
-    <div class="scroll">
-      <table>
-        <thead><tr><th scope="col">{e(t['model'])}</th><th scope="col">{e(t['engine'])}</th><th scope="col">{e(t['alt'])}</th><th scope="col">{e(t['prime'])}</th><th scope="col">{e(t['standby'])}</th></tr></thead>
-        <tbody>
-{rows}
-        </tbody>
-      </table>
+    <div class="hero-copy">
+      <img class="marque" src="/images/brands/{brand}.svg" alt="{e(cfg['marque'])}" width="180" height="64">
+      <p class="eyebrow">PREMIUM POWER · {label('EGYPT','مصر')}</p>
+      <h1>{e(h1)}</h1>
+      <p class="lede">{e(copy[lang]['desc'])}</p>
+      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>kVA · Prime · 50 Hz</span></div>
+      <div class="cta"><a href="#models" class="btn solid">{label('Find your model','اختار الموديل المناسب')}</a><a class="btn ghost" href="#contact" data-general-quote>{e(t['quote'])}</a></div>
+      <a class="download" href="/{cfg['pdf']}" download>{e(t['pdf'])} ↓</a>
     </div>
-    <p class="avail">{e(t['rangeAvail'].format(lo=site_lo, hi=site_hi))}</p>
+    <figure class="hero-photo"><img src="/images/gallery/gen_1.webp" width="1000" height="671" fetchpriority="high" alt="{label('Enclosed generator from the Premium Power gallery','مولد بكابينة من معرض بريميوم باور')}"><figcaption>{label('From our generator gallery. Configuration depends on the selected model.','من معرض مولداتنا — التجهيز النهائي حسب الموديل المختار.')}</figcaption></figure>
+  </section>
+  <nav class="brand-nav" aria-label="{label('Generator brands','ماركات المولدات')}">{brand_nav}</nav>
+  <p class="avail">{e(t['rangeAvail'].format(lo=site_lo, hi=site_hi))}</p>
+  <section>
+    <p class="eyebrow">{label('A place to start','ابدأ من هنا')}</p>
+    <h2>{label('Explore the range','اختيارات من المجموعة')}</h2>
+    <ul class="popular">{popular_html}</ul>
+  </section>
+  <section id="models">
+    <div class="section-heading"><div><p class="eyebrow">{label('Compare. Choose. Enquire.','قارن. اختار. استفسر.')}</p><h2>{e(t['range'])}</h2></div><a href="#contact" data-general-quote>{label('Not sure which size? Ask our team →','مش متأكد من القدرة؟ اسأل فريقنا ←')}</a></div>
+    <div id="model-tools" class="filters" hidden>
+      <label for="model-search">{label('Search model or engine','ابحث بالموديل أو المحرك')}<input id="model-search" type="search" placeholder="{label('Model / engine code','كود الموديل / المحرك')}"></label>
+      <label for="rating">{label('Rating for filter & quote','القدرة للفلترة وطلب السعر')}<select id="rating"><option value="prime">Prime — {label('variable load','حمل متغير')}</option><option value="standby">Standby — {label('backup','طوارئ')}</option></select></label>
+      <label for="min-kva">{label('From kVA','من ك.ف.أ')}<input id="min-kva" type="number" min="0" step="any" placeholder="0"></label>
+      <label for="max-kva">{label('Up to kVA','حتى ك.ف.أ')}<input id="max-kva" type="number" min="0" step="any" placeholder="{max(float(m['standby']) for m in models):g}"></label>
+      <label for="model-sort">{label('Sort capacity','ترتيب القدرة')}<select id="model-sort"><option value="asc">{label('Low to high','من الأقل للأعلى')}</option><option value="desc">{label('High to low','من الأعلى للأقل')}</option></select></label>
+      <button type="button" id="reset-filters" class="btn ghost">{label('Reset','إعادة ضبط')}</button>
+    </div>
+    <p id="result-count" class="note" role="status" aria-live="polite">{len(models)} {label('models','موديل')}</p>
+    <div class="scroll"><table id="model-table"><caption class="sr-only">{e(name)} — {e(t['range'])}</caption>
+    <thead><tr><th scope="col">{e(t['model'])}</th><th scope="col">{e(t['engine'])}</th><th scope="col">{e(t['alt'])}</th><th scope="col">{e(t['prime'])}</th><th scope="col">{e(t['standby'])}</th><th scope="col">{label('Choose','اختار')}</th></tr></thead>
+    <tbody>{rows}</tbody></table></div>
+    <p id="no-results" class="avail" hidden>{label('No matching models. Adjust the filters or ask us about a different capacity.','لا توجد موديلات مطابقة. عدّل الفلاتر أو اسألنا عن القدرة المطلوبة.')}</p>
     <p class="note">{e(t['rangeNote'])}</p>
+    <div id="comparison" class="comparison" hidden><h3>{label('Your comparison','الموديلات المختارة للمقارنة')}</h3><p id="compare-status" role="status" aria-live="polite"></p><div id="compare-cards" class="compare-cards"></div><button id="clear-compare" class="btn ghost" type="button">{label('Clear comparison','مسح المقارنة')}</button></div>
   </section>
-
-  <section>
-    <h2>{e(t['popular'])}</h2>
-    <ul class="popular">
-{popular_html}
-    </ul>
+  <section class="detail-grid">
+    <div><h2>{e(t['why'].format(brand=name))}</h2><p class="why">{e(WHY[brand][lang])}</p></div>
+    <div><h2>{e(t['specs'])}</h2><div class="specs">{spec_html}</div></div>
   </section>
-
-  <section>
-    <h2>{e(t['why'].format(brand=name))}</h2>
-    <p class="why">{e(WHY[brand][lang])}</p>
-  </section>
-
-  <section>
-    <h2>{e(t['specs'])}</h2>
-    <div class="specs">
-{spec_html}
-    </div>
-  </section>
-
-  <section>
-    <h2>{e(t['provide'])}</h2>
-    <ul class="provided">
-{provided}
-    </ul>
-  </section>
-
-  <section>
-    <h2>{e(t['faq'])}</h2>
-    <div class="faqs">
-{faq_html}
-    </div>
-  </section>
-
-  <section class="cta">
-    <a class="btn ghost" href="/{cfg['pdf']}" download>{e(t['pdf'])}</a>
-    <a class="btn solid" href="{home}?brand={quote_plus(cfg['marque'])}#contact">{e(t['quote'])}</a>
+  <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul></section>
+  <section><h2>{e(t['faq'])}</h2><div class="faqs">{faq_html}</div></section>
+  <section id="contact" class="enquiry">
+    <div><p class="eyebrow">{label('Let’s plan your power','خلينا نجهز احتياجك')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختار موديل من فوق أو احكيلنا عن مشروعك. فريقنا يساعدك في تأكيد القدرة والتجهيز المناسب.')}</p><p><a href="tel:+201229688688">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+    <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم بياناتك للرد على الاستفسار.')}</p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو استخدام واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
   </section>
 </main>
-
-<footer class="foot">
-  <a href="{home}">{e(t['backHome'])}</a>
-  <span>Premium Power LLC · 40 El Hegaz St, Heliopolis, Cairo · <a href="tel:+201229688688">+20 122 968 8688</a></span>
-</footer>
+<div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a></div>
+<footer class="foot"><a href="{home}">{e(t['backHome'])}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
+<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261025" defer></script><script src="/assets/brand-page.js?v=20261025" defer></script>
 </body>
 </html>
 """

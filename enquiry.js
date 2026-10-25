@@ -56,6 +56,7 @@
     const message = byId('f-msg');
     if (message) message.setAttribute('placeholder', text[language()][byId('f-type').value === 'maintenance' ? 'maintenanceHint' : 'salesHint']);
     if (statusKey) showStatus(statusKey, statusKind);
+    refreshProduct();
   }
 
   function updatePlan() {
@@ -68,6 +69,28 @@
     refreshLanguage();
   }
 
+  function refreshProduct() {
+    const context=byId('product-context');
+    if (!context) return;
+    const data=byId('contact-form').dataset;
+    const parts=[data.brand, data.model, data.capacity ? data.capacity+' kVA'+(data.rating?' ('+data.rating+')':'') : ''].filter(Boolean);
+    context.hidden=!parts.length;
+    context.textContent=parts.length ? (language()==='ar'?'الاختيار: ':'Selected: ')+parts.join(' · ') : '';
+  }
+
+  function setProduct(product) {
+    if(pending || byId('f-type').value!=='sales') return false;
+    const data=byId('contact-form').dataset;
+    for(const key of ['brand','model','capacity','rating']) delete data[key];
+    if(['Perkins','Volvo Penta','Doosan'].includes(product.brand)) data.brand=product.brand;
+    if(data.brand && /^G[0-9]+[A-Z]{2}$/.test(product.model||'')) data.model=product.model;
+    const capacity=Number(product.capacity);
+    if(Number.isFinite(capacity)&&capacity>0) data.capacity=String(capacity);
+    if(['Prime','Standby'].includes(product.rating)) data.rating=product.rating;
+    refreshProduct();
+    return true;
+  }
+
   function setPath(type, plan) {
     if (pending) return false;
     if (type !== 'sales' && type !== 'maintenance') return false;
@@ -78,7 +101,11 @@
     }
     delete form.dataset.brand;
     delete form.dataset.capacity;
+    delete form.dataset.model;
+    delete form.dataset.rating;
+    refreshProduct();
     updatePlan();
+    if(type==='sales' && document.body.dataset?.brand) setProduct({brand:document.body.dataset.brand});
     showStatus('', '');
     return true;
   }
@@ -120,6 +147,8 @@
     if (type === 'maintenance') payload.maintenance_plan = plan;
     if (type === 'sales') {
       if (form.dataset.brand) payload.brand = form.dataset.brand;
+      if (form.dataset.model) payload.model = form.dataset.model;
+      if (form.dataset.rating) payload.rating = form.dataset.rating;
       const capacity = Number(form.dataset.capacity);
       if (Number.isFinite(capacity) && capacity > 0) payload.capacity = capacity;
     }
@@ -142,6 +171,7 @@
     showStatus('sending', ''); refreshLanguage();
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20000);
+    let received = false;
     try {
       const response = await fetch(endpoint, {
         method: 'POST', headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -165,6 +195,10 @@
       if (payload.maintenance_plan) byId('f-plan').value = payload.maintenance_plan;
       delete form.dataset.brand;
       delete form.dataset.capacity;
+      delete form.dataset.model;
+      delete form.dataset.rating;
+      refreshProduct();
+      received=true;
       showStatus('success', 'success');
       return true;
     } catch (error) {
@@ -177,6 +211,7 @@
       controls.forEach((control, index) => { control.disabled = previous[index]; });
       form.removeAttribute('aria-busy');
       updatePlan();
+      if(received && payload.enquiry_type==='sales' && document.body.dataset?.brand) setProduct({brand:document.body.dataset.brand});
     }
   }
 
@@ -190,7 +225,7 @@
     byId('f-type').addEventListener('change', () => setPath(byId('f-type').value));
     updatePlan();
   }
-  window.PremiumPowerEnquiry = { submit, submitForm, open, setPath, refreshLanguage };
+  window.PremiumPowerEnquiry = { submit, submitForm, open, setPath, setProduct, refreshLanguage };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();

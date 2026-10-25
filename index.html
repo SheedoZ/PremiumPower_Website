@@ -14,11 +14,10 @@
 <link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/">
 <link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/">
 <link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/">
-<link rel="icon" type="image/png" href="/images/logo.png">
-<link rel="apple-touch-icon" href="/images/logo.png">
+<link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://unpkg.com" crossorigin>
 <link rel="preconnect" href="https://images.unsplash.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <meta property="og:title" content="Premium Power LLC | Diesel Generators Egypt">
@@ -150,12 +149,12 @@ body::before {
 /* ── Mobile menu ── */
 #mobile-menu {
   display: none; position: fixed; inset: 0; background: #fff;
-  z-index: 99; padding: 6rem 2rem 2rem; flex-direction: column; gap: 1.5rem;
+  z-index: 300; padding: 5rem 1.5rem 2rem; flex-direction: column; gap: .5rem; overflow-y: auto; overscroll-behavior: contain;
   border-left: 3px solid var(--copper);
 }
 #mobile-menu.open { display: flex; }
 #mobile-menu a {
-  font-family: 'Bebas Neue', sans-serif; font-size: 2rem; color: var(--off);
+  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--off);
   text-decoration: none; letter-spacing: .05em; border-bottom: 1px solid var(--border);
   padding-bottom: 1rem; transition: color .2s;
 }
@@ -336,9 +335,9 @@ body::before {
 .spec-toggle:hover { color: var(--copper2); }
 .spec-arrow { transition: transform .3s; font-size: .85rem; }
 .spec-body {
-  max-height: 0; overflow: hidden; transition: max-height .4s ease;
+  max-height: 0; overflow: hidden;
 }
-.spec-body.open { max-height: 200px; }
+.spec-body.open { max-height: none; }
 .spec-row { display: flex; justify-content: space-between; padding: .5rem 0; font-size: .8rem; border-bottom: 1px solid var(--border); }
 .spec-row:last-child { border-bottom: none; }
 .spec-key { color: var(--muted); }
@@ -719,9 +718,9 @@ footer {
 #fab-options {
   display: flex; flex-direction: column; gap: .6rem;
   opacity: 0; transform: translateY(10px) scale(.95);
-  pointer-events: none; transition: all .25s;
+  pointer-events: none; visibility: hidden; transition: all .25s;
 }
-#fab-options.open { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+#fab-options.open { visibility: visible; opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
 .fab-option {
   display: flex; align-items: center; gap: .75rem;
   background: #fff; border: 1px solid var(--border);
@@ -863,7 +862,7 @@ footer {
 }
 
 /* ── Reveal animations ── */
-.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+.reveal { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity: 1; transform: translateY(0); }
 .reveal-delay-1 { transition-delay: .1s; }
 .reveal-delay-2 { transition-delay: .2s; }
@@ -904,6 +903,19 @@ footer {
 }
 @media (max-width: 480px) {
   .gallery-grid { grid-template-columns: 1fr 1fr; }
+}
+
+section[id] { scroll-margin-top: 6rem; }
+[hidden] { display: none !important; }
+#product-context { padding: 1rem; background: #eaf4fb; border-inline-start: 3px solid #0070ba; overflow-wrap: anywhere; }
+@media(max-width:600px){
+  .calc-row { gap: .75rem; } .calc-input { width: 5.5rem; flex-shrink: 0; }
+  .spec-row { gap: 1rem; } .spec-val { text-align: end; overflow-wrap: anywhere; }
+  .contact-form-wrap input, .contact-form-wrap select, .contact-form-wrap textarea { font-size:16px; }
+  #fab-menu { bottom:1rem; right:1rem; }
+}
+@media(prefers-reduced-motion:reduce){
+  html { scroll-behavior:auto; } *,*::before,*::after { animation:none !important; transition:none !important; }
 }
 </style>
 </head>
@@ -1293,6 +1305,10 @@ footer {
           <label for="c-hours" style="cursor:pointer"><div class="calc-label" data-i18n="calcHours">Operating Hours / Day</div><div class="calc-sub" data-i18n="calcHoursSub">How long the generator runs each day</div></label>
           <input type="number" id="c-hours" class="calc-input" min="0" max="24" value="0" oninput="app.calcKVA()" aria-label="Operating hours per day">
         </div>
+        <div class="calc-row">
+          <label for="c-price"><span class="calc-label" data-i18n="fuelPrice">Diesel price (EGP/L)</span></label>
+          <input type="number" id="c-price" class="calc-input" min="0" max="1000" step="0.01" value="20" oninput="app.calcKVA()">
+        </div>
       </div>
 
       <!-- Result -->
@@ -1329,7 +1345,7 @@ footer {
             <span class="result-row-label" data-i18n="costLabel">Daily Fuel Cost</span>
             <span><span class="result-row-val" id="r-cost" aria-live="polite">0</span><span class="result-row-unit">EGP</span></span>
           </div>
-          <p class="result-note" data-i18n="calcNote">*Includes 25% safety margin at 0.8 PF. Motor starting currents may vary. @ 12 EGP/L.</p>
+          <p class="result-note" data-i18n="calcNote">Preliminary sizing only. Includes 25% allowance at 0.8 PF. Fuel uses an indicative 0.15 L/h per kVA at 75% load, not a model-specific measurement. Update the diesel price above.</p>
           <button class="btn-quote-cta" onclick="app.requestQuote()" data-i18n="calcCta">Get Free Quote — 24 Hours</button>
         </div>
       </div>
@@ -1438,14 +1454,14 @@ footer {
       <h2 class="sec-title reveal" data-i18n="galleryTitle">GENERATOR<br><span style="color:var(--copper)">GALLERY</span></h2>
     </div>
     <div class="gallery-grid reveal">
-      <div class="gallery-cell"><img src="./images/gallery/gen_1.webp" alt="Generator installation 1" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 01</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_2.webp" alt="Generator installation 2" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 02</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_3.webp" alt="Generator installation 3" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 03</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_4.webp" alt="Generator installation 4" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 04</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_5.webp" alt="Generator installation 5" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 05</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_6.webp" alt="Generator installation 6" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 06</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_7.webp" alt="Generator installation 7" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 07</div></div></div>
-      <div class="gallery-cell"><img src="./images/gallery/gen_8.webp" alt="Generator installation 8" loading="lazy" width="400" height="400"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 08</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_1.webp" decoding="async" alt="Generator installation 1" loading="lazy" width="1000" height="671"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 01</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_2.webp" decoding="async" alt="Generator installation 2" loading="lazy" width="1000" height="610"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 02</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_3.webp" decoding="async" alt="Generator installation 3" loading="lazy" width="1000" height="666"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 03</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_4.webp" decoding="async" alt="Generator installation 4" loading="lazy" width="1000" height="666"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 04</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_5.webp" decoding="async" alt="Generator installation 5" loading="lazy" width="1000" height="666"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 05</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_6.webp" decoding="async" alt="Generator installation 6" loading="lazy" width="1000" height="918"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 06</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_7.webp" decoding="async" alt="Generator installation 7" loading="lazy" width="1000" height="666"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 07</div></div></div>
+      <div class="gallery-cell"><img src="./images/gallery/gen_8.webp" decoding="async" alt="Generator installation 8" loading="lazy" width="1000" height="666"><div class="gallery-cell-overlay"><div class="gallery-cell-label">GEN — 08</div></div></div>
     </div>
   </div>
 </section>
@@ -1869,6 +1885,7 @@ footer {
       <div class="contact-form-wrap">
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--muted);margin-bottom:2rem;border-bottom:1px solid var(--border);padding-bottom:1rem" data-i18n="formTitle">SEND AN INQUIRY</div>
         <form id="contact-form" method="post" onsubmit="event.preventDefault(); app.submitForm(event)" novalidate>
+          <p id="product-context" class="form-note" role="status" aria-live="polite" hidden></p>
           <div class="form-grid">
             <div class="form-group">
               <label for="f-name" class="form-label"><span data-i18n="fName">Your Name</span><span class="req">*</span></label>
@@ -1993,17 +2010,14 @@ footer {
 </div>
 
 <!-- Scripts -->
-<script src="https://unpkg.com/lucide@0.263.1/dist/umd/lucide.js"></script>
 <script src="/enquiry-config.js?v=20260908-1"></script>
-<script src="/enquiry.js"></script>
+<script src="/enquiry.js?v=20261025"></script>
 <script>
 (function(){
 'use strict';
 
 // ── State ────────────────────────────────────────────────────────
 let lang = 'en';
-let calcTimer = null;
-let calcShown = false;
 let scrollTick = false;
 
 // ── Translations ─────────────────────────────────────────────────
@@ -2086,7 +2100,8 @@ en:{
   ac1:'AC Unit (1.5 HP)',ac1W:'≈ 1,200 W each',ac3:'AC Unit (3.0 HP)',ac3W:'≈ 2,400 W each',
   pump:'Water Pump (1 HP)',pumpW:'≈ 750 W each',pc:'PC / Workstation',pcW:'≈ 200 W each',light:'Lighting (Room)',lightW:'≈ 100 W each',
   fuelLabel:'Fuel Consumption',fuelUnit:'L/hr',costLabel:'Daily Fuel Cost',
-  calcNote:'*Includes 25% safety margin at 0.8 PF. Motor starting currents may vary. Fuel measured at 75% load. @ 20 EGP/L.',
+  fuelPrice:'Diesel price (EGP/L)',
+  calcNote:'Preliminary sizing only: 25% allowance at 0.8 PF. Starting loads require an engineering assessment. Fuel uses an indicative 0.15 L/h per kVA at 75% load, not a model-specific measurement. Update the diesel price above.',
   calcCta:'Get Free Quote — 24 Hours',
   soundLabel:'Acoustic Engineering',soundTitle:'HEAR THE\nDIFFERENCE',
   soundOpen:'Standard (Open)',soundSilent:'Soundproof Canopy',soundTraffic:'≈ Heavy Traffic',soundOffice:'≈ Library Quiet',
@@ -2223,7 +2238,8 @@ ar:{
   ac1:'مكيف (1.5 حصان)',ac1W:'≈ 1,200 واط لكل وحدة',ac3:'مكيف (3.0 حصان)',ac3W:'≈ 2,400 واط لكل وحدة',
   pump:'مضخة مياه (1 حصان)',pumpW:'≈ 750 واط لكل وحدة',pc:'كمبيوتر / محطة عمل',pcW:'≈ 200 واط لكل وحدة',light:'إضاءة (غرفة)',lightW:'≈ 100 واط لكل غرفة',
   fuelLabel:'استهلاك الوقود',fuelUnit:'لتر/ساعة',costLabel:'تكلفة الوقود اليومية',
-  calcNote:'*يتضمن هامش أمان 25٪ عند معامل قدرة 0.8. قد تختلف تيارات بدء المحركات. استهلاك الوقود مقاس عند حمل 75٪. @ 20 جنيه/لتر.',
+  fuelPrice:'سعر السولار (جنيه/لتر)',
+  calcNote:'تقدير أولي: هامش 25٪ ومعامل قدرة 0.8. أحمال البدء تحتاج مراجعة هندسية. الوقود محسوب بمعامل تقريبي 0.15 لتر/ساعة لكل ك.ف.أ عند حمل 75٪، وليس قياساً لموديل محدد. عدّل سعر السولار أعلاه.',
   calcCta:'احصل على عرض مجاني — 24 ساعة',
   soundLabel:'الهندسة الصوتية',soundTitle:'اسمع\nالفرق',
   soundOpen:'قياسي (مفتوح)',soundSilent:'كابينة عازلة للصوت',soundTraffic:'≈ ازدحام مروري',soundOffice:'≈ هدوء مكتبة',
@@ -2401,7 +2417,9 @@ function toggleMenu(){
   const m=document.getElementById('mobile-menu');
   const open=m.classList.toggle('open');
   document.getElementById('hamburger-btn').setAttribute('aria-expanded',open);
+  document.body.style.overflow=open?'hidden':'';
   if(open){const a=m.querySelector('a');if(a)a.focus();}
+  else document.getElementById('hamburger-btn').focus();
 }
 
 // ── FAB ──────────────────────────────────────────────────────────
@@ -2479,48 +2497,30 @@ function closePdf(){
 
 // ── Calculator ───────────────────────────────────────────────────
 function calcKVA(){
-  clearTimeout(calcTimer);
-  calcTimer=setTimeout(()=>{
-    const v=n=>Math.max(0,Math.min(50,parseInt(document.getElementById(n).value)||0));
-    const w=(v('c-ac1')*1200)+(v('c-ac3')*2400)+(v('c-pump')*750)+(v('c-pc')*200)+(v('c-light')*100);
-    const kva=Math.ceil((w/1000/0.8)*1.25);
-    // 500 KVA at 75% load burns 75 L/hr, so 0.15 L/hr per KVA.
-    const fuel=kva>0?Math.round(kva*0.15*10)/10:0;
-    const hours=Math.max(0,Math.min(24,parseInt(document.getElementById('c-hours').value)||0));
-    const cost=Math.round(fuel*hours*20);
-    document.getElementById('r-kva').textContent=kva;
-    document.getElementById('r-fuel').textContent=fuel;
-    document.getElementById('r-cost').textContent=hours>0?cost.toLocaleString():'—';
-    if(!calcShown&&kva>0){
-      calcShown=true;
-      document.getElementById('calc-placeholder').style.display='none';
-      document.getElementById('calc-result').style.display='flex';
-    }
-  },300);
+  const v=(id,max,decimal=false)=>{
+    const input=document.getElementById(id);
+    const number=Number(input.value);
+    const value=Number.isFinite(number)?Math.max(0,Math.min(max,decimal?number:Math.floor(number))):0;
+    if(input.value!=='' && String(value)!==input.value) input.value=String(value);
+    return value;
+  };
+  const watts=v('c-ac1',50)*1200+v('c-ac3',50)*2400+v('c-pump',50)*750+v('c-pc',50)*200+v('c-light',50)*100;
+  const kva=Math.ceil(watts/1000/0.8*1.25);
+  const fuel=Math.round(kva*.15*10)/10;
+  const hours=v('c-hours',24), price=v('c-price',1000,true);
+  document.getElementById('r-kva').textContent=kva;
+  document.getElementById('r-fuel').textContent=fuel;
+  document.getElementById('r-cost').textContent=hours>0?Math.round(fuel*hours*price).toLocaleString(lang==='ar'?'ar-EG':'en-GB'):'—';
+  document.getElementById('calc-placeholder').style.display=kva>0?'none':'block';
+  document.getElementById('calc-result').style.display=kva>0?'flex':'none';
+  return kva;
 }
 
-// ── Request quote (autofill form) ────────────────────────────────
+// Keep product context separate from the customer's own message.
 function requestQuote(brand){
-  const form=document.getElementById('contact-form');
-  const f=document.getElementById('f-msg');
-  const kvaText=document.getElementById('r-kva')?.textContent||'';
-  const kva=Number.parseInt(kvaText,10);
+  const kva=calcKVA();
   if(!window.PremiumPowerEnquiry.open('sales')) return;
-  if(form){
-    if(brand) form.dataset.brand=String(brand);
-    if(Number.isFinite(kva)&&kva>0) form.dataset.capacity=String(kva);
-  }
-  if(f&&!f.value.trim()){
-    if(lang==='ar'){
-      f.value=brand
-        ? `مرحباً، أنا مهتم بمولد ${brand}${kva>0?` بقدرة تقريبية ${kva} ك.ف.أ`:''}. يرجى التواصل معي للتفاصيل.`
-        : `مرحباً، أحتاج إلى مساعدة في اختيار المولد المناسب${kva>0?` (بقدرة تقريبية ${kva} ك.ف.أ)`:''}. يرجى إرسال عرض سعر.`;
-    } else {
-      f.value=brand
-        ? `Hello, I'm interested in a ${brand} generator${kva>0?` with approx. ${kva} KVA capacity`:''}. Please contact me with details.`
-        : `Hello, I need help selecting the right generator${kva>0?` (approx. ${kva} KVA)`:''}. Please send me a quote.`;
-    }
-  }
+  window.PremiumPowerEnquiry.setProduct({brand:brand||'',capacity:kva||''});
 }
 
 // ── Contact form ─────────────────────────────────────────────────
@@ -2599,6 +2599,13 @@ function switchLanguage(l){
 
 // ── ESC key ──────────────────────────────────────────────────────
 document.addEventListener('keydown',e=>{
+  const menu=document.getElementById('mobile-menu');
+  if(e.key==='Tab' && menu.classList.contains('open')){
+    const items=Array.from(menu.querySelectorAll('a, button'));
+    const first=items[0],last=items[items.length-1];
+    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
+    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
+  }
   if(e.key==='Escape'){
     closePdf();
     closeNotif();
@@ -2610,7 +2617,7 @@ document.addEventListener('keydown',e=>{
 // ── Click outside FAB ────────────────────────────────────────────
 document.addEventListener('click',e=>{
   const fab=document.getElementById('fab-menu');
-  if(!fab.contains(e.target)) document.getElementById('fab-options').classList.remove('open');
+  if(!fab.contains(e.target)) { document.getElementById('fab-options').classList.remove('open'); document.querySelector('.fab-trigger').setAttribute('aria-expanded','false'); }
 });
 
 // ── Init ─────────────────────────────────────────────────────────
@@ -2623,7 +2630,10 @@ const wantedBrand=new URLSearchParams(location.search).get('brand');
 if(wantedBrand){
   const known=['Perkins','Volvo Penta','Doosan']
     .find(b=>b.toLowerCase()===wantedBrand.trim().toLowerCase());
-  if(known) requestQuote(known);
+  if(known){
+    window.PremiumPowerEnquiry.open('sales');
+    window.PremiumPowerEnquiry.setProduct({brand:known});
+  }
 }
 
 // ── Expose ─────────────────────────────────────────────────────
