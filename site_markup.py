@@ -8,7 +8,12 @@ def copy_tables(source):
     start=source.index('const T = {')
     end=source.index('// ── PDF config',start)
     code=source[start:end]+'\nprocess.stdout.write(JSON.stringify({T,FAQS}));'
-    return json.loads(subprocess.run(['node','-e',code],check=True,capture_output=True,text=True).stdout)
+    # Stream the script to avoid Windows' command-line limit; preserve Arabic
+    # independently of the host's default text encoding.
+    return json.loads(subprocess.run(
+        ['node'], input=code, check=True, capture_output=True,
+        text=True, encoding='utf-8',
+    ).stdout)
 
 
 def translate(source, table):

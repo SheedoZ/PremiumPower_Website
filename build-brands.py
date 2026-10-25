@@ -152,8 +152,8 @@ def read(path):
 
 def models_from_pdf(pdf):
     """Pull the rating table out of a spec sheet."""
-    out = subprocess.run(["pdftotext", "-layout", os.path.join(ROOT, pdf), "-"],
-                         capture_output=True, text=True)
+    out = subprocess.run(["pdftotext", "-enc", "UTF-8", "-layout", os.path.join(ROOT, pdf), "-"],
+                         capture_output=True, text=True, encoding="utf-8")
     if out.returncode:
         sys.exit(f"pdftotext failed on {pdf}: {out.stderr.strip()}")
     rows = []

@@ -49,6 +49,25 @@ for(const lang of ['en','ar']){
   }finally{dom.window.close();}
  });
  for(const [slug,brand,count] of [['perkins-generators-egypt','Perkins',18],['volvo-penta-generators-egypt','Volvo Penta',13],['doosan-generators-egypt','Doosan',9]]){
+ test(`${lang} ${brand}: capacity errors identify the invalid field and clear after reset`,async()=>{
+  const {dom,w,d}=await load((lang==='ar'?'ar/':'')+slug+'/index.html');
+  try{
+   const min=d.getElementById('min-kva'),max=d.getElementById('max-kva');
+   for(const [low,high,minInvalid,maxInvalid] of [
+    ['-1','',true,false],['','-1',false,true],['-2','-1',true,true],
+    ['500','100',false,true],['100','100',false,false],['0','',false,false]
+   ]){
+    min.value=low;max.value=high;min.dispatchEvent(new w.Event('input',{bubbles:true}));
+    assert.equal(min.getAttribute('aria-invalid'),String(minInvalid),`minimum for ${low}..${high}`);
+    assert.equal(max.getAttribute('aria-invalid'),String(maxInvalid),`maximum for ${low}..${high}`);
+    if(minInvalid||maxInvalid)assert.equal([...d.querySelectorAll('#model-table tbody tr')].filter(r=>!r.hidden).length,0);
+   }
+   min.value='-1';min.dispatchEvent(new w.Event('input',{bubbles:true}));
+   d.getElementById('reset-filters').click();
+   assert.equal(min.getAttribute('aria-invalid'),'false');assert.equal(max.getAttribute('aria-invalid'),'false');
+   assert.equal([...d.querySelectorAll('#model-table tbody tr')].filter(r=>!r.hidden).length,count);
+  }finally{dom.window.close();}
+ });
  test(`${lang} ${brand}: filter, sort, compare limit, inline model quote and maintenance reset`,async()=>{
   const {dom,w,d,requests}=await load((lang==='ar'?'ar/':'')+slug+'/index.html');
   const input=(id,value)=>{d.getElementById(id).value=value;d.getElementById(id).dispatchEvent(new w.Event('input',{bubbles:true}));};

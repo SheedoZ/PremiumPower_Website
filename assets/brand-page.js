@@ -18,8 +18,11 @@
       byId("min-kva").value === "" ? 0 : Number(byId("min-kva").value);
     const max =
       byId("max-kva").value === "" ? Infinity : Number(byId("max-kva").value);
-    const valid = min >= 0 && max >= min;
-    byId("max-kva").setAttribute("aria-invalid", String(!valid));
+    const minValid = min >= 0;
+    const maxValid = max >= 0 && (!minValid || max >= min);
+    const valid = minValid && maxValid;
+    byId("min-kva").setAttribute("aria-invalid", String(!minValid));
+    byId("max-kva").setAttribute("aria-invalid", String(!maxValid));
     let count = 0;
     rows
       .sort(

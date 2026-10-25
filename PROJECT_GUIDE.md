@@ -68,6 +68,7 @@ python3 build-ar.py
 python3 build-brands.py
 npm ci
 npm test
+python3 -m unittest discover -s tests -p "test_*.py"
 ```
 
 مولّد العربية يستخدم `site_markup.py` وNode.js لترجمة المصدر مباشرة، بدون متصفح أو شبكة. مولّد الماركات يقرأ جداول ملفات PDF باستخدام `pdftotext` ويحافظ على نفس بيانات الموديلات في اللغتين. تنسيق وتفاعلات الماركات في `assets/brand-page.css` و`assets/brand-page.js`.
