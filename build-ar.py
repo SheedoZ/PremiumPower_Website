@@ -1,69 +1,23 @@
 #!/usr/bin/env python3
-"""Generate ar/index.html from index.html.
-
-The Arabic copy lives in the T.ar table inside index.html and is only applied
-by switchLanguage() at runtime, so a crawler that reads the served HTML sees
-the English page and nothing else. This renders index.html in a real browser,
-switches it to Arabic, and writes the resulting DOM out as a static page with
-its own URL, so the Arabic content is in the markup before any script runs.
-
-Run after any edit to index.html:
-
-    python3 build-ar.py
-
-Requires playwright-core and a Chromium build. Point PW_NODE_PATH at the
-node_modules holding playwright-core and PW_CHROMIUM at the browser binary if
-they are not where the defaults expect them.
+"""Generate ar/index.html from shared translations. Run: python3 build-ar.py.
+Requires Python 3 and Node.js; no browser or network access is needed.
 """
-import os, re, shutil, subprocess, sys, tempfile, textwrap
-from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
-from threading import Thread
-
+import os, re, sys
 ROOT = os.path.dirname(os.path.abspath(__file__))
-PORT = 8571
 SITE = "https://www.premiumpower-eg.com"
-CHROMIUM = os.environ.get("PW_CHROMIUM", "/opt/pw-browsers/chromium-1194/chrome-linux/chrome")
-# Node resolves modules from the script's own directory, and the renderer script
-# is written to a temp dir, so point it at an install of playwright-core.
-NODE_PATH = os.environ.get("PW_NODE_PATH", "")
-
-
-def serve():
-    handler = lambda *a, **k: SimpleHTTPRequestHandler(*a, directory=ROOT, **k)
-    httpd = ThreadingHTTPServer(("127.0.0.1", PORT), handler)
-    Thread(target=httpd.serve_forever, daemon=True).start()
-    return httpd
 
 
 def render_arabic():
-    """Load index.html, switch it to Arabic, return the serialised DOM."""
-    script = textwrap.dedent(f"""
-        const {{ chromium }} = require('playwright-core');
-        (async () => {{
-          const b = await chromium.launch({{ executablePath: {CHROMIUM!r}, args: ['--no-sandbox'] }});
-          const p = await b.newPage();
-          await p.goto('http://127.0.0.1:{PORT}/index.html', {{ waitUntil: 'domcontentloaded' }});
-          await p.waitForTimeout(1500);
-          await p.evaluate(() => window.app.switchLanguage('ar'));
-          await p.waitForTimeout(800);
-          process.stdout.write(await p.evaluate(() => document.documentElement.outerHTML));
-          await b.close();
-        }})();
-    """)
-    with tempfile.NamedTemporaryFile("w", suffix=".js", delete=False) as f:
-        f.write(script)
-        path = f.name
-    try:
-        env = dict(os.environ)
-        if NODE_PATH:
-            env["NODE_PATH"] = NODE_PATH
-        out = subprocess.run(["node", path], capture_output=True, text=True,
-                             cwd=ROOT, timeout=120, env=env)
-        if out.returncode:
-            sys.exit("render failed:\n" + out.stderr)
-        return out.stdout
-    finally:
-        os.unlink(path)
+    """Translate source markup deterministically, including the static FAQ."""
+    from site_markup import copy_tables, translate
+    from html import escape
+    source=open(os.path.join(ROOT,'index.html'),encoding='utf-8').read()
+    data=copy_tables(source)
+    source=translate(source,data['T']['ar'])
+    faq=''.join('<details><summary>'+escape(x['q_ar'])+'</summary><p>'+escape(x['a_ar'])+'</p></details>' for x in data['FAQS'])
+    source=source.replace('<div class="faq-list reveal" id="faq-list"></div>', '<div class="faq-list reveal" id="faq-list">'+faq+'</div>')
+    source=source.replace('<html lang="en"','<html lang="ar"').replace('<body>','<body dir="rtl" class="rtl">',1)
+    return source.replace('<!DOCTYPE html>','').lstrip()
 
 
 def rewrite(html):
@@ -72,8 +26,10 @@ def rewrite(html):
     html = re.sub(r'(src|href)="(?:\./)?images/', r'\1="/images/', html)
     html = re.sub(r"file:'([a-z-]+\.pdf)'", r"file:'/\1'", html)
 
-    # Arabic head. The rendered DOM still carries the English one.
-    # switchLanguage() already swapped the title during the render, so match loosely.
+    # Keep the complete model journey in the selected language.
+    html = re.sub(r'href="/(perkins-generators-egypt|volvo-penta-generators-egypt|doosan-generators-egypt)/', r'href="/ar/\1/', html)
+
+    # Give the translated markup its own Arabic URL and metadata.
     html = re.sub(r"<title>.*?</title>",
                   "<title>مولدات ديزل في مصر | بريميوم باور — بيركنز وفولفو ودوسان</title>",
                   html, count=1, flags=re.S)
@@ -119,15 +75,11 @@ def rewrite(html):
     # Scroll-reveal classes the render happened to trigger; let them animate again.
     html = re.sub(r'(class="[^"]*?\breveal\b[^"]*?)\s+visible\b', r"\1", html)
     html = html.replace(' class="visible"', "")
-    return "<!DOCTYPE html>\n" + html + "\n"
+    return "<!DOCTYPE html>\n" + html.rstrip() + "\n"
 
 
 def main():
-    httpd = serve()
-    try:
-        html = rewrite(render_arabic())
-    finally:
-        httpd.shutdown()
+    html = rewrite(render_arabic())
 
     out_dir = os.path.join(ROOT, "ar")
     os.makedirs(out_dir, exist_ok=True)
