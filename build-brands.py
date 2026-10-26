@@ -4,11 +4,11 @@ Ratings come from the repository PDFs. Shared form text comes from index.html.
 Run python3 build-brands.py after editing source data, template or form copy.
 Requires Python 3, Node.js and pdftotext (poppler-utils).
 """
-import html, json, os, re, subprocess, sys
+import html, os, re, subprocess, sys
 from site_markup import copy_tables, translate
+from seo import metadata_html, schema_html, structured_data
 
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE = "https://www.premiumpower-eg.com"
 
 BRANDS = {
     "perkins": {"slug": "perkins-generators-egypt", "pdf": "perkins-specs.pdf",
@@ -19,49 +19,19 @@ BRANDS = {
                 "popular": ["G300DL", "G360DL"], "marque": "Doosan"},
 }
 
-# Why a buyer picks this marque. Each claim traces to the spec table in
-# index.html, the catalogue PDFs, or the manufacturer's own published material --
-# nothing here is inferred from a model the catalogues do not list.
+# Guidance based on the published catalogue; no unsupported engine-wide claims.
 WHY = {
     "perkins": {
-        "en": "The widest span in our catalogue: 18 standard models from 20 to 1000 kVA, with "
-              "ratings either side supplied to order. Perkins is also offered with a mechanical "
-              "or an electronic governor. A mechanical set runs without an engine control unit, "
-              "which means it can be serviced in the field with ordinary tools and is less "
-              "sensitive to fuel quality — a real advantage on sites far from a service centre. "
-              "Perkins ElectropaK engines with electronic governing conform to ISO 8528-5 "
-              "class G3, and the larger models to class G2.",
-        "ar": "أوسع مدى في كتالوجنا: 18 موديلاً قياسياً من 20 إلى 1000 ك.ف.أ، والقدرات خارج هذا "
-              "النطاق تُورَّد حسب الطلب. وتتوفر بيركنز بمنظّم ميكانيكي أو إلكتروني. الوحدة "
-              "الميكانيكية تعمل دون وحدة تحكم إلكترونية، أي يمكن صيانتها في الموقع بأدوات عادية "
-              "وهي أقل حساسية لجودة الوقود — ميزة حقيقية في المواقع البعيدة عن مراكز الخدمة. "
-              "ومحركات بيركنز ElectropaK ذات التحكم الإلكتروني مطابقة للفئة G3 من معيار "
-              "ISO 8528-5، والموديلات الأكبر للفئة G2.",
+        "en": "Perkins has the widest Prime rating span in these three catalogues, from 20 to 1000 kVA across 18 models. Compare the engine and alternator codes as well as the kVA rating: different models suit different load requirements. Confirm starting loads, running hours and site conditions with our team before choosing a set.",
+        "ar": "تضم بيركنز أوسع نطاق للقدرة المستمرة في الكتالوجات الثلاثة: 18 موديلاً من 20 إلى 1000 ك.ف.أ. قارن كود المحرك والألترنيتور إلى جانب القدرة، ثم راجع أحمال بدء التشغيل وساعات العمل وظروف الموقع مع فريقنا قبل اختيار الوحدة.",
     },
     "volvo": {
-        "en": "Fully electronic EMS 2.0 engine management, with turbocharging and an "
-              "intercooler across the range. Volvo Penta genset engines comply with ISO 8528 "
-              "class G3, the strictest load-acceptance class in the standard: the set reaches "
-              "stable voltage and frequency faster after the mains drop. That recovery time is "
-              "what makes this the range to specify for data centres, hospitals and any load "
-              "that will not tolerate a long transient.",
-        "ar": "نظام إدارة محرك إلكتروني بالكامل EMS 2.0، مع شحن توربيني ومبرّد بيني في كامل "
-              "النطاق. ومحركات فولفو بنتا للمولدات مطابقة للفئة G3 من معيار ISO 8528، وهي أعلى "
-              "فئات استجابة الحمل في المعيار: تصل الوحدة إلى جهد وتردد مستقرين أسرع بعد انقطاع "
-              "الشبكة. زمن الاستقرار هذا هو ما يجعلها الخيار المحدَّد لمراكز البيانات والمستشفيات "
-              "وأي حمل لا يحتمل اضطراباً طويلاً.",
+        "en": "The Volvo Penta catalogue lists 13 models from 100 to 700 kVA Prime. Use the table to compare the engine codes and the separate Prime and Standby ratings. For applications with sensitive equipment or large starting loads, ask our team to assess the load profile and control requirements before specifying the generator.",
+        "ar": "يعرض كتالوج فولفو بنتا 13 موديلاً من 100 إلى 700 ك.ف.أ قدرة مستمرة. قارن أكواد المحركات وقدرات التشغيل المستمر والطوارئ في الجدول. عند تغذية معدات حساسة أو أحمال بدء كبيرة، اطلب من فريقنا مراجعة طبيعة الأحمال ومتطلبات التحكم قبل تحديد المولد.",
     },
     "doosan": {
-        "en": "V-configuration engines from 6 to 12 cylinders, turbocharged with an aftercooler "
-              "and managed by an electronic ECU. The range is built for continuous prime duty at "
-              "the strongest value in our catalogue — the practical choice for contracting and "
-              "manufacturing sites where the set runs for long hours rather than sitting on "
-              "standby. The engines are built by HD Hyundai Infracore, formerly Doosan Infracore.",
-        "ar": "محركات بتكوين V من 6 إلى 12 أسطوانة، بشحن توربيني ومبرّد لاحق وإدارة عبر وحدة "
-              "تحكم إلكترونية ECU. النطاق مبني للتشغيل المستمر بأعلى قيمة مقابل السعر في "
-              "كتالوجنا — الخيار العملي لمواقع المقاولات والمصانع حيث تعمل الوحدة ساعات طويلة "
-              "بدلاً من انتظارها كاحتياطي. وتُصنَّع المحركات لدى HD Hyundai Infracore، "
-              "المعروفة سابقاً باسم Doosan Infracore.",
+        "en": "The Doosan catalogue covers nine models from 165 to 804 kVA Prime. Each row identifies the engine, alternator and both operating ratings so you can compare a shortlist for your project. If the generator will run for long periods, confirm the duty rating and maintenance schedule against the selected engine documentation.",
+        "ar": "يغطي كتالوج دوسان تسعة موديلات من 165 إلى 804 ك.ف.أ قدرة مستمرة. يوضح كل صف المحرك والألترنيتور وقدرتي التشغيل لتكوين قائمة مناسبة لمشروعك. إذا كان المولد سيعمل لساعات طويلة، تأكد من تصنيف التشغيل وجدول الصيانة بالرجوع إلى مستندات المحرك المختار.",
     },
 }
 
@@ -214,22 +184,12 @@ def page(brand, lang, cfg, copy, models, specs, css):
     primes = [float(m["prime"]) for m in models]
     lo, hi = f"{min(primes):g}", f"{max(primes):g}"
     slug = cfg["slug"]
-    url_en, url_ar = f"{SITE}/{slug}/", f"{SITE}/ar/{slug}/"
-    self_url = url_ar if lang == "ar" else url_en
     home = "/ar/" if lang == "ar" else "/"
 
     if lang == "ar":
-        title = f"مولدات {name} في مصر | {lo}–{hi} ك.ف.أ — بريميوم باور"
         h1 = f"مولدات {name} الديزل في مصر"
-        desc = (f"{len(models)} موديل من مولدات {name} الديزل من {lo} إلى {hi} ك.ف.أ. "
-                f"المواصفات الفنية وأكواد المواتير والمولدات، مع التركيب وقطع الغيار الأصلية "
-                f"والصيانة من بريميوم باور، الموزّع المعتمد في مصر.")
     else:
-        title = f"{name} Generators Egypt | {lo}–{hi} kVA — Premium Power"
         h1 = f"{name} Diesel Generators in Egypt"
-        desc = (f"{len(models)} {name} diesel generator models from {lo} to {hi} kVA. "
-                f"Full ratings, engine and alternator codes, with installation, genuine OEM "
-                f"parts and maintenance from Premium Power, authorized distributor in Egypt.")
 
     # Site-stated span, which reaches past the catalogue: the extra ratings are built to order.
     span = re.findall(r"([\d,]+)\s*(?:KVA|ك\.ف\.أ)", copy[lang]["origin"])
@@ -265,13 +225,13 @@ def page(brand, lang, cfg, copy, models, specs, css):
     ar = lang == 'ar'
     def label(en, ar_text): return ar_text if ar else en
     popular_html = "\n".join(
-        f'<li><span class="eyebrow">{e(cfg["marque"])}</span><b>{e(m["model"])}</b>'
+        f'<li><span class="eyebrow">{e(cfg["marque"])}</span><b><a href="#model-{e(m["model"])}">{e(m["model"])}</a></b>'
         f'<span dir="ltr">{e(m["engine"])}</span><em>{e(m["prime"])} kVA <small>Prime</small></em>'
         f'<span>{e(m["standby"])} kVA Standby</span>'
         f'<button type="button" class="btn ghost" data-quote="{e(m["model"])}">{e(t["quote"])}</button></li>'
         for m in popular)
     rows = "\n".join(
-        f'<tr data-model="{e(m["model"])}" data-engine="{e(m["engine"])}" data-alt="{e(m["alt"])}" data-prime="{e(m["prime"])}" data-standby="{e(m["standby"])}">'
+        f'<tr id="model-{e(m["model"])}" data-model="{e(m["model"])}" data-engine="{e(m["engine"])}" data-alt="{e(m["alt"])}" data-prime="{e(m["prime"])}" data-standby="{e(m["standby"])}">'
         f'<th scope="row" dir="ltr">{e(m["model"])}</th><td data-label="{e(t["engine"])}"><bdi>{e(m["engine"])}</bdi></td>'
         f'<td data-label="{e(t["alt"])}"><bdi>{e(m["alt"])}</bdi></td><td data-label="{e(t["prime"])}">{e(m["prime"])}</td>'
         f'<td data-label="{e(t["standby"])}">{e(m["standby"])}</td><td class="model-actions">'
@@ -288,40 +248,19 @@ def page(brand, lang, cfg, copy, models, specs, css):
     provided = "\n".join(f'      <li><a href="{home}{href}">{e(label)}</a></li>'
                          for label, href in PROVIDED[lang])
 
-    ld = json.dumps([
-        {"@context": "https://schema.org", "@type": "BreadcrumbList",
-         "itemListElement": [
-             {"@type": "ListItem", "position": 1, "name": t["home"], "item": SITE + home},
-             {"@type": "ListItem", "position": 2, "name": h1, "item": self_url}]},
-        {"@context": "https://schema.org", "@type": "FAQPage",
-         "mainEntity": [{"@type": "Question", "name": q,
-                         "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
-    ], ensure_ascii=False)
-
     return f"""<!DOCTYPE html>
 <html lang="{lang}" dir="{t['dir']}">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{e(title)}</title>
-<meta name="description" content="{e(desc)}">
+{metadata_html(brand, lang, models)}
 <meta name="theme-color" content="#003087">
-<link rel="canonical" href="{self_url}">
-<link rel="alternate" hreflang="en" href="{url_en}">
-<link rel="alternate" hreflang="ar" href="{url_ar}">
-<link rel="alternate" hreflang="x-default" href="{url_en}">
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<meta property="og:title" content="{e(title)}">
-<meta property="og:description" content="{e(desc)}">
-<meta property="og:url" content="{self_url}">
-<meta property="og:image" content="{SITE}/images/BC.jpg">
-<meta property="og:type" content="website">
-<meta property="og:locale" content="{'ar_EG' if lang == 'ar' else 'en_US'}">
-<script type="application/ld+json">{ld}</script>
-<link rel="stylesheet" href="/assets/brand-page.css?v=20261025">
+{schema_html(structured_data(brand, lang, faqs, models))}
+<link rel="stylesheet" href="/assets/brand-page.css?v=20261026">
 </head>
 <body data-brand="{e(cfg['marque'])}">
 <a href="#main" class="skip">{label('Skip to content','تخطي إلى المحتوى')}</a>
@@ -372,10 +311,10 @@ def page(brand, lang, cfg, copy, models, specs, css):
     <div id="comparison" class="comparison" hidden><h3>{label('Your comparison','الموديلات المختارة للمقارنة')}</h3><p id="compare-status" role="status" aria-live="polite"></p><div id="compare-cards" class="compare-cards"></div><button id="clear-compare" class="btn ghost" type="button">{label('Clear comparison','مسح المقارنة')}</button></div>
   </section>
   <section class="detail-grid">
-    <div><h2>{e(t['why'].format(brand=name))}</h2><p class="why">{e(WHY[brand][lang])}</p></div>
+    <div><h2>{label("Choosing a " + name + " generator", "اختيار مولد " + name)}</h2><p class="why">{e(WHY[brand][lang])}</p></div>
     <div><h2>{e(t['specs'])}</h2><div class="specs">{spec_html}</div></div>
   </section>
-  <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul></section>
+  <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul><p class="note"><a href="{home}#calculator">{label('Estimate your required generator capacity','احسب قدرة المولد المطلوبة مبدئياً')}</a> · <a href="{home}#contact">{label('Discuss installation and site requirements','ناقش متطلبات الموقع والتركيب')}</a></p></section>
   <section><h2>{e(t['faq'])}</h2><div class="faqs">{faq_html}</div></section>
   <section id="contact" class="enquiry">
     <div><p class="eyebrow">{label('Let’s plan your power','خلينا نجهز احتياجك')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختار موديل من فوق أو احكيلنا عن مشروعك. فريقنا يساعدك في تأكيد القدرة والتجهيز المناسب.')}</p><p><a href="tel:+201229688688">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
@@ -384,7 +323,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 </main>
 <div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a></div>
 <footer class="foot"><a href="{home}">{e(t['backHome'])}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
-<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261025" defer></script><script src="/assets/brand-page.js?v=20261025" defer></script>
+<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261025" defer></script><script src="/assets/brand-page.js?v=20261026" defer></script>
 </body>
 </html>
 """

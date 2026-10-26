@@ -24,6 +24,13 @@ html[dir="rtl"] body {
 html {
   scroll-behavior: smooth;
 }
+tr[id^="model-"] {
+  scroll-margin-top: 6rem;
+}
+tr[id^="model-"]:target {
+  outline: 2px solid var(--action);
+  outline-offset: -2px;
+}
 a {
   color: var(--action);
   text-underline-offset: 4px;
