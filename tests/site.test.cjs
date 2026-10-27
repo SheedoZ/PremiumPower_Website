@@ -21,6 +21,21 @@ async function load(file){
   return {dom,w,d:w.document,requests};
 }
 for(const lang of ['en','ar']){
+ test(`${lang}: runtime preserves canonical title and static FAQ content`,async()=>{
+  const {dom,d}=await load(lang==='ar'?'ar/index.html':'index.html');
+  try{
+   assert.equal(d.title,d.querySelector('meta[property="og:title"]').content);
+   const schema=JSON.parse(d.querySelector('script[type="application/ld+json"]').textContent);
+   const expected=schema['@graph'].find(item=>item['@type']==='FAQPage').mainEntity;
+   const details=[...d.querySelectorAll('#faq-list details')];
+   assert.equal(details.length,expected.length);
+   details.forEach((item,i)=>{
+    assert.equal(item.querySelector('summary').textContent,expected[i].name);
+    assert.equal(item.querySelector('p').textContent,expected[i].acceptedAnswer.text);
+    item.querySelector('summary').click();assert.equal(item.open,true);
+   });
+  }finally{dom.window.close();}
+ });
  test(`${lang}: latest calculator inputs and brand are reflected in quote; customer notes are preserved`,async()=>{
   const {dom,w,d,requests}=await load(lang==='ar'?'ar/index.html':'index.html');
   try{
@@ -76,6 +91,10 @@ for(const lang of ['en','ar']){
    const first=rows[0].dataset;
    input('model-search',first.model);assert.equal(rows.filter(r=>!r.hidden).length,1);
    input('model-search','not-a-model');assert.equal(d.getElementById('no-results').hidden,false);
+   input('rating','standby');
+   const modelLink=d.querySelector('a[href^="#model-"]');modelLink.click();
+   assert.equal(d.getElementById(modelLink.hash.slice(1)).hidden,false);
+   assert.equal(d.getElementById('rating').value,'standby');
    d.getElementById('reset-filters').click();assert.equal(rows.filter(r=>!r.hidden).length,count);
    input('min-kva','500');input('max-kva','100');assert.match(d.getElementById('max-kva').getAttribute('aria-invalid'),/true/);
    d.getElementById('reset-filters').click();input('model-sort','desc');
@@ -95,7 +114,7 @@ for(const lang of ['en','ar']){
 }
 test('Arabic links and static translated forms stay Arabic before scripts run',()=>{
  const home=new JSDOM(fs.readFileSync(path.join(root,'ar/index.html'),'utf8'));
- try{for(const a of home.window.document.querySelectorAll('[data-i18n="btnAllModels"]'))assert.match(a.getAttribute('href'),/^\/ar\//);
+ try{const links=home.window.document.querySelectorAll('a[data-i18n$="Models"]');assert.equal(links.length,3);for(const a of links)assert.match(a.getAttribute('href'),/^\/ar\//);
  assert.equal(home.window.document.querySelector('[data-i18n="fuelPrice"]').textContent,'سعر السولار (جنيه/لتر)');
  assert.match(home.window.document.querySelector('[data-i18n="heroSub"]').textContent,/حلول/);
  }finally{home.window.close();}

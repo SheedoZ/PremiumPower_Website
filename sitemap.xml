@@ -1,68 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.premiumpower-eg.com/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/"/>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/ar/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/"/>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/perkins-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/perkins-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/perkins-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/perkins-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/ar/perkins-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/perkins-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/perkins-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/perkins-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/volvo-penta-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/volvo-penta-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/volvo-penta-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/volvo-penta-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/ar/volvo-penta-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/volvo-penta-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/volvo-penta-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/volvo-penta-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/doosan-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/doosan-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/doosan-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/doosan-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.premiumpower-eg.com/ar/doosan-generators-egypt/</loc>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/doosan-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/doosan-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/doosan-generators-egypt/"/>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
   </url>
 </urlset>

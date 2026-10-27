@@ -2,20 +2,18 @@
 """Generate ar/index.html from shared translations. Run: python3 build-ar.py.
 Requires Python 3 and Node.js; no browser or network access is needed.
 """
-import os, re, sys
+import os, re
+from seo import homepage
 ROOT = os.path.dirname(os.path.abspath(__file__))
-SITE = "https://www.premiumpower-eg.com"
 
 
 def render_arabic():
     """Translate source markup deterministically, including the static FAQ."""
     from site_markup import copy_tables, translate
-    from html import escape
     source=open(os.path.join(ROOT,'index.html'),encoding='utf-8').read()
     data=copy_tables(source)
     source=translate(source,data['T']['ar'])
-    faq=''.join('<details><summary>'+escape(x['q_ar'])+'</summary><p>'+escape(x['a_ar'])+'</p></details>' for x in data['FAQS'])
-    source=source.replace('<div class="faq-list reveal" id="faq-list"></div>', '<div class="faq-list reveal" id="faq-list">'+faq+'</div>')
+    source=homepage(source,'ar',data)
     source=source.replace('<html lang="en"','<html lang="ar"').replace('<body>','<body dir="rtl" class="rtl">',1)
     return source.replace('<!DOCTYPE html>','').lstrip()
 
@@ -28,36 +26,6 @@ def rewrite(html):
 
     # Keep the complete model journey in the selected language.
     html = re.sub(r'href="/(perkins-generators-egypt|volvo-penta-generators-egypt|doosan-generators-egypt)/', r'href="/ar/\1/', html)
-
-    # Give the translated markup its own Arabic URL and metadata.
-    html = re.sub(r"<title>.*?</title>",
-                  "<title>مولدات ديزل في مصر | بريميوم باور — بيركنز وفولفو ودوسان</title>",
-                  html, count=1, flags=re.S)
-
-    head_swaps = [
-        (f'<link rel="canonical" href="{SITE}/">',
-         f'<link rel="canonical" href="{SITE}/ar/">'),
-        ('<meta property="og:locale" content="en_US">',
-         '<meta property="og:locale" content="ar_EG">'),
-        ('<meta property="og:locale:alternate" content="ar_EG">',
-         '<meta property="og:locale:alternate" content="en_US">'),
-        (f'<meta property="og:url" content="{SITE}/">',
-         f'<meta property="og:url" content="{SITE}/ar/">'),
-    ]
-    for old, new in head_swaps:
-        if old not in html:
-            sys.exit(f"head swap missed: {old[:60]}")
-        html = html.replace(old, new, 1)
-
-    for name, ar in [
-        ("description", "مورّد معتمد لمولدات الديزل في مصر. مولدات بيركنز وفولفو بنتا ودوسان من 9 إلى 3000 ك.ف.أ، "
-                        "مع التركيب وقطع الغيار الأصلية وصيانة على مدار الساعة في القاهرة وجميع المحافظات."),
-        ("og:title", "مولدات ديزل في مصر | بريميوم باور"),
-        ("og:description", "مولدات بيركنز وفولفو بنتا ودوسان مع دعم فني على مدار الساعة في كل أنحاء مصر."),
-        ("twitter:title", "مولدات ديزل في مصر | بريميوم باور"),
-    ]:
-        attr = "property" if name.startswith("og:") else "name"
-        html = re.sub(rf'({attr}="{re.escape(name)}" content=")[^"]*(")', lambda m: m.group(1) + ar + m.group(2), html, count=1)
 
     # The page must come up in Arabic without a click.
     html = html.replace("switchLanguage('en');\n", "switchLanguage('ar');\n", 1)

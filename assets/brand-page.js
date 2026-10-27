@@ -134,6 +134,15 @@
     }),
   );
   fields.forEach((id) => byId(id).addEventListener("input", filter));
+  // A catalogue link must still reach its model when filters hide that row.
+  document.querySelectorAll('a[href^="#model-"]').forEach((link) => {
+    link.addEventListener("click", () => {
+      const row = byId(link.hash.slice(1));
+      if (!row || !row.hidden) return;
+      for (const id of ["model-search", "min-kva", "max-kva"]) byId(id).value = "";
+      filter();
+    });
+  });
   byId("reset-filters").addEventListener("click", () => {
     byId("model-search").value = "";
     byId("min-kva").value = "";
