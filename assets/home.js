@@ -477,6 +477,23 @@ const revealObs = new IntersectionObserver(entries=>{
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
 
+// Run the two requested section entrances once, without hiding content at rest.
+if(typeof IntersectionObserver==='function'){
+  const sectionMotion=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('section-enter');
+      sectionMotion.unobserve(entry.target);
+    });
+  },{threshold:.15});
+  for(const selector of ['#services .svc-card','#workflow .wf-item']){
+    document.querySelectorAll(selector).forEach((el,index)=>{
+      el.style.setProperty('--section-delay',`${(index% (selector.includes('wf-item')?5:4))*70}ms`);
+      sectionMotion.observe(el);
+    });
+  }
+}
+
 // ── Counter animation ────────────────────────────────────────────
 const counterObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{

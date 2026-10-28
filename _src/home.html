@@ -1076,6 +1076,20 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 @media(max-width:480px){.amc-scope-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:640px){.pdf-header-actions>a{display:none}}
 #f-name{scroll-margin-top:100px}
+/* Scoped entrance motion: content stays visible without JavaScript. */
+@keyframes section-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes section-fade{from{opacity:.45}to{opacity:1}}
+#services .section-enter,#workflow .section-enter{animation:section-rise .6s cubic-bezier(.2,.65,.3,1) var(--section-delay,0ms) backwards}
+#services .svc-card{transition:background .25s ease,box-shadow .25s ease,transform .25s ease;transition-delay:0s}
+#workflow .wf-num{transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
+@media(hover:hover) and (pointer:fine){
+ #services .svc-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgb(8 45 85 / .08);z-index:1}
+ #workflow .wf-item:hover .wf-num{transform:translateY(-4px);background:var(--copper);color:#082d55;box-shadow:0 6px 15px rgb(8 45 85 / .1)}
+}
+@media(prefers-reduced-motion:reduce){
+ #services .section-enter,#workflow .section-enter{animation:section-fade .35s ease-out var(--section-delay,0ms) backwards!important}
+ #services .svc-card:hover,#workflow .wf-item:hover .wf-num{transform:none}
+}
 </style>
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
@@ -2620,6 +2634,23 @@ const revealObs = new IntersectionObserver(entries=>{
   entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
 },{threshold:.12});
 document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
+
+// Run the two requested section entrances once, without hiding content at rest.
+if(typeof IntersectionObserver==='function'){
+  const sectionMotion=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(!entry.isIntersecting)return;
+      entry.target.classList.add('section-enter');
+      sectionMotion.unobserve(entry.target);
+    });
+  },{threshold:.15});
+  for(const selector of ['#services .svc-card','#workflow .wf-item']){
+    document.querySelectorAll(selector).forEach((el,index)=>{
+      el.style.setProperty('--section-delay',`${(index% (selector.includes('wf-item')?5:4))*70}ms`);
+      sectionMotion.observe(el);
+    });
+  }
+}
 
 // ── Counter animation ────────────────────────────────────────────
 const counterObs = new IntersectionObserver(entries=>{
