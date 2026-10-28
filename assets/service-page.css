@@ -1,0 +1,27 @@
+.service-page {font-family:Arial,Tahoma,sans-serif}
+html[lang="ar"] .service-page {font-family:Tahoma,Arial,sans-serif}
+.service-nav {display:flex;flex-wrap:wrap;gap:1rem;padding-block:1rem;border-bottom:1px solid var(--line)}
+.service-hero {max-width:900px;padding-block:3rem}
+.service-hero h1 {font-size:clamp(2rem,4.2vw,3.5rem);line-height:1.2;max-width:850px}
+.service-hero .lead {font-size:1.15rem;line-height:1.8;max-width:760px}
+.hero-actions {display:flex;gap:.8rem;flex-wrap:wrap;margin-top:1.5rem}
+.service-paths,.scope-grid {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1.25rem}
+.service-paths article,.scope-card {padding:1.5rem;background:#f3f6fa;border:1px solid #dde4ec;border-radius:12px}
+.service-paths article {display:flex;flex-direction:column;align-items:flex-start}
+.service-paths .btn {margin-top:auto}
+.service-page section {padding-block:2rem}
+.service-page .service-paths {padding-block:0 2rem}
+.service-page h2 {line-height:1.4}
+.service-page .terms {background:#eaf2f9;border-inline-start:4px solid #003087;padding:1.5rem}
+.service-steps {display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1.5rem;padding-inline-start:1.5rem}
+.service-steps h3 {font-size:1.1rem}
+.service-page #contact {scroll-margin-top:1rem}
+.service-page :is(input,select,textarea) {min-width:0;max-width:100%}
+.service-page .form-group {min-width:0}
+.service-page .foot {gap:1rem;flex-wrap:wrap}
+@media(max-width:700px){.service-paths,.scope-grid,.service-steps{grid-template-columns:minmax(0,1fr)}.service-hero{padding-block:2rem}.service-page .service-steps{gap:.5rem}.hero-actions .btn{width:100%}.service-page section{padding-block:1.5rem}}
+
+.service-paths p{margin:.75rem 0 1.25rem}.service-hero .lead{margin-top:1rem}.scope-card p,.service-steps p{margin-top:.6rem}
+
+.service-page .bar{flex-wrap:wrap}.service-page .langs{flex-wrap:wrap}.service-page .service-nav a{overflow-wrap:anywhere}
+

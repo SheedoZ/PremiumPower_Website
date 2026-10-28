@@ -16,6 +16,8 @@ const brands = [
 const pages = ['en', 'ar'].flatMap(lang => [
   { lang, slug: '', count: 0 },
   ...brands.map(([slug, count]) => ({ lang, slug, count })),
+  {lang, slug: 'maintenance', count: 0},
+  {lang, slug: 'privacy', count: 0},
 ]).map(page => {
   const pathname = '/' + (page.lang === 'ar' ? 'ar/' : '') + (page.slug ? page.slug + '/' : '');
   return { ...page, pathname, url: site + pathname, file: pathname.slice(1) + 'index.html' };
@@ -96,6 +98,10 @@ for (const page of pages) {
       const d = dom.window.document;
       const schema = structuredData(d);
       const faqs = schema.type('FAQPage');
+      if (page.slug === 'privacy') {
+        assert.equal(faqs.length, 0, 'privacy does not claim an FAQ');
+        return;
+      }
       assert.equal(faqs.length, 1, 'exactly one FAQPage is emitted');
       const entries = d.querySelectorAll(page.slug ? '.faqs details' : '#faq-list details');
       assert.ok(entries.length > 0, 'FAQ answers are present before JavaScript runs');
@@ -116,7 +122,7 @@ for (const page of pages) {
     } finally { dom.window.close(); }
   });
 
-  if (page.slug) {
+  if (page.count) {
     test(`${page.file}: product list refers to real model rows and their published specifications`, () => {
       const dom = open(page);
       try {
@@ -167,7 +173,7 @@ for (const page of pages) {
   }
 }
 
-test('all eight pages have distinct titles/descriptions and consistent business identity', () => {
+test('all twelve pages have distinct titles/descriptions and consistent business identity', () => {
   const titles = new Set(), descriptions = new Set(), businesses = [];
   for (const page of pages) {
     const dom = open(page);
@@ -193,7 +199,7 @@ test('all eight pages have distinct titles/descriptions and consistent business 
   assert.equal(new Set(businesses).size, 1, 'all business declarations use one stable entity ID');
 });
 
-test('sitemap and robots cover the same eight canonical pages and reciprocal languages', () => {
+test('sitemap and robots cover the same twelve canonical pages and reciprocal languages', () => {
   const dom = new JSDOM(fs.readFileSync(path.join(root, 'sitemap.xml'), 'utf8'), { contentType: 'text/xml' });
   try {
     const ns = 'http://www.sitemaps.org/schemas/sitemap/0.9';

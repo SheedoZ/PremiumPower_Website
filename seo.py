@@ -1,4 +1,4 @@
-"""Shared metadata and structured data for the eight public landing pages.
+"""Shared metadata and structured data for public website pages.
 
 Catalogue ratings come from the PDFs through build-brands.py. No prices,
 availability, reviews or manufacturer relationships are inferred here.
@@ -15,6 +15,8 @@ ROUTES = {
     "perkins": "perkins-generators-egypt/",
     "volvo": "volvo-penta-generators-egypt/",
     "doosan": "doosan-generators-egypt/",
+    "maintenance": "maintenance/",
+    "privacy": "privacy/",
 }
 NAMES = {
     "perkins": {"en": "Perkins", "ar": "بيركنز"},
@@ -33,6 +35,18 @@ HOME = {
 }
 
 
+INFO = {
+    "maintenance": {
+        "en": {"title": "Generator Maintenance in Egypt | Premium Power", "description": "Request a generator maintenance assessment in Egypt. Discuss periodic contracts, service needs, equipment checks and the scope for your site."},
+        "ar": {"title": "صيانة المولدات في مصر | بريميوم باور", "description": "اطلب تقييمًا لصيانة المولدات في مصر. ناقش العقود الدورية واحتياجات الخدمة وفحوص المعدات ونطاق العمل المناسب لموقعك."},
+    },
+    "privacy": {
+        "en": {"title": "Enquiry Privacy | Premium Power", "description": "How Premium Power website enquiries are collected through Formspree and used to assess and respond to generator and maintenance requests."},
+        "ar": {"title": "خصوصية الاستفسارات | بريميوم باور", "description": "تعرف على بيانات الاستفسارات التي يرسلها موقع بريميوم باور عبر Formspree وكيف تُستخدم لتقييم طلبات المولدات والصيانة والرد عليها."},
+    },
+}
+
+
 def urls(key):
     return {"en": SITE + "/" + ROUTES[key], "ar": SITE + "/ar/" + ROUTES[key]}
 
@@ -40,6 +54,8 @@ def urls(key):
 def metadata(key, lang, models=None):
     if key == "home":
         return HOME[lang]
+    if key in INFO:
+        return INFO[key][lang]
     name = NAMES[key][lang]
     ratings = [float(model["prime"]) for model in models]
     lo, hi = f"{min(ratings):g}", f"{max(ratings):g}"
@@ -96,7 +112,7 @@ def business():
 def structured_data(key, lang, faqs, models=None):
     url = urls(key)[lang]
     meta = metadata(key, lang, models)
-    page = {"@type": "WebPage" if key == "home" else "CollectionPage",
+    page = {"@type": "CollectionPage" if models is not None else "WebPage",
             "@id": url + "#webpage", "url": url, "name": meta["title"],
             "description": meta["description"], "inLanguage": lang,
             "isPartOf": {"@id": SITE + "/#website"},
@@ -110,6 +126,8 @@ def structured_data(key, lang, faqs, models=None):
          "mainEntity": [{"@type": "Question", "name": q,
                          "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faqs]},
     ]
+    if not faqs:
+        graph = [node for node in graph if node.get("@type") != "FAQPage"]
     if models is not None:
         page["mainEntity"] = {"@id": url + "#catalogue"}
         page["breadcrumb"] = {"@id": url + "#breadcrumb"}

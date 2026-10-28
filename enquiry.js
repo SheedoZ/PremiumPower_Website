@@ -14,6 +14,7 @@
       success: 'Your enquiry has been received. Our team will contact you using the details you provided.',
       salesHint: 'Share your application, required capacity (if known), and preferred timing. We can help with sizing.',
       maintenanceHint: 'Share your generator brand, capacity, running hours or current issue, if known.',
+      optionalCapacity: 'Enter a positive capacity or leave it blank.', optionalCount: 'Enter a positive whole number of generators or leave it blank.',
       optionalSummary: 'Add optional details', salesHeading: 'Generator request details',
       application: 'Application or intended use', capacity: 'Required capacity (kVA)',
       capacityUnknown: 'I do not know the capacity yet', capacityHelp: 'Leave the capacity blank if you are unsure.',
@@ -36,6 +37,7 @@
       success: 'تم استلام استفسارك. سيتواصل معك فريقنا باستخدام البيانات التي قدمتها.',
       salesHint: 'اذكر طبيعة الاستخدام والقدرة المطلوبة إن كانت معروفة والموعد المناسب. يمكننا مساعدتك في تحديد القدرة.',
       maintenanceHint: 'اذكر ماركة المولد وقدرته وساعات التشغيل أو المشكلة الحالية، إن كانت معروفة.',
+      optionalCapacity: 'أدخل قدرة أكبر من صفر أو اترك الخانة فارغة.', optionalCount: 'أدخل عددًا صحيحًا أكبر من صفر للمولدات أو اترك الخانة فارغة.',
       optionalSummary: 'إضافة تفاصيل اختيارية', salesHeading: 'تفاصيل طلب المولد',
       application: 'الاستخدام المطلوب للمولد', capacity: 'القدرة المطلوبة (ك.ف.أ)',
       capacityUnknown: 'لا أعرف القدرة المطلوبة بعد', capacityHelp: 'اترك خانة القدرة فارغة إذا لم تكن متأكدًا.',
@@ -90,7 +92,7 @@
     control.setAttribute('aria-required', 'false');
     if (type === 'number') {
       control.type = 'number';
-      control.min = '1';
+      control.min = id === 'f-maintenance-count' ? '1' : '0';
       control.step = id === 'f-maintenance-count' ? '1' : 'any';
       control.inputMode = id === 'f-maintenance-count' ? 'numeric' : 'decimal';
     } else if (type === 'text') {
@@ -135,8 +137,8 @@
     unknown.id = 'f-sales-capacity-unknown';
     unknown.name = 'required_capacity_unknown';
     unknown.type = 'checkbox';
-    unknown.checked = true;
-    unknown.defaultChecked = true;
+    unknown.checked = false;
+    unknown.defaultChecked = false;
     unknownLabel.appendChild(unknown);
     const unknownText = translatedNode(unknownLabel, 'span', 'capacityUnknown');
     unknownLabel.htmlFor = unknown.id;
@@ -323,6 +325,21 @@
     if (type === 'maintenance' && !['assessment', 'standard', 'premium'].includes(plan)) {
       byId('f-plan').setAttribute('aria-invalid', 'true'); byId('f-plan').focus();
       showStatus('plan', 'error'); return null;
+    }
+    for (const id of ['f-sales-capacity', 'f-maintenance-count']) byId(id)?.removeAttribute('aria-invalid');
+    const optionalId = type === 'sales' ? 'f-sales-capacity' : 'f-maintenance-count';
+    const optional = byId(optionalId);
+    const entered = optional?.value.trim();
+    const explicitlyUnknown = type === 'sales' && byId('f-sales-capacity-unknown')?.checked;
+    if (optional && !explicitlyUnknown && (optional.validity?.badInput || (entered &&
+        (!Number.isFinite(Number(entered)) || Number(entered) <= 0 ||
+         (type === 'maintenance' && !Number.isSafeInteger(Number(entered))))))) {
+      const details = byId('enquiry-details');
+      if (details) details.open = true;
+      optional.setAttribute('aria-invalid', 'true');
+      optional.focus();
+      showStatus(type === 'sales' ? 'optionalCapacity' : 'optionalCount', 'error');
+      return null;
     }
     const payload = {
       name: byId('f-name').value.trim(), phone,

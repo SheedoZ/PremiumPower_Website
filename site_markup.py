@@ -29,10 +29,20 @@ def translate(source, table):
             attrs=dict(attrs); start=self.absolute_position(); raw=self.get_starttag_text(); end=start+len(raw)
             outer=any(x[2] for x in self.stack)
             key=attrs.get('data-i18n'); value=table.get(key) if not outer else None
-            if not outer and attrs.get('data-i18n-placeholder') in table:
+            if not outer:
                 import re
-                text=escape(table[attrs['data-i18n-placeholder']],quote=True)
-                self.edits.append((start,end,re.sub(r'placeholder="[^"]*"',lambda _:f'placeholder="{text}"',raw)))
+                updated = raw
+                for attribute in ('placeholder', 'aria-label', 'title'):
+                    key = attrs.get('data-i18n-' + attribute)
+                    if key in table:
+                        text = escape(table[key], quote=True)
+                        pattern = r'(?<![\w-])' + re.escape(attribute) + r'="[^"]*"'
+                        if re.search(pattern, updated):
+                            updated = re.sub(pattern, lambda _: f'{attribute}="{text}"', updated)
+                        else:
+                            updated = updated[:-1] + f' {attribute}="{text}">'
+                if updated != raw:
+                    self.edits.append((start, end, updated))
             if tag not in {'area','base','br','col','embed','hr','img','input','link','meta','param','source','track','wbr'}:
                 self.stack.append((tag,end,value,attrs.get('class','')))
         def handle_endtag(self,tag):

@@ -73,8 +73,8 @@ test('sales optional details are localized, optional, and separate from selected
     d.getElementById('f-sales-application').value = 'Data centre backup';
     const unknown = d.getElementById('f-sales-capacity-unknown');
     const requiredCapacity = d.getElementById('f-sales-capacity');
-    assert.equal(unknown.checked, true);
-    assert.equal(requiredCapacity.disabled, true);
+    assert.equal(unknown.checked, false);
+    assert.equal(requiredCapacity.disabled, false);
     unknown.checked = false;
     unknown.dispatchEvent(new f.window.Event('change', { bubbles: true }));
     requiredCapacity.value = '250.5';
@@ -93,7 +93,7 @@ test('sales optional details are localized, optional, and separate from selected
     assert.equal(Object.hasOwn(payload, 'maintenance_purpose'), false);
     assert.equal(d.getElementById('f-sales-application').value, '');
     assert.equal(requiredCapacity.value, '');
-    assert.equal(unknown.checked, true);
+    assert.equal(unknown.checked, false);
     assert.equal(d.getElementById('enquiry-details').open, false);
   } finally {
     close(f);
@@ -105,6 +105,8 @@ test('the explicit unknown-capacity choice is sent without making capacity manda
   try {
     const d = f.document;
     d.getElementById('f-sales-application').value = 'General standby';
+    d.getElementById('f-sales-capacity-unknown').checked = true;
+    d.getElementById('f-sales-capacity-unknown').dispatchEvent(new f.window.Event('change', {bubbles:true}));
     assert.equal(d.getElementById('f-sales-capacity-unknown').checked, true);
     assert.equal(d.getElementById('f-sales-capacity').disabled, true);
     assert.equal(await f.api.submit(d.getElementById('contact-form')), true);
@@ -255,4 +257,35 @@ test('Arabic optional fields are translated while phone normalization remains av
   } finally {
     close(f);
   }
+});
+
+test('untouched optional details do not invent an unknown-capacity answer', async () => {
+  const f=await fixture();
+  try {
+    f.api.setProduct({brand:'Perkins',model:'G60PL',capacity:64,rating:'Standby'});
+    assert.equal(await f.api.submit(f.document.getElementById('contact-form')),true);
+    assert.equal(Object.hasOwn(bodyOf(f),'required_capacity'),false);
+    assert.equal(Object.hasOwn(bodyOf(f),'required_capacity_kva'),false);
+    assert.equal(bodyOf(f).capacity,64);
+  } finally {close(f);}
+});
+test('invalid optional numbers are explained, never silently discarded', async () => {
+  const f=await fixture();
+  try {
+    const d=f.document;
+    d.getElementById('f-sales-capacity').value='-1';
+    assert.equal(await f.api.submit(d.getElementById('contact-form')),false);
+    assert.equal(f.requests.length,0);
+    assert.equal(d.activeElement.id,'f-sales-capacity');
+    assert.equal(d.getElementById('enquiry-details').open,true);
+    f.api.setPath('maintenance');
+    d.getElementById('f-maintenance-count').value='2.5';
+    assert.equal(await f.api.submit(d.getElementById('contact-form')),false);
+    assert.equal(f.requests.length,0);
+    assert.equal(d.activeElement.id,'f-maintenance-count');
+    assert.equal(d.getElementById('f-maintenance-count').value,'2.5');
+    d.getElementById('f-maintenance-count').value='2';
+    assert.equal(await f.api.submit(d.getElementById('contact-form')),true);
+    assert.equal(bodyOf(f).generator_count,2);
+  } finally {close(f);}
 });

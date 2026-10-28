@@ -173,19 +173,11 @@ def models_from_pdf(pdf):
 
 
 def brand_copy(index, brand):
-    """Brand name, origin line and blurb, in both languages, from index.html."""
-    copy = {}
-    for lang in ("en", "ar"):
-        block = re.search(rf"^{lang}:\{{.*?^\}},", index, re.S | re.M).group(0)
-        copy[lang] = {}
-        for field in ("Name", "Origin", "Desc"):
-            m = re.search(rf"{brand}{field}:'((?:[^'\\]|\\.)*)'", block)
-            if not m:
-                sys.exit(f"missing {brand}{field} in {lang}")
-            copy[lang][field.lower()] = m.group(1).replace("\\'", "'")
-        if lang == "ar":
-            copy[lang]["desc"] = AR_BRAND_DESCRIPTIONS[brand]
-    return copy
+    """Read evaluated shared copy, supporting either JS string quote style."""
+    tables = copy_tables(index)["T"]
+    return {lang: {field.lower(): tables[lang][brand + field]
+                   for field in ("Name", "Origin", "Desc")}
+            for lang in ("en", "ar")}
 
 
 def spec_rows(index, brand, translations):
@@ -208,13 +200,8 @@ def spec_rows(index, brand, translations):
 
 
 def translations(index):
-    """The whole T table, so spec labels can be resolved in either language."""
-    out = {}
-    for lang in ("en", "ar"):
-        block = re.search(rf"^{lang}:\{{.*?^\}},", index, re.S | re.M).group(0)
-        out[lang] = {k: v.replace("\\'", "'")
-                     for k, v in re.findall(r"([A-Za-z0-9_]+):'((?:[^'\\]|\\.)*)'", block)}
-    return out
+    """Read the same translation objects used by the homepage builder."""
+    return copy_tables(index)["T"]
 
 
 def text_html(value, lang):
@@ -293,7 +280,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
         f'<button type="button" class="btn solid" data-quote="{e(m["model"])}">{e(t["quote"])}</button>'
         f'<label><input type="checkbox" class="compare-check" value="{e(m["model"])}"> {label("Compare","قارن")} <span class="sr-only">{e(m["model"])}</span></label></td></tr>'
         for m in models)
-    source=read('index.html')
+    source=read('_src/home.html')
     form=re.search(r'<form id="contact-form".*?</form>',source,re.S).group(0)
     form=form.replace('event.preventDefault(); app.submitForm(event)','window.PremiumPowerEnquiry.submitForm(event)')
     form=translate(form,copy_tables(source)['T'][lang])
@@ -387,7 +374,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 
 
 def main():
-    index = read("index.html")
+    index = read("_src/home.html")
     css = read("assets/brand-page.css")
     trans = translations(index)
     written = []

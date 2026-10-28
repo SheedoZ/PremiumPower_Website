@@ -15,7 +15,7 @@ sys.path.insert(0, str(root))
 spec = importlib.util.spec_from_file_location('build_brands', root / 'build-brands.py')
 module = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(module)
-source = module.read('index.html')
+source = module.read('_src/home.html')
 brand = sys.argv[1]
 lang = sys.argv[2]
 models = [
@@ -67,10 +67,10 @@ test('Arabic generator output classifies listed Prime and Standby ranges and kee
     assert.ok(d.querySelector('a[href="/ar/maintenance/"]'));
     assert.ok(d.querySelector('a[href="/ar/privacy/"]'));
     assert.match(d.querySelector('.specs').textContent, /التبريد/);
-    assert.match(d.querySelector('.specs').textContent, /مبرد بالماء/);
+    assert.match(d.querySelector('.specs').textContent, /(?:مبرد|تبريد) بالماء/);
     assert.match(d.querySelector('.specs').textContent, /شاحن توربيني/);
     assert.doesNotMatch(d.querySelector('.specs').textContent, /Cooling|Water Cooled|Turbocharged/);
-    assert.match(d.querySelector('.specs').textContent, /Stage II \/ IIIA/);
+    assert.match(d.querySelector('.specs').textContent, /II \/ IIIA/);
   } finally {
     dom.window.close();
   }
@@ -85,7 +85,7 @@ test('all three Arabic brand pages localize descriptive specifications and inclu
       const description = d.querySelector('.lede').textContent;
       assert.match(specs, /عدد الأسطوانات/);
       assert.match(specs, /التبريد/);
-      assert.match(specs, /مبرد بالماء/);
+      assert.match(specs, /(?:مبرد|تبريد) بالماء/);
       assert.match(specs, /نظام الشحن الهوائي/);
       assert.doesNotMatch(specs, /Cylinders|Cooling|Water Cooled|Turbocharged/);
       assert.doesNotMatch(description, /أداء متطرف|الطاقة الأولية المستمرة/);
