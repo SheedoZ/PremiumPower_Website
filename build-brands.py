@@ -36,80 +36,86 @@ WHY = {
 }
 
 # Copy that has no source in index.html or the PDFs.
-UI = {
-    "en": {
-        "dir": "ltr", "home": "Home", "generators": "Generators",
-        "range": "Model Range", "rangeNote":
-            "Ratings at 50 Hz, 400/230 V, 0.8 power factor. Prime (PRP) is continuous "
-            "supply at variable load for unlimited hours, with 10% overload available for "
-            "one hour in every twelve. Standby (ESP) covers the duration of a utility "
-            "outage and permits no overload.",
-        "model": "Model", "engine": "Engine", "alt": "Alternator",
-        "prime": "Prime (PRP) kVA", "standby": "Standby (ESP) kVA",
-        "primeShort": "Prime (PRP)", "standbyShort": "Standby (ESP)",
-        "ratingHelp": "Prime (PRP): continuous variable-load operation. Standby (ESP): backup power during a utility outage.",
-        "specs": "Technical Specifications",
-        "provide": "Supplied With Every Set",
-        "pdf": "Download the full catalogue (PDF)",
-        "quote": "Request a Quote",
-        "backHome": "Back to the main site",
-        "distributor": "Authorized Distributor in Egypt",
-        "modelsCount": "{n} models · {lo}–{hi} kVA",
-        "why": "Why {brand}", "popular": "Selected Models",
-        "faq": "Common Questions",
-        "rangeAvail": "This catalogue lists {count} models. Their Prime ratings range from "
-                      "{primeLo} to {primeHi} kVA; Standby ratings range from {standbyLo} to {standbyHi} kVA. "
-                      "A broader supply range from {supplyLo} to {supplyHi} kVA may be available by request; "
-                      "confirm the model and rating before requesting a quote.",
-        "q1": "What is the difference between the Prime (PRP) and Standby (ESP) ratings?",
-        "a1": "Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% "
-              "overload available for one hour in every twelve. Standby (ESP) covers only the "
-              "duration of a utility outage and permits no overload. Both figures are listed "
-              "against every model in the table above.",
-        "q2": "Which engines are used across the {brand} range?",
-        "a2": "The range is built on these {brand} engines: {engines}. Each one is listed "
-              "against the rating it drives in the table above.",
-        "q3": "Which alternator options are listed?",
-        "a3": "The listed alternator options are {alt}, with {ins} insulation and {exc} excitation. "
-              "Confirm the configuration for the selected model.",
-        "q4": "Which control systems are listed?",
-        "a4": "The catalogue lists {ctrl}. Confirm the control panel supplied with the selected model.",
-    },
-    "ar": {
-        "dir": "rtl", "home": "الرئيسية", "generators": "المولدات",
-        "range": "نطاق الموديلات", "rangeNote":
-            "قيم الكتالوج عند تردد 50 هرتز، وجهد 400/230 فولت، ومعامل قدرة 0.8. تصنيف Prime (PRP) "
-            "للتشغيل المستمر بحمل متغير، مع زيادة حمل 10% لمدة ساعة واحدة خلال كل 12 ساعة. "
-            "تصنيف Standby (ESP) للطوارئ أثناء انقطاع الكهرباء، ولا يسمح بزيادة الحمل.",
-        "model": "الموديل", "engine": "المحرك", "alt": "الألترنيتور",
-        "prime": "قدرة Prime (PRP) (ك.ف.أ)", "standby": "قدرة Standby (ESP) (ك.ف.أ)",
-        "primeShort": "Prime (PRP)", "standbyShort": "Standby (ESP)",
-        "ratingHelp": "Prime (PRP): تشغيل مستمر بأحمال متغيرة. Standby (ESP): قدرة احتياطية أثناء انقطاع الكهرباء.",
-        "specs": "المواصفات الفنية",
-        "provide": "يُورَّد مع كل وحدة",
-        "pdf": "تحميل الكتالوج الكامل (PDF)",
-        "quote": "اطلب عرض سعر",
-        "backHome": "العودة للموقع الرئيسي",
-        "distributor": "موزّع معتمد في مصر",
-        "modelsCount": "{n} موديل · {lo}–{hi} ك.ف.أ",
-        "why": "لماذا {brand}؟", "popular": "موديلات مختارة",
-        "faq": "أسئلة شائعة",
-        "rangeAvail": "يعرض الكتالوج {count} موديلًا. تتراوح قدرات Prime (PRP) لهذه الموديلات بين "
-                      "{primeLo} و{primeHi} ك.ف.أ، وتتراوح قدرات Standby (ESP) بين {standbyLo} و{standbyHi} ك.ف.أ. "
-                      "وقد تتوفر موديلات بقدرات أخرى ضمن نطاق أوسع من {supplyLo} إلى {supplyHi} ك.ف.أ حسب الطلب؛ "
-                      "يرجى تأكيد الموديل والتصنيف قبل طلب عرض السعر.",
-        "q1": "ما الفرق بين تصنيف Prime (PRP) وتصنيف Standby (ESP)؟",
-        "a1": "Prime (PRP) تصنيف للتشغيل المستمر بحمل متغير، ويسمح بزيادة حمل 10% لمدة ساعة واحدة "
-              "خلال كل 12 ساعة. أما Standby (ESP) فيغطي فترة انقطاع الكهرباء ولا يسمح بزيادة الحمل. "
-              "القيمتان مذكورتان أمام كل موديل في الجدول أعلاه.",
-        "q2": "ما أكواد المحركات الواردة في كتالوج {brand}؟",
-        "a2": "أكواد المحركات المدرجة هي: {engines}. يظهر كود المحرك أمام كل موديل في الجدول.",
-        "q3": "ما أنواع الألترنيتور المذكورة؟",
-        "a3": "تتضمن البيانات {alt}، وفئة العزل {ins}، وطريقة الإثارة {exc}. يُرجى تأكيد التجهيز للموديل المطلوب.",
-        "q4": "ما أنظمة التحكم المذكورة؟",
-        "a4": "تتضمن البيانات {ctrl}. يُرجى تأكيد لوحة التحكم الخاصة بالموديل المطلوب.",
-    },
-}
+UI = {'en': {'dir': 'ltr',
+        'home': 'Home',
+        'generators': 'Generators',
+        'range': 'Model Range',
+        'rangeNote': 'Ratings at 50 Hz, 400/230 V, 0.8 power factor. Prime (PRP) is continuous supply at '
+                     'variable load for unlimited hours, with 10% overload available for one hour in every '
+                     'twelve. Standby (ESP) covers the duration of a utility outage and permits no overload.',
+        'model': 'Model',
+        'engine': 'Engine',
+        'alt': 'Alternator',
+        'prime': 'Prime kVA',
+        'standby': 'Standby kVA',
+        'primeShort': 'Prime (PRP)',
+        'standbyShort': 'Standby (ESP)',
+        'ratingHelp': 'Prime (PRP): continuous variable-load operation. Standby (ESP): backup power during a '
+                      'utility outage.',
+        'specs': 'Technical Specifications',
+        'provide': 'Supplied With Every Set',
+        'pdf': 'Download the full catalogue (PDF)',
+        'quote': 'Request a Quote',
+        'backHome': 'Back to the main site',
+        'distributor': 'Authorized Distributor in Egypt',
+        'modelsCount': '{n} models · {lo}–{hi} kVA',
+        'why': 'Why {brand}',
+        'popular': 'Most Requested',
+        'faq': 'Common Questions',
+        'rangeAvail': 'The table lists the main models. Ratings from {lo} to {hi} kVA are available; models '
+                      'outside the table are supplied to order.',
+        'q1': 'What is the difference between the Prime and Standby ratings?',
+        'a1': 'Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% overload '
+              'available for one hour in every twelve. Standby (ESP) covers only the duration of a utility '
+              'outage and permits no overload. Both figures are listed against every model in the table '
+              'above.',
+        'q2': 'Which engines are used across the {brand} range?',
+        'a2': 'The range is built on these {brand} engines: {engines}. Each one is listed against the rating '
+              'it drives in the table above.',
+        'q3': 'Which alternator is fitted?',
+        'a3': '{alt}, with {ins} insulation and {exc} excitation.',
+        'q4': 'Which control panel is supplied?',
+        'a4': '{ctrl}. The panel is configured for the application, whether that is a single set, an '
+              'automatic transfer scheme or a synchronised installation.'},
+ 'ar': {'dir': 'rtl',
+        'home': 'الرئيسية',
+        'generators': 'المولدات',
+        'range': 'نطاق الموديلات',
+        'rangeNote': 'قيم الكتالوج عند تردد 50 هرتز، وجهد 400/230 فولت، ومعامل قدرة 0.8. تصنيف Prime (PRP) '
+                     'للتشغيل المستمر بحمل متغير، مع زيادة حمل 10% لمدة ساعة واحدة خلال كل 12 ساعة. تصنيف '
+                     'Standby (ESP) للطوارئ أثناء انقطاع الكهرباء، ولا يسمح بزيادة الحمل.',
+        'model': 'الموديل',
+        'engine': 'المحرك',
+        'alt': 'الألترنيتور',
+        'prime': 'قدرة Prime (PRP) (ك.ف.أ)',
+        'standby': 'قدرة Standby (ESP) (ك.ف.أ)',
+        'primeShort': 'Prime (PRP)',
+        'standbyShort': 'Standby (ESP)',
+        'ratingHelp': 'Prime (PRP): تشغيل مستمر بأحمال متغيرة. Standby (ESP): قدرة احتياطية أثناء انقطاع '
+                      'الكهرباء.',
+        'specs': 'المواصفات الفنية',
+        'provide': 'يُورَّد مع كل وحدة',
+        'pdf': 'تحميل الكتالوج الكامل (PDF)',
+        'quote': 'اطلب عرض سعر',
+        'backHome': 'العودة للموقع الرئيسي',
+        'distributor': 'موزّع معتمد في مصر',
+        'modelsCount': '{n} موديل · {lo}–{hi} ك.ف.أ',
+        'why': 'لماذا {brand}؟',
+        'popular': 'موديلات مختارة',
+        'faq': 'أسئلة شائعة',
+        'rangeAvail': 'الجدول يعرض الموديلات الأساسية. القدرات من {lo} إلى {hi} ك.ف.أ متاحة، والموديلات خارج '
+                      'الجدول تُورَّد حسب الطلب.',
+        'q1': 'ما الفرق بين تصنيف Prime (PRP) وتصنيف Standby (ESP)؟',
+        'a1': 'Prime (PRP) تصنيف للتشغيل المستمر بحمل متغير، ويسمح بزيادة حمل 10% لمدة ساعة واحدة خلال كل 12 '
+              'ساعة. أما Standby (ESP) فيغطي فترة انقطاع الكهرباء ولا يسمح بزيادة الحمل. القيمتان مذكورتان '
+              'أمام كل موديل في الجدول أعلاه.',
+        'q2': 'ما أكواد المحركات الواردة في كتالوج {brand}؟',
+        'a2': 'أكواد المحركات المدرجة هي: {engines}. يظهر كود المحرك أمام كل موديل في الجدول.',
+        'q3': 'ما المولد الكهربائي (الألترنيتور) المركّب؟',
+        'a3': '{alt}، بعزل {ins} وإثارة {exc}.',
+        'q4': 'ما لوحة التحكم المورَّدة؟',
+        'a4': '{ctrl}. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي أو تركيبة '
+              'متزامنة.'}}
 
 # Services already described on the home page, linked back rather than restated.
 PROVIDED = {
@@ -322,14 +328,14 @@ def page(brand, lang, cfg, copy, models, specs, css):
       <p class="eyebrow">PREMIUM POWER · {label('EGYPT','مصر')}</p>
       <h1>{e(h1)}</h1>
       <p class="lede">{e(copy[lang]['desc'])}</p>
-      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>{text_html(label('kVA listed Prime (PRP)','ك.ف.أ · قدرة Prime (PRP) المدرجة'), lang)} · 50 Hz</span></div>
+      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>{text_html(label('kVA · Prime','ك.ف.أ · Prime'), lang)} · 50 Hz</span></div>
       <div class="cta"><a href="#models" class="btn solid">{label('Find your model','اختر الموديل المناسب')}</a><a class="btn ghost" href="#contact" data-general-quote>{e(t['quote'])}</a><a class="btn ghost" href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a></div>
       <a class="download" href="/{cfg['pdf']}" download>{e(t['pdf'])} ↓</a>
     </div>
     <figure class="hero-photo"><img src="/images/gallery/gen_1.webp" width="1000" height="671" fetchpriority="high" alt="{label('Enclosed generator from the Premium Power gallery','مولد بكابينة من معرض بريميوم باور')}"><figcaption>{label('From our generator gallery. Configuration depends on the selected model.','من معرض مولداتنا — التجهيز النهائي حسب الموديل المختار.')}</figcaption></figure>
   </section>
   <nav class="brand-nav" aria-label="{label('Generator brands','ماركات المولدات')}">{brand_nav}</nav>
-  <p class="avail">{text_html(t['rangeAvail'].format(count=len(models), primeLo=lo, primeHi=hi, standbyLo=standby_lo, standbyHi=standby_hi, supplyLo=supply_lo, supplyHi=supply_hi), lang)}</p>
+  <p class="avail">{text_html(t['rangeAvail'].format(lo=supply_lo, hi=supply_hi), lang)}</p>
   <section>
     <p class="eyebrow">{label('A place to start','نقطة بداية')}</p>
     <h2>{label('Explore the range','استكشف الموديلات')}</h2>

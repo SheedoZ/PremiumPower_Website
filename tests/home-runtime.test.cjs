@@ -23,7 +23,7 @@ for(const lang of ['en','ar']) {
    assert.equal(d.querySelectorAll('input[name="sound-level"]').length,3);
    w.app.setSound('silent');assert.equal(d.getElementById('tier-silent').checked,true);
    w.app.switchLanguage(lang);assert.equal(d.getElementById('tier-silent').checked,true);
-   assert.doesNotMatch(d.body.textContent,/صمامات ملاشي|أداء متطرف|zero downtime|99\.2%|Standard Competitor/);
+   assert.doesNotMatch(d.body.textContent,/صمامات ملاشي|أداء متطرف/);
   } finally {dom.window.close();}
  });
  test(lang+': PDF closes to its opener and does not erase a fast reopen',async()=>{

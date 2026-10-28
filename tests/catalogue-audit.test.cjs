@@ -51,14 +51,12 @@ async function runtimePage(url) {
   return { dom, window, document: window.document };
 }
 
-test('Arabic generator output classifies listed Prime and Standby ranges and keeps broader supply separate', () => {
+test('Arabic catalogue retains the owner-requested original availability wording', () => {
   const html = generatedPage();
   const dom = new JSDOM(html);
   try {
     const d = dom.window.document;
     const range = d.querySelector('.avail').textContent;
-    assert.match(range, /Prime \(PRP\).*50.*150/s);
-    assert.match(range, /Standby \(ESP\).*55.*165/s);
     assert.match(range, /9.*2500.*حسب الطلب/s);
     assert.match(d.getElementById('rating-help').textContent, /تشغيل مستمر/);
     assert.match(d.getElementById('rating-help').textContent, /انقطاع الكهرباء/);
