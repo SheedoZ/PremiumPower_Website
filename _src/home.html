@@ -429,7 +429,7 @@ html[lang="en"] .hero-title [data-i18n="heroLine2"] { font-size: .72em; }
 
 /* ── Sound section ── */
 #sound { background: var(--bg); border-top: 1px solid var(--border); }
-.sound-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
+.sound-layout { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 4rem; align-items: center; margin-top: 3rem; }
 .sound-tabs { display: flex; gap: 0; margin-bottom: 2rem; }
 .sound-tab {
   padding: .75rem 1.75rem; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
@@ -958,7 +958,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .amc-page-link { margin-top:1.25rem; }
 .amc-page-link a,.form-note a { color:var(--copper-text);text-decoration:underline;text-underline-offset:2px;font-weight:600; }
 .scope-note { margin-top:1.25rem;color:var(--muted);line-height:1.65; }
-.sound-tier-grid { border:0;padding:0;margin:0 0 1.5rem; }
+.sound-tier-grid { border:0;padding:0;margin:0 0 2rem;min-inline-size:0;width:100%; }
 .sound-tier { min-width:0;border:1px solid var(--border);border-top:3px solid transparent;color:var(--off); }
 .sound-tier.active { background:var(--bg3);border-top-color:var(--copper-text); }
 .sound-tier:focus-visible { outline:3px solid var(--copper-text);outline-offset:2px; }
@@ -1011,7 +1011,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .sound-tier { display:flex;flex-direction:column;gap:.35rem;min-width:0; }
 .sound-tier input[type="radio"] { accent-color:var(--copper-text);align-self:flex-start; }
 .sound-tier:focus-within { outline:3px solid var(--copper-text);outline-offset:2px; }
-.sound-tier-db { display:block;color:var(--off);font-size:1.35rem;line-height:1.2;font-weight:600; }
+.sound-tier-db { display:block;color:var(--off);font-size:3rem;line-height:1;font-weight:400; }
 .sound-tier-desc { display:block; }
 
 
@@ -1061,6 +1061,28 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 .proj-card img{display:block}
 
 .amc-card.featured{background:#003087;color:#fff}.amc-card.featured .amc-tier,.amc-card.featured .amc-name,.amc-card.featured .amc-features li{color:#fff}.hero-card [style*="color:var(--copper)"]{color:#75D5F8!important}.stat-num{color:var(--copper-text)}
+
+/* Preserve the original visual rhythm with native accessible controls. */
+.sound-layout > div{min-width:0}
+.sound-tier{position:relative;align-items:center}
+.sound-tier input[type="radio"]{position:absolute;inline-size:1px;block-size:1px;margin:0;overflow:hidden;clip-path:inset(50%)}
+.sound-info{gap:.75rem;flex-wrap:wrap}
+.client-motion-controls{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap;gap:.75rem;max-width:1400px;min-height:44px;margin:0 auto 1rem;padding-inline:2rem}
+.client-motion-controls[hidden]{display:flex;visibility:hidden}
+.client-motion-button{font:600 .8rem/1.4 'Outfit',Tahoma,sans-serif;min-height:44px;border:1px solid var(--border2);border-radius:3px;padding:.6rem 1rem;background:#fff;color:var(--copper-text);cursor:pointer}
+.client-motion-button:hover{border-color:var(--copper-text);background:var(--bg3)}
+.client-motion-hint{font-size:.75rem;color:var(--muted)}
+.marquee-track[data-motion]{animation:marquee 60s linear infinite!important}
+.marquee-track[data-motion="playing"]{animation-play-state:running!important}
+.marquee-track[data-motion="paused"]{animation-play-state:paused!important}
+@media(hover:hover){.marquee-track[data-motion="playing"]:hover{animation-play-state:paused!important}}
+@media(hover:none){.client-motion-hint{display:none}}
+@media(max-width:640px){.client-motion-controls{padding-inline:1.25rem;justify-content:flex-start}}
+
+
+@keyframes marquee-rtl{to{transform:translateX(50%)}}
+html[lang="ar"] .marquee-animate{animation-name:marquee-rtl}
+html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important}
 </style>
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
@@ -1131,9 +1153,7 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
         <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('sales')">
           <span>⚡</span> <span data-i18n="btnGeneratorQuote">Request a Generator Quote</span>
         </button>
-        <a class="btn-primary enquiry-path-btn" href="/maintenance/">
-          <span data-i18n="btnMaintenanceAssessment">Explore maintenance services</span> →
-        </a>
+        <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('maintenance','assessment')"><span data-i18n="btnMaintenanceAssessment">Request a Maintenance Assessment</span> →</button>
       </div>
     </div>
 
@@ -1152,7 +1172,7 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 </div>
 <div class="hero-kpi">
 <div class="hero-card-label" data-i18n="heroSupport">Support</div>
-<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)">24 / 7</div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)" dir="ltr">24 / 7</div>
 </div>
 <div class="hero-kpi">
 <div class="hero-card-label" data-i18n="heroWarranty">Warranty</div>
@@ -1228,10 +1248,11 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
     <h2 class="sec-title reveal" data-i18n="clientsTitle">TRUSTED BY<br><span class="accent">EGYPT&#x27;S LEADERS</span></h2>
     <p class="sec-desc reveal" data-i18n="clientsSub">Powering critical operations across healthcare, manufacturing, infrastructure, and real estate.</p>
   </div>
+<div class="client-motion-controls" id="client-motion-controls" hidden><span class="client-motion-hint" data-i18n="clientMotionHint">Pauses while hovered.</span><button class="client-motion-button" id="client-motion-button" type="button" aria-controls="client-strip">Pause image movement</button></div>
   <div style="position:relative;overflow:hidden;padding-bottom:5rem">
     <div class="marquee-fade-l"></div>
     <div class="marquee-fade-r"></div>
-    <div class="marquee-track marquee-animate" aria-label="Our clients">
+    <div id="client-strip" class="marquee-track marquee-animate" aria-label="Our clients">
       <div style="display:flex;gap:6px">
         <div class="client-card"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=640&h=440" alt="Egyptian Ambulance Organization" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client1">Egyptian Ambulance Organization</div></div></div>
         <div class="client-card"><img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80&w=640&h=440" alt="Canal For Sugar" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client2">Canal For Sugar</div></div></div>
@@ -1501,7 +1522,8 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
         <!-- 3-tier selector -->
         <fieldset class="sound-tier-grid"><legend class="visually-hidden" data-i18n="soundLabel">Acoustic Engineering</legend><label class="sound-tier active" id="tier-open-card" for="tier-open"><input type="radio" id="tier-open" name="sound-level" value="open" checked aria-controls="sound-panel" onchange="app.setSound('open')"><span class="sound-tier-db" style="color:#D94444">105</span><span class="sound-tier-label" data-i18n="tier1Label">Open Set</span><span class="sound-tier-desc" data-i18n="tier1Desc">No enclosure</span></label><label class="sound-tier" id="tier-standard-card" for="tier-standard"><input type="radio" id="tier-standard" name="sound-level" value="standard"  aria-controls="sound-panel" onchange="app.setSound('standard')"><span class="sound-tier-db" style="color:#E09020">85</span><span class="sound-tier-label" data-i18n="tier2Label">Standard</span><span class="sound-tier-desc" data-i18n="tier2Desc">−20 dBA</span></label><label class="sound-tier" id="tier-silent-card" for="tier-silent"><input type="radio" id="tier-silent" name="sound-level" value="silent"  aria-controls="sound-panel" onchange="app.setSound('silent')"><span class="sound-tier-db" style="color:#3A9060">65</span><span class="sound-tier-label" data-i18n="tier3Label">Super Silent</span><span class="sound-tier-desc" data-i18n="tier3Desc">Premium canopy</span></label></fieldset>
         <div class="sound-bar-wrap" id="sound-panel" role="region" aria-labelledby="sound-title" aria-live="polite">
-          <div class="sound-bar-bg"><div class="sound-bar-fill" id="sound-fill" style="width:100%;background:#D94444"></div></div><div class="sound-info"><div class="sound-db" id="sound-db">105 dB</div><div class="sound-equiv" id="sound-equiv">≈ Industrial Machinery</div></div>
+          <div class="sound-bar-bg"><div class="sound-bar-fill" id="sound-fill" style="width:100%;background:#D94444"></div></div><div class="sound-info"><div class="sound-db" id="sound-db" dir="ltr">105 dB</div><div class="sound-equiv" id="sound-equiv">≈ Industrial Machinery</div></div>
+        </div>
       </div>
       <div class="reveal reveal-delay-1">
         <p class="sound-desc-text" data-i18n="soundDesc">Our custom-fabricated soundproof canopies dramatically reduce generator noise, making them deployable in environments where standard units are impractical.</p>
@@ -1962,8 +1984,8 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
           <div>
             <div class="contact-detail-label" data-i18n="ctPhone">Phone</div>
             <div class="contact-detail-val">
-              <a href="tel:+201229688688">012 2968 8688</a><br>
-              <a href="tel:+201273353355">012 7335 3355</a>
+              <a href="tel:+201229688688" dir="ltr">012 2968 8688</a><br>
+              <a href="tel:+201273353355" dir="ltr">012 7335 3355</a>
             </div>
           </div>
         </div>
@@ -1978,7 +2000,7 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
           <div class="contact-icon">📍</div>
           <div>
             <div class="contact-detail-label" data-i18n="ctAddress">Address</div>
-            <div class="contact-detail-val">40 El Hegaz St., Heliopolis<br>Cairo, Egypt</div>
+            <div class="contact-detail-val" dir="ltr">40 El Hegaz St., Heliopolis<br>Cairo, Egypt</div>
           </div>
         </div>
         <div class="contact-detail">
@@ -2140,6 +2162,7 @@ let scrollTick = false;
 // ── Translations ─────────────────────────────────────────────────
 const T = {
 en:{
+  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",clientMotionHint:"Pauses while hovered.",
   regionName8:"Nationwide",
   regionName7:"North Coast",
   regionName6:"Menoufia",
@@ -2160,7 +2183,7 @@ en:{
   heroSub:"Engineering-grade generator solutions from 8 KVA to 3000 KVA. Perkins, Volvo Penta & Doosan — with professional installation and 24/7 support.",
   heroCardTitle:"Power Range",engine:"Engine",alternator:"Alternator",heroSupport:"Support",heroWarranty:"Warranty",
   scrollHint:"Scroll",
-  btnFindGen:"Find Your Generator",btnContact:"Get in Touch",btnQuote:"Get Quote",btnGeneratorQuote:"Request a Generator Quote",btnMaintenanceAssessment:"Explore maintenance services",
+  btnFindGen:"Find Your Generator",btnContact:"Get in Touch",btnQuote:"Get Quote",btnGeneratorQuote:"Request a Generator Quote",btnMaintenanceAssessment:"Request a Maintenance Assessment",
   navClients:"Clients",navProducts:"Generators",navCalc:"Calculator",navProjects:"Projects",navContact:"Contact",navHome:"Home",navServices:"Services",navPortfolio:"Portfolio",navLocations:"Locations",navVision:"About Us",navAMC:"Maintenance",navSpecs:"Tech Specs",navFuel:"Fuel Systems",navCerts:"Certifications",navCert:"Certifications",
   stat1:"Projects Completed",stat2:"Years Experience",stat3:"Active Contracts",stat4:"Uptime Guarantee",
   stat1Desc:"Compare models and request a quotation for your project.",
@@ -2334,6 +2357,7 @@ en:{
   chatSales:"Sales Inquiry",chatEmergency:"24/7 Emergency",
 },
 ar:{
+  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",clientMotionHint:"تتوقف الحركة أثناء الإشارة إلى الصور.",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
   regionName6:"المنوفية",
@@ -2354,7 +2378,7 @@ ar:{
   heroSub:"حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
   heroCardTitle:"نطاق القدرة",engine:"المحرك",alternator:"المولد",heroSupport:"الدعم",heroWarranty:"الضمان",
   scrollHint:"تمرير",
-  btnFindGen:"ابحث عن مولدك",btnContact:"تواصل معنا",btnQuote:"اطلب عرضاً",btnGeneratorQuote:"اطلب عرض سعر لمولد",btnMaintenanceAssessment:"استعرض خدمات الصيانة",
+  btnFindGen:"ابحث عن مولدك",btnContact:"تواصل معنا",btnQuote:"اطلب عرضاً",btnGeneratorQuote:"اطلب عرض سعر لمولد",btnMaintenanceAssessment:"اطلب تقييماً للصيانة",
   navClients:"العملاء",navProducts:"المولدات",navCalc:"الحاسبة",navProjects:"المشاريع",navContact:"اتصل بنا",navHome:"الرئيسية",navServices:"الخدمات",navPortfolio:"سابقة أعمال",navLocations:"مواقعنا",navVision:"عن الشركة",navAMC:"الصيانة",navSpecs:"المواصفات",navFuel:"أنظمة الوقود",navCerts:"الشهادات",navCert:"الشهادات",
   stat1:"مشروع مكتمل",stat2:"سنة خبرة",stat3:"عقد نشط",stat4:"ضمان وقت التشغيل",
   stat1Desc:"قارن الموديلات واطلب عرض سعر يناسب مشروعك.",
@@ -2807,6 +2831,7 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
+  refreshClientMotion();
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
   setSound(selectedSound?selectedSound.value:'open');
@@ -2840,6 +2865,23 @@ document.addEventListener('click',e=>{
   const fab=document.getElementById('fab-menu');
   if(!fab.contains(e.target)) { document.getElementById('fab-options').classList.remove('open'); document.querySelector('.fab-trigger').setAttribute('aria-expanded','false'); }
 });
+
+// Follow the device preference until the visitor chooses play/pause.
+const clientMotionQuery=typeof window.matchMedia==='function'?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+let clientMotionChoice=null;
+function refreshClientMotion(){
+  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
+  if(!strip||!button)return;
+  const playing=clientMotionChoice===null?!clientMotionQuery?.matches:clientMotionChoice;
+  strip.dataset.motion=playing?'playing':'paused';
+  button.textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
+  document.getElementById('client-motion-controls').hidden=false;
+}
+document.getElementById('client-motion-button')?.addEventListener('click',()=>{
+  clientMotionChoice=document.getElementById('client-strip').dataset.motion!=='playing';
+  refreshClientMotion();
+});
+clientMotionQuery?.addEventListener?.('change',refreshClientMotion);
 
 // ── Init ─────────────────────────────────────────────────────────
 switchLanguage('en');

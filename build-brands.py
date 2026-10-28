@@ -346,11 +346,11 @@ def page(brand, lang, cfg, copy, models, specs, css):
     <div id="model-tools" class="filters" hidden>
       <label for="model-search">{label('Search model or engine','ابحث بالموديل أو المحرك')}<input id="model-search" type="search" placeholder="{label('Model / engine code','كود الموديل / المحرك')}"></label>
       <label for="rating">{text_html(label('Prime / Standby rating','تصنيف Prime / Standby'), lang)}<select id="rating" aria-describedby="rating-help"><option value="prime">{text_html(t['primeShort'], lang)}</option><option value="standby">{text_html(t['standbyShort'], lang)}</option></select></label>
-      <p id="rating-help" class="rating-help">{text_html(t['ratingHelp'], lang)}</p>
       <label for="min-kva">{label('From kVA','من ك.ف.أ')}<input id="min-kva" type="number" min="0" step="any" placeholder="0"></label>
       <label for="max-kva">{label('Up to kVA','حتى ك.ف.أ')}<input id="max-kva" type="number" min="0" step="any" placeholder="{max(float(m['standby']) for m in models):g}"></label>
       <label for="model-sort">{label('Sort capacity','ترتيب القدرة')}<select id="model-sort"><option value="asc">{label('Low to high','من الأقل للأعلى')}</option><option value="desc">{label('High to low','من الأعلى للأقل')}</option></select></label>
       <button type="button" id="reset-filters" class="btn ghost">{label('Reset','إعادة ضبط')}</button>
+      <p id="rating-help" class="rating-help">{text_html(t['ratingHelp'], lang)}</p>
     </div>
     <p id="result-count" class="note" role="status" aria-live="polite">{len(models)} {label('models','موديل')}</p>
     <div class="scroll"><table id="model-table"><caption class="sr-only">{e(name)} — {e(t['range'])}</caption>
@@ -367,7 +367,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
   <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul><p class="note"><a href="{home}#calculator">{label('Estimate your required generator capacity','احسب قدرة المولد المطلوبة مبدئيًا')}</a> · <a href="{home}#contact">{label('Discuss installation and site requirements','ناقش متطلبات الموقع والتركيب')}</a> · <a href="{maintenance_url}">{label('Maintenance services and contracts','خدمات وعقود الصيانة')}</a></p></section>
   <section><h2>{e(t['faq'])}</h2><div class="faqs">{faq_html}</div></section>
   <section id="contact" class="enquiry">
-    <div><p class="eyebrow">{label('Let’s plan your power','لنحدد احتياجك من الطاقة')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختر موديلًا من الجدول أو أخبرنا عن مشروعك. يساعدك فريقنا على تأكيد القدرة والتجهيز المناسبين.')}</p><p><a href="tel:+201229688688">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+    <div><p class="eyebrow">{label('Let’s plan your power','لنحدد احتياجك من الطاقة')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختر موديلًا من الجدول أو أخبرنا عن مشروعك. يساعدك فريقنا على تأكيد القدرة والتجهيز المناسبين.')}</p><p><a href="tel:+201229688688" dir="ltr">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
     <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم البيانات التي تقدمها للرد على استفسارك.')} <a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a></p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو مراسلتنا عبر واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
   </section>
 </main>
