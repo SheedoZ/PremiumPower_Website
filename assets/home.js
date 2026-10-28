@@ -9,7 +9,6 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
-  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",clientMotionHint:"Pauses while hovered.",
   regionName8:"Nationwide",
   regionName7:"North Coast",
   regionName6:"Menoufia",
@@ -205,7 +204,6 @@ en:{
 },
 ar:{
   pageTitle:"مولدات ديزل في مصر | بريميوم باور",
-  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",clientMotionHint:"تتوقف الحركة أثناء الإشارة إلى الصور.",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
   regionName6:"المنوفية",
@@ -679,7 +677,6 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
-  refreshClientMotion();
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
   setSound(selectedSound?selectedSound.value:'open');
@@ -713,23 +710,6 @@ document.addEventListener('click',e=>{
   const fab=document.getElementById('fab-menu');
   if(!fab.contains(e.target)) { document.getElementById('fab-options').classList.remove('open'); document.querySelector('.fab-trigger').setAttribute('aria-expanded','false'); }
 });
-
-// Follow the device preference until the visitor chooses play/pause.
-const clientMotionQuery=typeof window.matchMedia==='function'?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
-let clientMotionChoice=null;
-function refreshClientMotion(){
-  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
-  if(!strip||!button)return;
-  const playing=clientMotionChoice===null?!clientMotionQuery?.matches:clientMotionChoice;
-  strip.dataset.motion=playing?'playing':'paused';
-  button.textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
-  document.getElementById('client-motion-controls').hidden=false;
-}
-document.getElementById('client-motion-button')?.addEventListener('click',()=>{
-  clientMotionChoice=document.getElementById('client-strip').dataset.motion!=='playing';
-  refreshClientMotion();
-});
-clientMotionQuery?.addEventListener?.('change',refreshClientMotion);
 
 // ── Init ─────────────────────────────────────────────────────────
 switchLanguage(document.documentElement.lang === 'ar' ? 'ar' : 'en');

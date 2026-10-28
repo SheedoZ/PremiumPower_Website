@@ -39,25 +39,23 @@ for(const lang of ['en','ar']){
    assert.equal(w.location.pathname,lang==='ar'?'/ar/':'/');
   }finally{dom.window.close();}
  });
- test(lang+': reduced motion stays paused until an explicit play choice',async()=>{
+ test(lang+': client images autoplay without visible or keyboard-only motion controls',async()=>{
   const {dom,d,w,changeMedia}=await load(lang,true);
   try{
-   const strip=d.getElementById('client-strip'),button=d.getElementById('client-motion-button');
-   assert.equal(strip.dataset.motion,'paused');
-   assert.equal(d.getElementById('client-motion-controls').hidden,false);
-   assert.equal(button.textContent,lang==='ar'?'تشغيل حركة الصور':'Play image movement');
-   button.click();assert.equal(strip.dataset.motion,'playing');
+   const strip=d.getElementById('client-strip');
+   assert.equal(strip.dataset.motion,'playing');
+   assert.equal(d.getElementById('client-motion-button'),null);
+   assert.equal(d.getElementById('client-motion-controls'),null);
    w.app.switchLanguage(lang==='ar'?'en':'ar');assert.equal(strip.dataset.motion,'playing');
-   changeMedia(true);assert.equal(strip.dataset.motion,'playing','Explicit visitor choice remains in effect');
-   button.click();assert.equal(strip.dataset.motion,'paused');
+   changeMedia(true);assert.equal(strip.dataset.motion,'playing');
   }finally{dom.window.close();}
  });
 }
-test('normal motion autoplays and follows preference changes before a manual choice',async()=>{
+test('client autoplay remains on when the motion preference changes',async()=>{
  const {dom,d,changeMedia}=await load('en',false);
  try{
   assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
-  changeMedia(true);assert.equal(d.getElementById('client-strip').dataset.motion,'paused');
+  changeMedia(true);assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
   changeMedia(false);assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
   assert.equal(d.querySelectorAll('#client-strip > div').length,2,'Seamless duplicate groups remain available');
  }finally{dom.window.close();}
