@@ -48,12 +48,23 @@
     }
   };
   let pending = false;
+  let formStarted = false;
   let statusKey = '';
   let statusKind = '';
   const byId = id => document.getElementById(id);
   const language = () => document.documentElement.lang === 'ar' ? 'ar' : 'en';
   const normalizeDigits = value => value.replace(/[٠-٩۰-۹]/g, char => String(char.charCodeAt(0) - (char >= '۰' ? 1776 : 1632)));
   const normalizedPhone = value => normalizeDigits(value).replace(/[\s\-()]/g, '');
+
+  function emitEnquiryEvent(stage, type = byId('f-type')?.value) {
+    if (typeof document.dispatchEvent !== 'function' || typeof window.CustomEvent !== 'function') return;
+    const detail = {
+      stage,
+      type: ['sales', 'maintenance'].includes(type) ? type : 'unknown',
+      lang: language(),
+    };
+    document.dispatchEvent(new window.CustomEvent('premium-power:enquiry', { detail }));
+  }
 
   function translatedNode(parent, tag, key, className) {
     const node = document.createElement(tag);
@@ -175,7 +186,7 @@
     const messageGroup = byId('f-msg')?.parentElement;
     if (messageGroup && messageGroup.parentNode) messageGroup.parentNode.insertBefore(details, messageGroup.nextSibling);
     else form.appendChild(details);
-    unknown.addEventListener('change', () => { capacity.control.disabled = unknown.checked; });
+    unknown.addEventListener('change', refreshOptionalFields);
     capacity.control.disabled = unknown.checked;
   }
 
@@ -183,11 +194,18 @@
     const sales = byId('sales-optional-details');
     const maintenance = byId('maintenance-optional-details');
     if (!sales || !maintenance || !byId('f-type')) return;
-    sales.hidden = byId('f-type').value !== 'sales';
-    maintenance.hidden = byId('f-type').value !== 'maintenance';
+    const salesActive = byId('f-type').value === 'sales';
+    const maintenanceActive = byId('f-type').value === 'maintenance';
+    sales.hidden = !salesActive;
+    maintenance.hidden = !maintenanceActive;
     const unknown = byId('f-sales-capacity-unknown');
     const capacity = byId('f-sales-capacity');
-    if (unknown && capacity && !pending) capacity.disabled = unknown.checked;
+    sales.querySelectorAll('input, select, textarea').forEach(control => {
+      control.disabled = pending || !salesActive || (control === capacity && unknown?.checked);
+    });
+    maintenance.querySelectorAll('input, select, textarea').forEach(control => {
+      control.disabled = pending || !maintenanceActive;
+    });
   }
 
   function refreshOptionalLanguage() {
@@ -273,6 +291,7 @@
     updatePlan();
     if(type==='sales' && document.body.dataset?.brand) setProduct({brand:document.body.dataset.brand});
     showStatus('', '');
+    emitEnquiryEvent('path_change', type);
     return true;
   }
 
@@ -344,9 +363,14 @@
   async function submit(form) {
     if (pending) return false;
     const payload = validate(form);
-    if (!payload) return false;
+    if (!payload) {
+      emitEnquiryEvent('error');
+      return false;
+    }
+    emitEnquiryEvent('submit', payload.enquiry_type);
     const endpoint = typeof window.PREMIUM_POWER_FORM_ENDPOINT === 'string' ? window.PREMIUM_POWER_FORM_ENDPOINT.trim() : '';
     if (!/^https:\/\/formspree\.io\/f\/[a-z0-9]+$/i.test(endpoint)) {
+      emitEnquiryEvent('error', payload.enquiry_type);
       showStatus('unavailable', 'error'); return false;
     }
     pending = true;
@@ -364,6 +388,7 @@
         body: JSON.stringify(payload), signal: controller.signal, credentials: 'omit', redirect: 'error'
       });
       if (!response.ok) {
+        emitEnquiryEvent('error', payload.enquiry_type);
         showStatus(response.status === 429 ? 'limited' : response.status >= 500 ? 'uncertain' : 'rejected', response.status >= 500 ? 'uncertain' : 'error');
         return false;
       }
@@ -371,9 +396,11 @@
       // Formspree's official client identifies successful receipts by a `next` string.
       // Keep visitors on this page; never navigate to a URL supplied in a response.
       if (acknowledgement && (typeof acknowledgement.error === 'string' || Array.isArray(acknowledgement.errors))) {
+        emitEnquiryEvent('error', payload.enquiry_type);
         showStatus('rejected', 'error'); return false;
       }
       if (!acknowledgement || typeof acknowledgement.next !== 'string') {
+        emitEnquiryEvent('error', payload.enquiry_type);
         showStatus('uncertain', 'uncertain'); return false;
       }
       form.reset();
@@ -385,11 +412,14 @@
       delete form.dataset.model;
       delete form.dataset.rating;
       refreshProduct();
+      emitEnquiryEvent('receipt', payload.enquiry_type);
       received=true;
+      formStarted = false;
       showStatus('success', 'success');
       return true;
     } catch (error) {
       // A lost response may follow an accepted request. Do not encourage blind retries.
+      emitEnquiryEvent('error', payload.enquiry_type);
       showStatus('uncertain', 'uncertain');
       return false;
     } finally {
@@ -410,6 +440,13 @@
   function init() {
     if (!byId('contact-form')) return;
     bindOptionalDetails();
+    const form = byId('contact-form');
+    form.addEventListener('focusin', () => {
+      if (!formStarted) {
+        formStarted = true;
+        emitEnquiryEvent('form_start');
+      }
+    });
     byId('f-type').addEventListener('change', () => setPath(byId('f-type').value));
     updatePlan();
   }

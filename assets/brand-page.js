@@ -200,6 +200,7 @@
     byId("rating").value = "prime";
     byId("model-sort").value = "asc";
     filter();
+    writeUrlState();
   });
   byId("clear-compare").addEventListener("click", () => {
     selected.clear();

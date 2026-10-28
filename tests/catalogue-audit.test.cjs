@@ -123,6 +123,10 @@ test('compare and rating query state accepts only known models, caps at three, a
     d.querySelector('button[aria-label="إزالة G60PL"]').click();
     assert.equal(new URL(f.window.location.href).searchParams.get('compare'), 'G100PL,G200PL');
     assert.equal(d.querySelectorAll('#compare-cards article').length, 2);
+    d.getElementById('reset-filters').click();
+    assert.equal(d.getElementById('rating').value, 'prime');
+    assert.equal(new URL(f.window.location.href).searchParams.get('rating'), 'prime');
+    assert.equal(new URL(f.window.location.href).searchParams.get('compare'), 'G100PL,G200PL');
   } finally {
     f.dom.window.close();
   }

@@ -186,6 +186,61 @@ test('pending submission disables optional controls and blocks path changes', as
   }
 });
 
+test('inactive-path number fields are disabled so their invalid values cannot block the current route', async () => {
+  const f = await fixture();
+  try {
+    const d = f.document;
+    f.api.setPath('maintenance');
+    const count = d.getElementById('f-maintenance-count');
+    count.value = '0';
+    assert.equal(count.checkValidity(), false);
+    assert.equal(d.getElementById('contact-form').checkValidity(), false);
+
+    f.api.setPath('sales');
+    assert.equal(d.getElementById('maintenance-optional-details').hidden, true);
+    assert.equal(count.disabled, true);
+    assert.equal(d.getElementById('contact-form').checkValidity(), true);
+
+    f.api.setPath('maintenance');
+    assert.equal(count.disabled, false);
+    assert.equal(count.checkValidity(), false);
+  } finally {
+    close(f);
+  }
+});
+
+test('local enquiry events expose only generic stage, path type, and language fields', async () => {
+  const f = await fixture({ lang: 'ar' });
+  try {
+    const d = f.document;
+    const events = [];
+    d.addEventListener('premium-power:enquiry', event => events.push(event.detail));
+    f.api.setPath('maintenance', 'standard');
+    d.getElementById('f-name').focus();
+    assert.equal(await f.api.submit(d.getElementById('contact-form')), true);
+    assert.deepEqual(events.map(event => event.stage), ['path_change', 'form_start', 'submit', 'receipt']);
+    assert.ok(events.every(event => Object.keys(event).sort().join(',') === 'lang,stage,type'));
+    assert.ok(events.every(event => event.lang === 'ar' && event.type === 'maintenance'));
+    assert.doesNotMatch(JSON.stringify(events), /Test customer|01229688688|Cairo|Keep this note/);
+  } finally {
+    close(f);
+  }
+
+  const invalid = await fixture();
+  try {
+    const events = [];
+    invalid.document.addEventListener('premium-power:enquiry', event => events.push(event.detail));
+    invalid.document.getElementById('f-name').value = ' ';
+    assert.equal(await invalid.api.submit(invalid.document.getElementById('contact-form')), false);
+    assert.deepEqual(events.map(({ stage, type, lang }) => ({ stage, type, lang })), [
+      { stage: 'form_start', type: 'sales', lang: 'en' },
+      { stage: 'error', type: 'sales', lang: 'en' },
+    ]);
+  } finally {
+    close(invalid);
+  }
+});
+
 test('Arabic optional fields are translated while phone normalization remains available', async () => {
   const f = await fixture({ lang: 'ar' });
   try {
