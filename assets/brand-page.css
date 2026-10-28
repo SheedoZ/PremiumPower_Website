@@ -216,7 +216,7 @@ html[dir="rtl"] .marque {
   gap: 2rem;
   margin: 1.5rem 0;
 }
-.hero-facts span {
+.hero-facts > span {
   display: flex;
   flex-direction: column;
   font-size: 0.8rem;
@@ -738,3 +738,7 @@ tbody tr:nth-child(even) {
   .mobile-quote { position:fixed; bottom:0; inset-inline:0; z-index:20; display:flex; gap:.75rem; padding:.75rem 1rem calc(.75rem + env(safe-area-inset-bottom)); background:white; border-top:1px solid var(--line); }
   .mobile-quote .solid { flex:1; }
 }
+
+.hero-rating{display:block;font:inherit;line-height:1.6}
+#view-comparison[hidden]{display:none}
+@media(max-width:720px){.mobile-quote{flex-wrap:wrap}.mobile-quote:has(#view-comparison:not([hidden])) #view-comparison{flex-basis:100%;text-align:center}body:has(#view-comparison:not([hidden])){padding-bottom:9rem}}

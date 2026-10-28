@@ -299,8 +299,7 @@
 
   function open(type, plan) {
     if (!setPath(type, plan)) return false;
-    const contact = byId('contact');
-    if (contact) contact.scrollIntoView({ behavior: 'smooth' });
+    byId('f-name').scrollIntoView({ behavior: 'smooth', block: 'center' });
     byId('f-name').focus({ preventScroll: true });
     return true;
   }
