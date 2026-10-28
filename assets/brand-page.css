@@ -346,6 +346,12 @@ html[dir="rtl"] .marque {
   font-weight: 600;
   min-width: 0;
 }
+.rating-help {
+  grid-column: 1 / -1;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
 input:not([type="checkbox"]),
 select,
 textarea {
@@ -642,6 +648,9 @@ tbody tr:nth-child(even) {
     padding: 1rem;
   }
   .filters label:first-child {
+    grid-column: 1/-1;
+  }
+  .filters label[for="rating"] {
     grid-column: 1/-1;
   }
   .contact-form-wrap {

@@ -11,6 +11,37 @@
   const brand = document.body.dataset.brand;
   const enquiry = window.PremiumPowerEnquiry;
   const fields = ["model-search", "rating", "min-kva", "max-kva", "model-sort"];
+  let restoringUrlState = false;
+
+  function readUrlState() {
+    let url;
+    try {
+      url = new URL(window.location.href);
+    } catch (_) {
+      return;
+    }
+    const rating = url.searchParams.get("rating");
+    byId("rating").value = rating === "standby" ? "standby" : "prime";
+    selected.clear();
+    const raw = url.searchParams.get("compare") || "";
+    for (const model of raw.slice(0, 120).split(",").slice(0, 12)) {
+      if (catalogue.has(model) && !selected.has(model) && selected.size < 3) selected.add(model);
+    }
+  }
+
+  function writeUrlState() {
+    if (restoringUrlState || !window.history || typeof window.history.replaceState !== "function") return;
+    try {
+      const url = new URL(window.location.href);
+      url.searchParams.set("rating", byId("rating").value === "standby" ? "standby" : "prime");
+      const models = Array.from(selected).filter((model) => catalogue.has(model)).slice(0, 3);
+      if (models.length) url.searchParams.set("compare", models.join(","));
+      else url.searchParams.delete("compare");
+      window.history.replaceState(window.history.state, "", url.pathname + url.search + url.hash);
+    } catch (_) {
+      // URL state is an enhancement; filtering and comparison still work if history is unavailable.
+    }
+  }
   function filter() {
     const search = byId("model-search").value.trim().toLowerCase();
     const rating = byId("rating").value;
@@ -43,8 +74,8 @@
       });
     byId("result-count").textContent = valid
       ? say(
-          `${count} of ${rows.length} models · Quote rating: ${rating === "prime" ? "Prime" : "Standby"}`,
-          `${count} من ${rows.length} موديل · قدرة طلب السعر: ${rating === "prime" ? "Prime" : "Standby"}`,
+          `${count} of ${rows.length} models · Quote rating: ${rating === "prime" ? "Prime (PRP)" : "Standby (ESP)"}`,
+          `${count} من ${rows.length} موديل · تصنيف القدرة: \u2066${rating === "prime" ? "Prime (PRP)" : "Standby (ESP)"}\u2069`,
         )
       : say("Enter a valid capacity range.", "أدخل نطاق قدرة صحيحاً.");
     byId("no-results").hidden = count > 0 || !valid;
@@ -81,15 +112,24 @@
         card = document.createElement("article"),
         title = document.createElement("h3");
       title.textContent = model;
+      title.dir = "ltr";
       card.append(title);
-      for (const text of [
-        say("Engine: ", "المحرك: ") + d.engine,
-        say("Alternator: ", "الألترنيتور: ") + d.alt,
-        `Prime: ${d.prime} kVA`,
-        `Standby: ${d.standby} kVA`,
+      for (const [label, value] of [
+        [say("Engine: ", "المحرك: "), d.engine],
+        [say("Alternator: ", "الألترنيتور: "), d.alt],
+        [say("Prime (PRP): ", "قدرة Prime (PRP): "), `${d.prime} ${say("kVA", "ك.ف.أ")}`],
+        [say("Standby (ESP): ", "قدرة Standby (ESP): "), `${d.standby} ${say("kVA", "ك.ف.أ")}`],
       ]) {
         const p = document.createElement("p");
-        p.textContent = text;
+        p.append(document.createTextNode(label));
+        if (ar) {
+          const bdi = document.createElement("bdi");
+          bdi.dir = "ltr";
+          bdi.textContent = value;
+          p.append(bdi);
+        } else {
+          p.append(document.createTextNode(value));
+        }
         card.append(p);
       }
       const request = document.createElement("button");
@@ -114,6 +154,7 @@
       card.append(remove);
       parent.append(card);
     }
+    writeUrlState();
   }
   document
     .querySelectorAll("[data-quote]")
@@ -133,7 +174,16 @@
       updateComparison();
     }),
   );
-  fields.forEach((id) => byId(id).addEventListener("input", filter));
+  fields.forEach((id) => {
+    byId(id).addEventListener("input", () => {
+      filter();
+      if (id === "rating") writeUrlState();
+    });
+    byId(id).addEventListener("change", () => {
+      filter();
+      if (id === "rating") writeUrlState();
+    });
+  });
   // A catalogue link must still reach its model when filters hide that row.
   document.querySelectorAll('a[href^="#model-"]').forEach((link) => {
     link.addEventListener("click", () => {
@@ -157,6 +207,10 @@
     document.querySelector(".compare-check").focus();
   });
   byId("model-tools").hidden = false;
+  restoringUrlState = true;
+  readUrlState();
+  restoringUrlState = false;
+  updateComparison();
   enquiry.setProduct({ brand });
   const mobileQuote = byId('mobile-quote');
   if ('IntersectionObserver' in window) {
@@ -164,4 +218,11 @@
   }
   byId('contact-form').addEventListener('focusin', () => { mobileQuote.hidden = true; });
   filter();
+  window.addEventListener("popstate", () => {
+    restoringUrlState = true;
+    readUrlState();
+    restoringUrlState = false;
+    updateComparison();
+    filter();
+  });
 })();

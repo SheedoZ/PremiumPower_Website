@@ -1,0 +1,75 @@
+/* Shared optional enquiry details; the core form remains short and unchanged. */
+#enquiry-details {
+  margin: 1rem 0;
+  padding: 0.9rem 1rem;
+  border: 1px solid #dbe4ee;
+  border-radius: 8px;
+  background: #fff;
+}
+
+#enquiry-details summary {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+#enquiry-details[open] summary {
+  margin-bottom: 0.75rem;
+}
+
+#enquiry-details .optional-fields {
+  border-top: 1px solid #dbe4ee;
+  padding-top: 1rem;
+}
+
+#enquiry-details .optional-fields[hidden] {
+  display: none !important;
+}
+
+#enquiry-details .optional-fields-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+#enquiry-details .optional-fields-grid .form-group {
+  min-width: 0;
+  margin: 0;
+}
+
+#enquiry-details .optional-fields-grid .optional-full {
+  grid-column: 1 / -1;
+}
+
+#enquiry-details .optional-help {
+  margin: 0.35rem 0 0;
+  color: #53657a;
+  font-size: 0.8rem;
+}
+
+#enquiry-details .optional-capacity-known {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 44px;
+  font-size: 0.85rem;
+}
+
+#enquiry-details .optional-capacity-known input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  #enquiry-details .optional-fields-grid {
+    grid-template-columns: 1fr;
+  }
+
+  #enquiry-details .optional-fields-grid .optional-full {
+    grid-column: auto;
+  }
+}
