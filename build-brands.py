@@ -304,7 +304,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 {metadata_html(brand, lang, models)}
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="/images/favicon.png">
-<link rel="stylesheet" href="/assets/company-logo.css?v=20261028">
+<link rel="stylesheet" href="/assets/company-logo.css?v=20261028-2">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -315,7 +315,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <body data-brand="{e(cfg['marque'])}">
 <a href="#main" class="skip">{label('Skip to content','تخطي إلى المحتوى')}</a>
 <header class="bar">
-  <a class="logo pp-brand" href="{home}" aria-label="Premium Power"><svg class="pp-brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="493 1318 2392 741" width="2392" height="741" role="img" aria-label="Premium Power"><image href="/images/premium-power-primary.png" width="3375" height="3375" /></svg></a>
+  <a class="logo pp-brand" href="{home}" aria-label="Premium Power"><img class="pp-brand-mark pp-logo-color" src="/images/premium-power-logo-color.webp" width="720" height="223" alt="Premium Power" fetchpriority="high" decoding="async"></a>
   <nav class="langs" aria-label="{label('Language','اللغة')}">
     <a href="/{slug}/" hreflang="en" lang="en"{' aria-current="page"' if not ar else ''}>EN</a>
     <a href="/ar/{slug}/" hreflang="ar" lang="ar"{' aria-current="page"' if ar else ''}>عربي</a>

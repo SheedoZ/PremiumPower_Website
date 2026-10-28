@@ -1,4 +1,10 @@
-.pp-brand{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;box-sizing:border-box;width:180px;padding:6px 10px;border-radius:4px;background:#fff;text-decoration:none;line-height:0}
-.pp-brand .pp-brand-mark{display:block;width:100%;height:auto;max-width:none;flex-shrink:0}
+.pp-brand{display:inline-grid;grid-template-columns:minmax(0,1fr);align-items:center;justify-content:center;flex-shrink:0;box-sizing:border-box;width:180px;padding:6px 10px;border-radius:4px;background:transparent;text-decoration:none;line-height:0}
+.pp-brand .pp-brand-mark{display:block;grid-area:1/1;width:100%;height:auto;max-width:none;flex-shrink:0}
 .footer-logo.pp-brand{width:230px;margin-bottom:1rem}
 @media(max-width:640px){#navbar .nav-inner{gap:.5rem}.nav-logo.pp-brand,.bar .logo.pp-brand{width:132px;padding:4px 6px}header.bar{gap:.5rem}.bar .langs{gap:.25rem}.bar .langs a{padding:.4rem .45rem;font-size:.75rem}}
+
+.pp-brand-mark{transition:opacity .22s ease}
+.pp-brand .pp-logo-light{opacity:0}
+#navbar:not(.scrolled) .pp-logo-color,.footer-logo.pp-brand .pp-logo-color{opacity:0}
+#navbar:not(.scrolled) .pp-logo-light,.footer-logo.pp-brand .pp-logo-light{opacity:1}
+@media(prefers-reduced-motion:reduce){.pp-brand-mark{transition:none}}
