@@ -38,3 +38,17 @@ for(const lang of ['en','ar']) {
   } finally {dom.window.close();}
  });
 }
+
+test('a deep-link entry receives the readable scrolled header',async()=>{
+ const {dom,w,d}=await home('en');
+ try {
+  Object.defineProperty(w,'scrollY',{configurable:true,value:200});
+  w.dispatchEvent(new w.Event('hashchange'));
+  await new Promise(r=>w.requestAnimationFrame(()=>r()));
+  assert.equal(d.getElementById('navbar').classList.contains('scrolled'),true);
+  Object.defineProperty(w,'scrollY',{configurable:true,value:0});
+  w.dispatchEvent(new w.Event('pageshow'));
+  await new Promise(r=>w.requestAnimationFrame(()=>r()));
+  assert.equal(d.getElementById('navbar').classList.contains('scrolled'),false);
+ } finally {dom.window.close();}
+});

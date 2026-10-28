@@ -2843,6 +2843,10 @@ document.addEventListener('click',e=>{
 
 // ── Init ─────────────────────────────────────────────────────────
 switchLanguage('en');
+// Hash-entry navigation must get the same readable header as a normal scroll.
+function syncNavbarPosition(){document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60);}
+for(const event of ['pageshow','hashchange']) window.addEventListener(event,()=>requestAnimationFrame(syncNavbarPosition));
+requestAnimationFrame(syncNavbarPosition);
 
 // A brand page hands the form its context through /?brand=Perkins#contact.
 // Matched against the known marques rather than used as given, so the query
