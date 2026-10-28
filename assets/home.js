@@ -9,6 +9,7 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
+  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",clientMotionHint:"Pauses while hovered.",
   regionName8:"Nationwide",
   regionName7:"North Coast",
   regionName6:"Menoufia",
@@ -29,7 +30,7 @@ en:{
   heroSub:"Engineering-grade generator solutions from 8 KVA to 3000 KVA. Perkins, Volvo Penta & Doosan — with professional installation and 24/7 support.",
   heroCardTitle:"Power Range",engine:"Engine",alternator:"Alternator",heroSupport:"Support",heroWarranty:"Warranty",
   scrollHint:"Scroll",
-  btnFindGen:"Find Your Generator",btnContact:"Get in Touch",btnQuote:"Get Quote",btnGeneratorQuote:"Request a Generator Quote",btnMaintenanceAssessment:"Explore maintenance services",
+  btnFindGen:"Find Your Generator",btnContact:"Get in Touch",btnQuote:"Get Quote",btnGeneratorQuote:"Request a Generator Quote",btnMaintenanceAssessment:"Request a Maintenance Assessment",
   navClients:"Clients",navProducts:"Generators",navCalc:"Calculator",navProjects:"Projects",navContact:"Contact",navHome:"Home",navServices:"Services",navPortfolio:"Portfolio",navLocations:"Locations",navVision:"About Us",navAMC:"Maintenance",navSpecs:"Tech Specs",navFuel:"Fuel Systems",navCerts:"Certifications",navCert:"Certifications",
   stat1:"Projects Completed",stat2:"Years Experience",stat3:"Active Contracts",stat4:"Uptime Guarantee",
   stat1Desc:"Compare models and request a quotation for your project.",
@@ -204,6 +205,7 @@ en:{
 },
 ar:{
   pageTitle:"مولدات ديزل في مصر | بريميوم باور",
+  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",clientMotionHint:"تتوقف الحركة أثناء الإشارة إلى الصور.",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
   regionName6:"المنوفية",
@@ -224,7 +226,7 @@ ar:{
   heroSub:"حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
   heroCardTitle:"نطاق القدرة",engine:"المحرك",alternator:"المولد",heroSupport:"الدعم",heroWarranty:"الضمان",
   scrollHint:"تمرير",
-  btnFindGen:"ابحث عن مولدك",btnContact:"تواصل معنا",btnQuote:"اطلب عرضاً",btnGeneratorQuote:"اطلب عرض سعر لمولد",btnMaintenanceAssessment:"استعرض خدمات الصيانة",
+  btnFindGen:"ابحث عن مولدك",btnContact:"تواصل معنا",btnQuote:"اطلب عرضاً",btnGeneratorQuote:"اطلب عرض سعر لمولد",btnMaintenanceAssessment:"اطلب تقييماً للصيانة",
   navClients:"العملاء",navProducts:"المولدات",navCalc:"الحاسبة",navProjects:"المشاريع",navContact:"اتصل بنا",navHome:"الرئيسية",navServices:"الخدمات",navPortfolio:"سابقة أعمال",navLocations:"مواقعنا",navVision:"عن الشركة",navAMC:"الصيانة",navSpecs:"المواصفات",navFuel:"أنظمة الوقود",navCerts:"الشهادات",navCert:"الشهادات",
   stat1:"مشروع مكتمل",stat2:"سنة خبرة",stat3:"عقد نشط",stat4:"ضمان وقت التشغيل",
   stat1Desc:"قارن الموديلات واطلب عرض سعر يناسب مشروعك.",
@@ -677,6 +679,7 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
+  refreshClientMotion();
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
   setSound(selectedSound?selectedSound.value:'open');
@@ -710,6 +713,23 @@ document.addEventListener('click',e=>{
   const fab=document.getElementById('fab-menu');
   if(!fab.contains(e.target)) { document.getElementById('fab-options').classList.remove('open'); document.querySelector('.fab-trigger').setAttribute('aria-expanded','false'); }
 });
+
+// Follow the device preference until the visitor chooses play/pause.
+const clientMotionQuery=typeof window.matchMedia==='function'?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+let clientMotionChoice=null;
+function refreshClientMotion(){
+  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
+  if(!strip||!button)return;
+  const playing=clientMotionChoice===null?!clientMotionQuery?.matches:clientMotionChoice;
+  strip.dataset.motion=playing?'playing':'paused';
+  button.textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
+  document.getElementById('client-motion-controls').hidden=false;
+}
+document.getElementById('client-motion-button')?.addEventListener('click',()=>{
+  clientMotionChoice=document.getElementById('client-strip').dataset.motion!=='playing';
+  refreshClientMotion();
+});
+clientMotionQuery?.addEventListener?.('change',refreshClientMotion);
 
 // ── Init ─────────────────────────────────────────────────────────
 switchLanguage(document.documentElement.lang === 'ar' ? 'ar' : 'en');

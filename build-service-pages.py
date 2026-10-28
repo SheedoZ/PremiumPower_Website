@@ -103,6 +103,7 @@ def page(key, lang):
     t = COPY[lang]
     home = "/ar/" if lang == "ar" else "/"
     e = escape
+    call_label = e(t["call"]).replace("012 2968 8688", '<bdi dir="ltr">012 2968 8688</bdi>')
     faqs = t["faqs"] if key == "maintenance" else []
     schema = structured_data(key, lang, faqs)
     if key == "maintenance":
@@ -125,7 +126,7 @@ def page(key, lang):
 <section class="terms"><h2>{e(t["termsTitle"])}</h2><p>{e(t["terms"])}</p></section>
 <section><h2>{e(t["stepsTitle"])}</h2><ol class="service-steps">{steps}</ol></section>
 <section><h2>{e(t["faqTitle"])}</h2><div class="faqs">{faq}</div></section>
-<section id="request"><div id="contact" class="enquiry"><div><h2>{e(t["contactTitle"])}</h2><p>{e(t["contactText"])}</p><p>{e(t["fallback"])}</p><p><a href="tel:+201229688688">{e(t["call"])}</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+<section id="request"><div id="contact" class="enquiry"><div><h2>{e(t["contactTitle"])}</h2><p>{e(t["contactText"])}</p><p>{e(t["fallback"])}</p><p><a href="tel:+201229688688">{call_label}</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
 <div class="contact-form-wrap">{form_markup(lang)}<p class="note">{e(t["formNotice"])} <a href="{home}privacy/">{e(t["readPrivacy"])}</a></p><noscript><p>{e(t["nojs"])}</p></noscript></div></div></section>'''
         scripts = '<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028" defer></script><script src="/assets/service-page.js?v=20261028" defer></script>'
     else:
