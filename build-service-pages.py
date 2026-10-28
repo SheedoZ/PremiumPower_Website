@@ -137,10 +137,11 @@ def page(key, lang):
 <html lang="{lang}" dir="{"rtl" if lang == "ar" else "ltr"}">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 {metadata_html(key, lang)}<meta name="theme-color" content="#003087"><link rel="icon" type="image/png" href="/images/favicon.png">
+<link rel="stylesheet" href="/assets/company-logo.css?v=20261028">
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/service-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 {schema_html(schema)}</head>
 <body class="service-page"><a class="skip" href="#main">{e("انتقل إلى المحتوى" if lang == "ar" else "Skip to content")}</a>
-<header class="bar"><a class="logo" href="{home}" aria-label="Premium Power">PREMIUM<span>POWER</span></a><nav class="langs" aria-label="{e("اللغة" if lang == "ar" else "Language")}"><a href="/{key}/" lang="en" hreflang="en" {"aria-current='page'" if lang == "en" else ""}>English</a><a href="/ar/{key}/" lang="ar" hreflang="ar" {"aria-current='page'" if lang == "ar" else ""}>العربية</a></nav></header>
+<header class="bar"><a class="logo pp-brand" href="{home}" aria-label="Premium Power"><svg class="pp-brand-mark" xmlns="http://www.w3.org/2000/svg" viewBox="493 1318 2392 741" width="2392" height="741" role="img" aria-label="Premium Power"><image href="/images/premium-power-primary.png" width="3375" height="3375" /></svg></a><nav class="langs" aria-label="{e("اللغة" if lang == "ar" else "Language")}"><a href="/{key}/" lang="en" hreflang="en" {"aria-current='page'" if lang == "en" else ""}>English</a><a href="/ar/{key}/" lang="ar" hreflang="ar" {"aria-current='page'" if lang == "ar" else ""}>العربية</a></nav></header>
 <main id="main" class="wrap"><nav class="service-nav" aria-label="{e("التنقل" if lang == "ar" else "Navigation")}"><a href="{home}">{e(t["home"])}</a><a href="{home}#products">{e(t["sales"])}</a><a href="{home}maintenance/">{e(t["maintenance"])}</a></nav>{content}</main>
 <footer class="foot"><a href="{home}">{e(t["back"])}</a><span>Premium Power LLC · {e(t["address"])}</span><a href="tel:+201229688688" dir="ltr">+20 122 968 8688</a><a href="{home}privacy/">{e(t["privacy"])}</a></footer>{scripts}</body></html>
 '''

@@ -1,0 +1,4 @@
+.pp-brand{display:inline-flex;align-items:center;justify-content:center;flex-shrink:0;box-sizing:border-box;width:180px;padding:6px 10px;border-radius:4px;background:#fff;text-decoration:none;line-height:0}
+.pp-brand .pp-brand-mark{display:block;width:100%;height:auto;max-width:none;flex-shrink:0}
+.footer-logo.pp-brand{width:230px;margin-bottom:1rem}
+@media(max-width:640px){#navbar .nav-inner{gap:.5rem}.nav-logo.pp-brand,.bar .logo.pp-brand{width:132px;padding:4px 6px}header.bar{gap:.5rem}.bar .langs{gap:.25rem}.bar .langs a{padding:.4rem .45rem;font-size:.75rem}}
