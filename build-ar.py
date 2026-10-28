@@ -25,7 +25,7 @@ def rewrite(html):
     html = re.sub(r"file:'([a-z-]+\.pdf)'", r"file:'/\1'", html)
 
     # Keep the complete model journey in the selected language.
-    html = re.sub(r'href="/(perkins-generators-egypt|volvo-penta-generators-egypt|doosan-generators-egypt)/', r'href="/ar/\1/', html)
+    html = re.sub(r'href="/(perkins-generators-egypt|volvo-penta-generators-egypt|doosan-generators-egypt|maintenance|privacy)/', r'href="/ar/\1/', html)
 
     # The page must come up in Arabic without a click.
     html = html.replace("switchLanguage('en');\n", "switchLanguage('ar');\n", 1)

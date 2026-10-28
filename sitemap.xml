@@ -48,4 +48,28 @@
     <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/doosan-generators-egypt/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/doosan-generators-egypt/"/>
   </url>
+  <url>
+    <loc>https://www.premiumpower-eg.com/maintenance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/maintenance/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/maintenance/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/maintenance/"/>
+  </url>
+  <url>
+    <loc>https://www.premiumpower-eg.com/ar/maintenance/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/maintenance/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/maintenance/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/maintenance/"/>
+  </url>
+  <url>
+    <loc>https://www.premiumpower-eg.com/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/privacy/"/>
+  </url>
+  <url>
+    <loc>https://www.premiumpower-eg.com/ar/privacy/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.premiumpower-eg.com/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.premiumpower-eg.com/ar/privacy/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.premiumpower-eg.com/privacy/"/>
+  </url>
 </urlset>

@@ -28,893 +28,15 @@
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="preconnect" href="https://images.unsplash.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 
-<style>
-:root {
-  --bg:       #FFFFFF;
-  --bg2:      #F3F4F6;
-  --bg3:      #F5F7FA;
-  --card:     #FFFFFF;
-  --copper:   #009CDE;
-  --copper2:  #0070BA;
-  --copper3:  #003087;
-  --off:      #2C2E2F;
-  --muted:    #5A6A7A;
-  --border:   #DDE1E6;
-  --border2:  #C8CDD4;
-  --red:      #D94444;
-  --green:    #3A9060;
-}
-
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-html { scroll-behavior: smooth; }
-
-body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg);
-  color: var(--off);
-  overflow-x: hidden;
-  font-size: 16px;
-  line-height: 1.6;
-}
-
-body.rtl { direction: rtl; font-family: Tahoma, 'Noto Sans Arabic', 'Outfit', sans-serif; }
-
-.bebas { font-family: 'Bebas Neue', sans-serif; letter-spacing: .03em; }
-
-/* ── Skip nav ── */
-.skip-nav {
-  position: absolute; top: -100px; left: 1rem; z-index: 9999;
-  background: var(--copper); color: #000; padding: .5rem 1.2rem;
-  border-radius: 0 0 6px 6px; font-weight: 700; transition: top .2s;
-}
-.skip-nav:focus { top: 0; }
-
-/* ── Noise texture overlay ── */
-body::before {
-  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  opacity: .12;
-}
-
-/* ── Copper line decoration ── */
-.copper-line {
-  display: inline-block; width: 3rem; height: 3px;
-  background: var(--copper); margin-bottom: .75rem;
-}
-.copper-line.full { width: 100%; }
-
-/* ── Section label ── */
-.sec-label {
-  font-size: .7rem; letter-spacing: .2em; text-transform: uppercase;
-  color: var(--copper); font-weight: 600; display: block; margin-bottom: .5rem;
-}
-
-/* ── Navbar ── */
-#navbar {
-  position: fixed; top: 0; width: 100%; z-index: 100;
-  padding: 1.5rem 0; transition: all .35s ease;
-}
-#navbar.scrolled {
-  background: rgba(255,255,255,0.97); backdrop-filter: blur(16px);
-  border-bottom: 1px solid var(--border); padding: 1rem 0;
-}
-.nav-inner {
-  max-width: 1280px; margin: 0 auto; padding: 0 2rem;
-  display: flex; align-items: center; justify-content: space-between;
-}
-.nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; letter-spacing: .1em; color: #fff; text-decoration: none; }
-.nav-logo span { color: var(--copper); }
-#navbar.scrolled .nav-logo { color: var(--off); }
-.nav-links { display: flex; align-items: center; gap: 2.5rem; }
-.nav-links a {
-  font-size: .8rem; letter-spacing: .1em; text-transform: uppercase;
-  color: rgba(255,255,255,0.8); text-decoration: none; transition: color .2s; font-weight: 500;
-}
-.nav-links a:hover { color: #fff; }
-#navbar.scrolled .nav-links a { color: var(--muted); }
-#navbar.scrolled .nav-links a:hover { color: var(--off); }
-.nav-cta {
-  background: var(--copper); color: #000; padding: .6rem 1.4rem;
-  font-size: .75rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase;
-  border: none; border-radius: 3px; cursor: pointer;
-  transition: background .2s; white-space: nowrap;
-}
-.nav-cta:hover { background: var(--copper2); }
-.lang-switch { display: flex; gap: .5rem; align-items: center; }
-.lang-btn {
-  font-size: .7rem; font-weight: 700; letter-spacing: .1em;
-  display: inline-block; text-decoration: none; line-height: 1.4;
-  background: none; border: 1px solid rgba(255,255,255,0.4); color: rgba(255,255,255,0.8);
-  padding: .2rem .6rem; cursor: pointer; transition: all .2s;
-}
-.lang-btn:hover, .lang-btn.active { border-color: var(--copper); color: var(--copper); }
-#navbar.scrolled .lang-btn { border-color: var(--border2); color: var(--muted); }
-.hamburger { display: none; background: none; border: none; cursor: pointer; color: #fff; }
-#navbar.scrolled .hamburger { color: var(--off); }
-
-/* ── Mobile menu ── */
-#mobile-menu {
-  display: none; position: fixed; inset: 0; background: #fff;
-  z-index: 300; padding: 5rem 1.5rem 2rem; flex-direction: column; gap: .5rem; overflow-y: auto; overscroll-behavior: contain;
-  border-left: 3px solid var(--copper);
-}
-#mobile-menu.open { display: flex; }
-#mobile-menu a {
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; color: var(--off);
-  text-decoration: none; letter-spacing: .05em; border-bottom: 1px solid var(--border);
-  padding-bottom: 1rem; transition: color .2s;
-}
-#mobile-menu a:hover { color: var(--copper); }
-.mobile-close {
-  position: absolute; top: 1.5rem; right: 1.5rem;
-  background: none; border: none; color: var(--muted); cursor: pointer; font-size: 1.5rem;
-}
-
-/* ── Hero ── */
-#home {
-  min-height: 100vh; display: flex; align-items: center;
-  position: relative; overflow: hidden; color: #fff;
-  background: radial-gradient(ellipse 80% 60% at 70% 40%, #001A50 0%, #003087 70%);
-}
-.hero-grid-bg {
-  position: absolute; inset: 0; pointer-events: none;
-  background-image: linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px);
-  background-size: 60px 60px; opacity: .6;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 0%, transparent 70%);
-}
-.hero-inner {
-  max-width: 1280px; margin: 0 auto; padding: 7rem 2rem 4rem;
-  display: grid; grid-template-columns: 1fr 420px; gap: 4rem; align-items: center;
-  width: 100%; position: relative; z-index: 1;
-}
-.hero-tag {
-  display: inline-flex; align-items: center; gap: .6rem;
-  font-size: .7rem; letter-spacing: .15em; text-transform: uppercase;
-  color: var(--copper); font-weight: 600; margin-bottom: 1.5rem;
-  border: 1px solid var(--copper); padding: .35rem .8rem;
-}
-.hero-tag::before { content: ''; width: 8px; height: 8px; background: var(--copper); display: block; }
-.hero-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(4rem, 9vw, 8rem);
-  line-height: .95; letter-spacing: .02em;
-  margin-bottom: 1.5rem; color: #fff;
-}
-html[lang="en"] .hero-title [data-i18n="heroLine2"] { font-size: .72em; }
-.hero-title .accent { color: var(--copper); }
-.hero-title .stroke {
-  -webkit-text-stroke: 2px #fff; color: transparent;
-}
-.hero-sub {
-  font-size: 1.05rem; color: rgba(255,255,255,0.75); max-width: 520px;
-  line-height: 1.8; margin-bottom: 1.5rem; font-weight: 300;
-}
-.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-  background: var(--copper); color: #000;
-  padding: .9rem 2.5rem; font-weight: 700; font-size: .85rem;
-  letter-spacing: .1em; text-transform: uppercase; border: none; cursor: pointer;
-  clip-path: polygon(12px 0%, 100% 0%, calc(100% - 12px) 100%, 0% 100%);
-  transition: background .2s, transform .2s; display: inline-flex; align-items: center; gap: .6rem;
-}
-.btn-primary:hover { background: var(--copper2); transform: translateY(-2px); }
-.btn-outline {
-  background: transparent; color: #fff;
-  padding: .9rem 2.5rem; font-weight: 600; font-size: .85rem;
-  letter-spacing: .1em; text-transform: uppercase;
-  border: 1px solid rgba(255,255,255,0.5); cursor: pointer;
-  transition: border-color .2s, color .2s; display: inline-flex; align-items: center; gap: .6rem;
-}
-.btn-outline:hover { border-color: var(--copper); color: var(--copper); }
-.btn-primary:focus-visible, .btn-outline:focus-visible, .nav-cta:focus-visible,
-.btn-amc-cta:focus-visible, .btn-submit:focus-visible, .btn-brand-primary:focus-visible,
-.btn-brand-outline:focus-visible, .fab-trigger:focus-visible, .lang-btn:focus-visible {
-  outline: 3px solid var(--copper); outline-offset: 3px;
-}
-.enquiry-path-btn { flex: 1 1 0; min-width: 0; padding: 1.1rem 1.2rem; justify-content: center; }
-
-/* Hero card */
-.hero-card {
-  background: rgba(255,255,255,0.1);
-  border: 1px solid rgba(255,255,255,0.2);
-  backdrop-filter: blur(12px);
-  padding: 2.5rem;
-  position: relative;
-  overflow: hidden;
-}
-.hero-card::before {
-  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-  background: linear-gradient(90deg, var(--copper), var(--copper3), transparent);
-}
-.hero-card-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: .3rem; }
-.hero-card-val { font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem; color: var(--copper); line-height: 1; }
-.hero-card-unit { font-size: .75rem; color: rgba(255,255,255,0.5); font-weight: 500; }
-.hero-kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: rgba(255,255,255,0.15); margin-top: 2rem; }
-.hero-kpi { background: rgba(0,0,0,0.15); padding: 1.25rem; }
-.hero-bar { height: 4px; background: rgba(255,255,255,0.2); border-radius: 2px; margin-top: 1.5rem; overflow: hidden; }
-.hero-bar-fill { height: 100%; background: linear-gradient(90deg, var(--copper), var(--copper3)); width: 0; transition: width 1.5s ease; border-radius: 2px; }
-
-/* Scroll indicator */
-.scroll-hint {
-  position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
-  display: flex; flex-direction: column; align-items: center; gap: .4rem;
-  font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.5);
-  animation: bob 2s ease-in-out infinite;
-}
-.scroll-hint-line { width: 1px; height: 40px; background: linear-gradient(var(--copper), transparent); }
-@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
-
-/* ── Stats strip ── */
-#stats {
-  background: var(--bg2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-  padding: 0;
-}
-.stats-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
-.stat-item {
-  padding: 3rem 2rem; border-right: 1px solid var(--border); text-align: center;
-  position: relative; transition: background .3s;
-}
-.stat-item:last-child { border-right: none; }
-.stat-item:hover { background: var(--bg3); }
-.stat-num { font-family: 'Bebas Neue', sans-serif; font-size: 3.5rem; color: var(--copper); line-height: 1; }
-.stat-lbl { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-top: .4rem; font-weight: 500; }
-
-/* ── Clients marquee ── */
-#clients { padding: 6rem 0; overflow: hidden; background: var(--bg); }
-.clients-header { max-width: 1280px; margin: 0 auto 3rem; padding: 0 2rem; }
-.marquee-track { display: flex; width: max-content; }
-.marquee-animate { animation: marquee 60s linear infinite; }
-.marquee-animate:hover { animation-play-state: paused; }
-@keyframes marquee { to { transform: translateX(-50%); } }
-.client-card {
-  flex-shrink: 0; width: 320px; height: 220px; margin-right: 1.5rem;
-  position: relative; overflow: hidden; border: 1px solid var(--border);
-}
-.client-card img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(60%) brightness(.7); transition: all .5s; }
-.client-card:hover img { filter: grayscale(0%) brightness(.8); transform: scale(1.05); }
-.client-overlay {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(12,12,12,.95) 0%, rgba(12,12,12,.3) 60%, transparent 100%);
-  display: flex; align-items: flex-end; padding: 1.25rem;
-}
-.client-name { font-size: .85rem; font-weight: 600; color: var(--off); }
-.marquee-fade-l { position: absolute; left: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to right, var(--bg), transparent); z-index: 2; pointer-events: none; }
-.marquee-fade-r { position: absolute; right: 0; top: 0; bottom: 0; width: 100px; background: linear-gradient(to left, var(--bg), transparent); z-index: 2; pointer-events: none; }
-
-/* ── Section wrapper ── */
-.sec { padding: 7rem 0; }
-.sec-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
-.sec-header { margin-bottom: 4rem; }
-.sec-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 5vw, 4.5rem); line-height: 1; }
-.sec-title .accent { color: var(--copper); }
-.sec-desc { color: var(--muted); max-width: 560px; margin-top: 1rem; font-weight: 300; }
-
-/* ── Products / Brands ── */
-#products { background: var(--bg2); border-top: 1px solid var(--border); }
-.brand-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); }
-.brand-card {
-  background: var(--card); padding: 3rem 2.5rem;
-  border-top: 3px solid transparent; transition: border-color .3s;
-  display: flex; flex-direction: column;
-}
-.brand-card:hover { border-top-color: var(--copper); }
-.brand-logo-wrap {
-  height: 100px; display: flex; align-items: center; margin-bottom: 2rem;
-  border-bottom: 1px solid var(--border); padding-bottom: 2rem;
-}
-.brand-logo-wrap img {
-  height: 50px; width: auto; object-fit: contain;
-  filter: grayscale(100%) brightness(1.8) opacity(.6);
-  transition: all .4s;
-}
-.brand-card:hover .brand-logo-wrap img { filter: grayscale(0%) brightness(1) opacity(1); }
-.brand-name { font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem; color: var(--off); margin-bottom: .3rem; }
-.brand-origin { font-size: .75rem; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 1rem; }
-.brand-desc { color: var(--muted); font-size: .9rem; line-height: 1.7; flex: 1; margin-bottom: 2rem; font-weight: 300; }
-.spec-toggle {
-  background: none; border: none; cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-  color: var(--copper); font-size: .75rem; letter-spacing: .1em; text-transform: uppercase;
-  font-weight: 600; padding: .75rem 0; border-top: 1px solid var(--border); width: 100%;
-  transition: color .2s;
-}
-.spec-toggle:hover { color: var(--copper2); }
-.spec-arrow { transition: transform .3s; font-size: .85rem; }
-.spec-body {
-  max-height: 0; overflow: hidden;
-}
-.spec-body.open { max-height: none; }
-.spec-row { display: flex; justify-content: space-between; padding: .5rem 0; font-size: .8rem; border-bottom: 1px solid var(--border); }
-.spec-row:last-child { border-bottom: none; }
-.spec-key { color: var(--muted); }
-.spec-val { color: var(--off); font-weight: 500; }
-.brand-btns { display: flex; flex-direction: column; gap: .75rem; margin-top: 1.5rem; }
-.btn-brand-primary {
-  background: var(--copper); color: #000;
-  padding: .75rem 1.5rem; font-size: .78rem; font-weight: 700;
-  letter-spacing: .08em; text-transform: uppercase; border: none; cursor: pointer;
-  transition: background .2s; display: flex; align-items: center; justify-content: center; gap: .5rem;
-}
-.btn-brand-primary:hover { background: var(--copper2); }
-.btn-brand-outline { text-decoration: none; 
-  background: transparent; color: var(--muted);
-  padding: .75rem 1.5rem; font-size: .78rem; font-weight: 600;
-  letter-spacing: .08em; text-transform: uppercase;
-  border: 1px solid var(--border2); cursor: pointer;
-  transition: all .2s; display: flex; align-items: center; justify-content: center; gap: .5rem;
-}
-.btn-brand-outline:hover { border-color: var(--copper); color: var(--copper); }
-
-/* ── Services ── */
-#services { background: var(--bg); }
-.svc-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); margin-top: 3rem; }
-.svc-card {
-  background: var(--card); padding: 2.5rem 2rem;
-  transition: background .3s; position: relative; overflow: hidden;
-}
-.svc-card::after {
-  content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 2px;
-  background: var(--copper); transform: scaleX(0); transform-origin: left; transition: transform .35s;
-}
-.svc-card:hover { background: var(--bg3); }
-.svc-card:hover::after { transform: scaleX(1); }
-.svc-icon {
-  width: 48px; height: 48px; background: var(--border);
-  display: flex; align-items: center; justify-content: center;
-  margin-bottom: 1.5rem; color: var(--copper); font-size: 1.3rem;
-  transition: background .3s;
-}
-.svc-card:hover .svc-icon { background: var(--copper); color: #000; }
-.svc-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: .5rem; letter-spacing: .03em; }
-.svc-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
-
-/* ── Calculator ── */
-#calculator { background: var(--bg2); border-top: 1px solid var(--border); }
-.calc-layout { display: grid; grid-template-columns: 1fr 400px; gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.calc-inputs { background: var(--card); padding: 3rem; }
-.calc-result-wrap { background: #003087; }
-.calc-row {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 0; border-bottom: 1px solid var(--border);
-}
-.calc-row:last-child { border-bottom: none; }
-.calc-row-hours { border-top: 2px solid var(--border2); margin-top: .5rem; padding-top: 1.4rem; }
-.calc-label { font-size: .9rem; color: var(--off); }
-.calc-sub { font-size: .75rem; color: var(--muted); }
-.calc-input {
-  background: var(--bg2); border: 1px solid var(--border2); color: var(--off);
-  width: 80px; padding: .6rem; text-align: center; font-size: .95rem;
-  font-family: 'Outfit', sans-serif; outline: none; transition: border-color .2s;
-}
-.calc-input:focus { border-color: var(--copper); }
-/* placeholder panel */
-#calc-placeholder {
-  padding: 3rem 2rem; display: flex; flex-direction: column;
-  align-items: center; justify-content: center; text-align: center; gap: 1rem; height: 100%;
-}
-.calc-gen {
-  width: 100%; max-width: 240px; height: auto;
-  fill: none; stroke: rgba(255,255,255,.45); stroke-width: 2.2;
-  stroke-linecap: round; stroke-linejoin: round;
-}
-.calc-gen .bolt { fill: var(--copper); stroke: none; }
-.calc-hint-text { font-size: .85rem; color: rgba(255,255,255,0.6); font-weight: 300; }
-/* result panel */
-#calc-result { display: none; flex-direction: column; padding: 3rem 2rem; height: 100%; }
-.result-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: .5rem; }
-.result-big { font-family: 'Bebas Neue', sans-serif; font-size: 6rem; color: var(--copper); line-height: 1; }
-.result-unit { font-family: 'Bebas Neue', sans-serif; font-size: 1.8rem; color: rgba(255,255,255,0.5); }
-.result-divider { height: 1px; background: rgba(255,255,255,0.15); margin: 1.5rem 0; }
-.result-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: .75rem; }
-.result-row-label { font-size: .8rem; color: rgba(255,255,255,0.6); }
-.result-row-val { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: #fff; }
-.result-row-unit { font-size: .75rem; color: rgba(255,255,255,0.5); margin-left: .3rem; }
-.result-note { font-size: .7rem; color: rgba(255,255,255,0.45); margin-top: 1.5rem; line-height: 1.6; font-style: italic; }
-.btn-quote-cta {
-  margin-top: auto; background: var(--copper); color: #000;
-  padding: 1rem; font-weight: 700; font-size: .85rem;
-  letter-spacing: .1em; text-transform: uppercase; border: none; cursor: pointer;
-  transition: background .2s; width: 100%;
-}
-.btn-quote-cta:hover { background: var(--copper2); }
-
-/* ── Sound section ── */
-#sound { background: var(--bg); border-top: 1px solid var(--border); }
-.sound-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; margin-top: 3rem; }
-.sound-tabs { display: flex; gap: 0; margin-bottom: 2rem; }
-.sound-tab {
-  padding: .75rem 1.75rem; font-size: .78rem; letter-spacing: .1em; text-transform: uppercase;
-  font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--card);
-  color: var(--muted); transition: all .2s; margin-right: -1px;
-}
-.sound-tab.active-open { background: var(--red); border-color: var(--red); color: #fff; }
-.sound-tab.active-silent { background: var(--green); border-color: var(--green); color: #fff; }
-.sound-bar-wrap { background: var(--bg2); border: 1px solid var(--border); padding: 2rem; }
-.sound-bar-bg { background: var(--border); height: 12px; border-radius: 6px; overflow: hidden; position: relative; }
-.sound-bar-fill { height: 100%; border-radius: 6px; transition: width .8s ease, background .5s; }
-.sound-info { display: flex; justify-content: space-between; align-items: baseline; margin-top: 1rem; }
-.sound-db { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; transition: color .5s; }
-.sound-equiv { font-size: .8rem; color: var(--muted); }
-.sound-desc-text { font-size: .9rem; color: var(--muted); line-height: 1.8; font-weight: 300; }
-.sound-benefit { display: flex; align-items: center; gap: .75rem; padding: .75rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
-.sound-benefit:last-child { border-bottom: none; }
-.sound-dot { width: 8px; height: 8px; background: var(--copper); flex-shrink: 0; }
-
-/* ── Projects ── */
-#projects { background: var(--bg2); border-top: 1px solid var(--border); }
-.projects-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.proj-card { position: relative; overflow: hidden; height: 360px; cursor: pointer; }
-.proj-card img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.55) grayscale(20%); transition: all .6s; }
-.proj-card:hover img { filter: brightness(.4) grayscale(0%); transform: scale(1.06); }
-.proj-overlay { position: absolute; inset: 0; padding: 2rem; display: flex; flex-direction: column; justify-content: flex-end; }
-.proj-tag { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: .5rem; }
-.proj-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1.1; margin-bottom: .75rem; }
-.proj-detail { font-size: .82rem; color: rgba(240,237,232,.7); line-height: 1.6; transform: translateY(8px); opacity: 0; transition: all .35s; font-weight: 300; }
-.proj-card:hover .proj-detail { transform: translateY(0); opacity: 1; }
-.proj-border { position: absolute; bottom: 0; left: 0; width: 0; height: 3px; background: var(--copper); transition: width .5s ease; }
-.proj-card:hover .proj-border { width: 100%; }
-
-/* ── Gallery ── */
-#gallery { background: var(--bg); border-top: 1px solid var(--border); }
-.gallery-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.gallery-cell { aspect-ratio: 1; overflow: hidden; position: relative; cursor: pointer; }
-.gallery-cell img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%) brightness(.8); transition: all .5s; }
-.gallery-cell:hover img { filter: grayscale(0%) brightness(1); transform: scale(1.08); }
-.gallery-cell-overlay { position: absolute; inset: 0; background: rgba(12,12,12,.4); opacity: 0; transition: opacity .3s; display: flex; align-items: center; justify-content: center; }
-.gallery-cell:hover .gallery-cell-overlay { opacity: 1; }
-.gallery-cell-label { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .1em; color: var(--copper); }
-
-/* ── Comparison ── */
-#comparison { background: var(--bg2); border-top: 1px solid var(--border); }
-.comp-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 3rem; align-items: start; }
-.comp-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; }
-.comp-card.us {
-  border: 2px solid var(--copper); box-shadow: 0 8px 30px rgba(0,156,222,.13); position: relative;
-}
-.comp-tag {
-  position: absolute; top: -11px; inset-inline-start: 2rem;
-  background: var(--copper); color: #fff; font-size: .6rem; letter-spacing: .14em;
-  font-weight: 700; padding: .25rem .7rem; text-transform: uppercase;
-}
-.comp-card-h { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; letter-spacing: .05em; }
-.comp-card.us .comp-card-h { color: var(--copper3); }
-.comp-card.them .comp-card-h { color: var(--muted); }
-.comp-card-s {
-  font-size: .68rem; letter-spacing: .14em; text-transform: uppercase;
-  color: var(--muted); margin-bottom: 1.5rem; font-weight: 600;
-}
-.comp-list { list-style: none; }
-.comp-list li {
-  display: flex; gap: .8rem; align-items: flex-start;
-  padding: .85rem 0; border-bottom: 1px solid var(--border); font-size: .9rem;
-}
-.comp-list li:last-child { border-bottom: 0; }
-.comp-ic {
-  flex: 0 0 20px; height: 20px; border-radius: 50%; margin-top: 2px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: .7rem; font-weight: 700;
-}
-.comp-card.us .comp-ic { background: var(--copper); color: #fff; }
-.comp-card.them .comp-ic { background: var(--border2); color: #fff; }
-.comp-k {
-  display: block; font-size: .66rem; letter-spacing: .12em; text-transform: uppercase;
-  color: var(--muted); font-weight: 600; margin-bottom: 1px;
-}
-.comp-v { display: block; }
-.comp-card.us .comp-v { font-weight: 600; color: var(--copper3); }
-.comp-card.them .comp-v { color: var(--muted); }
-
-/* ── How We Work ── */
-#workflow { background: var(--bg); border-top: 1px solid var(--border); }
-.workflow-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 0; margin-top: 3rem; position: relative; }
-.workflow-grid::before {
-  content: ''; position: absolute; top: 2.75rem; left: 10%; right: 10%;
-  height: 1px; background: linear-gradient(90deg, transparent, var(--copper), transparent);
-}
-.wf-item { text-align: center; padding: 2rem 1.5rem; position: relative; }
-.wf-num {
-  width: 56px; height: 56px; background: var(--bg2); border: 2px solid var(--copper);
-  font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; color: var(--copper);
-  display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem;
-  position: relative; z-index: 1;
-}
-.wf-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem; margin-bottom: .5rem; }
-.wf-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
-
-/* ── Technical Specs ── */
-#techspecs { background: var(--bg2); border-top: 1px solid var(--border); }
-.techspecs-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.ts-card { background: var(--card); padding: 2rem 1.75rem; }
-.ts-card-label { font-size: .62rem; letter-spacing: .18em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: 1rem; display: flex; align-items: center; gap: .5rem; }
-.ts-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; margin-bottom: 1.25rem; padding-bottom: .75rem; border-bottom: 1px solid var(--border); }
-.ts-row { display: flex; justify-content: space-between; align-items: baseline; padding: .55rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; gap: 1rem; }
-.ts-row:last-child { border-bottom: none; }
-.ts-key { color: var(--muted); font-weight: 300; flex-shrink: 0; }
-.ts-val { color: var(--off); font-weight: 500; text-align: right; }
-.ts-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
-.ts-tag { background: var(--bg2); border: 1px solid var(--border2); padding: .25rem .65rem; font-size: .72rem; color: var(--off); font-weight: 500; }
-
-/* ── Fuel Infrastructure ── */
-#fuel { background: var(--bg); border-top: 1px solid var(--border); }
-.fuel-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.fuel-card { background: var(--card); padding: 2rem 1.75rem; transition: background .25s; }
-.fuel-card:hover { background: var(--bg3); }
-.fuel-icon { font-size: 2rem; margin-bottom: 1rem; }
-.fuel-card-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--copper); margin-bottom: .6rem; }
-.fuel-card-desc { font-size: .85rem; color: var(--muted); line-height: 1.7; font-weight: 300; }
-.fuel-tags { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: 1rem; }
-.fuel-tag { background: var(--bg2); border: 1px solid var(--border); padding: .2rem .6rem; font-size: .72rem; color: var(--muted); }
-
-/* ── AMC Plans ── */
-#amc { background: var(--bg2); border-top: 1px solid var(--border); }
-.amc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.amc-card { background: var(--card); padding: 2.5rem; position: relative; }
-.amc-card.featured { background: var(--copper3); color: #fff; }
-.amc-popular { position: absolute; top: 1rem; right: 1rem; background: var(--copper); color: #000; font-size: .62rem; font-weight: 700; letter-spacing: .12em; padding: .25rem .7rem; text-transform: uppercase; }
-.amc-tier { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: .5rem; }
-.amc-card.featured .amc-tier { color: var(--copper); }
-.amc-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.amc-card.featured .amc-name { border-bottom-color: rgba(255,255,255,0.2); }
-.amc-feature { display: flex; align-items: flex-start; gap: .75rem; padding: .7rem 0; border-bottom: 1px solid var(--border); font-size: .88rem; }
-.amc-card.featured .amc-feature { border-bottom-color: rgba(255,255,255,0.15); color: rgba(255,255,255,0.9); }
-.amc-feature:last-of-type { border-bottom: none; }
-.amc-check { color: var(--copper); font-weight: 700; flex-shrink: 0; margin-top: 1px; }
-.amc-card.featured .amc-check { color: var(--copper); }
-.btn-amc-cta {
-  width: 100%; margin-top: 1.5rem; padding: .85rem 1rem;
-  background: transparent; color: var(--copper); border: 1px solid currentColor;
-  font: inherit; font-size: .78rem; font-weight: 700; letter-spacing: .08em;
-  text-transform: uppercase; cursor: pointer; transition: background .2s, color .2s;
-}
-.btn-amc-cta:hover { background: var(--copper); color: #000; }
-.amc-card.featured .btn-amc-cta { color: #fff; border-color: rgba(255,255,255,.65); }
-.amc-card.featured .btn-amc-cta:hover { color: #000; border-color: var(--copper); }
-.amc-scope-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 1.5px; }
-.amc-scope-card { background: var(--bg3); padding: 1.5rem; display: flex; gap: .75rem; align-items: flex-start; }
-.amc-scope-icon { font-size: 1.2rem; flex-shrink: 0; }
-.amc-scope-name { font-size: .82rem; font-weight: 500; color: var(--off); margin-bottom: .2rem; }
-.amc-scope-desc { font-size: .75rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
-
-/* ── ISO Certifications ── */
-#certifications { background: var(--bg); border-top: 1px solid var(--border); }
-.cert-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.cert-card { background: var(--card); padding: 1.75rem; border-top: 3px solid transparent; transition: border-color .25s, background .25s; }
-.cert-card:hover { border-top-color: var(--copper); background: var(--bg3); }
-.cert-badge { display: inline-block; background: var(--copper3); color: #fff; font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem; padding: .3rem .8rem; letter-spacing: .08em; margin-bottom: 1rem; }
-.cert-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.25rem; margin-bottom: .4rem; }
-.cert-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; font-weight: 300; }
-.hse-strip { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-top: 1.5px; }
-.hse-card { background: var(--bg2); padding: 1.5rem; display: flex; align-items: center; gap: 1rem; }
-.hse-icon { font-size: 1.5rem; flex-shrink: 0; }
-.hse-name { font-size: .85rem; font-weight: 600; color: var(--off); margin-bottom: .2rem; }
-.hse-desc { font-size: .75rem; color: var(--muted); font-weight: 300; }
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .techspecs-grid { grid-template-columns: 1fr; }
-  .fuel-grid { grid-template-columns: repeat(2,1fr); }
-  .amc-scope-grid { grid-template-columns: repeat(2,1fr); }
-  .cert-grid { grid-template-columns: repeat(2,1fr); }
-  .hse-strip { grid-template-columns: 1fr; }
-}
-@media (max-width: 768px) {
-  .amc-grid { grid-template-columns: 1fr; }
-  .fuel-grid { grid-template-columns: 1fr; }
-  .cert-grid { grid-template-columns: repeat(2,1fr); }
-  .workflow-grid { grid-template-columns: repeat(2,1fr); }
-}
-
-/* ── FAQ ── */
-#faq { background: var(--bg2); border-top: 1px solid var(--border); }
-.faq-list { margin-top: 3rem; }
-.faq-item { border-bottom: 1px solid var(--border); }
-.faq-q {
-  width: 100%; background: none; border: none; cursor: pointer;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 1.5rem 0; text-align: left; color: var(--off);
-  font-size: 1rem; font-weight: 500; gap: 1rem; transition: color .2s;
-}
-.faq-q:hover { color: var(--copper); }
-.faq-q { list-style: none; text-align: start; }
-.faq-q::-webkit-details-marker { display: none; }
-.faq-q::after { content: '+'; color: var(--copper); flex-shrink: 0; font-size: 1.25rem; }
-.faq-item[open] > .faq-q::after { content: '−'; }
-.faq-item > p { padding-bottom: 1.5rem; color: var(--muted); font-size: .9rem; line-height: 1.8; font-weight: 300; }
-
-/* ── Contact ── */
-#contact { background: var(--bg); border-top: 1px solid var(--border); }
-.contact-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.contact-info { background: #003087; padding: 4rem 3rem; color: #fff; }
-.contact-form-wrap { background: var(--card); padding: 4rem 3rem; }
-.contact-detail { display: flex; gap: 1.25rem; align-items: flex-start; margin-bottom: 2rem; }
-.contact-icon { font-size: 1.2rem; margin-top: .15rem; flex-shrink: 0; }
-.contact-detail-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: .3rem; }
-.contact-detail-val { font-size: .95rem; color: #fff; }
-.contact-detail-val a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color .2s; }
-.contact-detail-val a:hover { color: var(--copper); }
-.map-wrap { margin-top: 2rem; border: 1px solid rgba(255,255,255,0.2); overflow: hidden; }
-.map-wrap iframe { width: 100%; height: 200px; border: 0; display: block; filter: grayscale(20%) brightness(.95); }
-
-/* Form */
-.form-group { margin-bottom: 1.5rem; }
-.form-label { display: block; font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); margin-bottom: .5rem; font-weight: 600; }
-.form-label .req { color: var(--copper); margin-left: 3px; }
-.form-input, .form-textarea {
-  width: 100%; background: var(--bg3); border: 1px solid var(--border);
-  color: var(--off); padding: .9rem 1rem; font-size: .95rem;
-  font-family: 'Outfit', sans-serif; outline: none; transition: border-color .2s;
-}
-.form-input:focus, .form-textarea:focus { border-color: var(--copper); background: #fff; }
-.form-input:focus-visible, .form-textarea:focus-visible, .form-select:focus-visible {
-  outline: 3px solid rgba(0,156,222,.28); outline-offset: 1px;
-}
-.form-select { appearance: auto; }
-.form-textarea { height: 130px; resize: none; }
-.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.form-note { color: var(--muted); font-size: .78rem; line-height: 1.6; margin: -.5rem 0 1.5rem; }
-.form-status { min-height: 1.5rem; margin-top: 1rem; color: var(--muted); font-size: .82rem; line-height: 1.6; }
-.form-status[hidden] { display: none; }
-.form-status.success { color: var(--green); }
-.form-status.error { color: #B52E2E; }
-.form-status.uncertain { color: #986515; }
-.form-status a { color: inherit; font-weight: 600; }
-.form-status a:hover { color: var(--copper2); }
-.form-status:focus { outline: 2px solid var(--copper); outline-offset: 3px; }
-.form-submit-wrap { display: flex; flex-direction: column; }
-.form-note a { color: var(--copper2); font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
-.form-note a:hover { color: var(--copper); }
-.form-fallback { margin: 1rem 0 0; }
-.form-error { color: #E05050; font-size: .78rem; margin-top: .4rem; display: none; }
-.form-error.show { display: block; }
-.btn-submit {
-  width: 100%; background: var(--copper); color: #000;
-  padding: 1.1rem; font-size: .88rem; font-weight: 700;
-  letter-spacing: .12em; text-transform: uppercase; border: none; cursor: pointer;
-  transition: background .2s; margin-top: .5rem;
-}
-.btn-submit:hover { background: var(--copper2); }
-
-/* ── Footer ── */
-footer {
-  background: #003087; border-top: 3px solid var(--copper);
-  padding: 4rem 0 2rem;
-}
-.footer-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
-.footer-logo { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: .1em; margin-bottom: .5rem; color: #fff; }
-.footer-logo span { color: var(--copper); }
-.footer-tagline { font-size: .82rem; color: rgba(255,255,255,0.6); font-weight: 300; max-width: 380px; line-height: 1.7; }
-.footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
-.footer-link-group h4 { font-size: .7rem; letter-spacing: .15em; text-transform: uppercase; color: var(--copper); margin-bottom: 1.25rem; font-weight: 600; }
-.footer-link-group a { display: block; font-size: .85rem; color: rgba(255,255,255,0.6); text-decoration: none; margin-bottom: .6rem; transition: color .2s; }
-.footer-link-group a:hover { color: #fff; }
-.footer-socials { display: flex; gap: 1rem; margin-top: 1.5rem; }
-
-.social-btn {
-  width: 40px; height: 40px; background: rgba(255,255,255,0.1);
-  display: flex; align-items: center; justify-content: center;
-  color: rgba(255,255,255,0.7); text-decoration: none; font-size: .9rem;
-  transition: all .2s; border: 1px solid rgba(255,255,255,0.2);
-}
-.social-btn:hover { background: var(--copper); color: #000; border-color: var(--copper); }
-.footer-bottom { border-top: 1px solid rgba(255,255,255,0.15); padding-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: .75rem; color: rgba(255,255,255,0.5); }
-
-/* ── FAB ── */
-#fab-menu {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-  display: flex; flex-direction: column; align-items: flex-end; gap: .75rem;
-}
-#fab-options {
-  display: flex; flex-direction: column; gap: .6rem;
-  opacity: 0; transform: translateY(10px) scale(.95);
-  pointer-events: none; visibility: hidden; transition: all .25s;
-}
-#fab-options.open { visibility: visible; opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
-.fab-option {
-  display: flex; align-items: center; gap: .75rem;
-  background: #fff; border: 1px solid var(--border);
-  padding: .7rem 1.2rem .7rem .8rem; text-decoration: none; color: var(--off);
-  font-size: .8rem; font-weight: 500; transition: border-color .2s, background .2s; white-space: nowrap;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.12);
-}
-.fab-option:hover { border-color: var(--copper); background: var(--bg3); }
-.fab-dot { width: 10px; height: 10px; flex-shrink: 0; }
-.fab-dot.green { background: #3CB371; }
-.fab-dot.red { background: #E04040; animation: pulse-dot 1.5s infinite; }
-@keyframes pulse-dot { 0%,100%{opacity:1} 50%{opacity:.4} }
-.fab-trigger {
-  width: 56px; height: 56px; background: var(--copper3);
-  border: none; border-radius: 50%; cursor: pointer; color: #fff;
-  display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 6px 20px rgba(0,48,135,.34);
-  transition: background .2s, transform .2s;
-}
-.fab-trigger:hover { background: var(--copper2); transform: scale(1.05); }
-.fab-trigger svg { width: 24px; height: 24px; }
-
-/* ── PDF Modal ── */
-#pdf-modal {
-  display: none; position: fixed; inset: 0; z-index: 500;
-  background: rgba(0,0,0,.85); align-items: center; justify-content: center; padding: 1rem;
-}
-#pdf-modal.open { display: flex; }
-#pdf-modal-inner {
-  background: #fff; border: 1px solid var(--border2);
-  border-top: 3px solid var(--copper);
-  width: 100%; max-width: 900px; max-height: 92vh;
-  display: flex; flex-direction: column; overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0,0,0,0.2);
-}
-#pdf-modal-header {
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); flex-shrink: 0;
-}
-#pdf-modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; letter-spacing: .05em; }
-.pdf-header-actions { display: flex; gap: .75rem; }
-.pdf-btn {
-  background: var(--border); border: 1px solid var(--border2); color: var(--off);
-  padding: .5rem 1rem; font-size: .75rem; cursor: pointer; transition: all .2s;
-  display: flex; align-items: center; gap: .4rem; text-decoration: none; font-weight: 600;
-}
-.pdf-btn:hover { border-color: var(--copper); color: var(--copper); }
-#pdf-iframe { flex: 1; border: none; min-height: 0; }
-.pdf-mobile { display: none; padding: 3rem; text-align: center; }
-@media (max-width: 640px) { #pdf-iframe { display: none; } .pdf-mobile { display: block; } }
-.pdf-mobile-icon { font-size: 3rem; margin-bottom: 1rem; opacity: .5; }
-.pdf-mobile-text { font-size: .9rem; color: var(--muted); margin-bottom: 1.5rem; }
-
-/* ── Notification ── */
-#notif {
-  display: none; position: fixed; inset: 0; z-index: 600;
-  background: rgba(0,0,0,.7); align-items: center; justify-content: center; padding: 1rem;
-}
-#notif.open { display: flex; }
-#notif-inner {
-  background: var(--bg2); border: 1px solid var(--border2);
-  border-top: 3px solid var(--copper); padding: 2.5rem; max-width: 400px; width: 100%;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
-}
-#notif-title { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; margin-bottom: .75rem; }
-#notif-msg { font-size: .9rem; color: var(--muted); margin-bottom: 1.5rem; line-height: 1.7; }
-.btn-notif {
-  width: 100%; background: var(--copper); color: #000;
-  padding: .85rem; font-weight: 700; font-size: .8rem;
-  letter-spacing: .1em; text-transform: uppercase; border: none; cursor: pointer;
-  transition: background .2s;
-}
-.btn-notif:hover { background: var(--copper2); }
-
-/* ── Vision / Mission ── */
-#vision { background: var(--bg2); border-top: 1px solid var(--border); }
-.vm-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.vm-card { background: var(--card); padding: 3rem; position: relative; overflow: hidden; }
-.vm-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--copper); }
-.vm-icon { font-size: 1.4rem; margin-bottom: 1rem; }
-.vm-label { font-size: .65rem; letter-spacing: .18em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: .75rem; }
-.vm-text { font-size: 1.1rem; color: var(--off); line-height: 1.75; font-weight: 300; font-style: italic; }
-.values-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 1.5px; }
-.value-card { background: var(--bg3); padding: 2rem 1.5rem; text-align: center; transition: background .3s; }
-.value-card:hover { background: var(--card); }
-.value-icon { font-size: 1.6rem; margin-bottom: 1rem; }
-.value-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; color: var(--copper); margin-bottom: .3rem; }
-.value-sub { font-size: .78rem; color: var(--muted); font-weight: 300; }
-
-/* ── Portfolio by industry ── */
-#portfolio { background: var(--bg); border-top: 1px solid var(--border); }
-.portfolio-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-top: 3rem; }
-.portfolio-sector { background: var(--card); padding: 2rem; }
-.sector-header { display: flex; align-items: center; gap: .75rem; margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border); }
-.sector-icon { font-size: 1.2rem; }
-.sector-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.2rem; letter-spacing: .05em; color: var(--copper); }
-.sector-client { display: flex; align-items: baseline; gap: .5rem; padding: .4rem 0; border-bottom: 1px solid var(--border); font-size: .85rem; }
-.sector-client:last-child { border-bottom: none; }
-.client-dot { width: 4px; height: 4px; background: var(--copper); flex-shrink: 0; border-radius: 50%; margin-top: 6px; }
-.client-co { color: var(--off); font-weight: 500; }
-.client-role { color: var(--muted); font-size: .75rem; font-weight: 300; }
-
-/* ── Locations ── */
-#locations { background: var(--bg2); border-top: 1px solid var(--border); }
-.locations-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-top: 3rem; }
-.facilities-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5px; background: var(--border); }
-.facility-card { background: var(--card); padding: 1.75rem; transition: background .3s; }
-.facility-card:hover { background: var(--bg3); }
-.facility-tag { font-size: .62rem; letter-spacing: .15em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: .5rem; }
-.facility-name { font-family: 'Bebas Neue', sans-serif; font-size: 1.3rem; margin-bottom: .4rem; }
-.facility-addr { font-size: .8rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
-.regions-wrap { margin-top: 2rem; }
-.regions-label { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: 1rem; }
-.regions-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-.region-pill { background: var(--bg3); border: 1px solid var(--border2); padding: .6rem 1rem; font-size: .82rem; color: var(--off); font-weight: 500; display: flex; align-items: center; gap: .5rem; }
-.region-dot { width: 6px; height: 6px; background: var(--copper); flex-shrink: 0; }
-
-
-/* ── 3-tier sound ── */
-.sound-tier-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5px; background: var(--border); margin-bottom: 2rem; }
-.sound-tier { background: var(--card); padding: 1.5rem; text-align: center; cursor: pointer; transition: background .2s; border-top: 3px solid transparent; }
-.sound-tier.active { background: var(--bg3); }
-.sound-tier-db { font-family: 'Bebas Neue', sans-serif; font-size: 3rem; line-height: 1; margin-bottom: .3rem; }
-.sound-tier-label { font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; color: var(--muted); font-weight: 600; margin-bottom: .2rem; }
-.sound-tier-desc { font-size: .75rem; color: var(--muted); font-weight: 300; }
-
-/* ── Responsive additions ── */
-@media (max-width: 1024px) {
-  .vm-grid { grid-template-columns: 1fr; }
-  .portfolio-grid { grid-template-columns: repeat(2,1fr); }
-  .locations-layout { grid-template-columns: 1fr; }
-  .sound-tier-grid { grid-template-columns: repeat(3,1fr); }
-}
-@media (max-width: 768px) {
-  .values-grid { grid-template-columns: repeat(2,1fr); }
-  .portfolio-grid { grid-template-columns: 1fr; }
-  .facilities-grid { grid-template-columns: 1fr; }
-  .sound-tier-grid { grid-template-columns: 1fr; }
-}
-
-/* ── Reveal animations ── */
-.reveal { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-.reveal-delay-1 { transition-delay: .1s; }
-.reveal-delay-2 { transition-delay: .2s; }
-.reveal-delay-3 { transition-delay: .3s; }
-.reveal-delay-4 { transition-delay: .4s; }
-
-/* ── Responsive ── */
-@media (max-width: 1024px) {
-  .brand-grid { grid-template-columns: 1fr; }
-  .svc-grid { grid-template-columns: repeat(2,1fr); }
-  .contact-layout { grid-template-columns: 1fr; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
-  .calc-layout { grid-template-columns: 1fr; }
-  .sound-layout { grid-template-columns: 1fr; }
-  .projects-grid { grid-template-columns: 1fr; }
-  .workflow-grid { grid-template-columns: repeat(3,1fr); }
-  .workflow-grid::before { display: none; }
-}
-@media (max-width: 768px) {
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-card { display: none; }
-  .stats-inner { grid-template-columns: repeat(2,1fr); }
-  .stat-item:nth-child(2) { border-right: none; }
-  .gallery-grid { grid-template-columns: repeat(2,1fr); }
-  .footer-grid { grid-template-columns: 1fr; }
-  .form-grid { grid-template-columns: 1fr; }
-  .brand-grid { grid-template-columns: 1fr; }
-  .comp-cards { grid-template-columns: 1fr; }
-  .enquiry-path-btn { flex: 0 0 100%; width: 100%; min-height: 5rem; }
-  .contact-form-wrap { padding: 2rem 1.25rem; }
-}
-@media (max-width: 1450px) {
-  .nav-links { gap: 1.25rem; }
-}
-@media (max-width: 1230px) {
-  .nav-links, .nav-cta { display: none; }
-  .hamburger { display: block; }
-}
-@media (max-width: 480px) {
-  .gallery-grid { grid-template-columns: 1fr 1fr; }
-}
-
-section[id] { scroll-margin-top: 6rem; }
-[hidden] { display: none !important; }
-#product-context { padding: 1rem; background: #eaf4fb; border-inline-start: 3px solid #0070ba; overflow-wrap: anywhere; }
-@media(max-width:600px){
-  .calc-row { gap: .75rem; } .calc-input { width: 5.5rem; flex-shrink: 0; }
-  .spec-row { gap: 1rem; } .spec-val { text-align: end; overflow-wrap: anywhere; }
-  .contact-form-wrap input, .contact-form-wrap select, .contact-form-wrap textarea { font-size:16px; }
-  #fab-menu { bottom:1rem; right:1rem; }
-}
-@media(prefers-reduced-motion:reduce){
-  html { scroll-behavior:auto; } *,*::before,*::after { animation:none !important; transition:none !important; }
-}
-</style>
-<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.premiumpower-eg.com/#organization","name":"Premium Power LLC","url":"https://www.premiumpower-eg.com/","image":"https://www.premiumpower-eg.com/images/logo.png","telephone":"+201229688688","address":{"@type":"PostalAddress","streetAddress":"40 El Hegaz St., Heliopolis","addressLocality":"Cairo","addressCountry":"EG"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=61583941521978","https://www.linkedin.com/in/premium-power-4430a3399"]},{"@type":"WebSite","@id":"https://www.premiumpower-eg.com/#website","url":"https://www.premiumpower-eg.com/","name":"Premium Power","inLanguage":["en","ar"],"publisher":{"@id":"https://www.premiumpower-eg.com/#organization"}},{"@type":"WebPage","@id":"https://www.premiumpower-eg.com/ar/#webpage","url":"https://www.premiumpower-eg.com/ar/","name":"مولدات ديزل في مصر | بريميوم باور","description":"قارن مولدات بيركنز وفولفو بنتا ودوسان في مصر. تعرّف على قدرات الموديلات وخدمات التركيب وقطع الغيار والصيانة، واطلب عرض سعر يناسب احتياج مشروعك.","inLanguage":"ar","isPartOf":{"@id":"https://www.premiumpower-eg.com/#website"},"publisher":{"@id":"https://www.premiumpower-eg.com/#organization"}},{"@type":"FAQPage","@id":"https://www.premiumpower-eg.com/ar/#faq","inLanguage":"ar","isPartOf":{"@id":"https://www.premiumpower-eg.com/ar/#webpage"},"mainEntity":[{"@type":"Question","name":"كم تستغرق عملية التوصيل والتركيب؟","acceptedAnswer":{"@type":"Answer","text":"يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع."}},{"@type":"Question","name":"هل تقدمون لوحات ATS والتركيب المتكامل؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية."}},{"@type":"Question","name":"ما هي فترة ضمان المولدات؟","acceptedAnswer":{"@type":"Answer","text":"نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية."}},{"@type":"Question","name":"هل قطع الغيار أصلية 100% من الشركة الأم؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة."}},{"@type":"Question","name":"ما خيارات عقود الصيانة السنوية المتاحة؟","acceptedAnswer":{"@type":"Answer","text":"نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة."}},{"@type":"Question","name":"هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (>70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد."}},{"@type":"Question","name":"هل تقدمون خدمات المزامنة بين عدة مولدات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen."}},{"@type":"Question","name":"ما حلول تخزين الوقود التي تقدمونها؟","acceptedAnswer":{"@type":"Answer","text":"نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة من النوع 40/80 وأنظمة مضخات نقل أوتوماتيكية."}},{"@type":"Question","name":"ما المناطق التي تغطونها في مصر؟","acceptedAnswer":{"@type":"Answer","text":"نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي ومنيا الصحراء."}},{"@type":"Question","name":"هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز."}}]}]}</script>
+<link rel="stylesheet" href="/assets/home.css?v=e03442fc48a3">
+<link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
+<script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"LocalBusiness","@id":"https://www.premiumpower-eg.com/#organization","name":"Premium Power LLC","url":"https://www.premiumpower-eg.com/","image":"https://www.premiumpower-eg.com/images/logo.png","telephone":"+201229688688","address":{"@type":"PostalAddress","streetAddress":"40 El Hegaz St., Heliopolis","addressLocality":"Cairo","addressCountry":"EG"},"openingHoursSpecification":[{"@type":"OpeningHoursSpecification","dayOfWeek":["Sunday","Monday","Tuesday","Wednesday","Thursday"],"opens":"09:00","closes":"17:00"}],"sameAs":["https://www.facebook.com/profile.php?id=61583941521978","https://www.linkedin.com/in/premium-power-4430a3399"]},{"@type":"WebSite","@id":"https://www.premiumpower-eg.com/#website","url":"https://www.premiumpower-eg.com/","name":"Premium Power","inLanguage":["en","ar"],"publisher":{"@id":"https://www.premiumpower-eg.com/#organization"}},{"@type":"WebPage","@id":"https://www.premiumpower-eg.com/ar/#webpage","url":"https://www.premiumpower-eg.com/ar/","name":"مولدات ديزل في مصر | بريميوم باور","description":"قارن مولدات بيركنز وفولفو بنتا ودوسان في مصر. تعرّف على قدرات الموديلات وخدمات التركيب وقطع الغيار والصيانة، واطلب عرض سعر يناسب احتياج مشروعك.","inLanguage":"ar","isPartOf":{"@id":"https://www.premiumpower-eg.com/#website"},"publisher":{"@id":"https://www.premiumpower-eg.com/#organization"}},{"@type":"FAQPage","@id":"https://www.premiumpower-eg.com/ar/#faq","inLanguage":"ar","isPartOf":{"@id":"https://www.premiumpower-eg.com/ar/#webpage"},"mainEntity":[{"@type":"Question","name":"كم تستغرق عملية التوصيل والتركيب؟","acceptedAnswer":{"@type":"Answer","text":"يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع."}},{"@type":"Question","name":"هل تقدمون لوحات ATS والتركيب المتكامل؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية."}},{"@type":"Question","name":"ما هي فترة ضمان المولدات؟","acceptedAnswer":{"@type":"Answer","text":"نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية."}},{"@type":"Question","name":"هل قطع الغيار أصلية 100% من الشركة الأم؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة."}},{"@type":"Question","name":"ما خيارات عقود الصيانة السنوية المتاحة؟","acceptedAnswer":{"@type":"Answer","text":"نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة."}},{"@type":"Question","name":"هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (>70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد."}},{"@type":"Question","name":"هل تقدمون خدمات المزامنة بين عدة مولدات؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen."}},{"@type":"Question","name":"ما حلول تخزين الوقود التي تقدمونها؟","acceptedAnswer":{"@type":"Answer","text":"نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة بتصنيف Schedule 40/80 وأنظمة مضخات نقل أوتوماتيكية."}},{"@type":"Question","name":"ما المناطق التي تغطونها في مصر؟","acceptedAnswer":{"@type":"Answer","text":"نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا."}},{"@type":"Question","name":"هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟","acceptedAnswer":{"@type":"Answer","text":"نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز."}}]}]}</script>
 </head>
 
 <body dir="rtl" class="rtl">
@@ -925,55 +47,44 @@ section[id] { scroll-margin-top: 6rem; }
   <div id="fab-options">
     <a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer" class="fab-option">
       <span class="fab-dot green"></span>
-      <div><div style="font-size:.75rem;font-weight:700" data-i18n="chatSales">استفسار مبيعات</div><div style="font-size:.65rem;color:var(--muted)">WhatsApp</div></div>
+      <div><div style="font-size:.75rem;font-weight:700" data-i18n="chatSales">استفسار توريد مولد</div><div style="font-size:.65rem;color:var(--muted)">WhatsApp</div></div>
     </a>
     <a href="tel:+201229688688" class="fab-option">
       <span class="fab-dot red"></span>
-      <div><div style="font-size:.75rem;font-weight:700;color:#E06060" data-i18n="chatEmergency">طوارئ 24/7</div><div style="font-size:.65rem;color:var(--muted)">Direct Call</div></div>
+      <div><div style="font-size:.75rem;font-weight:700;color:#E06060" data-i18n="chatEmergency">طوارئ 24/7</div><div style="font-size:.65rem;color:var(--muted)" data-i18n="serviceDirect">اتصال مباشر</div></div>
     </a>
   </div>
-  <button class="fab-trigger" onclick="app.toggleFab()" aria-label="Contact options" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
+  <button class="fab-trigger" onclick="app.toggleFab()" aria-label="خيارات التواصل" data-i18n-aria-label="contactOptionsLabel" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
 </div>
 
 <!-- Navbar -->
-<nav id="navbar" role="navigation" aria-label="Main navigation">
+<nav id="navbar" role="navigation" aria-label="التنقل الرئيسي" data-i18n-aria-label="navMainLabel">
   <div class="nav-inner">
-    <a href="#home" class="nav-logo" aria-label="Premium Power Home">PREMIUM<span>POWER</span></a>
+    <a href="#home" class="nav-logo" aria-label="الصفحة الرئيسية لبريميوم باور" data-i18n-aria-label="navLogoLabel">PREMIUM<span>POWER</span></a>
     <div class="nav-links">
-      <div class="lang-switch">
-        <a class="lang-btn" href="/" hreflang="en" lang="en">EN</a>
-        <a class="lang-btn active" href="/ar/" hreflang="ar" lang="ar" aria-current="page">ع</a>
-      </div>
       <a href="#clients" data-i18n="navClients">العملاء</a>
       <a href="#products" data-i18n="navProducts">المولدات</a>
-      <a href="#amc" data-i18n="navAMC">الصيانة</a>
+      <a href="/ar/maintenance/" data-i18n="navAMC">الصيانة</a>
       <a href="#calculator" data-i18n="navCalc">الحاسبة</a>
       <a href="#portfolio" data-i18n="navPortfolio">سابقة أعمال</a>
       <a href="#contact" data-i18n="navContact">اتصل بنا</a>
       <button class="nav-cta" onclick="app.openEnquiry('sales')" data-i18n="btnQuote">اطلب عرضاً</button>
     </div>
-    <button class="hamburger" onclick="app.toggleMenu()" aria-label="Toggle menu" aria-expanded="false" id="hamburger-btn">☰</button>
+    <div class="nav-lang-switch"><a class="lang-btn" href="/" hreflang="en" lang="en">EN</a><a class="lang-btn active" href="/ar/" hreflang="ar" lang="ar" aria-current="page">العربية</a></div>
+    <button class="hamburger" onclick="app.toggleMenu()" aria-label="فتح قائمة التنقل" data-i18n-aria-label="navToggleLabel" aria-expanded="false" id="hamburger-btn">☰</button>
   </div>
 </nav>
 
 <!-- Mobile Menu -->
-<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="Navigation">
-  <button class="mobile-close" onclick="app.toggleMenu()" aria-label="Close menu">✕</button>
+<div id="mobile-menu" role="dialog" aria-modal="true" aria-label="قائمة التنقل" data-i18n-aria-label="mobileNavLabel">
+  <button class="mobile-close" onclick="app.toggleMenu()" aria-label="إغلاق قائمة التنقل" data-i18n-aria-label="mobileCloseLabel">✕</button>
+  <div class="mobile-lang-switch"><a class="lang-btn" href="/" hreflang="en" lang="en">English</a><a class="lang-btn active" href="/ar/" hreflang="ar" lang="ar" aria-current="page">العربية</a></div>
   <a href="#home" onclick="app.toggleMenu()" data-i18n="navHome">الرئيسية</a>
-  <a href="#vision" onclick="app.toggleMenu()" data-i18n="navVision">عن الشركة</a>
   <a href="#products" onclick="app.toggleMenu()" data-i18n="navProducts">المولدات</a>
-  <a href="#services" onclick="app.toggleMenu()" data-i18n="navServices">الخدمات</a>
-  <a href="#techspecs" onclick="app.toggleMenu()" data-i18n="navSpecs">المواصفات</a>
-  <a href="#fuel" onclick="app.toggleMenu()" data-i18n="navFuel">أنظمة الوقود</a>
-  <a href="#amc" onclick="app.toggleMenu()" data-i18n="navAMC">الصيانة</a>
-  <a href="#certifications" onclick="app.toggleMenu()" data-i18n="navCerts">الشهادات</a>
-  <a href="#calculator" onclick="app.toggleMenu()" data-i18n="navCalc">الحاسبة</a>
-  <a href="#portfolio" onclick="app.toggleMenu()" data-i18n="navPortfolio">سابقة أعمال</a>
+  <a href="/ar/maintenance/" data-i18n="navAMC">الصيانة</a>
+  <a href="#projects" onclick="app.toggleMenu()" data-i18n="navProjects">المشاريع</a>
+  <a href="#vision" onclick="app.toggleMenu()" data-i18n="navVision">عن الشركة</a>
   <a href="#contact" onclick="app.toggleMenu()" data-i18n="navContact">اتصل بنا</a>
-  <div style="display:flex;gap:1rem;margin-top:1rem">
-    <a class="lang-btn" href="/" hreflang="en" lang="en">English</a>
-    <a class="lang-btn active" href="/ar/" hreflang="ar" lang="ar" aria-current="page">العربية</a>
-  </div>
 </div>
 
 <main id="main-content">
@@ -990,39 +101,40 @@ section[id] { scroll-margin-top: 6rem; }
         <span class="stroke" data-i18n="heroLine3">مصر</span>
       </h1>
       <p class="hero-sub reveal reveal-delay-1" data-i18n="heroSub">حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.</p>
-      <div class="hero-btns reveal reveal-delay-2" aria-label="Enquiry options">
+      <div class="hero-btns reveal reveal-delay-2" aria-label="خيارات استفسارات التوريد والصيانة" data-i18n-aria-label="ctaGroupLabel">
         <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('sales')">
           <span>⚡</span> <span data-i18n="btnGeneratorQuote">اطلب عرض سعر لمولد</span>
         </button>
-        <button class="btn-primary enquiry-path-btn" type="button" onclick="app.openEnquiry('maintenance')">
-          <span data-i18n="btnMaintenanceAssessment">اطلب تقييماً للصيانة</span> →
-        </button>
+        <a class="btn-primary enquiry-path-btn" href="/ar/maintenance/">
+          <span data-i18n="btnMaintenanceAssessment">استعرض خدمات الصيانة</span> →
+        </a>
       </div>
     </div>
-    <div class="hero-card reveal reveal-delay-2">
-      <div class="hero-card-label" data-i18n="heroCardTitle">نطاق القدرة</div>
-      <div class="hero-card-val">3000</div>
-      <div class="hero-card-unit">KVA MAX OUTPUT</div>
-      <div class="hero-kpi-grid">
-        <div class="hero-kpi">
-          <div class="hero-card-label" data-i18n="engine">المحرك</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)">Perkins</div>
-        </div>
-        <div class="hero-kpi">
-          <div class="hero-card-label" data-i18n="alternator">المولد</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff">Leroy Somer</div>
-        </div>
-        <div class="hero-kpi">
-          <div class="hero-card-label" data-i18n="heroSupport">الدعم</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)">24 / 7</div>
-        </div>
-        <div class="hero-kpi">
-          <div class="hero-card-label" data-i18n="heroWarranty">الضمان</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff">1 Year</div>
-        </div>
-      </div>
-      <div class="hero-bar"><div class="hero-bar-fill" id="hero-bar-fill" style="width:0"></div></div>
-    </div>
+
+<div class="hero-card reveal reveal-delay-2">
+<div class="hero-card-label" data-i18n="heroCardTitle">نطاق القدرة</div>
+<div class="hero-card-val">3000</div>
+<div class="hero-card-unit" data-i18n="heroMaxOutput">ك.ف.أ كحد أقصى</div>
+<div class="hero-kpi-grid">
+<div class="hero-kpi">
+<div class="hero-card-label" data-i18n="engine">المحرك</div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)">Perkins</div>
+</div>
+<div class="hero-kpi">
+<div class="hero-card-label" data-i18n="alternator">المولد</div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff">Leroy Somer</div>
+</div>
+<div class="hero-kpi">
+<div class="hero-card-label" data-i18n="heroSupport">الدعم</div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--copper)">24 / 7</div>
+</div>
+<div class="hero-kpi">
+<div class="hero-card-label" data-i18n="heroWarranty">الضمان</div>
+<div style="font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:#fff" data-i18n="heroWarrantyValue">عام واحد</div>
+</div>
+</div>
+<div class="hero-bar"><div class="hero-bar-fill" id="hero-bar-fill" style="width:0"></div></div>
+</div>
   </div>
   <div class="scroll-hint"><div class="scroll-hint-line"></div><span data-i18n="scrollHint">تمرير</span></div>
 </section>
@@ -1123,7 +235,7 @@ section[id] { scroll-margin-top: 6rem; }
 <section id="products" class="sec">
   <div class="sec-inner">
     <div class="sec-header">
-      <span class="sec-label" data-i18n="productsLabel">كتالوج المحركات</span>
+      <span class="sec-label" data-i18n="productsLabel">نطاق المولدات</span>
       <div class="copper-line"></div>
       <h2 class="sec-title reveal" data-i18n="productsTitle">ثلاث ماركات<br><span class="accent">معيار واحد.</span></h2>
       <p class="sec-desc reveal" data-i18n="productsSub">نتعاون حصرياً مع أكثر الشركات المصنعة لمحركات الديزل موثوقية في العالم.</p>
@@ -1140,16 +252,16 @@ section[id] { scroll-margin-top: 6rem; }
           <span data-i18n="btnSpecs">المواصفات الفنية</span>
           <span class="spec-arrow" id="sarrow-perkins">▼</span>
         </button>
-        <div class="spec-body" id="spec-perkins" role="region" aria-label="Perkins specs">
-          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">السلندرات</span><span class="spec-val">3 – 16 In-Line / V-Type</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specGov">الحاكم</span><span class="spec-val" data-i18n="specMechElec">ميكانيكي / إلكتروني</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">التنفس</span><span class="spec-val" data-i18n="specTurbo">توربو</span></div>
-          <div class="spec-row"><span class="spec-key">Cooling</span><span class="spec-val">Water Cooled</span></div>
-          <div class="spec-row"><span class="spec-key">Emissions</span><span class="spec-val">Stage II / IIIA</span></div>
-          <div class="spec-row"><span class="spec-key">Alternator</span><span class="spec-val">LeroySomer / Stamford</span></div>
-          <div class="spec-row"><span class="spec-key">Insulation</span><span class="spec-val">Class H — IP23</span></div>
-          <div class="spec-row"><span class="spec-key">Excitation</span><span class="spec-val">Brushless / PMG</span></div>
-          <div class="spec-row"><span class="spec-key">Control</span><span class="spec-val">DSE 6110 / 7320 / ComAp</span></div>
+        <div class="spec-body" id="spec-perkins" role="region" aria-label="مواصفات بيركنز" data-i18n-aria-label="specPerkinsLabel">
+          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">عدد الأسطوانات</span><span class="spec-val">3 – 16 In-Line / V-Type</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specGov">منظم السرعة</span><span class="spec-val" data-i18n="specMechElec">ميكانيكي / إلكتروني</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">السحب والشحن</span><span class="spec-val" data-i18n="specTurbo">شاحن توربيني</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specCooling">التبريد</span><span class="spec-val" data-i18n="specWaterCooled">تبريد بالماء</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specEmissions">الانبعاثات</span><span class="spec-val" data-i18n="specStage">المرحلة II / IIIA</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAlternator">المولد الكهربائي</span><span class="spec-val">LeroySomer / Stamford</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specInsulation">العزل</span><span class="spec-val">Class H — IP23</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specExcitation">الإثارة</span><span class="spec-val" data-i18n="specBrushlessPmg">من دون فُرش / PMG</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specControl">نظام التحكم</span><span class="spec-val">DSE 6110 / 7320 / ComAp</span></div>
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('perkins')">📄 <span data-i18n="btnViewSpec">عرض الكتيب</span></button>
@@ -1163,21 +275,21 @@ section[id] { scroll-margin-top: 6rem; }
         <div class="brand-logo-wrap"><img src="/images/brands/volvo.svg" alt="Volvo Penta Logo" loading="lazy"></div>
         <div class="brand-name" data-i18n="volvoName">فولفو بنتا</div>
         <div class="brand-origin" data-i18n="volvoOrigin">السويد · 85 ك.ف.أ – 700 ك.ف.أ</div>
-        <p class="brand-desc" data-i18n="volvoDesc">دقة سويدية مع أداء متطرف. مشهورة بالاستجابة السريعة للأحمال — الخيار المفضل لمراكز البيانات والبنية التحتية الحيوية.</p>
+        <p class="brand-desc" data-i18n="volvoDesc">دقة سويدية مع أداء للأحمال الشاقة. مشهورة بالاستجابة السريعة للأحمال — الخيار المفضل لمراكز البيانات والبنية التحتية الحيوية.</p>
         <button class="spec-toggle" onclick="app.toggleSpec('spec-volvo')" aria-expanded="false" aria-controls="spec-volvo">
           <span data-i18n="btnSpecs">المواصفات الفنية</span>
           <span class="spec-arrow" id="sarrow-volvo">▼</span>
         </button>
-        <div class="spec-body" id="spec-volvo" role="region" aria-label="Volvo Penta specs">
-          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">السلندرات</span><span class="spec-val">6 In-Line</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specGov">الحاكم</span><span class="spec-val">EMS 2.0 (Fully Electronic)</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">التنفس</span><span class="spec-val" data-i18n="specTurboInt">توربو + مبرد</span></div>
-          <div class="spec-row"><span class="spec-key">Cooling</span><span class="spec-val">Water Cooled</span></div>
-          <div class="spec-row"><span class="spec-key">Emissions</span><span class="spec-val">Stage II / IIIA</span></div>
-          <div class="spec-row"><span class="spec-key">Alternator</span><span class="spec-val">LeroySomer / Stamford</span></div>
-          <div class="spec-row"><span class="spec-key">Insulation</span><span class="spec-val">Class H — IP23</span></div>
-          <div class="spec-row"><span class="spec-key">Excitation</span><span class="spec-val">Brushless / PMG</span></div>
-          <div class="spec-row"><span class="spec-key">Control</span><span class="spec-val">DSE 7320 / ComAp InteliGen</span></div>
+        <div class="spec-body" id="spec-volvo" role="region" aria-label="مواصفات فولفو بنتا" data-i18n-aria-label="specVolvoPentaLabel">
+          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">عدد الأسطوانات</span><span class="spec-val">6 In-Line</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specGov">منظم السرعة</span><span class="spec-val">EMS 2.0 (Fully Electronic)</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">السحب والشحن</span><span class="spec-val" data-i18n="specTurboInt">شاحن توربيني + مبرد بيني</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specCooling">التبريد</span><span class="spec-val" data-i18n="specWaterCooled">تبريد بالماء</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specEmissions">الانبعاثات</span><span class="spec-val" data-i18n="specStage">المرحلة II / IIIA</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAlternator">المولد الكهربائي</span><span class="spec-val">LeroySomer / Stamford</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specInsulation">العزل</span><span class="spec-val">Class H — IP23</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specExcitation">الإثارة</span><span class="spec-val" data-i18n="specBrushlessPmg">من دون فُرش / PMG</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specControl">نظام التحكم</span><span class="spec-val">DSE 7320 / ComAp InteliGen</span></div>
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('volvo')">📄 <span data-i18n="btnViewSpec">عرض الكتيب</span></button>
@@ -1196,16 +308,16 @@ section[id] { scroll-margin-top: 6rem; }
           <span data-i18n="btnSpecs">المواصفات الفنية</span>
           <span class="spec-arrow" id="sarrow-doosan">▼</span>
         </button>
-        <div class="spec-body" id="spec-doosan" role="region" aria-label="Doosan specs">
-          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">السلندرات</span><span class="spec-val">6 – 12 V-Type</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specGov">الحاكم</span><span class="spec-val" data-i18n="specEcu">إلكتروني (ECU)</span></div>
-          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">التنفس</span><span class="spec-val" data-i18n="specTurboAfter">توربو + مبرد لاحق</span></div>
-          <div class="spec-row"><span class="spec-key">Cooling</span><span class="spec-val">Water Cooled</span></div>
-          <div class="spec-row"><span class="spec-key">Emissions</span><span class="spec-val">Stage II / IIIA</span></div>
-          <div class="spec-row"><span class="spec-key">Alternator</span><span class="spec-val">LeroySomer / Stamford</span></div>
-          <div class="spec-row"><span class="spec-key">Insulation</span><span class="spec-val">Class H — IP23</span></div>
-          <div class="spec-row"><span class="spec-key">Excitation</span><span class="spec-val">Brushless / PMG</span></div>
-          <div class="spec-row"><span class="spec-key">Control</span><span class="spec-val">DSE 8610 / ComAp InteliGen</span></div>
+        <div class="spec-body" id="spec-doosan" role="region" aria-label="مواصفات دوسان" data-i18n-aria-label="specDoosanLabel">
+          <div class="spec-row"><span class="spec-key" data-i18n="specCyl">عدد الأسطوانات</span><span class="spec-val">6 – 12 V-Type</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specGov">منظم السرعة</span><span class="spec-val" data-i18n="specEcu">إلكتروني (ECU)</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAsp">السحب والشحن</span><span class="spec-val" data-i18n="specTurboAfter">شاحن توربيني + مبرد لاحق</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specCooling">التبريد</span><span class="spec-val" data-i18n="specWaterCooled">تبريد بالماء</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specEmissions">الانبعاثات</span><span class="spec-val" data-i18n="specStage">المرحلة II / IIIA</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specAlternator">المولد الكهربائي</span><span class="spec-val">LeroySomer / Stamford</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specInsulation">العزل</span><span class="spec-val">Class H — IP23</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specExcitation">الإثارة</span><span class="spec-val" data-i18n="specBrushlessPmg">من دون فُرش / PMG</span></div>
+          <div class="spec-row"><span class="spec-key" data-i18n="specControl">نظام التحكم</span><span class="spec-val">DSE 8610 / ComAp InteliGen</span></div>
         </div>
         <div class="brand-btns">
           <button class="btn-brand-primary" onclick="app.openPdf('doosan')">📄 <span data-i18n="btnViewSpec">عرض الكتيب</span></button>
@@ -1280,27 +392,27 @@ section[id] { scroll-margin-top: 6rem; }
         <div style="font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.08em;color:var(--muted);margin-bottom:1.5rem;border-bottom:1px solid var(--border);padding-bottom:1rem" data-i18n="calcEquipment">معداتك</div>
         <div class="calc-row">
           <label for="c-ac1" style="cursor:pointer"><div class="calc-label" data-i18n="ac1">مكيف (1.5 حصان)</div><div class="calc-sub" data-i18n="ac1W">≈ 1,200 واط لكل وحدة</div></label>
-          <input type="number" id="c-ac1" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of 1.5HP ACs">
+          <input type="number" id="c-ac1" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row">
           <label for="c-ac3" style="cursor:pointer"><div class="calc-label" data-i18n="ac3">مكيف (3.0 حصان)</div><div class="calc-sub" data-i18n="ac3W">≈ 2,400 واط لكل وحدة</div></label>
-          <input type="number" id="c-ac3" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of 3HP ACs">
+          <input type="number" id="c-ac3" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row">
           <label for="c-pump" style="cursor:pointer"><div class="calc-label" data-i18n="pump">مضخة مياه (1 حصان)</div><div class="calc-sub" data-i18n="pumpW">≈ 750 واط لكل وحدة</div></label>
-          <input type="number" id="c-pump" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of pumps">
+          <input type="number" id="c-pump" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row">
           <label for="c-pc" style="cursor:pointer"><div class="calc-label" data-i18n="pc">كمبيوتر / محطة عمل</div><div class="calc-sub" data-i18n="pcW">≈ 200 واط لكل وحدة</div></label>
-          <input type="number" id="c-pc" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of PCs">
+          <input type="number" id="c-pc" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row">
           <label for="c-light" style="cursor:pointer"><div class="calc-label" data-i18n="light">إضاءة (غرفة)</div><div class="calc-sub" data-i18n="lightW">≈ 100 واط لكل غرفة</div></label>
-          <input type="number" id="c-light" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()" aria-label="Number of rooms">
+          <input type="number" id="c-light" class="calc-input" min="0" max="50" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row calc-row-hours">
           <label for="c-hours" style="cursor:pointer"><div class="calc-label" data-i18n="calcHours">ساعات التشغيل / يوم</div><div class="calc-sub" data-i18n="calcHoursSub">كم ساعة يعمل المولد يومياً</div></label>
-          <input type="number" id="c-hours" class="calc-input" min="0" max="24" value="0" oninput="app.calcKVA()" aria-label="Operating hours per day">
+          <input type="number" id="c-hours" class="calc-input" min="0" max="24" value="0" oninput="app.calcKVA()">
         </div>
         <div class="calc-row">
           <label for="c-price"><span class="calc-label" data-i18n="fuelPrice">سعر السولار (جنيه/لتر)</span></label>
@@ -1331,7 +443,7 @@ section[id] { scroll-margin-top: 6rem; }
           <div class="result-label" data-i18n="calcEstimate">المتطلبات المقدرة</div>
           <div style="display:flex;align-items:baseline;gap:.5rem">
             <div class="result-big" id="r-kva" aria-live="polite">0</div>
-            <div class="result-unit">KVA</div>
+            <div class="result-unit">kVA</div>
           </div>
           <div class="result-divider"></div>
           <div class="result-row">
@@ -1356,38 +468,14 @@ section[id] { scroll-margin-top: 6rem; }
     <div class="sec-header">
       <span class="sec-label" data-i18n="soundLabel">الهندسة الصوتية</span>
       <div class="copper-line"></div>
-      <h2 class="sec-title reveal" data-i18n="soundTitle">اسمع<br><span class="accent">الفرق</span></h2>
+      <h2 class="sec-title reveal" id="sound-title" data-i18n="soundTitle">اسمع<br><span class="accent">الفرق</span></h2>
     </div>
     <div class="sound-layout">
       <div class="reveal">
         <!-- 3-tier selector -->
-        <div class="sound-tier-grid" role="tablist" aria-label="Sound level comparison">
-          <div class="sound-tier active" id="tier-open" role="tab" aria-selected="true" tabindex="0" onclick="app.setSound('open')" style="border-top-color:#D94444">
-            <div class="sound-tier-db" style="color:#D94444">105</div>
-            <div class="sound-tier-label" data-i18n="tier1Label">مفتوح</div>
-            <div class="sound-tier-desc" data-i18n="tier1Desc">بدون كابينة</div>
-          </div>
-          <div class="sound-tier" id="tier-standard" role="tab" aria-selected="false" tabindex="0" onclick="app.setSound('standard')" style="border-top-color:transparent">
-            <div class="sound-tier-db" style="color:#E09020">85</div>
-            <div class="sound-tier-label" data-i18n="tier2Label">قياسي</div>
-            <div class="sound-tier-desc" data-i18n="tier2Desc">−20 ديسيبل</div>
-          </div>
-          <div class="sound-tier" id="tier-silent" role="tab" aria-selected="false" tabindex="0" onclick="app.setSound('silent')" style="border-top-color:transparent">
-            <div class="sound-tier-db" style="color:#3A9060">65</div>
-            <div class="sound-tier-label" data-i18n="tier3Label">صامت للغاية</div>
-            <div class="sound-tier-desc" data-i18n="tier3Desc">كابينة بريميوم</div>
-          </div>
-        </div>
-        <!-- Bar display -->
-        <div class="sound-bar-wrap" id="sound-panel" role="tabpanel">
-          <div class="sound-bar-bg">
-            <div class="sound-bar-fill" id="sound-fill" style="width:100%;background:#D94444"></div>
-          </div>
-          <div class="sound-info">
-            <div class="sound-db" id="sound-db" style="color:#D94444" aria-live="polite">105 dB</div>
-            <div class="sound-equiv" id="sound-equiv" data-i18n="soundOpenEquiv">≈ آلات صناعية</div>
-          </div>
-        </div>
+        <fieldset class="sound-tier-grid"><legend class="visually-hidden" data-i18n="soundLabel">الهندسة الصوتية</legend><label class="sound-tier active" id="tier-open-card" for="tier-open"><input type="radio" id="tier-open" name="sound-level" value="open" checked aria-controls="sound-panel" onchange="app.setSound('open')"><span class="sound-tier-db" style="color:#D94444">105</span><span class="sound-tier-label" data-i18n="tier1Label">مفتوح</span><span class="sound-tier-desc" data-i18n="tier1Desc">بدون كابينة</span></label><label class="sound-tier" id="tier-standard-card" for="tier-standard"><input type="radio" id="tier-standard" name="sound-level" value="standard"  aria-controls="sound-panel" onchange="app.setSound('standard')"><span class="sound-tier-db" style="color:#E09020">85</span><span class="sound-tier-label" data-i18n="tier2Label">قياسي</span><span class="sound-tier-desc" data-i18n="tier2Desc">−20 ديسيبل</span></label><label class="sound-tier" id="tier-silent-card" for="tier-silent"><input type="radio" id="tier-silent" name="sound-level" value="silent"  aria-controls="sound-panel" onchange="app.setSound('silent')"><span class="sound-tier-db" style="color:#3A9060">65</span><span class="sound-tier-label" data-i18n="tier3Label">صامت للغاية</span><span class="sound-tier-desc" data-i18n="tier3Desc">كابينة بريميوم</span></label></fieldset>
+        <div class="sound-bar-wrap" id="sound-panel" role="region" aria-labelledby="sound-title" aria-live="polite">
+          <div class="sound-bar-bg"><div class="sound-bar-fill" id="sound-fill" style="width:100%;background:#D94444"></div></div><div class="sound-info"><div class="sound-db" id="sound-db">105 dB</div><div class="sound-equiv" id="sound-equiv">≈ Industrial Machinery</div></div>
       </div>
       <div class="reveal reveal-delay-1">
         <p class="sound-desc-text" data-i18n="soundDesc">تعمل كبائننا الكاتمة للصوت المصنعة خصيصاً على تقليل ضوضاء المولد بشكل كبير، مما يجعلها قابلة للنشر في البيئات التي تكون فيها الوحدات القياسية غير عملية.</p>
@@ -1611,14 +699,14 @@ section[id] { scroll-margin-top: 6rem; }
       <div class="reveal reveal-delay-1">
         <div style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-bottom:1rem" data-i18n="locRegions">مناطق السوق النشطة</div>
         <div class="regions-grid">
-          <div class="region-pill"><div class="region-dot"></div><span>Cairo</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>Giza</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>Alexandria</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>Minia Desert</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>New Capital</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>Menoufia</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>North Coast</span></div>
-          <div class="region-pill"><div class="region-dot"></div><span>Nationwide</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName1">القاهرة</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName2">الجيزة</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName3">الإسكندرية</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName4">صحراء المنيا</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName5">العاصمة الإدارية</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName6">المنوفية</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName7">الساحل الشمالي</span></div>
+          <div class="region-pill"><div class="region-dot"></div><span data-i18n="regionName8">جميع أنحاء مصر</span></div>
         </div>
         <div style="margin-top:2.5rem;padding:1.5rem;background:var(--card);border-left:3px solid var(--copper)">
           <div style="font-family:'Bebas Neue',sans-serif;font-size:1.3rem;margin-bottom:.5rem" data-i18n="locCoverage">تغطية وطنية</div>
@@ -1643,7 +731,7 @@ section[id] { scroll-margin-top: 6rem; }
       <div class="ts-card reveal">
         <div class="ts-card-label">⚙ <span data-i18n="tsEngineLabel">معايير المحرك</span></div>
         <div class="ts-card-title" data-i18n="tsEngineTitle">بيركنز · فولفو · دوسان</div>
-        <div class="ts-row"><span class="ts-key" data-i18n="tsCycle">الدورة</span><span class="ts-val">4-Stroke Diesel</span></div>
+        <div class="ts-row"><span class="ts-key" data-i18n="tsCycle">الدورة</span><span class="ts-val" data-i18n="spec4Stroke">ديزل رباعي الأشواط</span></div>
         <div class="ts-row"><span class="ts-key" data-i18n="tsCooling">التبريد</span><span class="ts-val">Water Cooled</span></div>
         <div class="ts-row"><span class="ts-key" data-i18n="tsInduction">الشحن</span><span class="ts-val">Turbo / Air-to-Air</span></div>
         <div class="ts-row"><span class="ts-key" data-i18n="tsGovernor">الحاكم</span><span class="ts-val">Electronic / Mechanical</span></div>
@@ -1660,7 +748,7 @@ section[id] { scroll-margin-top: 6rem; }
         <div class="ts-row"><span class="ts-key" data-i18n="tsExcit">الإثارة</span><span class="ts-val">Brushless / PMG</span></div>
         <div class="ts-row"><span class="ts-key" data-i18n="tsWinding">اللفائف</span><span class="ts-val">2/3 Pitch</span></div>
         <div class="ts-row"><span class="ts-key" data-i18n="tsAVR">منظم الجهد</span><span class="ts-val">Digital Regulator</span></div>
-        <div class="ts-row"><span class="ts-key" data-i18n="tsVoltReg">دقة الجهد</span><span class="ts-val">± 1%</span></div>
+        <div class="ts-row"><span class="ts-key" data-i18n="tsVoltReg">تنظيم الجهد</span><span class="ts-val">± 1%</span></div>
       </div>
 
       <div class="ts-card reveal reveal-delay-2">
@@ -1668,7 +756,7 @@ section[id] { scroll-margin-top: 6rem; }
         <div class="ts-card-title" data-i18n="tsCtrlTitle">DSE · ComAp</div>
         <div style="margin-bottom:1.25rem">
           <div style="font-size:.72rem;color:var(--copper);font-weight:600;margin-bottom:.5rem">DEEP SEA ELECTRONICS</div>
-          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;font-weight:300" data-i18n="tsDSEDesc">وحدات تحكم صناعية قياسية صنع بريطاني</div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;font-weight:300" data-i18n="tsDSEDesc">وحدات تحكم قياسية صناعية من بريطانيا</div>
           <div class="ts-tags">
             <span class="ts-tag">DSE 6110</span>
             <span class="ts-tag">DSE 7320</span>
@@ -1677,7 +765,7 @@ section[id] { scroll-margin-top: 6rem; }
         </div>
         <div style="padding-top:1.25rem;border-top:1px solid var(--border)">
           <div style="font-size:.72rem;color:var(--copper);font-weight:600;margin-bottom:.5rem">COMAP</div>
-          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;font-weight:300" data-i18n="tsComApDesc">حلول مزامنة وتشغيل متوازي متقدمة</div>
+          <div style="font-size:.8rem;color:var(--muted);margin-bottom:.6rem;font-weight:300" data-i18n="tsComApDesc">حلول متقدمة للتزامن والتشغيل المتوازي</div>
           <div class="ts-tags">
             <span class="ts-tag">InteliLite</span>
             <span class="ts-tag">InteliGen</span>
@@ -1704,19 +792,19 @@ section[id] { scroll-margin-top: 6rem; }
         <div class="fuel-card-title" data-i18n="fuelTank1">خزانات الوقود الخارجية</div>
         <p class="fuel-card-desc" data-i18n="fuelTank1Desc">خزانات فولاذية أسطوانية أو مستطيلة مصنعة خصيصاً لتشغيل المولدات (24 ساعة – 7 أيام). مصممة وفق معايير السلامة الدولية.</p>
         <div class="fuel-tags">
-          <span class="fuel-tag">500 L – 30,000 L</span>
-          <span class="fuel-tag">Single & Double Wall</span>
-          <span class="fuel-tag">Anti-corrosion coating</span>
+          <span class="fuel-tag" data-i18n="fuelTag1">500 إلى 30,000 لتر</span>
+          <span class="fuel-tag" data-i18n="fuelTag2">جدار مفرد أو مزدوج</span>
+          <span class="fuel-tag" data-i18n="fuelTag3">طلاء مقاوم للتآكل</span>
         </div>
       </div>
       <div class="fuel-card reveal reveal-delay-1">
         <div class="fuel-icon">🔧</div>
         <div class="fuel-card-title" data-i18n="fuelPiping">شبكات أنابيب الوقود</div>
-        <p class="fuel-card-desc" data-i18n="fuelPipingDesc">شبكات أنابيب فولاذية سلسة كاملة (جدول 40/80) مع مصافي وصمامات عدم رجوع وصمامات ملاشي ومقاييس ضغط.</p>
+        <p class="fuel-card-desc" data-i18n="fuelPipingDesc">شبكات أنابيب فولاذية غير ملحومة كاملة (جدول 40/80) مع مصافي وصمامات عدم رجوع وصمامات سولينويد (كهرومغناطيسية) ومقاييس ضغط.</p>
         <div class="fuel-tags">
-          <span class="fuel-tag">Schedule 40 / 80</span>
-          <span class="fuel-tag">Seamless steel</span>
-          <span class="fuel-tag">Full valve set</span>
+          <span class="fuel-tag" data-i18n="fuelTag4">جدول 40 / 80</span>
+          <span class="fuel-tag" data-i18n="fuelTag5">فولاذ غير ملحوم</span>
+          <span class="fuel-tag" data-i18n="fuelTag6">مجموعة صمامات كاملة</span>
         </div>
       </div>
       <div class="fuel-card reveal reveal-delay-2">
@@ -1724,9 +812,9 @@ section[id] { scroll-margin-top: 6rem; }
         <div class="fuel-card-title" data-i18n="fuelPump">أنظمة مضخات النقل</div>
         <p class="fuel-card-desc" data-i18n="fuelPumpDesc">أنظمة نقل وقود أوتوماتيكية مع عوامات وألواح تحكم لإدارة خزانات الخدمة اليومية من التخزين الرئيسي دون تدخل يدوي.</p>
         <div class="fuel-tags">
-          <span class="fuel-tag">Auto transfer</span>
-          <span class="fuel-tag">Float switches</span>
-          <span class="fuel-tag">Level indicators</span>
+          <span class="fuel-tag" data-i18n="fuelTag7">نقل أوتوماتيكي</span>
+          <span class="fuel-tag" data-i18n="fuelTag8">مفاتيح عوامة</span>
+          <span class="fuel-tag" data-i18n="fuelTag9">مؤشرات المستوى</span>
         </div>
       </div>
     </div>
@@ -1771,15 +859,15 @@ section[id] { scroll-margin-top: 6rem; }
     <!-- Maintenance scope -->
     <div style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:2rem 0 1rem" data-i18n="amcScopeLabel">ما يشمله كل زيارة</div>
     <div class="amc-scope-grid">
-      <div class="amc-scope-card reveal"><div class="amc-scope-icon">🔩</div><div><div class="amc-scope-name" data-i18n="amcS1">فحص صحة المحرك</div><div class="amc-scope-desc" data-i18n="amcS1D">فحص مستوى الزيت والأحزمة والفلاتر وجميع نقاط التآكل الميكانيكية.</div></div></div>
-      <div class="amc-scope-card reveal reveal-delay-1"><div class="amc-scope-icon">🌡</div><div><div class="amc-scope-name" data-i18n="amcS2">تحليل سائل التبريد والزيت</div><div class="amc-scope-desc" data-i18n="amcS2D">حالة السوائل ومستويات التركيز وفحوصات التلوث.</div></div></div>
-      <div class="amc-scope-card reveal reveal-delay-2"><div class="amc-scope-icon">🔋</div><div><div class="amc-scope-name" data-i18n="amcS3">اختبار نظام البطارية</div><div class="amc-scope-desc" data-i18n="amcS3D">سعة الشحن وحالة الأطراف والتحقق من دارة التشغيل.</div></div></div>
+      <div class="amc-scope-card reveal"><div class="amc-scope-icon">🔩</div><div><div class="amc-scope-name" data-i18n="amcS1">فحص صحة المحرك</div><div class="amc-scope-desc" data-i18n="amcS1D">فحص مستوى الزيت والأحزمة والفلاتر وجميع نقاط التآكل الميكانيكي.</div></div></div>
+      <div class="amc-scope-card reveal reveal-delay-1"><div class="amc-scope-icon">🌡</div><div><div class="amc-scope-name" data-i18n="amcS2">تحليل سائل التبريد والزيت</div><div class="amc-scope-desc" data-i18n="amcS2D">فحص حالة السوائل ومستويات التركيز واختبار التلوث.</div></div></div>
+      <div class="amc-scope-card reveal reveal-delay-2"><div class="amc-scope-icon">🔋</div><div><div class="amc-scope-name" data-i18n="amcS3">اختبار منظومة البطارية</div><div class="amc-scope-desc" data-i18n="amcS3D">قدرة الشحن وحالة الأطراف والتحقق من دائرة التشغيل.</div></div></div>
       <div class="amc-scope-card reveal reveal-delay-3"><div class="amc-scope-icon">⚡</div><div><div class="amc-scope-name" data-i18n="amcS4">دعم طوارئ 24/7</div><div class="amc-scope-desc" data-i18n="amcS4D">خط مباشر لمهندسين ميدانيين معتمدين — ليلاً ونهاراً وفي العطلات.</div></div></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ ISO CERTIFICATIONS ═══ -->
+<!-- ═══ PROJECT DOCUMENTS & REQUIREMENTS ═══ -->
 <section id="certifications" class="sec">
   <div class="sec-inner">
     <div class="sec-header">
@@ -1810,11 +898,11 @@ section[id] { scroll-margin-top: 6rem; }
         <p class="cert-desc" data-i18n="cert4Desc">التزام كامل بحدود الضوضاء والانبعاثات الصادرة عن جهاز شئون البيئة المصري في كل تركيب.</p>
       </div>
     </div>
-    <div style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:2rem 0 1rem" data-i18n="hseLabel">بروتوكولات HSE</div>
+    <div style="font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted);font-weight:600;margin:2rem 0 1rem" data-i18n="hseLabel">بروتوكولات السلامة والصحة المهنية</div>
     <div class="hse-strip">
-      <div class="hse-card reveal"><div class="hse-icon">🦺</div><div><div class="hse-name" data-i18n="hse1">سياسة الصفر حوادث</div><div class="hse-desc" data-i18n="hse1D">تطبيق صارم لسلامة الموقع — بلا استثناءات لأي حجم مشروع.</div></div></div>
-      <div class="hse-card reveal reveal-delay-1"><div class="hse-icon">🪖</div><div><div class="hse-name" data-i18n="hse2">معدات الحماية الشخصية إلزامية</div><div class="hse-desc" data-i18n="hse2D">معدات الحماية الشخصية الكاملة مطلوبة لجميع الفنيين في الموقع.</div></div></div>
-      <div class="hse-card reveal reveal-delay-2"><div class="hse-icon">📋</div><div><div class="hse-name" data-i18n="hse3">تقييم المخاطر قبل التركيب</div><div class="hse-desc" data-i18n="hse3D">تقييم مخاطر مكتوب يُكمل ويُعتمد قبل بدء أي تركيب.</div></div></div>
+      <div class="hse-card reveal"><div class="hse-icon">🦺</div><div><div class="hse-name" data-i18n="hse1">سياسة الصفر حوادث</div><div class="hse-desc" data-i18n="hse1D">تطبيق صارم لسلامة الموقع — لا استثناءات بصرف النظر عن حجم المشروع.</div></div></div>
+      <div class="hse-card reveal reveal-delay-1"><div class="hse-icon">🪖</div><div><div class="hse-name" data-i18n="hse2">معدات الحماية الشخصية إلزامية</div><div class="hse-desc" data-i18n="hse2D">معدات الحماية الشخصية الكاملة مطلوبة لجميع التقنيين في الموقع.</div></div></div>
+      <div class="hse-card reveal reveal-delay-2"><div class="hse-icon">📋</div><div><div class="hse-name" data-i18n="hse3">تقييم المخاطر قبل التركيب</div><div class="hse-desc" data-i18n="hse3D">تقييم مخاطر مكتوب يُكتمل ويُوقَّع عليه قبل بدء كل عملية تركيب.</div></div></div>
     </div>
   </div>
 </section>
@@ -1827,7 +915,7 @@ section[id] { scroll-margin-top: 6rem; }
       <div class="copper-line"></div>
       <h2 class="sec-title reveal" data-i18n="faqTitle">الأسئلة<br><span class="accent">المتكررة</span></h2>
     </div>
-    <div class="faq-list reveal" id="faq-list"><details class="faq-item" name="home-faq"><summary class="faq-q">كم تستغرق عملية التوصيل والتركيب؟</summary><p>يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل تقدمون لوحات ATS والتركيب المتكامل؟</summary><p>نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما هي فترة ضمان المولدات؟</summary><p>نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل قطع الغيار أصلية 100% من الشركة الأم؟</summary><p>نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما خيارات عقود الصيانة السنوية المتاحة؟</summary><p>نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟</summary><p>نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (&gt;70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل تقدمون خدمات المزامنة بين عدة مولدات؟</summary><p>نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما حلول تخزين الوقود التي تقدمونها؟</summary><p>نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة من النوع 40/80 وأنظمة مضخات نقل أوتوماتيكية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما المناطق التي تغطونها في مصر؟</summary><p>نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي ومنيا الصحراء.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟</summary><p>نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز.</p></details></div>
+    <div class="faq-list reveal" id="faq-list"><details class="faq-item" name="home-faq"><summary class="faq-q">كم تستغرق عملية التوصيل والتركيب؟</summary><p>يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل تقدمون لوحات ATS والتركيب المتكامل؟</summary><p>نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما هي فترة ضمان المولدات؟</summary><p>نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل قطع الغيار أصلية 100% من الشركة الأم؟</summary><p>نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما خيارات عقود الصيانة السنوية المتاحة؟</summary><p>نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟</summary><p>نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (&gt;70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل تقدمون خدمات المزامنة بين عدة مولدات؟</summary><p>نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما حلول تخزين الوقود التي تقدمونها؟</summary><p>نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة بتصنيف Schedule 40/80 وأنظمة مضخات نقل أوتوماتيكية.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">ما المناطق التي تغطونها في مصر؟</summary><p>نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا.</p></details><details class="faq-item" name="home-faq"><summary class="faq-q">هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟</summary><p>نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز.</p></details></div>
   </div>
 </section>
 
@@ -1886,18 +974,18 @@ section[id] { scroll-margin-top: 6rem; }
           <div class="form-grid">
             <div class="form-group">
               <label for="f-name" class="form-label"><span data-i18n="fName">اسمك</span><span class="req">*</span></label>
-              <input id="f-name" name="name" type="text" class="form-input" placeholder="محمد أحمد" data-i18n-placeholder="محمد أحمد" autocomplete="name" required aria-required="true">
+              <input id="f-name" name="name" type="text" class="form-input" placeholder="محمد أحمد" data-i18n-placeholder="fNamePlaceholder" autocomplete="name" required aria-required="true">
             </div>
             <div class="form-group">
               <label for="f-phone" class="form-label"><span data-i18n="fPhone">رقم الهاتف</span><span class="req">*</span></label>
-              <input id="f-phone" name="phone" type="tel" class="form-input" placeholder="01XXXXXXXXX" data-i18n-placeholder="01XXXXXXXXX" autocomplete="tel" required aria-required="true">
+              <input id="f-phone" name="phone" type="tel" class="form-input" placeholder="01XXXXXXXXX" data-i18n-placeholder="fPhonePlaceholder" autocomplete="tel" required aria-required="true">
             </div>
           </div>
           <div id="phone-err" class="form-error" role="alert"></div>
           <div class="form-grid">
             <div class="form-group">
               <label for="f-location" class="form-label"><span data-i18n="fLocation">موقع المشروع</span><span class="req">*</span></label>
-              <input id="f-location" name="location" type="text" class="form-input" placeholder="القاهرة / المحافظة" data-i18n-placeholder="القاهرة / المحافظة" autocomplete="address-level1" required aria-required="true">
+              <input id="f-location" name="location" type="text" class="form-input" placeholder="القاهرة / المحافظة" data-i18n-placeholder="fLocationPlaceholder" autocomplete="address-level1" required aria-required="true">
             </div>
             <div class="form-group">
               <label for="f-type" class="form-label"><span data-i18n="fType">نوع الاستفسار</span><span class="req">*</span></label>
@@ -1917,7 +1005,7 @@ section[id] { scroll-margin-top: 6rem; }
           </div>
           <div class="form-group">
             <label for="f-msg" class="form-label"><span data-i18n="fMessage">الرسالة</span></label>
-            <textarea id="f-msg" name="message" class="form-textarea" placeholder="اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري)." data-i18n-placeholder="اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري)." aria-required="false"></textarea>
+            <textarea id="f-msg" name="message" class="form-textarea" placeholder="اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري)." data-i18n-placeholder="fMessagePlaceholder" aria-required="false"></textarea>
           </div>
           <p class="form-note" data-i18n="fNote">شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.</p>
           <div class="form-submit-wrap">
@@ -1925,7 +1013,7 @@ section[id] { scroll-margin-top: 6rem; }
             <div id="form-status" class="form-status" role="status" aria-live="polite" aria-atomic="true" hidden></div>
           </div>
         </form>
-        <p class="form-note form-fallback" data-i18n="fDataUse">نستخدم البيانات التي تقدمها للرد على استفسارك.</p>
+        <p class="form-note form-fallback"><span data-i18n="fDataUse">نستخدم البيانات التي تقدمها للرد على استفسارك.</span> <a href="/ar/privacy/" data-i18n="privacyLink">اقرأ إشعار الخصوصية</a>.</p>
         <p class="form-note form-fallback">
           <span data-i18n="fFallbackLabel">إذا تعذر إرسال النموذج،</span>
           <a href="tel:+201229688688" data-i18n="fFallbackCall">اتصل على 012 2968 8688</a>
@@ -1967,8 +1055,10 @@ section[id] { scroll-margin-top: 6rem; }
         <a href="#workflow" data-i18n="footerProcess">منهجيتنا</a>
         <a href="#projects" data-i18n="footerProjects">المشاريع</a>
         <a href="#comparison" data-i18n="footerWhy">لماذا نحن</a>
+        <a href="/ar/maintenance/" data-i18n="footerAMC">خدمات الصيانة</a>
         <a href="#contact" data-i18n="footerContact">اتصل بنا</a>
         <a href="#calculator" data-i18n="footerCalc">حاسبة القدرة</a>
+        <a href="/ar/privacy/" data-i18n="privacyFooter">إشعار الخصوصية</a>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1984,15 +1074,19 @@ section[id] { scroll-margin-top: 6rem; }
     <div id="pdf-modal-header">
       <div id="pdf-modal-title">Specification Sheet</div>
       <div class="pdf-header-actions">
+        <a id="pdf-open-btn" href="#" target="_blank" rel="noopener noreferrer" class="pdf-btn" data-i18n="pdfOpenNewTab">فتح PDF في تبويب جديد</a>
         <a id="pdf-dl-btn" href="#" download class="pdf-btn">⬇ <span data-i18n="btnDownloadPdf">تحميل PDF</span></a>
-        <button class="pdf-btn" onclick="app.closePdf()" aria-label="Close modal">✕</button>
+        <button id="pdf-close-btn" class="pdf-btn" onclick="app.closePdf()" aria-label="إغلاق معاينة المواصفات" data-i18n-aria-label="pdfCloseLabel">✕</button>
       </div>
     </div>
-    <iframe id="pdf-iframe" title="Technical Specification Sheet"></iframe>
+    <iframe id="pdf-iframe" title="PDF specification preview"></iframe>
     <div class="pdf-mobile">
-      <div class="pdf-mobile-icon">📄</div>
-      <p class="pdf-mobile-text" data-i18n="pdfMobile">معاينة PDF غير متاحة على الجوال. حمّل الملف للمشاهدة.</p>
-      <a id="pdf-mobile-dl" href="#" download class="btn-brand-primary" style="display:inline-flex;align-items:center;gap:.5rem">⬇ <span data-i18n="btnDownloadPdf">تحميل PDF</span></a>
+      <div class="pdf-mobile-icon" aria-hidden="true">📄</div>
+      <p class="pdf-mobile-text" data-i18n="pdfMobile">إذا تعذرت المعاينة، افتح ملف PDF في تبويب جديد أو نزّله.</p>
+      <div class="pdf-mobile-actions">
+        <a id="pdf-mobile-open" href="#" target="_blank" rel="noopener noreferrer" class="btn-brand-outline" data-i18n="pdfOpenNewTab">فتح PDF في تبويب جديد</a>
+        <a id="pdf-mobile-dl" href="#" download class="btn-brand-primary">⬇ <span data-i18n="btnDownloadPdf">تحميل PDF</span></a>
+      </div>
     </div>
   </div>
 </div>
@@ -2000,640 +1094,15 @@ section[id] { scroll-margin-top: 6rem; }
 <!-- ═══ NOTIFICATION ═══ -->
 <div id="notif" role="dialog" aria-modal="true" aria-labelledby="notif-title">
   <div id="notif-inner">
-    <div id="notif-title" data-i18n="notifTitle">تم الإرسال</div>
+    <div id="notif-title" data-i18n="notifTitle">تم تقديم الاستفسار</div>
     <p id="notif-msg"></p>
     <button class="btn-notif" onclick="app.closeNotif()" data-i18n="notifClose">إغلاق</button>
   </div>
 </div>
 
 <!-- Scripts -->
-<script src="/enquiry-config.js?v=20260908-1"></script>
-<script src="/enquiry.js?v=20261025"></script>
-<script>
-(function(){
-'use strict';
-
-// ── State ────────────────────────────────────────────────────────
-let lang = 'en';
-let scrollTick = false;
-
-// ── Translations ─────────────────────────────────────────────────
-const T = {
-en:{
-  pageTitle:"Diesel Generators in Egypt | Premium Power",
-  perkinsModels:'Perkins models & ratings',
-  volvoModels:'Volvo Penta models & ratings',
-  doosanModels:'Doosan models & ratings',
-  skipNav:'Skip to main content',
-  heroTag:'Authorized Dealer — Egypt',
-  heroLine1:'DIESEL',heroLine2:'GENERATORS',heroLine3:'EGYPT',
-  heroSub:'Engineering-grade generator solutions from 8 KVA to 3000 KVA. Perkins, Volvo Penta & Doosan — with professional installation and 24/7 support.',
-  heroCardTitle:'Power Range',engine:'Engine',alternator:'Alternator',heroSupport:'Support',heroWarranty:'Warranty',
-  scrollHint:'Scroll',
-  btnFindGen:'Find Your Generator',btnContact:'Get in Touch',btnQuote:'Get Quote',btnGeneratorQuote:'Request a Generator Quote',btnMaintenanceAssessment:'Request a Maintenance Assessment',
-  navClients:'Clients',navProducts:'Generators',navCalc:'Calculator',navProjects:'Projects',navContact:'Contact',navHome:'Home',navServices:'Services',navPortfolio:'Portfolio',navLocations:'Locations',navVision:'About Us',navAMC:'Maintenance',navSpecs:'Tech Specs',navFuel:'Fuel Systems',navCerts:'Certifications',navCert:'Certifications',
-  stat1:'Projects Completed',stat2:'Years Experience',stat3:'Active Contracts',stat4:'Uptime Guarantee',
-  clientsLabel:'Our Clients',clientsTitle:'TRUSTED BY\nEGYPT\'S LEADERS',clientsSub:'Powering critical operations across healthcare, manufacturing, infrastructure, and real estate.',
-  client1:'Egyptian Ambulance Organization',client2:'Canal For Sugar',client3:'Upwyde — Cinco Mall',client4:'SODIC — Ogami North Coast',
-  client5:'Concord — New Mansoura',client6:'OliveLand Agriculture',client7:"Salah Eldin Int'l School",client8:'New Urban Communities Authority',
-  productsLabel:'Engine Catalog',productsTitle:'THREE BRANDS.\nONE STANDARD.',productsSub:'We partner exclusively with the world\'s most reliable diesel engine manufacturers.',
-  perkinsName:'Perkins Series',perkinsOrigin:'United Kingdom · 9 KVA – 2500 KVA',perkinsDesc:'The industry benchmark for reliability and fuel efficiency. Engineered for every climate and load profile — from residential backup to heavy industrial prime power.',
-  volvoName:'Volvo Penta',volvoOrigin:'Sweden · 85 KVA – 700 KVA',volvoDesc:'Swedish precision meets extreme-duty performance. Renowned for rapid load acceptance and minimal transient response — the preferred choice for data centers and critical infrastructure.',
-  doosanName:'Doosan',doosanOrigin:'South Korea · 150 KVA – 825 KVA',doosanDesc:'Robust Korean engineering built for continuous prime power. Outstanding durability in construction, manufacturing, and utility applications with exceptional value for money.',
-  btnSpecs:'Technical Specifications',btnViewSpec:'View Spec Sheet',btnAllModels:'All Models & Ratings',btnRequestQuote:'Request Quote',btnDownloadPdf:'Download PDF',
-  specCyl:'Cylinders',specGov:'Governor',specAsp:'Aspiration',specMechElec:'Mechanical / Electronic',specTurbo:'Turbocharged',specTurboInt:'Turbo + Intercooler',specEcu:'Electronic (ECU)',specTurboAfter:'Turbo + Aftercooler',
-  servicesLabel:'What We Offer',servicesTitle:'COMPLETE\nPOWER SOLUTIONS',
-  svc1:'Open-Type Generators',svc1Desc:'Robust industrial frames with full weather protection for outdoor and factory deployments.',
-  svc2:'Soundproof Canopies',svc2Desc:'Custom acoustic enclosures engineered to 65 dB — suitable for hospitals, hotels, and residential zones.',
-  svc3:'LV Panels & ATS',svc3Desc:'Automatic transfer switch panels, synchronization boards, and full distribution systems to spec.',
-  svc4:'External Fuel Tanks',svc4Desc:'Single and double-wall storage from 500 L to 30,000 L with integrated leak detection systems.',
-  svc5:'OEM Spare Parts',svc5Desc:'100% genuine factory parts for Perkins, Volvo Penta, and Doosan — held in local inventory.',
-  svc6:'Turnkey Installation',svc6Desc:'Full site works: civil foundation, fuel lines, cabling, commissioning, and load testing.',
-  svc7:'Maintenance Contracts',svc7Desc:'Scheduled preventive and corrective maintenance programs with 24/7 emergency call-out.',
-  svcCta:'Custom Solution?',svcCtaDesc:'Talk to our engineers for a tailored power package.',svcCtaLink:'Contact Us →',
-  tsLabel:'Engineering Standards',tsTitle:'BUILT TO\nSPECIFICATION',tsDesc:'Every generator we supply meets rigorous international engineering standards — from the engine block to the control panel.',
-  tsEngineLabel:'Engine Standards',tsEngineTitle:'Perkins · Volvo · Doosan',tsCycle:'Cycle',tsCooling:'Cooling',tsInduction:'Induction',tsGovernor:'Governor',tsEmissions:'Emissions',tsFreq:'Frequency',tsVoltage:'Voltage',
-  tsAltLabel:'Alternator Standards',tsAltTitle:'LeroySomer · Stamford',tsInsul:'Insulation',tsProtect:'Protection',tsExcit:'Excitation',tsWinding:'Winding',tsAVR:'AVR',tsVoltReg:'Voltage Reg.',
-  tsCtrlLabel:'Control Systems',tsCtrlTitle:'DSE · ComAp',tsDSEDesc:'UK-made industry standard controllers',tsComApDesc:'Advanced synchronization & parallel solutions',
-  fuelInfraLabel:'Supply & Storage',fuelInfraTitle:'FUEL\nINFRASTRUCTURE',fuelInfraDesc:'Complete fuel supply systems designed for extended generator autonomy — from 24-hour standby to 7-day critical reserves.',
-  fuelTank1:'External Bulk Tanks',fuelTank1Desc:'Custom-fabricated cylindrical or rectangular steel tanks for extended generator autonomy (24h – 7 days). Designed in accordance with international safety standards.',
-  fuelPiping:'Fuel Piping Networks',fuelPipingDesc:'Complete seamless black steel piping networks (Schedule 40/80) with necessary strainers, check valves, solenoid valves, and pressure gauges.',
-  fuelPump:'Transfer Pump Systems',fuelPumpDesc:'Automatic fuel transfer systems with float switches and control panels to manage daily service tanks from main bulk storage without manual intervention.',
-  amcLabel:'Support & Care',amcTitle:'MAINTENANCE\nCONTRACTS',amcDesc:'Annual Maintenance Contracts (AMC) designed to keep your generator at peak performance year-round — with guaranteed response times and genuine OEM parts.',
-  amcStdTier:'Standard AMC',amcStdName:'Standard',amcStdF1:'4 Routine Visits / Year',amcStdF2:'24h Emergency Response Time',amcStdF3:'5% Spare Parts Discount',amcStdF4:'Genuine OEM Parts Only',amcStdF5:'Technical Report After Each Visit',amcStdCta:'Ask About Standard AMC',
-  amcPremTier:'Premium AMC+',amcPremName:'Premium',amcPremF1:'12 Routine Visits / Year',amcPremF2:'4h Emergency Response Time',amcPremF3:'15% Spare Parts Discount',amcPremF4:'Genuine OEM Parts Only',amcPremF5:'Priority Scheduling — 24/7',amcPremCta:'Ask About Premium AMC+',
-  amcPopular:'Most Popular',amcScopeLabel:'WHAT EVERY VISIT COVERS',
-  amcS1:'Engine Health Check',amcS1D:'Oil level, belts, filters, and all mechanical wear points inspected.',
-  amcS2:'Coolant & Oil Analysis',amcS2D:'Fluid condition, concentration levels, and contamination checks.',
-  amcS3:'Battery System Test',amcS3D:'Charge capacity, terminal condition, and starting circuit verification.',
-  amcS4:'24/7 Emergency Support',amcS4D:'Direct line to certified field engineers — day, night, and public holidays.',
-  certLabel:'Standards & Compliance',certTitle:'QUALITY &\nCERTIFICATIONS',certDesc:'Every project is executed under certified quality management systems and strict HSE protocols — fully compliant with Egyptian and international regulations.',
-  cert1Name:'Quality Management',cert1Desc:'Certified for consistent service delivery and customer satisfaction across all project types and sizes.',
-  cert2Name:'Generating Sets',cert2Desc:'Full compliance with reciprocating internal combustion engine driven AC generating sets standards.',
-  cert3Name:'Rotating Machinery',cert3Desc:'Rotating electrical machines standard — all alternators supplied meet IEC 60034 requirements.',
-  cert4Name:'Environmental Compliance',cert4Desc:'Full adherence to Egyptian Environmental Affairs Agency noise and emission limits on every installation.',
-  hseLabel:'HSE PROTOCOLS',hse1:'Zero Accident Policy',hse1D:'Strict site safety enforcement — no exceptions for any project scale.',
-  hse2:'Mandatory PPE',hse2D:'Full personal protective equipment required for all technicians on site.',
-  hse3:'Pre-Installation Risk Assessment',hse3D:'Written risk assessment completed and signed off before every installation begins.',
-  svc8:'Load Bank Testing',svc8Desc:'Professional on-site load bank testing and full performance validation per IEC standards.',
-  svc9:'Engineering Consult',svc9Desc:'Expert load analysis, sizing calculations, single-line diagrams, and full technical design packages.',
-  visionLabel:'Corporate Identity',visionTitle:'WHO WE\nARE',visionDesc:'Premium Power occupies a distinct niche in the Egyptian power generation market — we don\'t just sell equipment; we deliver energy security.',
-  visionCardLabel:'Vision',visionStatement:'"To become the undisputed leader in backup power solutions across the Middle East, setting the benchmark for reliability."',
-  missionCardLabel:'Mission',missionStatement:'"Engineering robust power systems that guarantee safety, efficiency, and zero downtime for our partners\' critical operations."',
-  val1:'Quality',val1Sub:'ISO Standards Compliance',val2:'Safety',val2Sub:'Zero Harm Policy',val3:'Integrity',val3Sub:'Transparent Dealing',val4:'Speed',val4Sub:'Rapid Response Time',
-  portfolioLabel:'Reference List',portfolioTitle:'250+ PROJECTS\nBY SECTOR',portfolioDesc:'Trusted partners across every critical industry in Egypt.',
-  sec1:'Water & Sewage',sec2:'Real Estate',sec3:'Governmental',sec4:'Agriculture',sec5:'Contractors',sec6:'Industry & Retail',
-  locLabel:'Operational Network',locTitle:'OUR REACH\nACROSS EGYPT',
-  locFacilities:'Strategic Facilities',locRegions:'Active Market Regions',
-  locHQTag:'Central Management',locHQ:'Cairo HQ',locWHTag:'Logistics Center',locWH:'Main Warehouse',
-  locDeltaTag:'Regional Support',locDelta:'Delta Branch',locWSTag:'Fabrication Unit',locWS:'Sheet Metal Workshop',
-  locCoverage:'Nationwide Coverage',locCoverageDesc:'From our Cairo headquarters and 3 regional facilities, we deploy certified engineers and genuine OEM parts to any governorate within Egypt\'s boundaries.',
-  soundOpenEquiv:'≈ Industrial Machinery',tier1Label:'Open Set',tier1Desc:'No enclosure',tier2Label:'Standard',tier2Desc:'−20 dBA',tier3Label:'Super Silent',tier3Desc:'Premium canopy',
-  soundB4:'2mm ST.37 steel + high-density Rockwool (>70 kg/m³)',
-  workflowLabel:'Our Process',workflowTitle:'HOW WE\nDELIVER',
-  step1:'Site Survey',step1D:'Full load analysis, location assessment, and ventilation planning by our engineering team.',
-  step2:'Civil Works',step2D:'Foundation casting, cable trenching, and generator room preparation to specification.',
-  step3:'Delivery',step3D:'Safe transport and precision positioning using specialized lifting equipment.',
-  step4:'Installation',step4D:'Power cabling, exhaust ducting, fuel piping, and full control panel termination.',
-  step5:'Commissioning',step5D:'Load testing, safety verification, and full handover training for your operations team.',
-  calcLabel:'Interactive Tool',calcTitle:'POWER SIZE\nCALCULATOR',calcSub:'Enter your equipment below to get an instant KVA estimate with fuel consumption and daily cost.',
-  calcEquipment:'YOUR EQUIPMENT',calcHours:'Operating Hours / Day',calcHoursSub:'How long the generator runs each day',calcHint:'Enter your appliances to see the recommended generator size.',calcEstimate:'ESTIMATED REQUIREMENT',
-  ac1:'AC Unit (1.5 HP)',ac1W:'≈ 1,200 W each',ac3:'AC Unit (3.0 HP)',ac3W:'≈ 2,400 W each',
-  pump:'Water Pump (1 HP)',pumpW:'≈ 750 W each',pc:'PC / Workstation',pcW:'≈ 200 W each',light:'Lighting (Room)',lightW:'≈ 100 W each',
-  fuelLabel:'Fuel Consumption',fuelUnit:'L/hr',costLabel:'Daily Fuel Cost',
-  fuelPrice:'Diesel price (EGP/L)',
-  calcNote:'Preliminary sizing only: 25% allowance at 0.8 PF. Starting loads require an engineering assessment. Fuel uses an indicative 0.15 L/h per kVA at 75% load, not a model-specific measurement. Update the diesel price above.',
-  calcCta:'Get Free Quote — 24 Hours',
-  soundLabel:'Acoustic Engineering',soundTitle:'HEAR THE\nDIFFERENCE',
-  soundOpen:'Standard (Open)',soundSilent:'Soundproof Canopy',soundTraffic:'≈ Heavy Traffic',soundOffice:'≈ Library Quiet',
-  soundDesc:'Our custom-fabricated soundproof canopies dramatically reduce generator noise, making them deployable in environments where standard units are impractical.',
-  soundB1:'Suitable for residential zones and hospitals',soundB2:'Engineered to ≤ 65 dB at 1 meter',soundB3:'Custom dimensions for any generator model',soundB4:'Maintenance access panels included',
-  projectsLabel:'Recent Work',projectsTitle:'INSTALLATIONS\nACROSS EGYPT',
-  proj1Loc:'New Cairo',proj1Title:'Medical Center Backup',proj1Desc:'2 × 500 KVA Perkins units with full ATS synchronization panel and UPS integration.',
-  proj2Loc:'New Capital',proj2Title:'Construction Power',proj2Desc:'4 × 250 KVA Volvo Penta generators powering a major residential development site.',
-  proj3Loc:'Maadi',proj3Title:'Bank HQ Data Center',proj3Desc:'1000 KVA Doosan in soundproof canopy (65 dB) for a tier-3 bank data center.',
-  galleryLabel:'Our Work',galleryTitle:'GENERATOR\nGALLERY',
-  compLabel:'Why Choose Us',compTitle:'THE PREMIUM\nDIFFERENCE',
-  compFeature:'Feature',compUs:'Premium Power ✦',compThem:'Standard Competitor',compUsSub:'What You Get',compThemSub:'What You Settle For',compRecommended:'Recommended',
-  compR1:'Emergency Response',compR1Us:'Within 24 Hours',compR1Them:'3–5 Days (Often Longer)',
-  compR2:'Spare Parts',compR2Us:'100% Genuine OEM',compR2Them:'Aftermarket / Generic',
-  compR3:'Warranty',compR3Us:'1 Year / 1,000 Hours',compR3Them:'6 Months or Less',
-  compR4:'Technicians',compR4Us:'Certified Engineers',compR4Them:'Contracted Labour',
-  compR5:'Load Testing',compR5Us:'Always Included',compR5Them:'Optional / Extra Charge',
-  faqLabel:'Common Questions',faqTitle:'FREQUENTLY\nASKED',
-  contactLabel:'Get in Touch',contactTitle:"LET'S POWER\nYOUR PROJECT",
-  contactSub:'Contact our team for a generator quote or a maintenance assessment. Share your site needs and we will help you choose the next step.',
-  ctPhone:'Phone',ctEmail:'Email',ctAddress:'Address',ctHours:'Office Hours',ctHoursVal:'Sun – Thu, 9:00 AM – 5:00 PM',
-  formTitle:'SEND AN INQUIRY',fName:'Your Name',fNamePlaceholder:'Mohamed Ahmed',fPhone:'Phone Number',fPhonePlaceholder:'01XXXXXXXXX',fLocation:'Project Location',fLocationPlaceholder:'Cairo / governorate',fType:'Enquiry Type',fTypeSales:'Generator quote',fTypeMaintenance:'Maintenance assessment',fPlan:'Maintenance Plan',fPlanAssessment:'Assessment first',fPlanStandard:'Standard AMC',fPlanPremium:'Premium AMC+',fMessage:'Message',fMessagePlaceholder:'Tell us what you know: load, brand, or running hours (optional).',fNote:'Share the details you have — load, preferred brand, running hours, or site needs — and our team will guide the next step.',fSubmit:'Send Enquiry →',
-  fDataUse:'We use the details you submit to respond to your enquiry.',fFallbackLabel:'If the form is unavailable,',fFallbackCall:'call 012 2968 8688',fFallbackOr:'or',fFallbackWhatsapp:'message us on WhatsApp',
-  pdfMobile:'PDF preview unavailable on mobile. Download to view.',
-  footerTagline:'Delivering engineering-grade generator solutions with trusted performance and professional support since 2006.',
-  footerProducts:'Products',footerCompany:'Company',footerSoundproof:'Soundproof Canopies',footerParts:'OEM Spare Parts',
-  footerProcess:'Our Process',footerProjects:'Projects',footerWhy:'Why Us',footerContact:'Contact',footerCalc:'Power Calculator',
-  notifTitle:'Message Sent',notifClose:'Close',
-  formSuccess:'Your message has been sent. We will contact you within 24 hours.',
-  formInvalidPhone:'Please enter a valid Egyptian phone number (e.g. 01XXXXXXXXX)',
-  chatSales:'Sales Inquiry',chatEmergency:'24/7 Emergency',
-  tsLabel:'Engineering Standards',tsTitle:'BUILT TO\nSPECIFICATION',tsDesc:'Every generator we supply meets rigorous international engineering standards — from the engine block to the control panel.',
-  tsEngineLabel:'Engine Standards',tsEngineTitle:'Perkins · Volvo · Doosan',tsCycle:'Cycle',tsCooling:'Cooling',tsInduction:'Induction',tsGovernor:'Governor',tsEmissions:'Emissions',tsFreq:'Frequency',tsVoltage:'Voltage',
-  tsAltLabel:'Alternator Standards',tsAltTitle:'LeroySomer · Stamford',tsInsul:'Insulation',tsProtect:'Protection',tsExcit:'Excitation',tsWinding:'Winding',tsAVR:'AVR',tsVoltReg:'Voltage Reg.',
-  tsCtrlLabel:'Control Systems',tsCtrlTitle:'DSE · ComAp',tsDSEDesc:'UK-made industry standard controllers',tsComApDesc:'Advanced synchronization & parallel solutions',
-  fuelInfraLabel:'Supply & Storage',fuelInfraTitle:'FUEL\nINFRASTRUCTURE',fuelInfraDesc:'Complete fuel supply systems designed for extended generator autonomy — from 24-hour standby to 7-day critical reserves.',
-  fuelTank1:'External Bulk Tanks',fuelTank1Desc:'Custom-fabricated cylindrical or rectangular steel tanks for extended generator autonomy (24h – 7 days). Designed in accordance with international safety standards.',
-  fuelPiping:'Fuel Piping Networks',fuelPipingDesc:'Complete seamless black steel piping networks (Schedule 40/80) with necessary strainers, check valves, solenoid valves, and pressure gauges.',
-  fuelPump:'Transfer Pump Systems',fuelPumpDesc:'Automatic fuel transfer systems with float switches and control panels to manage daily service tanks from main bulk storage without manual intervention.',
-  amcLabel:'Support & Care',amcTitle:'MAINTENANCE\nCONTRACTS',amcDesc:'Annual Maintenance Contracts (AMC) designed to keep your generator at peak performance year-round — with guaranteed response times and genuine OEM parts.',
-  amcStdTier:'Standard AMC',amcStdName:'Standard',amcStdF1:'4 Routine Visits / Year',amcStdF2:'24h Emergency Response Time',amcStdF3:'5% Spare Parts Discount',amcStdF4:'Genuine OEM Parts Only',amcStdF5:'Technical Report After Each Visit',
-  amcPremTier:'Premium AMC+',amcPremName:'Premium',amcPremF1:'12 Routine Visits / Year',amcPremF2:'4h Emergency Response Time',amcPremF3:'15% Spare Parts Discount',amcPremF4:'Genuine OEM Parts Only',amcPremF5:'Priority Scheduling — 24/7',
-  amcPopular:'Most Popular',
-  amcScopeLabel:'WHAT EVERY VISIT COVERS',
-  amcS1:'Engine Health Check',amcS1D:'Oil level, belts, filters, and all mechanical wear points inspected.',
-  amcS2:'Coolant & Oil Analysis',amcS2D:'Fluid condition, concentration levels, and contamination checks.',
-  amcS3:'Battery System Test',amcS3D:'Charge capacity, terminal condition, and starting circuit verification.',
-  amcS4:'24/7 Emergency Support',amcS4D:'Direct line to certified field engineers — day, night, and public holidays.',
-  certLabel:'Standards & Compliance',certTitle:'QUALITY &\nCERTIFICATIONS',certDesc:'Every project is executed under certified quality management systems and strict HSE protocols — fully compliant with Egyptian and international regulations.',
-  cert1Name:'Quality Management',cert1Desc:'Certified for consistent service delivery and customer satisfaction across all project types and sizes.',
-  cert2Name:'Generating Sets',cert2Desc:'Full compliance with reciprocating internal combustion engine driven AC generating sets standards.',
-  cert3Name:'Rotating Machinery',cert3Desc:'Rotating electrical machines standard — all alternators supplied meet IEC 60034 requirements.',
-  cert4Name:'Environmental Compliance',cert4Desc:'Full adherence to Egyptian Environmental Affairs Agency noise and emission limits on every installation.',
-  hseLabel:'HSE PROTOCOLS',
-  hse1:'Zero Accident Policy',hse1D:'Strict site safety enforcement — no exceptions for any project scale.',
-  hse2:'Mandatory PPE',hse2D:'Full personal protective equipment required for all technicians on site.',
-  hse3:'Pre-Installation Risk Assessment',hse3D:'Written risk assessment completed and signed off before every installation begins.',
-},
-ar:{
-  pageTitle:"مولدات ديزل في مصر | بريميوم باور",
-  perkinsModels:'موديلات بيركنز وقدراتها',
-  volvoModels:'موديلات فولفو بنتا وقدراتها',
-  doosanModels:'موديلات دوسان وقدراتها',
-  skipNav:'انتقل إلى المحتوى الرئيسي',
-  heroTag:'وكيل معتمد — مصر',
-  heroLine1:'مولدات',heroLine2:'ديزل',heroLine3:'مصر',
-  heroSub:'حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.',
-  heroCardTitle:'نطاق القدرة',engine:'المحرك',alternator:'المولد',heroSupport:'الدعم',heroWarranty:'الضمان',
-  scrollHint:'تمرير',
-  btnFindGen:'ابحث عن مولدك',btnContact:'تواصل معنا',btnQuote:'اطلب عرضاً',btnGeneratorQuote:'اطلب عرض سعر لمولد',btnMaintenanceAssessment:'اطلب تقييماً للصيانة',
-  navClients:'العملاء',navProducts:'المولدات',navCalc:'الحاسبة',navProjects:'المشاريع',navContact:'اتصل بنا',navHome:'الرئيسية',navServices:'الخدمات',navPortfolio:'سابقة أعمال',navLocations:'مواقعنا',navVision:'عن الشركة',navAMC:'الصيانة',navSpecs:'المواصفات',navFuel:'أنظمة الوقود',navCerts:'الشهادات',navCert:'الشهادات',
-  stat1:'مشروع مكتمل',stat2:'سنة خبرة',stat3:'عقد نشط',stat4:'ضمان وقت التشغيل',
-  clientsLabel:'عملاؤنا',clientsTitle:'موثوق بنا من قبل\nكبرى المؤسسات',clientsSub:'تشغيل العمليات الحيوية في قطاعات الرعاية الصحية والتصنيع والبنية التحتية والعقارات.',
-  client1:'هيئة الإسعاف المصرية',client2:'القناة للسكر',client3:'أب وايد — سينكو مول',client4:'سوديك — عجيمي الساحل الشمالي',
-  client5:'كونكورد — المنصورة الجديدة',client6:'أوليف لاند للزراعة',client7:'مجمع مدارس صلاح الدين',client8:'هيئة المجتمعات العمرانية الجديدة',
-  productsLabel:'كتالوج المحركات',productsTitle:'ثلاث ماركات\nمعيار واحد.',productsSub:'نتعاون حصرياً مع أكثر الشركات المصنعة لمحركات الديزل موثوقية في العالم.',
-  perkinsName:'سلسلة بيركنز',perkinsOrigin:'المملكة المتحدة · 9 ك.ف.أ – 2500 ك.ف.أ',perkinsDesc:'المعيار الصناعي للموثوقية وكفاءة استهلاك الوقود. مصممة لكل المناخات وأنماط الأحمال.',
-  volvoName:'فولفو بنتا',volvoOrigin:'السويد · 85 ك.ف.أ – 700 ك.ف.أ',volvoDesc:'دقة سويدية مع أداء متطرف. مشهورة بالاستجابة السريعة للأحمال — الخيار المفضل لمراكز البيانات والبنية التحتية الحيوية.',
-  doosanName:'دوسان',doosanOrigin:'كوريا الجنوبية · 150 ك.ف.أ – 825 ك.ف.أ',doosanDesc:'هندسة كورية متينة مبنية للطاقة الأولية المستمرة. متانة استثنائية في مواقع البناء والتصنيع والمرافق.',
-  btnSpecs:'المواصفات الفنية',btnViewSpec:'عرض الكتيب',btnAllModels:'كل الموديلات والقدرات',btnRequestQuote:'طلب عرض سعر',btnDownloadPdf:'تحميل PDF',
-  specCyl:'السلندرات',specGov:'الحاكم',specAsp:'التنفس',specMechElec:'ميكانيكي / إلكتروني',specTurbo:'توربو',specTurboInt:'توربو + مبرد',specEcu:'إلكتروني (ECU)',specTurboAfter:'توربو + مبرد لاحق',
-  servicesLabel:'خدماتنا',servicesTitle:'حلول طاقة\nكاملة',
-  svc1:'مولدات مفتوحة',svc1Desc:'هياكل صناعية متينة مع حماية كاملة من الطقس للبيئات الخارجية والمصانع.',
-  svc2:'كبائن عازلة للصوت',svc2Desc:'هياكل صوتية مخصصة بتصنيع 65 ديسيبل — مناسبة للمستشفيات والفنادق والمناطق السكنية.',
-  svc3:'لوحات الجهد المنخفض و ATS',svc3Desc:'لوحات تحويل تلقائي ولوحات مزامنة وأنظمة توزيع كاملة حسب المواصفات.',
-  svc4:'خزانات وقود خارجية',svc4Desc:'تخزين بجدار أو جدار مزدوج من 500 لتر إلى 30,000 لتر مع أنظمة كشف التسرب.',
-  svc5:'قطع غيار أصلية OEM',svc5Desc:'قطع غيار أصلية 100% لبيركنز وفولفو بنتا ودوسان — متوفرة في المخزون المحلي.',
-  svc6:'تركيب شامل',svc6Desc:'أعمال موقع كاملة: أساسات مدنية وخطوط وقود وكابلات وتشغيل واختبار أحمال.',
-  svc7:'عقود الصيانة',svc7Desc:'برامج صيانة وقائية وتصحيحية مجدولة مع استجابة طوارئ 24/7.',
-  svcCta:'تحتاج حلاً مخصصاً؟',svcCtaDesc:'تحدث مع مهندسينا للحصول على باقة طاقة مصممة خصيصاً.',svcCtaLink:'اتصل بنا ←',
-  tsLabel:'المعايير الهندسية',tsTitle:'مُصنَّع وفق\nالمواصفات',tsDesc:'كل مولد نوفره يستوفي معايير هندسية دولية صارمة — من كتلة المحرك إلى لوحة التحكم.',
-  tsEngineLabel:'معايير المحرك',tsEngineTitle:'بيركنز · فولفو · دوسان',tsCycle:'الدورة',tsCooling:'التبريد',tsInduction:'الشحن',tsGovernor:'المنظم',tsEmissions:'الانبعاثات',tsFreq:'التردد',tsVoltage:'الجهد',
-  tsAltLabel:'معايير المولد الكهربائي',tsAltTitle:'ليروي سومر · ستامفورد',tsInsul:'العزل',tsProtect:'الحماية',tsExcit:'الإثارة',tsWinding:'اللفائف',tsAVR:'منظم الجهد',tsVoltReg:'تنظيم الجهد',
-  tsCtrlLabel:'أنظمة التحكم',tsCtrlTitle:'DSE · ComAp',tsDSEDesc:'وحدات تحكم قياسية صناعية من بريطانيا',tsComApDesc:'حلول متقدمة للتزامن والتشغيل المتوازي',
-  fuelInfraLabel:'التوريد والتخزين',fuelInfraTitle:'البنية التحتية\nللوقود',fuelInfraDesc:'أنظمة توريد وقود متكاملة مصممة لضمان استقلالية ممتدة للمولد — من الاحتياطي لمدة 24 ساعة إلى الاحتياطي الحيوي لمدة 7 أيام.',
-  fuelTank1:'خزانات وقود خارجية',fuelTank1Desc:'خزانات فولاذية أسطوانية أو مستطيلة مخصصة لاستقلالية ممتدة للمولد (24 ساعة – 7 أيام). مصممة وفق معايير السلامة الدولية.',
-  fuelPiping:'شبكات أنابيب الوقود',fuelPipingDesc:'شبكات كاملة من أنابيب الفولاذ الأسود السلس (جدول 40/80) مع المصافي وصمامات الاسترجاع والصمامات الكهرومغناطيسية ومقاييس الضغط.',
-  fuelPump:'أنظمة مضخات النقل',fuelPumpDesc:'أنظمة نقل وقود أوتوماتيكية بمفاتيح عوامة ولوحات تحكم لإدارة خزانات الخدمة اليومية من التخزين الرئيسي دون تدخل يدوي.',
-  amcLabel:'الدعم والرعاية',amcTitle:'عقود\nالصيانة',amcDesc:'عقود صيانة سنوية (AMC) مصممة للحفاظ على مولدك بأعلى كفاءة على مدار العام — مع أوقات استجابة مضمونة وقطع غيار أصلية.',
-  amcStdTier:'عقد صيانة قياسي',amcStdName:'قياسي',amcStdF1:'4 زيارات دورية / السنة',amcStdF2:'وقت استجابة للطوارئ 24 ساعة',amcStdF3:'خصم 5% على قطع الغيار',amcStdF4:'قطع غيار أصلية OEM فقط',amcStdF5:'تقرير فني بعد كل زيارة',amcStdCta:'استفسر عن عقد الصيانة القياسي',
-  amcPremTier:'عقد صيانة بريميوم+',amcPremName:'بريميوم',amcPremF1:'12 زيارة دورية / السنة',amcPremF2:'وقت استجابة للطوارئ 4 ساعات',amcPremF3:'خصم 15% على قطع الغيار',amcPremF4:'قطع غيار أصلية OEM فقط',amcPremF5:'جدولة ذات أولوية — 24/7',amcPremCta:'استفسر عن عقد الصيانة بريميوم+',
-  amcPopular:'الأكثر طلباً',amcScopeLabel:'ما يشمله كل زيارة',
-  amcS1:'فحص صحة المحرك',amcS1D:'فحص مستوى الزيت والأحزمة والفلاتر وجميع نقاط التآكل الميكانيكي.',
-  amcS2:'تحليل سائل التبريد والزيت',amcS2D:'فحص حالة السوائل ومستويات التركيز واختبار التلوث.',
-  amcS3:'اختبار منظومة البطارية',amcS3D:'قدرة الشحن وحالة الأطراف والتحقق من دائرة التشغيل.',
-  amcS4:'دعم طوارئ 24/7',amcS4D:'خط مباشر لمهندسين ميدانيين معتمدين — نهاراً وليلاً وأيام العطلات الرسمية.',
-  certLabel:'المعايير والامتثال',certTitle:'الجودة\nوالشهادات',certDesc:'كل مشروع يُنفَّذ وفق أنظمة إدارة الجودة المعتمدة وبروتوكولات HSE الصارمة — متوافق تماماً مع اللوائح المصرية والدولية.',
-  cert1Name:'إدارة الجودة',cert1Desc:'معتمد لتقديم خدمة متسقة ورضا العملاء عبر جميع أنواع وأحجام المشاريع.',
-  cert2Name:'مجموعات التوليد',cert2Desc:'امتثال كامل لمعايير مجموعات التوليد بالمحركات ذات الاحتراق الداخلي.',
-  cert3Name:'الآلات الدوارة',cert3Desc:'معيار الآلات الكهربائية الدوارة — جميع المولدات المورَّدة تستوفي متطلبات IEC 60034.',
-  cert4Name:'الامتثال البيئي',cert4Desc:'الالتزام الكامل بحدود الضوضاء والانبعاثات الصادرة عن جهاز شئون البيئة المصري في كل تركيب.',
-  hseLabel:'بروتوكولات السلامة والصحة المهنية',hse1:'سياسة الصفر حوادث',hse1D:'تطبيق صارم لسلامة الموقع — لا استثناءات بصرف النظر عن حجم المشروع.',
-  hse2:'معدات الحماية الشخصية إلزامية',hse2D:'معدات الحماية الشخصية الكاملة مطلوبة لجميع التقنيين في الموقع.',
-  hse3:'تقييم المخاطر قبل التركيب',hse3D:'تقييم مخاطر مكتوب يُكتمل ويُوقَّع عليه قبل بدء كل عملية تركيب.',
-  svc8:'اختبار الحمل',svc8Desc:'اختبار احترافي بالحمل الوهمي في الموقع مع التحقق الكامل من الأداء وفق معايير IEC.',
-  svc9:'استشارة هندسية',svc9Desc:'تحليل أحمال متخصص وحسابات تحجيم ومخططات خط أحادي وحزم تصميم فني كاملة.',
-  visionLabel:'هوية الشركة',visionTitle:'من\nنحن',visionDesc:'تحتل بريميوم باور مكانة متميزة في سوق توليد الطاقة المصري — نحن لا نبيع معدات فحسب؛ بل نوفر أمان الطاقة.',
-  visionCardLabel:'الرؤية',visionStatement:'"أن نصبح الرائد الذي لا يُنازَع في حلول الطاقة الاحتياطية عبر الشرق الأوسط، ونضع معيار الموثوقية."',
-  missionCardLabel:'الرسالة',missionStatement:'"هندسة أنظمة طاقة متينة تضمن السلامة والكفاءة وصفر وقت تعطل لعمليات شركائنا الحيوية."',
-  val1:'الجودة',val1Sub:'الامتثال لمعايير ISO',val2:'السلامة',val2Sub:'سياسة الصفر أضرار',val3:'النزاهة',val3Sub:'التعامل الشفاف',val4:'السرعة',val4Sub:'وقت استجابة سريع',
-  portfolioLabel:'قائمة المراجع',portfolioTitle:'250+ مشروع\nحسب القطاع',portfolioDesc:'شركاء موثوقون في كل قطاع حيوي في مصر.',
-  sec1:'المياه والصرف الصحي',sec2:'العقارات',sec3:'الحكومي',sec4:'الزراعة',sec5:'المقاولون',sec6:'الصناعة والتجزئة',
-  locLabel:'الشبكة التشغيلية',locTitle:'نطاق تغطيتنا\nعبر مصر',
-  locFacilities:'المنشآت الاستراتيجية',locRegions:'مناطق السوق النشطة',
-  locHQTag:'الإدارة المركزية',locHQ:'المقر الرئيسي بالقاهرة',locWHTag:'مركز اللوجستيات',locWH:'المخزن الرئيسي',
-  locDeltaTag:'الدعم الإقليمي',locDelta:'فرع الدلتا',locWSTag:'وحدة التصنيع',locWS:'ورشة الأعمال المعدنية',
-  locCoverage:'تغطية وطنية',locCoverageDesc:'من مقرنا الرئيسي في القاهرة و3 منشآت إقليمية، نوفد مهندسين معتمدين وقطع غيار أصلية إلى أي محافظة داخل حدود مصر.',
-  soundOpenEquiv:'≈ آلات صناعية',tier1Label:'مفتوح',tier1Desc:'بدون كابينة',tier2Label:'قياسي',tier2Desc:'−20 ديسيبل',tier3Label:'صامت للغاية',tier3Desc:'كابينة بريميوم',
-  soundB4:'صلب ST.37 سمك 2مم + صوف صخري عالي الكثافة (>70 كجم/م³)',
-  workflowLabel:'منهجيتنا',workflowTitle:'كيف نُنجز\nعملنا',
-  step1:'المسح الميداني',step1D:'تحليل أحمال كامل وتقييم الموقع وتخطيط التهوية من قِبَل فريق هندستنا.',
-  step2:'الأعمال المدنية',step2D:'صب الأساسات وحفر قنوات الكابلات وتجهيز غرفة المولد وفق المواصفات.',
-  step3:'التسليم',step3D:'نقل آمن ووضع دقيق للمولد باستخدام معدات رفع متخصصة.',
-  step4:'التركيب',step4D:'كابلات القوى وقنوات العادم وأنابيب الوقود وتوصيل لوحة التحكم الكاملة.',
-  step5:'التشغيل',step5D:'اختبار الحمل والتحقق من السلامة والتسليم مع تدريب كامل لفريق تشغيلكم.',
-  calcLabel:'أداة تفاعلية',calcTitle:'حاسبة\nقدرة المولد',calcSub:'أدخل معداتك أدناه للحصول على تقدير فوري للـ KVA مع استهلاك الوقود والتكلفة اليومية.',
-  calcEquipment:'معداتك',calcHours:'ساعات التشغيل / يوم',calcHoursSub:'كم ساعة يعمل المولد يومياً',calcHint:'أدخل أجهزتك لرؤية حجم المولد الموصى به.',calcEstimate:'المتطلبات المقدرة',
-  ac1:'مكيف (1.5 حصان)',ac1W:'≈ 1,200 واط لكل وحدة',ac3:'مكيف (3.0 حصان)',ac3W:'≈ 2,400 واط لكل وحدة',
-  pump:'مضخة مياه (1 حصان)',pumpW:'≈ 750 واط لكل وحدة',pc:'كمبيوتر / محطة عمل',pcW:'≈ 200 واط لكل وحدة',light:'إضاءة (غرفة)',lightW:'≈ 100 واط لكل غرفة',
-  fuelLabel:'استهلاك الوقود',fuelUnit:'لتر/ساعة',costLabel:'تكلفة الوقود اليومية',
-  fuelPrice:'سعر السولار (جنيه/لتر)',
-  calcNote:'تقدير أولي: هامش 25٪ ومعامل قدرة 0.8. أحمال البدء تحتاج مراجعة هندسية. الوقود محسوب بمعامل تقريبي 0.15 لتر/ساعة لكل ك.ف.أ عند حمل 75٪، وليس قياساً لموديل محدد. عدّل سعر السولار أعلاه.',
-  calcCta:'احصل على عرض مجاني — 24 ساعة',
-  soundLabel:'الهندسة الصوتية',soundTitle:'اسمع\nالفرق',
-  soundOpen:'قياسي (مفتوح)',soundSilent:'كابينة عازلة للصوت',soundTraffic:'≈ ازدحام مروري',soundOffice:'≈ هدوء مكتبة',
-  soundDesc:'تعمل كبائننا الكاتمة للصوت المصنعة خصيصاً على تقليل ضوضاء المولد بشكل كبير، مما يجعلها قابلة للنشر في البيئات التي تكون فيها الوحدات القياسية غير عملية.',
-  soundB1:'مناسبة للمناطق السكنية والمستشفيات',soundB2:'مصممة للوصول إلى ≤ 65 ديسيبل على مسافة 1 متر',soundB3:'أبعاد مخصصة لأي موديل مولد',soundB4:'تشمل أبواب وصول للصيانة',
-  projectsLabel:'أعمالنا الأخيرة',projectsTitle:'تركيبات\nعبر مصر',
-  proj1Loc:'القاهرة الجديدة',proj1Title:'دعم مركز طبي',proj1Desc:'2 × 500 ك.ف.أ بيركنز مع لوحة تزامن ATS كاملة وتكامل UPS.',
-  proj2Loc:'العاصمة الإدارية',proj2Title:'طاقة مواقع البناء',proj2Desc:'4 × 250 ك.ف.أ فولفو بنتا لتشغيل مشروع سكني ضخم.',
-  proj3Loc:'المعادي',proj3Title:'مركز بيانات البنك',proj3Desc:'1000 ك.ف.أ دوسان في كابينة عازلة للصوت (65 ديسيبل) لمركز بيانات بنكي.',
-  galleryLabel:'معرض أعمالنا',galleryTitle:'معرض\nالمولدات',
-  compLabel:'لماذا تختارنا',compTitle:'الفرق\nالمميز',
-  compFeature:'الميزة',compUs:'بريميوم باور ✦',compThem:'المنافس العادي',compUsSub:'ما تحصل عليه',compThemSub:'ما تقبل به',compRecommended:'الأفضل',
-  compR1:'وقت الاستجابة للطوارئ',compR1Us:'خلال 24 ساعة',compR1Them:'3–5 أيام (غالباً أطول)',
-  compR2:'أصالة قطع الغيار',compR2Us:'أصلية 100% (OEM)',compR2Them:'ما بعد البيع / عامة',
-  compR3:'الضمان',compR3Us:'سنة واحدة / 1,000 ساعة',compR3Them:'6 أشهر أو أقل',
-  compR4:'الفنيون',compR4Us:'مهندسون معتمدون',compR4Them:'عمالة متعاقدة',
-  compR5:'اختبار الحمل',compR5Us:'مضمن دائماً',compR5Them:'اختياري / رسوم إضافية',
-  faqLabel:'أسئلة شائعة',faqTitle:'الأسئلة\nالمتكررة',
-  contactLabel:'تواصل معنا',contactTitle:'لنشغّل\nمشروعك',
-  contactSub:'تواصل مع فريقنا لطلب عرض سعر لمولد أو تقييم للصيانة. شارك احتياجات موقعك وسنساعدك في تحديد الخطوة التالية.',
-  ctPhone:'الهاتف',ctEmail:'البريد الإلكتروني',ctAddress:'العنوان',ctHours:'ساعات العمل',ctHoursVal:'الأحد – الخميس، 9:00 صباحاً – 5:00 مساءً',
-  formTitle:'إرسال استفسار',fName:'اسمك',fNamePlaceholder:'محمد أحمد',fPhone:'رقم الهاتف',fPhonePlaceholder:'01XXXXXXXXX',fLocation:'موقع المشروع',fLocationPlaceholder:'القاهرة / المحافظة',fType:'نوع الاستفسار',fTypeSales:'عرض سعر لمولد',fTypeMaintenance:'تقييم للصيانة',fPlan:'خطة الصيانة',fPlanAssessment:'التقييم أولاً',fPlanStandard:'عقد الصيانة القياسي',fPlanPremium:'عقد الصيانة بريميوم+',fMessage:'الرسالة',fMessagePlaceholder:'اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري).',fNote:'شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.',fSubmit:'إرسال الاستفسار ←',
-  fDataUse:'نستخدم البيانات التي تقدمها للرد على استفسارك.',fFallbackLabel:'إذا تعذر إرسال النموذج،',fFallbackCall:'اتصل على 012 2968 8688',fFallbackOr:'أو',fFallbackWhatsapp:'راسلنا عبر واتساب',
-  pdfMobile:'معاينة PDF غير متاحة على الجوال. حمّل الملف للمشاهدة.',
-  footerTagline:'تقديم حلول مولدات هندسية بأداء موثوق ودعم احترافي منذ 2006.',
-  footerProducts:'المنتجات',footerCompany:'الشركة',footerSoundproof:'كبائن عازلة للصوت',footerParts:'قطع غيار OEM',
-  footerProcess:'منهجيتنا',footerProjects:'المشاريع',footerWhy:'لماذا نحن',footerContact:'اتصل بنا',footerCalc:'حاسبة القدرة',
-  notifTitle:'تم الإرسال',notifClose:'إغلاق',
-  formSuccess:'تم إرسال رسالتك. سنتواصل معك خلال 24 ساعة.',
-  formInvalidPhone:'الرجاء إدخال رقم هاتف مصري صحيح (مثال: 01XXXXXXXXX)',
-  chatSales:'استفسار مبيعات',chatEmergency:'طوارئ 24/7',
-  tsLabel:'المعايير الهندسية',tsTitle:'مبني وفق\nالمواصفات',tsDesc:'كل مولد نوفره يلتزم بمعايير هندسية دولية صارمة — من كتلة المحرك حتى لوحة التحكم.',
-  tsEngineLabel:'معايير المحرك',tsEngineTitle:'بيركنز · فولفو · دوسان',tsCycle:'الدورة',tsCooling:'التبريد',tsInduction:'الشحن',tsGovernor:'الحاكم',tsEmissions:'الانبعاثات',tsFreq:'التردد',tsVoltage:'الجهد',
-  tsAltLabel:'معايير المولد الكهربائي',tsAltTitle:'ليروي سومر · ستامفورد',tsInsul:'العزل',tsProtect:'الحماية',tsExcit:'الإثارة',tsWinding:'اللفائف',tsAVR:'منظم الجهد',tsVoltReg:'دقة الجهد',
-  tsCtrlLabel:'أنظمة التحكم',tsCtrlTitle:'DSE · ComAp',tsDSEDesc:'وحدات تحكم صناعية قياسية صنع بريطاني',tsComApDesc:'حلول مزامنة وتشغيل متوازي متقدمة',
-  fuelInfraLabel:'التوريد والتخزين',fuelInfraTitle:'البنية التحتية\nللوقود',fuelInfraDesc:'أنظمة وقود متكاملة مصممة لضمان استمرارية تشغيل المولدات — من الاحتياطي لمدة 24 ساعة حتى 7 أيام.',
-  fuelTank1:'خزانات الوقود الخارجية',fuelTank1Desc:'خزانات فولاذية أسطوانية أو مستطيلة مصنعة خصيصاً لتشغيل المولدات (24 ساعة – 7 أيام). مصممة وفق معايير السلامة الدولية.',
-  fuelPiping:'شبكات أنابيب الوقود',fuelPipingDesc:'شبكات أنابيب فولاذية سلسة كاملة (جدول 40/80) مع مصافي وصمامات عدم رجوع وصمامات ملاشي ومقاييس ضغط.',
-  fuelPump:'أنظمة مضخات النقل',fuelPumpDesc:'أنظمة نقل وقود أوتوماتيكية مع عوامات وألواح تحكم لإدارة خزانات الخدمة اليومية من التخزين الرئيسي دون تدخل يدوي.',
-  amcLabel:'الدعم والرعاية',amcTitle:'عقود\nالصيانة',amcDesc:'عقود صيانة سنوية (AMC) مصممة للحفاظ على مولدك عند أعلى مستويات الأداء طوال العام — مع أوقات استجابة مضمونة وقطع غيار OEM أصلية.',
-  amcStdTier:'عقد صيانة قياسي',amcStdName:'القياسي',amcStdF1:'4 زيارات دورية / السنة',amcStdF2:'وقت استجابة للطوارئ 24 ساعة',amcStdF3:'خصم 5% على قطع الغيار',amcStdF4:'قطع غيار OEM أصلية فقط',amcStdF5:'تقرير فني بعد كل زيارة',
-  amcPremTier:'عقد صيانة بريميوم+',amcPremName:'البريميوم',amcPremF1:'12 زيارة دورية / السنة',amcPremF2:'وقت استجابة للطوارئ 4 ساعات',amcPremF3:'خصم 15% على قطع الغيار',amcPremF4:'قطع غيار OEM أصلية فقط',amcPremF5:'جدولة أولوية — 24/7',
-  amcPopular:'الأكثر طلباً',
-  amcScopeLabel:'ما يشمله كل زيارة',
-  amcS1:'فحص صحة المحرك',amcS1D:'فحص مستوى الزيت والأحزمة والفلاتر وجميع نقاط التآكل الميكانيكية.',
-  amcS2:'تحليل سائل التبريد والزيت',amcS2D:'حالة السوائل ومستويات التركيز وفحوصات التلوث.',
-  amcS3:'اختبار نظام البطارية',amcS3D:'سعة الشحن وحالة الأطراف والتحقق من دارة التشغيل.',
-  amcS4:'دعم طوارئ 24/7',amcS4D:'خط مباشر لمهندسين ميدانيين معتمدين — ليلاً ونهاراً وفي العطلات.',
-  certLabel:'المعايير والامتثال',certTitle:'الجودة\nوالشهادات',certDesc:'كل مشروع يُنفَّذ وفق أنظمة إدارة جودة معتمدة وبروتوكولات HSE صارمة — متوافقة تماماً مع اللوائح المصرية والدولية.',
-  cert1Name:'إدارة الجودة',cert1Desc:'معتمدة لتقديم خدمة متسقة ورضا عملاء عالٍ في جميع أنواع المشاريع.',
-  cert2Name:'مجموعات التوليد',cert2Desc:'امتثال كامل لمعايير مجموعات توليد التيار المتردد ذات المحرك الداخلي ذات الحركة الترددية.',
-  cert3Name:'الآلات الدوارة',cert3Desc:'معيار الآلات الكهربائية الدوارة — جميع المولدات الكهربائية المقدمة تلتزم بمتطلبات IEC 60034.',
-  cert4Name:'الامتثال البيئي',cert4Desc:'التزام كامل بحدود الضوضاء والانبعاثات الصادرة عن جهاز شئون البيئة المصري في كل تركيب.',
-  hseLabel:'بروتوكولات HSE',
-  hse1:'سياسة الصفر حوادث',hse1D:'تطبيق صارم لسلامة الموقع — بلا استثناءات لأي حجم مشروع.',
-  hse2:'معدات الحماية الشخصية إلزامية',hse2D:'معدات الحماية الشخصية الكاملة مطلوبة لجميع الفنيين في الموقع.',
-  hse3:'تقييم المخاطر قبل التركيب',hse3D:'تقييم مخاطر مكتوب يُكمل ويُعتمد قبل بدء أي تركيب.',
-}};
-
-// ── FAQ data ─────────────────────────────────────────────────────
-const FAQS=[
-  {
-    q_en:'How long does delivery and installation take?',
-    a_en:'Standard delivery and installation is completed within 7–15 working days depending on the generator model and site logistics. Larger projects requiring civil works may take 3–4 weeks.',
-    q_ar:'كم تستغرق عملية التوصيل والتركيب؟',
-    a_ar:'يتراوح وقت التسليم والتركيب القياسي من 7 إلى 15 يوم عمل حسب طراز المولد ولوجستيات الموقع. المشاريع الأكبر التي تتطلب أعمالاً مدنية قد تستغرق 3–4 أسابيع.'
-  },
-  {
-    q_en:'Do you provide ATS panels and full turnkey installation?',
-    a_en:'Yes — we offer complete turnkey installation including site assessment, civil foundation, cabling, ATS panels, fuel piping, and commissioning. Civil works is included as a standard part of our service, not an optional extra.',
-    q_ar:'هل تقدمون لوحات ATS والتركيب المتكامل؟',
-    a_ar:'نعم، نقدم تركيباً كاملاً يشمل تقييم الموقع والأساسات المدنية والكابلات ولوحات ATS وأنابيب الوقود والتشغيل. الأعمال المدنية مدرجة كجزء قياسي من خدمتنا وليست إضافية.'
-  },
-  {
-    q_en:'What is the warranty on your generators?',
-    a_en:'We provide a standard warranty of 1 year or 1,000 operating hours covering manufacturing defects in the engine and alternator. An extended warranty with unlimited operating hours is available as an upgrade.',
-    q_ar:'ما هي فترة ضمان المولدات؟',
-    a_ar:'نقدم ضماناً قياسياً لمدة عام أو 1,000 ساعة تشغيل يغطي عيوب التصنيع في المحرك والمولد الكهربائي. ضمان ممتد بساعات تشغيل غير محدودة متاح كترقية.'
-  },
-  {
-    q_en:'Are your spare parts 100% genuine OEM?',
-    a_en:'Yes — we guarantee 100% genuine OEM spare parts for Perkins, Volvo Penta, and Doosan. Every part comes with a Certificate of Origin. We do not use aftermarket or generic alternatives.',
-    q_ar:'هل قطع الغيار أصلية 100% من الشركة الأم؟',
-    a_ar:'نعم، نضمن قطع غيار OEM أصلية 100% لبيركنز وفولفو بنتا ودوسان. كل قطعة تأتي بشهادة منشأ. لا نستخدم بدائل من الطرف الثالث أو قطعاً عامة.'
-  },
-  {
-    q_en:'What maintenance contract options are available?',
-    a_en:'We offer two AMC tiers. Standard: 4 visits/year, 24h emergency response, 5% parts discount. Premium+: 12 visits/year, 4h emergency response, 15% parts discount, and priority scheduling. Both include genuine OEM parts and a technical report after every visit.',
-    q_ar:'ما خيارات عقود الصيانة السنوية المتاحة؟',
-    a_ar:'نقدم مستويين من عقود AMC. القياسي: 4 زيارات/سنة، استجابة طوارئ 24 ساعة، خصم 5% على القطع. البريميوم+: 12 زيارة/سنة، استجابة طوارئ 4 ساعات، خصم 15% على القطع وجدولة أولوية. كلاهما يشمل قطع OEM أصلية وتقريراً فنياً بعد كل زيارة.'
-  },
-  {
-    q_en:'Can you supply soundproof canopies for residential or hospital use?',
-    a_en:'Yes — we fabricate custom soundproof canopies locally using 2mm ST.37 steel with high-density Rockwool insulation (>70 kg/m³). Our Super Silent canopy reduces noise to 65 dB at 1 meter, making it fully suitable for hospitals, hotels, and residential compounds.',
-    q_ar:'هل يمكنكم توريد كبائن عازلة للصوت للاستخدام السكني أو في المستشفيات؟',
-    a_ar:'نعم، نصنع كبائن عازلة للصوت مخصصة محلياً باستخدام فولاذ ST.37 سمك 2 مم مع عزل صوف صخري عالي الكثافة (>70 كجم/م³). تقلل كابينتنا فائقة الصمت الضوضاء إلى 65 ديسيبل على مسافة متر واحد.'
-  },
-  {
-    q_en:'Do you offer synchronization for multiple generators?',
-    a_en:'Yes — we design and install advanced synchronization panels for multi-generator setups, including load sharing, totalizing panels, and Grid-Sync for peak looping applications. We use ComAp InteliGen controllers for parallel operation.',
-    q_ar:'هل تقدمون خدمات المزامنة بين عدة مولدات؟',
-    a_ar:'نعم، نصمم وننصب لوحات مزامنة متقدمة لإعدادات متعددة المولدات، تشمل مشاركة الأحمال ولوحات التجميع وـGrid-Sync لتطبيقات قطع الذروة، باستخدام وحدات تحكم ComAp InteliGen.'
-  },
-  {
-    q_en:'What fuel storage solutions do you provide?',
-    a_en:'We supply custom cylindrical and rectangular steel fuel tanks from 500L to 30,000L (single and double-wall). We also install complete Schedule 40/80 fuel piping networks and automatic transfer pump systems with float switches for unattended operation.',
-    q_ar:'ما حلول تخزين الوقود التي تقدمونها؟',
-    a_ar:'نوفر خزانات وقود فولاذية أسطوانية ومستطيلة مخصصة من 500 لتر إلى 30,000 لتر (جدار مفرد ومزدوج). كما نركب شبكات أنابيب وقود كاملة من النوع 40/80 وأنظمة مضخات نقل أوتوماتيكية.'
-  },
-  {
-    q_en:'Which areas of Egypt do you cover?',
-    a_en:'We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in 6th of October City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.',
-    q_ar:'ما المناطق التي تغطونها في مصر؟',
-    a_ar:'نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي ومنيا الصحراء.'
-  },
-  {
-    q_en:'Can you handle SCADA integration and remote monitoring?',
-    a_en:'Yes — we design and install SCADA and remote monitoring systems using GSM/Ethernet modules linked to BMS infrastructure. Features include cloud-based logging, SMS alerts, and real-time asset monitoring accessible from any device.',
-    q_ar:'هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟',
-    a_ar:'نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز.'
-  },
-];
-
-// ── PDF config ───────────────────────────────────────────────────
-const PDFS={
-  perkins:{file:'/perkins-specs.pdf',title:'Perkins Series — Technical Specification Sheet',title_ar:'بيركنز — كتيب المواصفات الفنية'},
-  volvo:  {file:'/volvo-specs.pdf',  title:'Volvo Penta — Technical Specification Sheet',  title_ar:'فولفو بنتا — كتيب المواصفات الفنية'},
-  doosan: {file:'/doosan-specs.pdf', title:'Doosan — Technical Specification Sheet',        title_ar:'دوسان — كتيب المواصفات الفنية'},
-};
-
-// ── Reveal on scroll ─────────────────────────────────────────────
-const revealObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-// ── Counter animation ────────────────────────────────────────────
-const counterObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{
-    if(!e.isIntersecting) return;
-    const el=e.target, target=parseInt(el.dataset.target,10);
-    const suffix=el.textContent.replace(/[0-9]/g,'');
-    let t0=null;
-    (function step(ts){
-      if(!t0)t0=ts;
-      const p=Math.min((ts-t0)/1800,1), ease=1-Math.pow(1-p,3);
-      el.textContent=Math.floor(ease*target)+suffix;
-      if(p<1) requestAnimationFrame(step);
-    })(performance.now());
-    counterObs.unobserve(el);
-  });
-},{threshold:.5});
-document.querySelectorAll('.counter').forEach(el=>counterObs.observe(el));
-
-// ── Hero bar animation ───────────────────────────────────────────
-setTimeout(()=>{
-  const b=document.getElementById('hero-bar-fill');
-  if(b) b.style.width='87%';
-},600);
-
-// ── Navbar scroll ────────────────────────────────────────────────
-const nav=document.getElementById('navbar');
-window.addEventListener('scroll',()=>{
-  if(!scrollTick){
-    requestAnimationFrame(()=>{
-      nav.classList.toggle('scrolled',window.scrollY>30);
-      scrollTick=false;
-    });
-    scrollTick=true;
-  }
-},{passive:true});
-
-// ── Mobile menu ──────────────────────────────────────────────────
-function toggleMenu(){
-  const m=document.getElementById('mobile-menu');
-  const open=m.classList.toggle('open');
-  document.getElementById('hamburger-btn').setAttribute('aria-expanded',open);
-  document.body.style.overflow=open?'hidden':'';
-  if(open){const a=m.querySelector('a');if(a)a.focus();}
-  else document.getElementById('hamburger-btn').focus();
-}
-
-// ── FAB ──────────────────────────────────────────────────────────
-function toggleFab(){
-  const o=document.getElementById('fab-options');
-  const btn=document.querySelector('.fab-trigger');
-  const open=o.classList.toggle('open');
-  btn.setAttribute('aria-expanded',open);
-}
-
-// ── Spec accordion ───────────────────────────────────────────────
-function toggleSpec(id){
-  const body=document.getElementById(id);
-  const arrow=document.getElementById('sarrow-'+id.replace('spec-',''));
-  const btn=body.previousElementSibling;
-  const isOpen=body.classList.contains('open');
-  document.querySelectorAll('.spec-body').forEach(b=>{
-    if(b.id!==id){b.classList.remove('open');const a=b.previousElementSibling;if(a)a.setAttribute('aria-expanded','false');}
-  });
-  document.querySelectorAll('.spec-arrow').forEach(a=>{
-    if(a.id!=='sarrow-'+id.replace('spec-','')) a.textContent='▼';
-  });
-  body.classList.toggle('open',!isOpen);
-  if(arrow) arrow.textContent=isOpen?'▼':'▲';
-  btn.setAttribute('aria-expanded',!isOpen);
-}
-
-// ── Sound visualizer ─────────────────────────────────────────────
-function setSound(mode){
-  const fill=document.getElementById('sound-fill');
-  const db=document.getElementById('sound-db');
-  const equiv=document.getElementById('sound-equiv');
-  const t=T[lang];
-  ['open','standard','silent'].forEach(id=>{
-    const el=document.getElementById('tier-'+id);
-    if(el){el.classList.remove('active');el.setAttribute('aria-selected','false');el.style.borderTopColor='transparent';}
-  });
-  const active=document.getElementById('tier-'+mode);
-  if(active){active.classList.add('active');active.setAttribute('aria-selected','true');}
-  if(mode==='open'){
-    fill.style.width='100%';fill.style.background='#D94444';
-    db.style.color='#D94444';db.textContent='105 dB';
-    equiv.textContent=t.soundOpenEquiv||'≈ Industrial Machinery';
-    if(active)active.style.borderTopColor='#D94444';
-  } else if(mode==='standard'){
-    fill.style.width='70%';fill.style.background='#E09020';
-    db.style.color='#E09020';db.textContent='85 dB';
-    equiv.textContent=t.soundTraffic||'≈ Heavy Traffic';
-    if(active)active.style.borderTopColor='#E09020';
-  } else {
-    fill.style.width='45%';fill.style.background='#3A9060';
-    db.style.color='#3A9060';db.textContent='65 dB';
-    equiv.textContent=t.soundOffice||'≈ Library Quiet';
-    if(active)active.style.borderTopColor='#3A9060';
-  }
-}
-
-// ── PDF modal ────────────────────────────────────────────────────
-function openPdf(brand){
-  const c=PDFS[brand]; if(!c) return;
-  document.getElementById('pdf-modal-title').textContent=lang==='ar'?c.title_ar:c.title;
-  document.getElementById('pdf-iframe').src=c.file;
-  document.getElementById('pdf-dl-btn').href=c.file;
-  document.getElementById('pdf-dl-btn').download=c.file;
-  document.getElementById('pdf-mobile-dl').href=c.file;
-  document.getElementById('pdf-mobile-dl').download=c.file;
-  document.getElementById('pdf-modal').classList.add('open');
-  document.body.style.overflow='hidden';
-}
-function closePdf(){
-  document.getElementById('pdf-modal').classList.remove('open');
-  document.body.style.overflow='';
-  setTimeout(()=>{document.getElementById('pdf-iframe').src='';},300);
-}
-
-// ── Calculator ───────────────────────────────────────────────────
-function calcKVA(){
-  const v=(id,max,decimal=false)=>{
-    const input=document.getElementById(id);
-    const number=Number(input.value);
-    const value=Number.isFinite(number)?Math.max(0,Math.min(max,decimal?number:Math.floor(number))):0;
-    if(input.value!=='' && String(value)!==input.value) input.value=String(value);
-    return value;
-  };
-  const watts=v('c-ac1',50)*1200+v('c-ac3',50)*2400+v('c-pump',50)*750+v('c-pc',50)*200+v('c-light',50)*100;
-  const kva=Math.ceil(watts/1000/0.8*1.25);
-  const fuel=Math.round(kva*.15*10)/10;
-  const hours=v('c-hours',24), price=v('c-price',1000,true);
-  document.getElementById('r-kva').textContent=kva;
-  document.getElementById('r-fuel').textContent=fuel;
-  document.getElementById('r-cost').textContent=hours>0?Math.round(fuel*hours*price).toLocaleString(lang==='ar'?'ar-EG':'en-GB'):'—';
-  document.getElementById('calc-placeholder').style.display=kva>0?'none':'block';
-  document.getElementById('calc-result').style.display=kva>0?'flex':'none';
-  return kva;
-}
-
-// Keep product context separate from the customer's own message.
-function requestQuote(brand){
-  const kva=calcKVA();
-  if(!window.PremiumPowerEnquiry.open('sales')) return;
-  window.PremiumPowerEnquiry.setProduct({brand:brand||'',capacity:kva||''});
-}
-
-// ── Contact form ─────────────────────────────────────────────────
-function submitForm(e){
-  return window.PremiumPowerEnquiry.submitForm(e);
-}
-
-// ── Enquiry path entry point ─────────────────────────────────────
-function openEnquiry(type,plan){
-  return window.PremiumPowerEnquiry.open(type,plan);
-}
-
-// ── Notification ─────────────────────────────────────────────────
-function showNotif(msg){
-  document.getElementById('notif-msg').textContent=msg;
-  document.getElementById('notif').classList.add('open');
-}
-function closeNotif(){ document.getElementById('notif').classList.remove('open'); }
-
-// ── FAQ render ───────────────────────────────────────────────────
-function renderFAQs(){
-  const c=document.getElementById('faq-list'); c.replaceChildren();
-  FAQS.forEach(item=>{
-    const details=document.createElement('details');
-    details.className='faq-item'; details.name='home-faq';
-    const question=document.createElement('summary'); question.className='faq-q';
-    question.textContent=item['q_'+lang];
-    const answer=document.createElement('p'); answer.textContent=item['a_'+lang];
-    details.append(question,answer); c.appendChild(details);
-  });
-}
-
-// ── Language switch ──────────────────────────────────────────────
-function switchLanguage(l){
-  lang=l;
-  const t=T[l];
-  document.documentElement.lang=l;
-  document.title=t.pageTitle;
-  if(l==='ar'){ document.body.dir='rtl'; document.body.classList.add('rtl'); }
-  else { document.body.dir='ltr'; document.body.classList.remove('rtl'); }
-  document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const k=el.getAttribute('data-i18n');
-    if(t[k]===undefined) return;
-    // Section titles carry a \n line break; the part after it takes the accent colour.
-    el.innerHTML = el.classList.contains('sec-title')
-      ? t[k].split('\n').map((part,i)=> i ? '<span class="accent">'+part+'</span>' : part).join('<br>')
-      : t[k];
-  });
-  document.querySelectorAll('[data-i18n-placeholder]').forEach(el=>{
-    const k=el.getAttribute('data-i18n-placeholder');
-    if(t[k]!==undefined) el.setAttribute('placeholder',t[k]);
-  });
-  if(window.PremiumPowerEnquiry&&typeof window.PremiumPowerEnquiry.refreshLanguage==='function'){
-    window.PremiumPowerEnquiry.refreshLanguage();
-  }
-  renderFAQs();
-  // refresh sound
-  const ts=document.getElementById('tier-silent'),tsStd=document.getElementById('tier-standard');
-  setSound(ts&&ts.getAttribute('aria-selected')==='true'?'silent':tsStd&&tsStd.getAttribute('aria-selected')==='true'?'standard':'open');
-}
-
-// ── ESC key ──────────────────────────────────────────────────────
-document.addEventListener('keydown',e=>{
-  const menu=document.getElementById('mobile-menu');
-  if(e.key==='Tab' && menu.classList.contains('open')){
-    const items=Array.from(menu.querySelectorAll('a, button'));
-    const first=items[0],last=items[items.length-1];
-    if(e.shiftKey && document.activeElement===first){ e.preventDefault(); last.focus(); }
-    else if(!e.shiftKey && document.activeElement===last){ e.preventDefault(); first.focus(); }
-  }
-  if(e.key==='Escape'){
-    closePdf();
-    closeNotif();
-    const m=document.getElementById('mobile-menu');
-    if(m.classList.contains('open')) toggleMenu();
-  }
-});
-
-// ── Click outside FAB ────────────────────────────────────────────
-document.addEventListener('click',e=>{
-  const fab=document.getElementById('fab-menu');
-  if(!fab.contains(e.target)) { document.getElementById('fab-options').classList.remove('open'); document.querySelector('.fab-trigger').setAttribute('aria-expanded','false'); }
-});
-
-// ── Init ─────────────────────────────────────────────────────────
-switchLanguage('ar');
-
-// A brand page hands the form its context through /?brand=Perkins#contact.
-// Matched against the known marques rather than used as given, so the query
-// string cannot put arbitrary text into the enquiry.
-const wantedBrand=new URLSearchParams(location.search).get('brand');
-if(wantedBrand){
-  const known=['Perkins','Volvo Penta','Doosan']
-    .find(b=>b.toLowerCase()===wantedBrand.trim().toLowerCase());
-  if(known){
-    window.PremiumPowerEnquiry.open('sales');
-    window.PremiumPowerEnquiry.setProduct({brand:known});
-  }
-}
-
-// ── Expose ─────────────────────────────────────────────────────
-window.app={
-  toggleMenu,toggleFab,toggleSpec,setSound,
-  openPdf,closePdf,calcKVA,requestQuote,openEnquiry,
-  submitForm,closeNotif,switchLanguage
-};
-
-})();
-</script>
+<script src="/enquiry-config.js?v=20260908-1" defer></script>
+<script src="/enquiry.js?v=20261028" defer></script>
+<script src="/assets/home.js?v=8da795d6e5b0" defer></script>
 </body>
 </html>

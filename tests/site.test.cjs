@@ -116,7 +116,7 @@ test('Arabic links and static translated forms stay Arabic before scripts run',(
  const home=new JSDOM(fs.readFileSync(path.join(root,'ar/index.html'),'utf8'));
  try{const links=home.window.document.querySelectorAll('a[data-i18n$="Models"]');assert.equal(links.length,3);for(const a of links)assert.match(a.getAttribute('href'),/^\/ar\//);
  assert.equal(home.window.document.querySelector('[data-i18n="fuelPrice"]').textContent,'سعر السولار (جنيه/لتر)');
- assert.match(home.window.document.querySelector('[data-i18n="heroSub"]').textContent,/حلول/);
+ assert.match(home.window.document.querySelector('[data-i18n="heroSub"]').textContent,/مولدات/);
  }finally{home.window.close();}
 });
 

@@ -23,95 +23,137 @@ BRANDS = {
 WHY = {
     "perkins": {
         "en": "Perkins has the widest Prime rating span in these three catalogues, from 20 to 1000 kVA across 18 models. Compare the engine and alternator codes as well as the kVA rating: different models suit different load requirements. Confirm starting loads, running hours and site conditions with our team before choosing a set.",
-        "ar": "تضم بيركنز أوسع نطاق للقدرة المستمرة في الكتالوجات الثلاثة: 18 موديلاً من 20 إلى 1000 ك.ف.أ. قارن كود المحرك والألترنيتور إلى جانب القدرة، ثم راجع أحمال بدء التشغيل وساعات العمل وظروف الموقع مع فريقنا قبل اختيار الوحدة.",
+        "ar": "تضم بيركنز أوسع نطاق للقدرة المستمرة في الكتالوجات الثلاثة: 18 موديلًا من 20 إلى 1000 ك.ف.أ. قارن كود المحرك والألترنيتور، ثم راجع أحمال بدء التشغيل وساعات العمل وظروف الموقع مع فريقنا قبل الاختيار.",
     },
     "volvo": {
         "en": "The Volvo Penta catalogue lists 13 models from 100 to 700 kVA Prime. Use the table to compare the engine codes and the separate Prime and Standby ratings. For applications with sensitive equipment or large starting loads, ask our team to assess the load profile and control requirements before specifying the generator.",
-        "ar": "يعرض كتالوج فولفو بنتا 13 موديلاً من 100 إلى 700 ك.ف.أ قدرة مستمرة. قارن أكواد المحركات وقدرات التشغيل المستمر والطوارئ في الجدول. عند تغذية معدات حساسة أو أحمال بدء كبيرة، اطلب من فريقنا مراجعة طبيعة الأحمال ومتطلبات التحكم قبل تحديد المولد.",
+        "ar": "يعرض كتالوج فولفو بنتا 13 موديلًا من 100 إلى 700 ك.ف.أ لتصنيف Prime. قارن أكواد المحركات وقدرتي Prime وStandby في الجدول. عند وجود معدات حساسة أو أحمال بدء كبيرة، ناقش طبيعة الأحمال ومتطلبات التحكم مع فريقنا قبل تحديد الموديل.",
     },
     "doosan": {
         "en": "The Doosan catalogue covers nine models from 165 to 804 kVA Prime. Each row identifies the engine, alternator and both operating ratings so you can compare a shortlist for your project. If the generator will run for long periods, confirm the duty rating and maintenance schedule against the selected engine documentation.",
-        "ar": "يغطي كتالوج دوسان تسعة موديلات من 165 إلى 804 ك.ف.أ قدرة مستمرة. يوضح كل صف المحرك والألترنيتور وقدرتي التشغيل لتكوين قائمة مناسبة لمشروعك. إذا كان المولد سيعمل لساعات طويلة، تأكد من تصنيف التشغيل وجدول الصيانة بالرجوع إلى مستندات المحرك المختار.",
+        "ar": "يغطي كتالوج دوسان تسعة موديلات من 165 إلى 804 ك.ف.أ لتصنيف Prime. يوضح كل صف كود المحرك والألترنيتور وقدرتي Prime وStandby. إذا كان المولد سيعمل لساعات طويلة، راجع تصنيف التشغيل وجدول الصيانة في وثائق المحرك المختار.",
     },
 }
 
 # Copy that has no source in index.html or the PDFs.
-UI = {
-    "en": {
-        "dir": "ltr", "home": "Home", "generators": "Generators",
-        "range": "Model Range", "rangeNote":
-            "Ratings at 50 Hz, 400/230 V, 0.8 power factor. Prime (PRP) is continuous "
-            "supply at variable load for unlimited hours, with 10% overload available for "
-            "one hour in every twelve. Standby (ESP) covers the duration of a utility "
-            "outage and permits no overload.",
-        "model": "Model", "engine": "Engine", "alt": "Alternator",
-        "prime": "Prime kVA", "standby": "Standby kVA",
-        "specs": "Technical Specifications",
-        "provide": "Supplied With Every Set",
-        "pdf": "Download the full catalogue (PDF)",
-        "quote": "Request a Quote",
-        "backHome": "Back to the main site",
-        "distributor": "Authorized Distributor in Egypt",
-        "modelsCount": "{n} models · {lo}–{hi} kVA",
-        "why": "Why {brand}", "popular": "Most Requested",
-        "faq": "Common Questions",
-        "rangeAvail": "The table lists the main models. Ratings from {lo} to {hi} kVA are "
-                      "available; models outside the table are supplied to order.",
-        "q1": "What is the difference between the Prime and Standby ratings?",
-        "a1": "Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% "
-              "overload available for one hour in every twelve. Standby (ESP) covers only the "
-              "duration of a utility outage and permits no overload. Both figures are listed "
-              "against every model in the table above.",
-        "q2": "Which engines are used across the {brand} range?",
-        "a2": "The range is built on these {brand} engines: {engines}. Each one is listed "
-              "against the rating it drives in the table above.",
-        "q3": "Which alternator is fitted?",
-        "a3": "{alt}, with {ins} insulation and {exc} excitation.",
-        "q4": "Which control panel is supplied?",
-        "a4": "{ctrl}. The panel is configured for the application, whether that is a single set, "
-              "an automatic transfer scheme or a synchronised installation.",
-    },
-    "ar": {
-        "dir": "rtl", "home": "الرئيسية", "generators": "المولدات",
-        "range": "نطاق الموديلات", "rangeNote":
-            "القدرات على تردد 50 هرتز، جهد 400/230 فولت، معامل قدرة 0.8. القدرة المستمرة (PRP) "
-            "هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل زيادة 10% لمدة ساعة كل "
-            "اثنتي عشرة ساعة. قدرة الطوارئ (ESP) تغطي مدة انقطاع الشبكة ولا تسمح بأي زيادة حمل.",
-        "model": "الموديل", "engine": "الموتور", "alt": "المولد",
-        "prime": "القدرة المستمرة (ك.ف.أ)", "standby": "قدرة الطوارئ (ك.ف.أ)",
-        "specs": "المواصفات الفنية",
-        "provide": "يُورَّد مع كل وحدة",
-        "pdf": "تحميل الكتالوج الكامل (PDF)",
-        "quote": "اطلب عرض سعر",
-        "backHome": "العودة للموقع الرئيسي",
-        "distributor": "موزّع معتمد في مصر",
-        "modelsCount": "{n} موديل · {lo}–{hi} ك.ف.أ",
-        "why": "لماذا {brand}؟", "popular": "الأكثر طلباً",
-        "faq": "أسئلة شائعة",
-        "rangeAvail": "الجدول يعرض الموديلات الأساسية. القدرات من {lo} إلى {hi} ك.ف.أ متاحة، "
-                      "والموديلات خارج الجدول تُورَّد حسب الطلب.",
-        "q1": "ما الفرق بين القدرة المستمرة وقدرة الطوارئ؟",
-        "a1": "القدرة المستمرة (PRP) هي التغذية المستمرة بحمل متغير لساعات غير محدودة، مع تحمّل "
-              "زيادة 10% لمدة ساعة كل اثنتي عشرة ساعة. أما قدرة الطوارئ (ESP) فتغطي مدة انقطاع "
-              "الشبكة فقط ولا تسمح بأي زيادة في الحمل. والقيمتان مذكورتان أمام كل موديل في "
-              "الجدول أعلاه.",
-        "q2": "ما المحركات المستخدمة في نطاق {brand}؟",
-        "a2": "يقوم النطاق على محركات {brand} التالية: {engines}. وكل محرك مذكور أمام القدرة "
-              "التي يشغّلها في الجدول أعلاه.",
-        "q3": "ما المولد (الألترنيتور) المركّب؟",
-        "a3": "{alt}، بعزل {ins} وإثارة {exc}.",
-        "q4": "ما لوحة التحكم المورَّدة؟",
-        "a4": "{ctrl}. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي "
-              "أو تركيبة متزامنة.",
-    },
-}
+UI = {'en': {'dir': 'ltr',
+        'home': 'Home',
+        'generators': 'Generators',
+        'range': 'Model Range',
+        'rangeNote': 'Ratings at 50 Hz, 400/230 V, 0.8 power factor. Prime (PRP) is continuous supply at '
+                     'variable load for unlimited hours, with 10% overload available for one hour in every '
+                     'twelve. Standby (ESP) covers the duration of a utility outage and permits no overload.',
+        'model': 'Model',
+        'engine': 'Engine',
+        'alt': 'Alternator',
+        'prime': 'Prime kVA',
+        'standby': 'Standby kVA',
+        'primeShort': 'Prime (PRP)',
+        'standbyShort': 'Standby (ESP)',
+        'ratingHelp': 'Prime (PRP): continuous variable-load operation. Standby (ESP): backup power during a '
+                      'utility outage.',
+        'specs': 'Technical Specifications',
+        'provide': 'Supplied With Every Set',
+        'pdf': 'Download the full catalogue (PDF)',
+        'quote': 'Request a Quote',
+        'backHome': 'Back to the main site',
+        'distributor': 'Authorized Distributor in Egypt',
+        'modelsCount': '{n} models · {lo}–{hi} kVA',
+        'why': 'Why {brand}',
+        'popular': 'Most Requested',
+        'faq': 'Common Questions',
+        'rangeAvail': 'The table lists the main models. Ratings from {lo} to {hi} kVA are available; models '
+                      'outside the table are supplied to order.',
+        'q1': 'What is the difference between the Prime and Standby ratings?',
+        'a1': 'Prime (PRP) is continuous supply at variable load for unlimited hours, with a 10% overload '
+              'available for one hour in every twelve. Standby (ESP) covers only the duration of a utility '
+              'outage and permits no overload. Both figures are listed against every model in the table '
+              'above.',
+        'q2': 'Which engines are used across the {brand} range?',
+        'a2': 'The range is built on these {brand} engines: {engines}. Each one is listed against the rating '
+              'it drives in the table above.',
+        'q3': 'Which alternator is fitted?',
+        'a3': '{alt}, with {ins} insulation and {exc} excitation.',
+        'q4': 'Which control panel is supplied?',
+        'a4': '{ctrl}. The panel is configured for the application, whether that is a single set, an '
+              'automatic transfer scheme or a synchronised installation.'},
+ 'ar': {'dir': 'rtl',
+        'home': 'الرئيسية',
+        'generators': 'المولدات',
+        'range': 'نطاق الموديلات',
+        'rangeNote': 'قيم الكتالوج عند تردد 50 هرتز، وجهد 400/230 فولت، ومعامل قدرة 0.8. تصنيف Prime (PRP) '
+                     'للتشغيل المستمر بحمل متغير، مع زيادة حمل 10% لمدة ساعة واحدة خلال كل 12 ساعة. تصنيف '
+                     'Standby (ESP) للطوارئ أثناء انقطاع الكهرباء، ولا يسمح بزيادة الحمل.',
+        'model': 'الموديل',
+        'engine': 'المحرك',
+        'alt': 'الألترنيتور',
+        'prime': 'قدرة Prime (PRP) (ك.ف.أ)',
+        'standby': 'قدرة Standby (ESP) (ك.ف.أ)',
+        'primeShort': 'Prime (PRP)',
+        'standbyShort': 'Standby (ESP)',
+        'ratingHelp': 'Prime (PRP): تشغيل مستمر بأحمال متغيرة. Standby (ESP): قدرة احتياطية أثناء انقطاع '
+                      'الكهرباء.',
+        'specs': 'المواصفات الفنية',
+        'provide': 'يُورَّد مع كل وحدة',
+        'pdf': 'تحميل الكتالوج الكامل (PDF)',
+        'quote': 'اطلب عرض سعر',
+        'backHome': 'العودة للموقع الرئيسي',
+        'distributor': 'موزّع معتمد في مصر',
+        'modelsCount': '{n} موديل · {lo}–{hi} ك.ف.أ',
+        'why': 'لماذا {brand}؟',
+        'popular': 'موديلات مختارة',
+        'faq': 'أسئلة شائعة',
+        'rangeAvail': 'الجدول يعرض الموديلات الأساسية. القدرات من {lo} إلى {hi} ك.ف.أ متاحة، والموديلات خارج '
+                      'الجدول تُورَّد حسب الطلب.',
+        'q1': 'ما الفرق بين تصنيف Prime (PRP) وتصنيف Standby (ESP)؟',
+        'a1': 'Prime (PRP) تصنيف للتشغيل المستمر بحمل متغير، ويسمح بزيادة حمل 10% لمدة ساعة واحدة خلال كل 12 '
+              'ساعة. أما Standby (ESP) فيغطي فترة انقطاع الكهرباء ولا يسمح بزيادة الحمل. القيمتان مذكورتان '
+              'أمام كل موديل في الجدول أعلاه.',
+        'q2': 'ما أكواد المحركات الواردة في كتالوج {brand}؟',
+        'a2': 'أكواد المحركات المدرجة هي: {engines}. يظهر كود المحرك أمام كل موديل في الجدول.',
+        'q3': 'ما المولد الكهربائي (الألترنيتور) المركّب؟',
+        'a3': '{alt}، بعزل {ins} وإثارة {exc}.',
+        'q4': 'ما لوحة التحكم المورَّدة؟',
+        'a4': '{ctrl}. وتُضبط اللوحة حسب التطبيق، سواء كانت وحدة مفردة أو نظام تحويل أوتوماتيكي أو تركيبة '
+              'متزامنة.'}}
 
 # Services already described on the home page, linked back rather than restated.
 PROVIDED = {
     "en": [("Turnkey Installation", "#services"), ("Genuine OEM Spare Parts", "#services"),
-           ("Maintenance Contracts", "#amc"), ("Load Bank Testing", "#services")],
+           ("Maintenance Contracts", "maintenance/"), ("Load Bank Testing", "#services")],
     "ar": [("تركيب متكامل", "#services"), ("قطع غيار أصلية", "#services"),
-           ("عقود صيانة", "#amc"), ("اختبار الحمل", "#services")],
+           ("عقود الصيانة", "maintenance/"), ("اختبار الحمل", "#services")],
+}
+
+AR_BRAND_DESCRIPTIONS = {
+    "perkins": "تشتهر محركات بيركنز بالموثوقية وكفاءة استهلاك الوقود، وتغطي تطبيقات متنوعة من الطاقة الاحتياطية للمباني إلى تشغيل الأحمال الصناعية الشاقة.",
+    "volvo": "تجمع فولفو بنتا بين الدقة الهندسية وأداء موثوق في ظروف التشغيل الشاقة. وتُعرف بسرعة قبولها للأحمال؛ ويعتمد الاختيار على ملف الحمل ومتطلبات التحكم في المشروع.",
+    "doosan": "تُستخدم محركات دوسان في تطبيقات التشغيل المستمر، ومنها الإنشاء والتصنيع والمرافق. راجع تصنيف التشغيل وجدول الصيانة في وثائق المحرك المختار.",
+}
+
+# Translate descriptive terms while preserving maker names, model codes, and standards.
+AR_SPEC_LABELS = {
+    "Cylinders": "عدد الأسطوانات",
+    "Governor": "منظّم السرعة",
+    "Aspiration": "نظام الشحن الهوائي",
+    "Cooling": "التبريد",
+    "Emissions": "الانبعاثات",
+    "Alternator": "الألترنيتور",
+    "Insulation": "فئة العزل",
+    "Excitation": "طريقة الإثارة",
+    "Control": "لوحة التحكم",
+}
+AR_SPEC_VALUES = {
+    "3 – 16 In-Line / V-Type": "3–16 أسطوانة خطية أو على شكل V",
+    "6 In-Line": "6 أسطوانات خطية",
+    "6 – 12 V-Type": "6–12 أسطوانة على شكل V",
+    "Mechanical / Electronic": "ميكانيكي / إلكتروني",
+    "Electronic (ECU)": "إلكتروني (ECU)",
+    "Turbocharged / Air-to-Air": "شاحن توربيني / تبريد هواء إلى هواء",
+    "Turbo + Intercooler": "شاحن توربيني + مبرد هواء الشحن",
+    "Turbo + Aftercooler": "شاحن توربيني + مبرد لاحق للهواء",
+    "Water Cooled": "مبرد بالماء",
+    "Brushless / PMG": "دون فُرش / PMG",
 }
 
 
@@ -137,17 +179,11 @@ def models_from_pdf(pdf):
 
 
 def brand_copy(index, brand):
-    """Brand name, origin line and blurb, in both languages, from index.html."""
-    copy = {}
-    for lang in ("en", "ar"):
-        block = re.search(rf"^{lang}:\{{.*?^\}},", index, re.S | re.M).group(0)
-        copy[lang] = {}
-        for field in ("Name", "Origin", "Desc"):
-            m = re.search(rf"{brand}{field}:'((?:[^'\\]|\\.)*)'", block)
-            if not m:
-                sys.exit(f"missing {brand}{field} in {lang}")
-            copy[lang][field.lower()] = m.group(1).replace("\\'", "'")
-    return copy
+    """Read evaluated shared copy, supporting either JS string quote style."""
+    tables = copy_tables(index)["T"]
+    return {lang: {field.lower(): tables[lang][brand + field]
+                   for field in ("Name", "Origin", "Desc")}
+            for lang in ("en", "ar")}
 
 
 def spec_rows(index, brand, translations):
@@ -160,6 +196,9 @@ def spec_rows(index, brand, translations):
         for lang in ("en", "ar"):
             k = translations[lang].get(key_attr, key_txt) if key_attr else key_txt
             v = translations[lang].get(val_attr, val_txt) if val_attr else val_txt
+            if lang == "ar":
+                k = AR_SPEC_LABELS.get(key_txt, k)
+                v = AR_SPEC_VALUES.get(val_txt, v)
             rows[lang].append((k, v))
     if not rows["en"]:
         sys.exit(f"no spec rows parsed for {brand}")
@@ -167,13 +206,18 @@ def spec_rows(index, brand, translations):
 
 
 def translations(index):
-    """The whole T table, so spec labels can be resolved in either language."""
-    out = {}
-    for lang in ("en", "ar"):
-        block = re.search(rf"^{lang}:\{{.*?^\}},", index, re.S | re.M).group(0)
-        out[lang] = {k: v.replace("\\'", "'")
-                     for k, v in re.findall(r"([A-Za-z0-9_]+):'((?:[^'\\]|\\.)*)'", block)}
-    return out
+    """Read the same translation objects used by the homepage builder."""
+    return copy_tables(index)["T"]
+
+
+def text_html(value, lang):
+    """Escape page copy and isolate Latin terms/codes inside Arabic text."""
+    parts = re.split(r"([A-Za-z0-9][A-Za-z0-9._+-]*)", str(value))
+    return "".join(
+        f'<bdi dir="ltr">{html.escape(part)}</bdi>' if lang == "ar" and re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._+-]*", part)
+        else html.escape(part)
+        for part in parts
+    )
 
 
 def page(brand, lang, cfg, copy, models, specs, css):
@@ -182,18 +226,22 @@ def page(brand, lang, cfg, copy, models, specs, css):
     # the term buyers actually search is the bare marque.
     name = re.sub(r"^\s*سلسلة\s+|\s+Series\s*$", "", copy[lang]["name"]).strip()
     primes = [float(m["prime"]) for m in models]
+    standbys = [float(m["standby"]) for m in models]
     lo, hi = f"{min(primes):g}", f"{max(primes):g}"
+    standby_lo, standby_hi = f"{min(standbys):g}", f"{max(standbys):g}"
     slug = cfg["slug"]
     home = "/ar/" if lang == "ar" else "/"
+    maintenance_url = f"{home}maintenance/"
+    privacy_url = f"{home}privacy/"
 
     if lang == "ar":
         h1 = f"مولدات {name} الديزل في مصر"
     else:
         h1 = f"{name} Diesel Generators in Egypt"
 
-    # Site-stated span, which reaches past the catalogue: the extra ratings are built to order.
+    # This general size span is separate from the catalogue's Prime and Standby tables.
     span = re.findall(r"([\d,]+)\s*(?:KVA|ك\.ف\.أ)", copy[lang]["origin"])
-    site_lo, site_hi = (span + [lo, hi])[:2] if len(span) >= 2 else (lo, hi)
+    supply_lo, supply_hi = (span + [lo, hi])[:2] if len(span) >= 2 else (lo, hi)
 
     spec = dict(specs[lang])
     def spec_val(*names):
@@ -213,11 +261,11 @@ def page(brand, lang, cfg, copy, models, specs, css):
     faqs = [
         (t["q1"], t["a1"]),
         (t["q2"].format(brand=name), t["a2"].format(brand=name, engines="، ".join(families) if lang == "ar" else ", ".join(families))),
-        (t["q3"], t["a3"].format(alt=spec_val("Alternator", "المولد"), ins=spec_val("Insulation", "العزل"), exc=spec_val("Excitation", "الإثارة"))),
-        (t["q4"], t["a4"].format(ctrl=spec_val("Control", "التحكم"))),
+        (t["q3"], t["a3"].format(alt=spec_val("Alternator", "الألترنيتور"), ins=spec_val("Insulation", "فئة العزل"), exc=spec_val("Excitation", "طريقة الإثارة"))),
+        (t["q4"], t["a4"].format(ctrl=spec_val("Control", "لوحة التحكم"))),
     ]
     faq_html = "\n".join(
-        f'      <details><summary>{e(q)}</summary><p>{e(a)}</p></details>'
+        f'      <details><summary>{text_html(q, lang)}</summary><p>{text_html(a, lang)}</p></details>'
         for q, a in faqs)
 
     by_model = {m["model"]: m for m in models}
@@ -225,9 +273,9 @@ def page(brand, lang, cfg, copy, models, specs, css):
     ar = lang == 'ar'
     def label(en, ar_text): return ar_text if ar else en
     popular_html = "\n".join(
-        f'<li><span class="eyebrow">{e(cfg["marque"])}</span><b><a href="#model-{e(m["model"])}">{e(m["model"])}</a></b>'
-        f'<span dir="ltr">{e(m["engine"])}</span><em>{e(m["prime"])} kVA <small>Prime</small></em>'
-        f'<span>{e(m["standby"])} kVA Standby</span>'
+        f'<li><span class="eyebrow">{e(cfg["marque"])}</span><b><a dir="ltr" href="#model-{e(m["model"])}">{e(m["model"])}</a></b>'
+        f'<span dir="ltr">{e(m["engine"])}</span><em>{e(m["prime"])} {label("kVA", "ك.ف.أ")} <small>{text_html(t["primeShort"], lang)}</small></em>'
+        f'<span>{e(m["standby"])} {text_html(t["standbyShort"], lang)} {label("kVA", "ك.ف.أ")}</span>'
         f'<button type="button" class="btn ghost" data-quote="{e(m["model"])}">{e(t["quote"])}</button></li>'
         for m in popular)
     rows = "\n".join(
@@ -238,12 +286,12 @@ def page(brand, lang, cfg, copy, models, specs, css):
         f'<button type="button" class="btn solid" data-quote="{e(m["model"])}">{e(t["quote"])}</button>'
         f'<label><input type="checkbox" class="compare-check" value="{e(m["model"])}"> {label("Compare","قارن")} <span class="sr-only">{e(m["model"])}</span></label></td></tr>'
         for m in models)
-    source=read('index.html')
+    source=read('_src/home.html')
     form=re.search(r'<form id="contact-form".*?</form>',source,re.S).group(0)
     form=form.replace('event.preventDefault(); app.submitForm(event)','window.PremiumPowerEnquiry.submitForm(event)')
     form=translate(form,copy_tables(source)['T'][lang])
     brand_nav=''.join(f'<a href="{home}{v["slug"]}/"'+(' aria-current="page"' if k==brand else '')+f'>{e(v["marque"])}</a>' for k,v in BRANDS.items())
-    spec_html = "\n".join(f'      <div class="spec-row"><span>{e(k)}</span><b>{e(v)}</b></div>'
+    spec_html = "\n".join(f'      <div class="spec-row"><span>{text_html(k, lang)}</span><b>{text_html(v, lang)}</b></div>'
                           for k, v in specs[lang])
     provided = "\n".join(f'      <li><a href="{home}{href}">{e(label)}</a></li>'
                          for label, href in PROVIDED[lang])
@@ -260,7 +308,8 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 {schema_html(structured_data(brand, lang, faqs, models))}
-<link rel="stylesheet" href="/assets/brand-page.css?v=20261026">
+<link rel="stylesheet" href="/assets/brand-page.css?v=20261028">
+<link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
 <body data-brand="{e(cfg['marque'])}">
 <a href="#main" class="skip">{label('Skip to content','تخطي إلى المحتوى')}</a>
@@ -279,24 +328,25 @@ def page(brand, lang, cfg, copy, models, specs, css):
       <p class="eyebrow">PREMIUM POWER · {label('EGYPT','مصر')}</p>
       <h1>{e(h1)}</h1>
       <p class="lede">{e(copy[lang]['desc'])}</p>
-      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>kVA · Prime · 50 Hz</span></div>
-      <div class="cta"><a href="#models" class="btn solid">{label('Find your model','اختار الموديل المناسب')}</a><a class="btn ghost" href="#contact" data-general-quote>{e(t['quote'])}</a></div>
+      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>{text_html(label('kVA · Prime','ك.ف.أ · Prime'), lang)} · 50 Hz</span></div>
+      <div class="cta"><a href="#models" class="btn solid">{label('Find your model','اختر الموديل المناسب')}</a><a class="btn ghost" href="#contact" data-general-quote>{e(t['quote'])}</a><a class="btn ghost" href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a></div>
       <a class="download" href="/{cfg['pdf']}" download>{e(t['pdf'])} ↓</a>
     </div>
     <figure class="hero-photo"><img src="/images/gallery/gen_1.webp" width="1000" height="671" fetchpriority="high" alt="{label('Enclosed generator from the Premium Power gallery','مولد بكابينة من معرض بريميوم باور')}"><figcaption>{label('From our generator gallery. Configuration depends on the selected model.','من معرض مولداتنا — التجهيز النهائي حسب الموديل المختار.')}</figcaption></figure>
   </section>
   <nav class="brand-nav" aria-label="{label('Generator brands','ماركات المولدات')}">{brand_nav}</nav>
-  <p class="avail">{e(t['rangeAvail'].format(lo=site_lo, hi=site_hi))}</p>
+  <p class="avail">{text_html(t['rangeAvail'].format(lo=supply_lo, hi=supply_hi), lang)}</p>
   <section>
-    <p class="eyebrow">{label('A place to start','ابدأ من هنا')}</p>
-    <h2>{label('Explore the range','اختيارات من المجموعة')}</h2>
+    <p class="eyebrow">{label('A place to start','نقطة بداية')}</p>
+    <h2>{label('Explore the range','استكشف الموديلات')}</h2>
     <ul class="popular">{popular_html}</ul>
   </section>
   <section id="models">
-    <div class="section-heading"><div><p class="eyebrow">{label('Compare. Choose. Enquire.','قارن. اختار. استفسر.')}</p><h2>{e(t['range'])}</h2></div><a href="#contact" data-general-quote>{label('Not sure which size? Ask our team →','مش متأكد من القدرة؟ اسأل فريقنا ←')}</a></div>
+    <div class="section-heading"><div><p class="eyebrow">{label('Compare. Choose. Enquire.','قارن. اختر. استفسر.')}</p><h2>{e(t['range'])}</h2></div><a href="#contact" data-general-quote>{label('Not sure which size? Ask our team →','لست متأكدًا من القدرة المناسبة؟ تواصل مع فريقنا ←')}</a></div>
     <div id="model-tools" class="filters" hidden>
       <label for="model-search">{label('Search model or engine','ابحث بالموديل أو المحرك')}<input id="model-search" type="search" placeholder="{label('Model / engine code','كود الموديل / المحرك')}"></label>
-      <label for="rating">{label('Rating for filter & quote','القدرة للفلترة وطلب السعر')}<select id="rating"><option value="prime">Prime — {label('variable load','حمل متغير')}</option><option value="standby">Standby — {label('backup','طوارئ')}</option></select></label>
+      <label for="rating">{text_html(label('Prime / Standby rating','تصنيف Prime / Standby'), lang)}<select id="rating" aria-describedby="rating-help"><option value="prime">{text_html(t['primeShort'], lang)}</option><option value="standby">{text_html(t['standbyShort'], lang)}</option></select></label>
+      <p id="rating-help" class="rating-help">{text_html(t['ratingHelp'], lang)}</p>
       <label for="min-kva">{label('From kVA','من ك.ف.أ')}<input id="min-kva" type="number" min="0" step="any" placeholder="0"></label>
       <label for="max-kva">{label('Up to kVA','حتى ك.ف.أ')}<input id="max-kva" type="number" min="0" step="any" placeholder="{max(float(m['standby']) for m in models):g}"></label>
       <label for="model-sort">{label('Sort capacity','ترتيب القدرة')}<select id="model-sort"><option value="asc">{label('Low to high','من الأقل للأعلى')}</option><option value="desc">{label('High to low','من الأعلى للأقل')}</option></select></label>
@@ -304,33 +354,33 @@ def page(brand, lang, cfg, copy, models, specs, css):
     </div>
     <p id="result-count" class="note" role="status" aria-live="polite">{len(models)} {label('models','موديل')}</p>
     <div class="scroll"><table id="model-table"><caption class="sr-only">{e(name)} — {e(t['range'])}</caption>
-    <thead><tr><th scope="col">{e(t['model'])}</th><th scope="col">{e(t['engine'])}</th><th scope="col">{e(t['alt'])}</th><th scope="col">{e(t['prime'])}</th><th scope="col">{e(t['standby'])}</th><th scope="col">{label('Choose','اختار')}</th></tr></thead>
+    <thead><tr><th scope="col">{e(t['model'])}</th><th scope="col">{e(t['engine'])}</th><th scope="col">{e(t['alt'])}</th><th scope="col">{text_html(t['prime'], lang)}</th><th scope="col">{text_html(t['standby'], lang)}</th><th scope="col">{label('Choose','اختر')}</th></tr></thead>
     <tbody>{rows}</tbody></table></div>
     <p id="no-results" class="avail" hidden>{label('No matching models. Adjust the filters or ask us about a different capacity.','لا توجد موديلات مطابقة. عدّل الفلاتر أو اسألنا عن القدرة المطلوبة.')}</p>
-    <p class="note">{e(t['rangeNote'])}</p>
+    <p class="note">{text_html(t['rangeNote'], lang)}</p>
     <div id="comparison" class="comparison" hidden><h3>{label('Your comparison','الموديلات المختارة للمقارنة')}</h3><p id="compare-status" role="status" aria-live="polite"></p><div id="compare-cards" class="compare-cards"></div><button id="clear-compare" class="btn ghost" type="button">{label('Clear comparison','مسح المقارنة')}</button></div>
   </section>
   <section class="detail-grid">
-    <div><h2>{label("Choosing a " + name + " generator", "اختيار مولد " + name)}</h2><p class="why">{e(WHY[brand][lang])}</p></div>
+    <div><h2>{label("Choosing a " + name + " generator", "اختيار مولد " + name)}</h2><p class="why">{text_html(WHY[brand][lang], lang)}</p></div>
     <div><h2>{e(t['specs'])}</h2><div class="specs">{spec_html}</div></div>
   </section>
-  <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul><p class="note"><a href="{home}#calculator">{label('Estimate your required generator capacity','احسب قدرة المولد المطلوبة مبدئياً')}</a> · <a href="{home}#contact">{label('Discuss installation and site requirements','ناقش متطلبات الموقع والتركيب')}</a></p></section>
+  <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul><p class="note"><a href="{home}#calculator">{label('Estimate your required generator capacity','احسب قدرة المولد المطلوبة مبدئيًا')}</a> · <a href="{home}#contact">{label('Discuss installation and site requirements','ناقش متطلبات الموقع والتركيب')}</a> · <a href="{maintenance_url}">{label('Maintenance services and contracts','خدمات وعقود الصيانة')}</a></p></section>
   <section><h2>{e(t['faq'])}</h2><div class="faqs">{faq_html}</div></section>
   <section id="contact" class="enquiry">
-    <div><p class="eyebrow">{label('Let’s plan your power','خلينا نجهز احتياجك')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختار موديل من فوق أو احكيلنا عن مشروعك. فريقنا يساعدك في تأكيد القدرة والتجهيز المناسب.')}</p><p><a href="tel:+201229688688">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
-    <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم بياناتك للرد على الاستفسار.')}</p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو استخدام واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
+    <div><p class="eyebrow">{label('Let’s plan your power','لنحدد احتياجك من الطاقة')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختر موديلًا من الجدول أو أخبرنا عن مشروعك. يساعدك فريقنا على تأكيد القدرة والتجهيز المناسبين.')}</p><p><a href="tel:+201229688688">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+    <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم البيانات التي تقدمها للرد على استفسارك.')} <a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a></p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو مراسلتنا عبر واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
   </section>
 </main>
 <div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a></div>
-<footer class="foot"><a href="{home}">{e(t['backHome'])}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
-<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261025" defer></script><script src="/assets/brand-page.js?v=20261026" defer></script>
+<footer class="foot"><a href="{home}">{e(t['backHome'])}</a><a href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a><a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
+<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028" defer></script><script src="/assets/brand-page.js?v=20261028" defer></script>
 </body>
 </html>
 """
 
 
 def main():
-    index = read("index.html")
+    index = read("_src/home.html")
     css = read("assets/brand-page.css")
     trans = translations(index)
     written = []
