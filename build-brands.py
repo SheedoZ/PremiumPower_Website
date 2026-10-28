@@ -308,7 +308,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 {schema_html(structured_data(brand, lang, faqs, models))}
-<link rel="stylesheet" href="/assets/brand-page.css?v=20261028">
+<link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2">
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
 <body data-brand="{e(cfg['marque'])}">
@@ -328,7 +328,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
       <p class="eyebrow">PREMIUM POWER · {label('EGYPT','مصر')}</p>
       <h1>{e(h1)}</h1>
       <p class="lede">{e(copy[lang]['desc'])}</p>
-      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b>{text_html(label('kVA · Prime','ك.ف.أ · Prime'), lang)} · 50 Hz</span></div>
+      <div class="hero-facts"><span><b>{len(models)}</b>{label('catalogue models','موديل في الكتالوج')}</span><span><b dir="ltr">{lo}–{hi}</b><small class="hero-rating">{text_html(label('kVA · Prime','ك.ف.أ · Prime'), lang)} · <bdi dir="ltr">50 Hz</bdi></small></span></div>
       <div class="cta"><a href="#models" class="btn solid">{label('Find your model','اختر الموديل المناسب')}</a><a class="btn ghost" href="#contact" data-general-quote>{e(t['quote'])}</a><a class="btn ghost" href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a></div>
       <a class="download" href="/{cfg['pdf']}" download>{e(t['pdf'])} ↓</a>
     </div>
@@ -371,9 +371,9 @@ def page(brand, lang, cfg, copy, models, specs, css):
     <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم البيانات التي تقدمها للرد على استفسارك.')} <a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a></p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو مراسلتنا عبر واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
   </section>
 </main>
-<div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a></div>
+<div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a><a class="btn ghost" id="view-comparison" href="#comparison" hidden>{label('View comparison','عرض المقارنة')}</a></div>
 <footer class="foot"><a href="{home}">{e(t['backHome'])}</a><a href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a><a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
-<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028" defer></script><script src="/assets/brand-page.js?v=20261028" defer></script>
+<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028-2" defer></script><script src="/assets/brand-page.js?v=20261028-2" defer></script>
 </body>
 </html>
 """

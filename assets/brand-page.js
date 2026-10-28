@@ -101,6 +101,9 @@
       box.disabled = selected.size >= 3 && !box.checked;
     });
     byId("comparison").hidden = selected.size === 0;
+    const jump = byId("view-comparison");
+    jump.hidden = selected.size === 0;
+    jump.textContent = say(`View comparison (${selected.size})`, `عرض المقارنة (${selected.size})`);
     byId("compare-status").textContent = say(
       `${selected.size}/3 selected. Comparison includes all selected models, including any hidden by filters.`,
       `${selected.size}/3 موديلات مختارة. المقارنة تشمل الاختيارات حتى لو أخفتها الفلاتر.`,

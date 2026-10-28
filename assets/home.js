@@ -9,6 +9,7 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
+  warehouseCity:"Obour City",
   regionName8:"Nationwide",
   regionName7:"North Coast",
   regionName6:"Menoufia",
@@ -204,6 +205,7 @@ en:{
 },
 ar:{
   pageTitle:"مولدات ديزل في مصر | بريميوم باور",
+  warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
   regionName6:"المنوفية",
@@ -450,9 +452,9 @@ const FAQS=[
   },
   {
     "q_en": "Which areas of Egypt do you cover?",
-    "a_en": "We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in 6th of October City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.",
+    "a_en": "We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in Obour City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.",
     "q_ar": "ما المناطق التي تغطونها في مصر؟",
-    "a_ar": "نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا."
+    "a_ar": "نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة العبور وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا."
   },
   {
     "q_en": "Can you handle SCADA integration and remote monitoring?",

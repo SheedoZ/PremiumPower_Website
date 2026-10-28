@@ -578,7 +578,7 @@ html[lang="en"] .hero-title [data-i18n="heroLine2"] { font-size: .72em; }
 .amc-card.featured .btn-amc-cta { color: #fff; border-color: rgba(255,255,255,.65); }
 .amc-card.featured .btn-amc-cta:hover { color: #000; border-color: var(--copper); }
 .amc-scope-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5px; background: var(--border); margin-top: 1.5px; }
-.amc-scope-card { background: var(--bg3); padding: 1.5rem; display: flex; gap: .75rem; align-items: flex-start; }
+.amc-scope-card { min-width:0; background: var(--bg3); padding: 1.5rem; display: flex; gap: .75rem; align-items: flex-start; }
 .amc-scope-icon { font-size: 1.2rem; flex-shrink: 0; }
 .amc-scope-name { font-size: .82rem; font-weight: 500; color: var(--off); margin-bottom: .2rem; }
 .amc-scope-desc { font-size: .75rem; color: var(--muted); font-weight: 300; line-height: 1.5; }
@@ -1073,6 +1073,9 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 @keyframes marquee-rtl{to{transform:translateX(50%)}}
 html[lang="ar"] .marquee-animate{animation-name:marquee-rtl}
 html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important}
+@media(max-width:480px){.amc-scope-grid{grid-template-columns:minmax(0,1fr)}}
+@media(max-width:640px){.pdf-header-actions>a{display:none}}
+#f-name{scroll-margin-top:100px}
 </style>
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
@@ -1719,7 +1722,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
           <div class="facility-card">
             <div class="facility-tag" data-i18n="locWHTag">Logistics Center</div>
             <div class="facility-name" data-i18n="locWH">Main Warehouse</div>
-            <div class="facility-addr">6th of October City</div>
+            <div class="facility-addr" data-i18n="warehouseCity">Obour City</div>
           </div>
           <div class="facility-card">
             <div class="facility-tag" data-i18n="locDeltaTag">Regional Support</div>
@@ -1974,7 +1977,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
             <div class="contact-detail-label" data-i18n="ctPhone">Phone</div>
             <div class="contact-detail-val">
               <a href="tel:+201229688688" dir="ltr">012 2968 8688</a><br>
-              <a href="tel:+201273353355" dir="ltr">012 7335 3355</a>
+              <a href="tel:+201032521321" dir="ltr">01032521321</a>
             </div>
           </div>
         </div>
@@ -2139,7 +2142,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 
 <!-- Scripts -->
 <script src="/enquiry-config.js?v=20260908-1"></script>
-<script src="/enquiry.js?v=20261028"></script>
+<script src="/enquiry.js?v=20261028-2"></script>
 <script>
 (function(){
 'use strict';
@@ -2151,6 +2154,7 @@ let scrollTick = false;
 // ── Translations ─────────────────────────────────────────────────
 const T = {
 en:{
+  warehouseCity:"Obour City",
   regionName8:"Nationwide",
   regionName7:"North Coast",
   regionName6:"Menoufia",
@@ -2345,6 +2349,7 @@ en:{
   chatSales:"Sales Inquiry",chatEmergency:"24/7 Emergency",
 },
 ar:{
+  warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
   regionName6:"المنوفية",
@@ -2591,9 +2596,9 @@ const FAQS=[
   },
   {
     "q_en": "Which areas of Egypt do you cover?",
-    "a_en": "We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in 6th of October City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.",
+    "a_en": "We operate nationwide from our Cairo HQ in Heliopolis, with a main warehouse in Obour City, a Delta branch in Shebin El-Kom (Menoufia), and a fabrication workshop in Giza. We actively serve Cairo, Giza, Alexandria, New Capital, North Coast, Minia Desert, and surrounding governorates.",
     "q_ar": "ما المناطق التي تغطونها في مصر؟",
-    "a_ar": "نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة 6 أكتوبر وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا."
+    "a_ar": "نعمل على المستوى الوطني من مقرنا الرئيسي في هليوبوليس بالقاهرة، مع مخزن رئيسي في مدينة العبور وفرع بالدلتا في شبين الكوم وورشة تصنيع في الجيزة. نخدم بنشاط القاهرة والجيزة والإسكندرية والعاصمة الإدارية والساحل الشمالي وصحراء المنيا."
   },
   {
     "q_en": "Can you handle SCADA integration and remote monitoring?",
