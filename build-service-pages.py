@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Build maintenance and enquiry-privacy pages from shared site identity and forms."""
 import re
+import site_chrome
 from html import escape
 from seo import ROOT, SITE, metadata_html, metadata, schema_html, structured_data
 from site_markup import copy_tables, translate
@@ -138,12 +139,14 @@ def page(key, lang):
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 {metadata_html(key, lang)}<meta name="theme-color" content="#003087"><link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
+{site_chrome.fonts()}
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/service-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
+{site_chrome.styles()}
 {schema_html(schema)}</head>
-<body class="service-page"><a class="skip" href="#main">{e("انتقل إلى المحتوى" if lang == "ar" else "Skip to content")}</a>
-<header class="bar"><a class="logo pp-brand" href="{home}" aria-label="Premium Power"><img class="pp-brand-mark pp-logo-color" src="/images/premium-power-logo-color.webp" width="720" height="223" alt="Premium Power" fetchpriority="high" decoding="async"></a><nav class="langs" aria-label="{e("اللغة" if lang == "ar" else "Language")}"><a href="/{key}/" lang="en" hreflang="en" {"aria-current='page'" if lang == "en" else ""}>English</a><a href="/ar/{key}/" lang="ar" hreflang="ar" {"aria-current='page'" if lang == "ar" else ""}>العربية</a></nav></header>
-<main id="main" class="wrap"><nav class="service-nav" aria-label="{e("التنقل" if lang == "ar" else "Navigation")}"><a href="{home}">{e(t["home"])}</a><a href="{home}#products">{e(t["sales"])}</a><a href="{home}maintenance/">{e(t["maintenance"])}</a></nav>{content}</main>
-<footer class="foot"><a href="{home}">{e(t["back"])}</a><span>Premium Power LLC · {e(t["address"])}</span><a href="tel:+201229688688" dir="ltr">01229 688 688</a><a href="{home}privacy/">{e(t["privacy"])}</a></footer>{scripts}</body></html>
+<body class="inner-page service-page"><a class="skip" href="#main">{e("انتقل إلى المحتوى" if lang == "ar" else "Skip to content")}</a>
+{site_chrome.header(lang, key, "#request" if key == "maintenance" else None)}
+<main id="main" class="wrap">{content}</main>
+{site_chrome.footer(lang)}{scripts}{site_chrome.scripts()}</body></html>
 '''
 
 def main():
