@@ -40,39 +40,37 @@ for(const lang of ['en','ar']){
    assert.equal(w.location.pathname,lang==='ar'?'/ar/':'/');
   }finally{dom.window.close();}
  });
- test(lang+': client motion follows preference until the visitor makes a persistent choice',async()=>{
-  const {dom,d,w,changeMedia}=await load(lang,true);
+ test(lang+': client images autoplay without a motion button despite a saved pause',async()=>{
+  const {dom,d,w,changeMedia}=await load(lang,true,w=>w.localStorage.setItem('pp-client-motion','paused'));
   try{
-   const strip=d.getElementById('client-strip'),button=d.getElementById('client-motion-button');
-   assert.equal(strip.dataset.motion,'paused');assert.equal(button.hidden,false);
-   button.click();assert.equal(strip.dataset.motion,'playing');
-   changeMedia(true);assert.equal(strip.dataset.motion,'playing');
-   button.click();assert.equal(strip.dataset.motion,'paused');
-   assert.equal(w.localStorage.getItem('pp-client-motion'),'paused');
-   w.app.switchLanguage(lang==='ar'?'en':'ar');assert.equal(strip.dataset.motion,'paused');
-   assert.equal(d.getElementById('client-motion-label').textContent,lang==='ar'?'Play image movement':'تشغيل حركة الصور');
+   const strip=d.getElementById('client-strip');
+   assert.equal(strip.dataset.motion,'playing');
+   assert.equal(d.getElementById('client-motion-button'),null);
+   changeMedia(false);changeMedia(true);assert.equal(strip.dataset.motion,'playing');
+   w.app.switchLanguage(lang==='ar'?'en':'ar');assert.equal(strip.dataset.motion,'playing');
   }finally{dom.window.close();}
  });
 }
-test('automatic client motion follows preference changes when no choice is saved',async()=>{
+test('client images stay active when the device motion preference changes',async()=>{
  const {dom,d,changeMedia}=await load('en',false);
  try{
-  assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
-  changeMedia(true);assert.equal(d.getElementById('client-strip').dataset.motion,'paused');
+  changeMedia(true);assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
   changeMedia(false);assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
  }finally{dom.window.close();}
 });
-test('a previously paused client strip remains paused after reloading',async()=>{
- const {dom,d}=await load('en',false,w=>w.localStorage.setItem('pp-client-motion','paused'));
- try{
-  assert.equal(d.getElementById('client-strip').dataset.motion,'paused');
-  d.getElementById('client-motion-button').click();assert.equal(d.getElementById('client-strip').dataset.motion,'playing');
- }finally{dom.window.close();}
+
+test('client images are active in generated markup before JavaScript runs',()=>{
+ for(const file of ['index.html','ar/index.html']){
+  const dom=new JSDOM(fs.readFileSync(path.join(root,file),'utf8'));
+  try{assert.equal(dom.window.document.getElementById('client-strip').dataset.motion,'playing');assert.equal(dom.window.document.getElementById('client-motion-button'),null);}finally{dom.window.close();}
+ }
 });
-test('motion controls work when preference storage is unavailable',async()=>{
- const {dom,d}=await load('en',false,w=>Object.defineProperty(w,'localStorage',{get(){throw new Error('Storage disabled');}}));
- try{d.getElementById('client-motion-button').click();assert.equal(d.getElementById('client-strip').dataset.motion,'paused');}finally{dom.window.close();}
+
+test('client images remain active when preference storage is unavailable',async()=>{
+ const {dom,d}=await load('en',true,w=>Object.defineProperty(w,'localStorage',{get(){throw new Error('Storage disabled');}}));
+ try{assert.equal(d.getElementById('client-strip').dataset.motion,'playing');}finally{dom.window.close();}
 });
+
 test('scroll reveal never hides visible cards and reveals offscreen cards only once',async()=>{
  const {dom,d,observers}=await load('en',false,w=>{
   w.HTMLElement.prototype.getBoundingClientRect=function(){const top=this===w.document.querySelector('.svc-card')?20:1200;return {top,bottom:top+200,left:0,right:200,width:200,height:200};};

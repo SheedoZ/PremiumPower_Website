@@ -1031,7 +1031,6 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 .sound-info{gap:.75rem;flex-wrap:wrap}
 .marquee-track[data-motion]{animation:marquee 60s linear infinite!important}
 .marquee-track[data-motion="playing"]{animation-play-state:running!important}
-.marquee-track[data-motion="paused"]{animation-play-state:paused!important}
 
 
 @keyframes marquee-rtl{to{transform:translateX(50%)}}
@@ -1053,7 +1052,5 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
  #services .svc-card:hover,#workflow .wf-item:hover .wf-num{transform:none}
 }
 .clients-heading-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
-.client-motion-button{font:inherit;font-size:.78rem;font-weight:500;line-height:1.4;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.45rem .7rem;border:1px solid var(--border2);border-radius:3px;color:var(--copper-text);background:transparent;cursor:pointer}
-.client-motion-button:hover{border-color:var(--copper-text)}
 .footer-tagline,.footer-link-group a,.footer-bottom{color:#d4e3f3}
 .footer-bottom{gap:1rem;flex-wrap:wrap}

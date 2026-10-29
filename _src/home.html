@@ -1070,7 +1070,6 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 .sound-info{gap:.75rem;flex-wrap:wrap}
 .marquee-track[data-motion]{animation:marquee 60s linear infinite!important}
 .marquee-track[data-motion="playing"]{animation-play-state:running!important}
-.marquee-track[data-motion="paused"]{animation-play-state:paused!important}
 
 
 @keyframes marquee-rtl{to{transform:translateX(50%)}}
@@ -1092,8 +1091,6 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
  #services .svc-card:hover,#workflow .wf-item:hover .wf-num{transform:none}
 }
 .clients-heading-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
-.client-motion-button{font:inherit;font-size:.78rem;font-weight:500;line-height:1.4;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.45rem .7rem;border:1px solid var(--border2);border-radius:3px;color:var(--copper-text);background:transparent;cursor:pointer}
-.client-motion-button:hover{border-color:var(--copper-text)}
 .footer-tagline,.footer-link-group a,.footer-bottom{color:#d4e3f3}
 .footer-bottom{gap:1rem;flex-wrap:wrap}
 </style>
@@ -1259,14 +1256,14 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 <!-- ═══ CLIENTS ═══ -->
 <section id="clients" class="sec" style="padding-bottom:0">
   <div class="clients-header">
-    <div class="clients-heading-row"><span class="sec-label" data-i18n="clientsLabel">Our Clients</span><button type="button" class="client-motion-button" id="client-motion-button" aria-controls="client-strip" hidden><span id="client-motion-label">Pause image movement</span></button></div>
+    <div class="clients-heading-row"><span class="sec-label" data-i18n="clientsLabel">Our Clients</span></div>
     <h2 class="sec-title reveal" data-i18n="clientsTitle">TRUSTED BY<br><span class="accent">EGYPT&#x27;S LEADERS</span></h2>
     <p class="sec-desc reveal" data-i18n="clientsSub">Powering critical operations across healthcare, manufacturing, infrastructure, and real estate.</p>
   </div>
   <div style="position:relative;overflow:hidden;padding-bottom:5rem">
     <div class="marquee-fade-l"></div>
     <div class="marquee-fade-r"></div>
-    <div id="client-strip" class="marquee-track marquee-animate" data-motion="paused" aria-label="Our clients">
+    <div id="client-strip" class="marquee-track marquee-animate" data-motion="playing" aria-label="Our clients">
       <div style="display:flex;gap:6px">
         <div class="client-card"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=640&h=440" alt="Egyptian Ambulance Organization" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client1">Egyptian Ambulance Organization</div></div></div>
         <div class="client-card"><img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80&w=640&h=440" alt="Canal For Sugar" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client2">Canal For Sugar</div></div></div>
@@ -2177,7 +2174,6 @@ let scrollTick = false;
 // ── Translations ─────────────────────────────────────────────────
 const T = {
 en:{
-  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",
   footerRights:'© <span data-current-year>2026</span> Premium Power LLC — All rights reserved',footerAddress:"40 El Hegaz St., Heliopolis, Cairo, Egypt",
   warehouseCity:"Obour City",
   regionName8:"Nationwide",
@@ -2374,7 +2370,6 @@ en:{
   chatSales:"Sales Inquiry",chatEmergency:"24/7 Emergency",
 },
 ar:{
-  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",
   footerRights:'© <span data-current-year>2026</span> <bdi>Premium Power LLC</bdi> — جميع الحقوق محفوظة',footerAddress:"٤٠ شارع الحجاز، مصر الجديدة، القاهرة، مصر",
   warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
@@ -2658,24 +2653,8 @@ if(typeof IntersectionObserver==='function'){
     try{revealObs.observe(el);}catch(_){finishReveal(el);}
   });
 }
-let clientMotionChoice=null;
-try{const saved=localStorage.getItem('pp-client-motion');if(saved==='playing'||saved==='paused')clientMotionChoice=saved;}catch(_){}
-function refreshClientMotion(){
-  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
-  if(!strip||!button)return;
-  const playing=clientMotionChoice===null?!motionPreference?.matches:clientMotionChoice==='playing';
-  strip.dataset.motion=playing?'playing':'paused';button.dataset.playing=String(playing);
-  document.getElementById('client-motion-label').textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
-  button.hidden=false;
-}
-document.getElementById('client-motion-button')?.addEventListener('click',()=>{
-  clientMotionChoice=document.getElementById('client-strip').dataset.motion==='playing'?'paused':'playing';
-  try{localStorage.setItem('pp-client-motion',clientMotionChoice);}catch(_){}
-  refreshClientMotion();
-});
 motionPreference?.addEventListener?.('change',()=>{
   if(motionPreference.matches)document.querySelectorAll('.reveal-pending').forEach(finishReveal);
-  refreshClientMotion();
 });
 
 // ── Counter animation ────────────────────────────────────────────
@@ -2880,7 +2859,6 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
-  refreshClientMotion();
   document.querySelectorAll('[data-current-year]').forEach(el=>el.textContent=String(new Date().getFullYear()));
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
