@@ -26,7 +26,7 @@
 <meta name="author" content="Premium Power LLC">
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="/images/favicon.png">
-<link rel="stylesheet" href="/assets/company-logo.css?v=20261028-2">
+<link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
 <link rel="apple-touch-icon" href="/images/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -710,9 +710,10 @@ footer {
 /* ── FAB ── */
 #fab-menu {
   position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-  display: flex; flex-direction: column; align-items: flex-end; gap: .75rem;
+  display: flex; flex-direction: column; align-items: stretch; width:56px; gap: .75rem;
 }
 #fab-options {
+  position:absolute;bottom:calc(100% + .75rem);right:0;width:max-content;max-width:calc(100vw - 2rem);
   display: flex; flex-direction: column; gap: .6rem;
   opacity: 0; transform: translateY(10px) scale(.95);
   pointer-events: none; visibility: hidden; transition: all .25s;
@@ -1054,7 +1055,7 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 .proj-tag { font-size: .65rem; letter-spacing: .15em; text-transform: uppercase; color: var(--copper); font-weight: 600; margin-bottom: .5rem; }
 .proj-name { font-family: 'Bebas Neue', sans-serif; font-size: 2rem; line-height: 1.1; margin-bottom: .75rem; }
 .proj-detail { font-size: .82rem; color: rgba(240,237,232,.7); line-height: 1.6; transform: translateY(8px); opacity: 0; transition: all .35s; font-weight: 300; }
-.client-name,.proj-name{color:#fff}.proj-tag{color:#75D5F8}.proj-detail,.proj-card:hover .proj-detail{opacity:1;transform:none;color:#fff}.proj-overlay{background:linear-gradient(transparent,rgba(0,0,0,.88))}.sound-db{font-family:'Bebas Neue',sans-serif;font-size:3rem}.client-card{padding:0;display:block;min-height:0}.hero-inner{max-width:1400px}.hero-card .hero-card-unit{color:rgba(255,255,255,.75)}
+.client-name,.proj-name{color:#fff}.proj-tag{color:#75D5F8}.proj-detail,.proj-card:hover .proj-detail{opacity:1;transform:none;color:#fff}.proj-overlay{background:linear-gradient(transparent,rgba(0,0,0,.88))}.sound-db{font-family:'Bebas Neue',sans-serif;font-size:3rem}.client-card{padding:0;display:block;min-height:0}.hero-inner{max-width:1280px}.hero-card .hero-card-unit{color:rgba(255,255,255,.75)}
 @media(max-width:1024px){.hero-inner{grid-template-columns:1fr}.hero-card{display:none}}
 @media(max-width:640px){.stats-inner{grid-template-columns:repeat(2,minmax(0,1fr))}.projects-grid{grid-template-columns:1fr}.stat-item{text-align:center;padding:1.5rem .5rem}.stat-num{font-size:2rem}.hero-inner{padding-inline:1.25rem}}
 
@@ -1069,6 +1070,7 @@ section [style*="color:var(--copper)"] {color:var(--copper-text)!important;}
 .sound-info{gap:.75rem;flex-wrap:wrap}
 .marquee-track[data-motion]{animation:marquee 60s linear infinite!important}
 .marquee-track[data-motion="playing"]{animation-play-state:running!important}
+.marquee-track[data-motion="paused"]{animation-play-state:paused!important}
 
 
 @keyframes marquee-rtl{to{transform:translateX(50%)}}
@@ -1077,20 +1079,23 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 @media(max-width:480px){.amc-scope-grid{grid-template-columns:minmax(0,1fr)}}
 @media(max-width:640px){.pdf-header-actions>a{display:none}}
 #f-name{scroll-margin-top:100px}
-/* Scoped entrance motion: content stays visible without JavaScript. */
-@keyframes section-rise{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
-@keyframes section-fade{from{opacity:.45}to{opacity:1}}
-#services .section-enter,#workflow .section-enter{animation:section-rise .6s cubic-bezier(.2,.65,.3,1) var(--section-delay,0ms) backwards}
-#services .svc-card{transition:background .25s ease,box-shadow .25s ease,transform .25s ease;transition-delay:0s}
+/* Cards below the viewport are prepared before they can become visible. */
+#services .svc-card,#workflow .wf-item{transition:opacity .55s ease var(--reveal-delay,0ms),transform .55s ease var(--reveal-delay,0ms),background .25s ease,box-shadow .25s ease;transition-delay:var(--reveal-delay,0ms)}
+#services .reveal-pending,#workflow .reveal-pending{opacity:0;transform:translateY(18px);transition:none!important}
 #workflow .wf-num{transition:transform .25s ease,background .25s ease,color .25s ease,box-shadow .25s ease}
 @media(hover:hover) and (pointer:fine){
  #services .svc-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgb(8 45 85 / .08);z-index:1}
  #workflow .wf-item:hover .wf-num{transform:translateY(-4px);background:var(--copper);color:#082d55;box-shadow:0 6px 15px rgb(8 45 85 / .1)}
 }
 @media(prefers-reduced-motion:reduce){
- #services .section-enter,#workflow .section-enter{animation:section-fade .35s ease-out var(--section-delay,0ms) backwards!important}
+ #services .reveal-pending,#workflow .reveal-pending{opacity:1;transform:none}
  #services .svc-card:hover,#workflow .wf-item:hover .wf-num{transform:none}
 }
+.clients-heading-row{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.client-motion-button{font:inherit;font-size:.78rem;font-weight:500;line-height:1.4;display:inline-flex;align-items:center;gap:.5rem;min-height:44px;padding:.45rem .7rem;border:1px solid var(--border2);border-radius:3px;color:var(--copper-text);background:transparent;cursor:pointer}
+.client-motion-button:hover{border-color:var(--copper-text)}
+.footer-tagline,.footer-link-group a,.footer-bottom{color:#d4e3f3}
+.footer-bottom{gap:1rem;flex-wrap:wrap}
 </style>
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 </head>
@@ -1100,6 +1105,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 
 <!-- FAB -->
 <div id="fab-menu">
+  <button class="fab-trigger" onclick="app.toggleFab()" aria-label="Contact options" data-i18n-aria-label="contactOptionsLabel" aria-expanded="false" aria-controls="fab-options"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
   <div id="fab-options">
     <a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer" class="fab-option">
       <span class="fab-dot green"></span>
@@ -1110,7 +1116,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
       <div><div style="font-size:.75rem;font-weight:700;color:#E06060" data-i18n="chatEmergency">24/7 Emergency</div><div style="font-size:.65rem;color:var(--muted)" data-i18n="serviceDirect">Direct call</div></div>
     </a>
   </div>
-  <button class="fab-trigger" onclick="app.toggleFab()" aria-label="Contact options" data-i18n-aria-label="contactOptionsLabel" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.1a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></button>
+
 </div>
 
 <!-- Navbar -->
@@ -1252,14 +1258,14 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 <!-- ═══ CLIENTS ═══ -->
 <section id="clients" class="sec" style="padding-bottom:0">
   <div class="clients-header">
-    <span class="sec-label" data-i18n="clientsLabel">Our Clients</span>
+    <div class="clients-heading-row"><span class="sec-label" data-i18n="clientsLabel">Our Clients</span><button type="button" class="client-motion-button" id="client-motion-button" aria-controls="client-strip" hidden><span id="client-motion-label">Pause image movement</span></button></div>
     <h2 class="sec-title reveal" data-i18n="clientsTitle">TRUSTED BY<br><span class="accent">EGYPT&#x27;S LEADERS</span></h2>
     <p class="sec-desc reveal" data-i18n="clientsSub">Powering critical operations across healthcare, manufacturing, infrastructure, and real estate.</p>
   </div>
   <div style="position:relative;overflow:hidden;padding-bottom:5rem">
     <div class="marquee-fade-l"></div>
     <div class="marquee-fade-r"></div>
-    <div id="client-strip" class="marquee-track marquee-animate" data-motion="playing" aria-label="Our clients">
+    <div id="client-strip" class="marquee-track marquee-animate" data-motion="paused" aria-label="Our clients">
       <div style="display:flex;gap:6px">
         <div class="client-card"><img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&q=80&w=640&h=440" alt="Egyptian Ambulance Organization" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client1">Egyptian Ambulance Organization</div></div></div>
         <div class="client-card"><img src="https://images.unsplash.com/photo-1533613220915-609f661a6fe1?auto=format&fit=crop&q=80&w=640&h=440" alt="Canal For Sugar" loading="lazy" width="640" height="440"><div class="client-overlay"><div class="client-name" data-i18n="client2">Canal For Sugar</div></div></div>
@@ -1991,8 +1997,8 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
           <div>
             <div class="contact-detail-label" data-i18n="ctPhone">Phone</div>
             <div class="contact-detail-val">
-              <a href="tel:+201229688688" dir="ltr">012 2968 8688</a><br>
-              <a href="tel:+201032521321" dir="ltr">01032521321</a>
+              <a href="tel:+201229688688" dir="ltr">01229 688 688</a><br>
+              <a href="tel:+201032521321" dir="ltr">01032 521 321</a>
             </div>
           </div>
         </div>
@@ -2071,7 +2077,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
         <p class="form-note form-fallback"><span data-i18n="fDataUse">We use the details you submit to respond to your enquiry.</span> <a href="/privacy/" data-i18n="privacyLink">Read the privacy notice</a>.</p>
         <p class="form-note form-fallback">
           <span data-i18n="fFallbackLabel">If the form is unavailable,</span>
-          <a href="tel:+201229688688" data-i18n="fFallbackCall">call 012 2968 8688</a>
+          <a href="tel:+201229688688" data-i18n="fFallbackCall">call <bdi dir="ltr">01229 688 688</bdi></a>
           <span data-i18n="fFallbackOr">or</span>
           <a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer" data-i18n="fFallbackWhatsapp">message us on WhatsApp</a>.
         </p>
@@ -2099,9 +2105,9 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
       </div>
       <div class="footer-link-group">
         <h4 data-i18n="footerProducts">Products</h4>
-        <a href="#products">Perkins Series</a>
-        <a href="#products">Volvo Penta</a>
-        <a href="#products">Doosan</a>
+        <a href="#products" data-i18n="perkinsName">Perkins Series</a>
+        <a href="#products" data-i18n="volvoName">Volvo Penta</a>
+        <a href="#products" data-i18n="doosanName">Doosan</a>
         <a href="#services" data-i18n="footerSoundproof">Soundproof Canopies</a>
         <a href="#services" data-i18n="footerParts">OEM Spare Parts</a>
       </div>
@@ -2117,8 +2123,8 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Premium Power LLC — All rights reserved</span>
-      <span>40 El Hegaz St., Heliopolis, Cairo, Egypt</span>
+      <span data-i18n="footerRights">© <span data-current-year>2026</span> Premium Power LLC — All rights reserved</span>
+      <span data-i18n="footerAddress">40 El Hegaz St., Heliopolis, Cairo, Egypt</span>
     </div>
   </div>
 </footer>
@@ -2157,7 +2163,7 @@ html[lang="ar"] .marquee-track[data-motion]{animation-name:marquee-rtl!important
 
 <!-- Scripts -->
 <script src="/enquiry-config.js?v=20260908-1"></script>
-<script src="/enquiry.js?v=20261028-2"></script>
+<script src="/enquiry.js?v=20261029-1"></script>
 <script>
 (function(){
 'use strict';
@@ -2169,6 +2175,8 @@ let scrollTick = false;
 // ── Translations ─────────────────────────────────────────────────
 const T = {
 en:{
+  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",
+  footerRights:'© <span data-current-year>2026</span> Premium Power LLC — All rights reserved',footerAddress:"40 El Hegaz St., Heliopolis, Cairo, Egypt",
   warehouseCity:"Obour City",
   regionName8:"Nationwide",
   regionName7:"North Coast",
@@ -2353,7 +2361,7 @@ en:{
   contactSub:"Contact our team for a generator quote or a maintenance assessment. Share your site needs and we will help you choose the next step.",
   ctPhone:"Phone",ctEmail:"Email",ctAddress:"Address",ctHours:"Office Hours",ctHoursVal:"Sun – Thu, 9:00 AM – 5:00 PM",
   formTitle:"SEND AN INQUIRY",fName:"Your Name",fNamePlaceholder:"Mohamed Ahmed",fPhone:"Phone Number",fPhonePlaceholder:"01XXXXXXXXX",fLocation:"Project Location",fLocationPlaceholder:"Cairo / governorate",fType:"Enquiry Type",fTypeSales:"Generator quote",fTypeMaintenance:"Maintenance assessment",fPlan:"Maintenance Plan",fPlanAssessment:"Assessment first",fPlanStandard:"Standard AMC",fPlanPremium:"Premium AMC+",fMessage:"Message",fMessagePlaceholder:"Tell us what you know: load, brand, or running hours (optional).",fNote:"Share the details you have — load, preferred brand, running hours, or site needs — and our team will guide the next step.",fSubmit:"Send Enquiry →",
-  fDataUse:"We use the details you submit to respond to your enquiry.",fFallbackLabel:"If the form is unavailable,",fFallbackCall:"call 012 2968 8688",fFallbackOr:"or",fFallbackWhatsapp:"message us on WhatsApp",
+  fDataUse:"We use the details you submit to respond to your enquiry.",fFallbackLabel:"If the form is unavailable,",fFallbackCall:'call <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"or",fFallbackWhatsapp:"message us on WhatsApp",
   pdfMobile:"If the preview is unavailable, open the PDF in a new tab or download it.",
   footerTagline:"Delivering engineering-grade generator solutions with trusted performance and professional support since 2006.",
   footerProducts:"Products",footerCompany:"Company",footerSoundproof:"Soundproof Canopies",footerParts:"OEM Spare Parts",
@@ -2364,6 +2372,8 @@ en:{
   chatSales:"Sales Inquiry",chatEmergency:"24/7 Emergency",
 },
 ar:{
+  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",
+  footerRights:'© <span data-current-year>2026</span> <bdi>Premium Power LLC</bdi> — جميع الحقوق محفوظة',footerAddress:"٤٠ شارع الحجاز، مصر الجديدة، القاهرة، مصر",
   warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
@@ -2548,7 +2558,7 @@ ar:{
   contactSub:"تواصل مع فريقنا لطلب عرض سعر لمولد أو تقييم للصيانة. شارك احتياجات موقعك وسنساعدك في تحديد الخطوة التالية.",
   ctPhone:"الهاتف",ctEmail:"البريد الإلكتروني",ctAddress:"العنوان",ctHours:"ساعات العمل",ctHoursVal:"الأحد – الخميس، 9:00 صباحاً – 5:00 مساءً",
   formTitle:"إرسال استفسار",fName:"اسمك",fNamePlaceholder:"محمد أحمد",fPhone:"رقم الهاتف",fPhonePlaceholder:"01XXXXXXXXX",fLocation:"موقع المشروع",fLocationPlaceholder:"القاهرة / المحافظة",fType:"نوع الاستفسار",fTypeSales:"عرض سعر لمولد",fTypeMaintenance:"تقييم للصيانة",fPlan:"خطة الصيانة",fPlanAssessment:"التقييم أولاً",fPlanStandard:"عقد الصيانة القياسي",fPlanPremium:"عقد الصيانة بريميوم+",fMessage:"الرسالة",fMessagePlaceholder:"اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري).",fNote:"شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.",fSubmit:"إرسال الاستفسار ←",
-  fDataUse:"نستخدم البيانات التي تقدمها للرد على استفسارك.",fFallbackLabel:"إذا تعذر إرسال النموذج،",fFallbackCall:"اتصل على 012 2968 8688",fFallbackOr:"أو",fFallbackWhatsapp:"راسلنا عبر واتساب",
+  fDataUse:"نستخدم البيانات التي تقدمها للرد على استفسارك.",fFallbackLabel:"إذا تعذر إرسال النموذج،",fFallbackCall:'اتصل على <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"أو",fFallbackWhatsapp:"راسلنا عبر واتساب",
   pdfMobile:"إذا تعذرت المعاينة، افتح ملف PDF في تبويب جديد أو نزّله.",
   footerTagline:"تقديم حلول مولدات هندسية بأداء موثوق ودعم احترافي منذ 2006.",
   footerProducts:"المنتجات",footerCompany:"الشركة",footerSoundproof:"كبائن عازلة للصوت",footerParts:"قطع غيار OEM",
@@ -2630,28 +2640,41 @@ const PDFS={
   doosan: {file:'doosan-specs.pdf', title:'Doosan — Technical Specification Sheet',        title_ar:'دوسان — كتيب المواصفات الفنية'},
 };
 
-// ── Reveal on scroll ─────────────────────────────────────────────
-const revealObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-// Run the two requested section entrances once, without hiding content at rest.
+// One reveal observer; already-visible content is never hidden on initialization.
+const motionPreference=typeof window.matchMedia==='function'?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+function finishReveal(el){el.classList.remove('reveal-pending');el.classList.add('visible');setTimeout(()=>el.style.removeProperty('--reveal-delay'),900);}
 if(typeof IntersectionObserver==='function'){
-  const sectionMotion=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting)return;
-      entry.target.classList.add('section-enter');
-      sectionMotion.unobserve(entry.target);
-    });
-  },{threshold:.15});
-  for(const selector of ['#services .svc-card','#workflow .wf-item']){
-    document.querySelectorAll(selector).forEach((el,index)=>{
-      el.style.setProperty('--section-delay',`${(index% (selector.includes('wf-item')?5:4))*70}ms`);
-      sectionMotion.observe(el);
-    });
-  }
+  const revealObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){finishReveal(entry.target);revealObs.unobserve(entry.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.matches('#services .svc-card,#workflow .wf-item')&&!motionPreference?.matches&&el.getBoundingClientRect().top>=window.innerHeight){
+      const siblings=Array.from(el.parentElement.children),columns=el.classList.contains('wf-item')?5:4;
+      el.style.setProperty('--reveal-delay',`${(siblings.indexOf(el)%columns)*70}ms`);
+      el.classList.add('reveal-pending');
+    }
+    try{revealObs.observe(el);}catch(_){finishReveal(el);}
+  });
 }
+let clientMotionChoice=null;
+try{const saved=localStorage.getItem('pp-client-motion');if(saved==='playing'||saved==='paused')clientMotionChoice=saved;}catch(_){}
+function refreshClientMotion(){
+  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
+  if(!strip||!button)return;
+  const playing=clientMotionChoice===null?!motionPreference?.matches:clientMotionChoice==='playing';
+  strip.dataset.motion=playing?'playing':'paused';button.dataset.playing=String(playing);
+  document.getElementById('client-motion-label').textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
+  button.hidden=false;
+}
+document.getElementById('client-motion-button')?.addEventListener('click',()=>{
+  clientMotionChoice=document.getElementById('client-strip').dataset.motion==='playing'?'paused':'playing';
+  try{localStorage.setItem('pp-client-motion',clientMotionChoice);}catch(_){}
+  refreshClientMotion();
+});
+motionPreference?.addEventListener?.('change',()=>{
+  if(motionPreference.matches)document.querySelectorAll('.reveal-pending').forEach(finishReveal);
+  refreshClientMotion();
+});
 
 // ── Counter animation ────────────────────────────────────────────
 const counterObs = new IntersectionObserver(entries=>{
@@ -2855,6 +2878,8 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
+  refreshClientMotion();
+  document.querySelectorAll('[data-current-year]').forEach(el=>el.textContent=String(new Date().getFullYear()));
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
   setSound(selectedSound?selectedSound.value:'open');
@@ -2879,6 +2904,11 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     if(modal.classList.contains('open')){e.preventDefault();closePdf();}
     closeNotif();
+    if(document.getElementById('fab-options').classList.contains('open')){
+      document.getElementById('fab-options').classList.remove('open');
+      document.querySelector('.fab-trigger').setAttribute('aria-expanded','false');
+      document.querySelector('.fab-trigger').focus();
+    }
     if(menu.classList.contains('open'))toggleMenu();
   }
 });

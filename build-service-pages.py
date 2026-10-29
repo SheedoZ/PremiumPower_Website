@@ -34,7 +34,7 @@ COPY = {
                  ("Can I request a contract for several generators?", "Yes. Include the number of generators and sites if known so the team can assess the scope.")],
         "contactTitle": "Request a maintenance assessment",
         "contactText": "The basic contact fields are enough to start. Equipment details are optional and help us prepare the follow-up.",
-        "fallback": "Prefer to speak to the team?", "call": "Call 012 2968 8688",
+        "fallback": "Prefer to speak to the team?", "call": "Call 01229 688 688",
         "formNotice": "Your enquiry is sent through Formspree to help us assess and respond to your request.",
         "readPrivacy": "How enquiry data is handled", "nojs": "Online enquiries require JavaScript. Please call or use WhatsApp.",
         "privacyIntro": "This page explains the information submitted through Premium Power's website enquiry forms.",
@@ -75,7 +75,7 @@ COPY = {
                  ("هل يمكن طلب عقد لعدة مولدات؟", "نعم. أضف عدد المولدات والمواقع إن كان معروفًا ليساعد الفريق في تقييم النطاق.")],
         "contactTitle": "اطلب تقييمًا للصيانة",
         "contactText": "تكفي بيانات التواصل الأساسية لبدء الطلب. تفاصيل المعدات اختيارية وتساعدنا في تجهيز المتابعة.",
-        "fallback": "تفضل التحدث مع الفريق؟", "call": "اتصل على 012 2968 8688",
+        "fallback": "تفضل التحدث مع الفريق؟", "call": "اتصل على 01229 688 688",
         "formNotice": "يُرسل استفسارك عبر Formspree لمساعدتنا في تقييم الطلب والرد عليك.",
         "readPrivacy": "كيفية التعامل مع بيانات الاستفسار", "nojs": "الاستفسار عبر النموذج يحتاج JavaScript. يرجى الاتصال أو استخدام واتساب.",
         "privacyIntro": "توضح هذه الصفحة المعلومات التي تُرسل عبر نماذج الاستفسار في موقع بريميوم باور.",
@@ -103,7 +103,7 @@ def page(key, lang):
     t = COPY[lang]
     home = "/ar/" if lang == "ar" else "/"
     e = escape
-    call_label = e(t["call"]).replace("012 2968 8688", '<bdi dir="ltr">012 2968 8688</bdi>')
+    call_label = e(t["call"]).replace("01229 688 688", '<bdi dir="ltr">01229 688 688</bdi>')
     faqs = t["faqs"] if key == "maintenance" else []
     schema = structured_data(key, lang, faqs)
     if key == "maintenance":
@@ -128,7 +128,7 @@ def page(key, lang):
 <section><h2>{e(t["faqTitle"])}</h2><div class="faqs">{faq}</div></section>
 <section id="request"><div id="contact" class="enquiry"><div><h2>{e(t["contactTitle"])}</h2><p>{e(t["contactText"])}</p><p>{e(t["fallback"])}</p><p><a href="tel:+201229688688">{call_label}</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
 <div class="contact-form-wrap">{form_markup(lang)}<p class="note">{e(t["formNotice"])} <a href="{home}privacy/">{e(t["readPrivacy"])}</a></p><noscript><p>{e(t["nojs"])}</p></noscript></div></div></section>'''
-        scripts = '<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028-2" defer></script><script src="/assets/service-page.js?v=20261028" defer></script>'
+        scripts = '<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261029-1" defer></script><script src="/assets/service-page.js?v=20261028" defer></script>'
     else:
         sections = "".join(f'<section><h2>{e(title)}</h2><p>{e(text)}</p></section>' for title, text in t["privacySections"])
         content = f'<section class="service-hero"><p class="eyebrow">Premium Power</p><h1>{e(t["privacy"])}</h1><p class="lead">{e(t["privacyIntro"])}</p></section>{sections}<p><a href="https://formspree.io/legal/privacy-policy/" target="_blank" rel="noopener noreferrer">{e(t["formspree"])}</a></p><p><a href="mailto:info@premiumpower-eg.com">info@premiumpower-eg.com</a></p>'
@@ -137,13 +137,13 @@ def page(key, lang):
 <html lang="{lang}" dir="{"rtl" if lang == "ar" else "ltr"}">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 {metadata_html(key, lang)}<meta name="theme-color" content="#003087"><link rel="icon" type="image/png" href="/images/favicon.png">
-<link rel="stylesheet" href="/assets/company-logo.css?v=20261028-2">
+<link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/service-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 {schema_html(schema)}</head>
 <body class="service-page"><a class="skip" href="#main">{e("انتقل إلى المحتوى" if lang == "ar" else "Skip to content")}</a>
 <header class="bar"><a class="logo pp-brand" href="{home}" aria-label="Premium Power"><img class="pp-brand-mark pp-logo-color" src="/images/premium-power-logo-color.webp" width="720" height="223" alt="Premium Power" fetchpriority="high" decoding="async"></a><nav class="langs" aria-label="{e("اللغة" if lang == "ar" else "Language")}"><a href="/{key}/" lang="en" hreflang="en" {"aria-current='page'" if lang == "en" else ""}>English</a><a href="/ar/{key}/" lang="ar" hreflang="ar" {"aria-current='page'" if lang == "ar" else ""}>العربية</a></nav></header>
 <main id="main" class="wrap"><nav class="service-nav" aria-label="{e("التنقل" if lang == "ar" else "Navigation")}"><a href="{home}">{e(t["home"])}</a><a href="{home}#products">{e(t["sales"])}</a><a href="{home}maintenance/">{e(t["maintenance"])}</a></nav>{content}</main>
-<footer class="foot"><a href="{home}">{e(t["back"])}</a><span>Premium Power LLC · {e(t["address"])}</span><a href="tel:+201229688688" dir="ltr">+20 122 968 8688</a><a href="{home}privacy/">{e(t["privacy"])}</a></footer>{scripts}</body></html>
+<footer class="foot"><a href="{home}">{e(t["back"])}</a><span>Premium Power LLC · {e(t["address"])}</span><a href="tel:+201229688688" dir="ltr">01229 688 688</a><a href="{home}privacy/">{e(t["privacy"])}</a></footer>{scripts}</body></html>
 '''
 
 def main():

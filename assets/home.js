@@ -9,6 +9,8 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
+  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",
+  footerRights:'© <span data-current-year>2026</span> Premium Power LLC — All rights reserved',footerAddress:"40 El Hegaz St., Heliopolis, Cairo, Egypt",
   warehouseCity:"Obour City",
   regionName8:"Nationwide",
   regionName7:"North Coast",
@@ -193,7 +195,7 @@ en:{
   contactSub:"Contact our team for a generator quote or a maintenance assessment. Share your site needs and we will help you choose the next step.",
   ctPhone:"Phone",ctEmail:"Email",ctAddress:"Address",ctHours:"Office Hours",ctHoursVal:"Sun – Thu, 9:00 AM – 5:00 PM",
   formTitle:"SEND AN INQUIRY",fName:"Your Name",fNamePlaceholder:"Mohamed Ahmed",fPhone:"Phone Number",fPhonePlaceholder:"01XXXXXXXXX",fLocation:"Project Location",fLocationPlaceholder:"Cairo / governorate",fType:"Enquiry Type",fTypeSales:"Generator quote",fTypeMaintenance:"Maintenance assessment",fPlan:"Maintenance Plan",fPlanAssessment:"Assessment first",fPlanStandard:"Standard AMC",fPlanPremium:"Premium AMC+",fMessage:"Message",fMessagePlaceholder:"Tell us what you know: load, brand, or running hours (optional).",fNote:"Share the details you have — load, preferred brand, running hours, or site needs — and our team will guide the next step.",fSubmit:"Send Enquiry →",
-  fDataUse:"We use the details you submit to respond to your enquiry.",fFallbackLabel:"If the form is unavailable,",fFallbackCall:"call 012 2968 8688",fFallbackOr:"or",fFallbackWhatsapp:"message us on WhatsApp",
+  fDataUse:"We use the details you submit to respond to your enquiry.",fFallbackLabel:"If the form is unavailable,",fFallbackCall:'call <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"or",fFallbackWhatsapp:"message us on WhatsApp",
   pdfMobile:"If the preview is unavailable, open the PDF in a new tab or download it.",
   footerTagline:"Delivering engineering-grade generator solutions with trusted performance and professional support since 2006.",
   footerProducts:"Products",footerCompany:"Company",footerSoundproof:"Soundproof Canopies",footerParts:"OEM Spare Parts",
@@ -205,6 +207,8 @@ en:{
 },
 ar:{
   pageTitle:"مولدات ديزل في مصر | بريميوم باور",
+  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",
+  footerRights:'© <span data-current-year>2026</span> <bdi>Premium Power LLC</bdi> — جميع الحقوق محفوظة',footerAddress:"٤٠ شارع الحجاز، مصر الجديدة، القاهرة، مصر",
   warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
   regionName7:"الساحل الشمالي",
@@ -389,7 +393,7 @@ ar:{
   contactSub:"تواصل مع فريقنا لطلب عرض سعر لمولد أو تقييم للصيانة. شارك احتياجات موقعك وسنساعدك في تحديد الخطوة التالية.",
   ctPhone:"الهاتف",ctEmail:"البريد الإلكتروني",ctAddress:"العنوان",ctHours:"ساعات العمل",ctHoursVal:"الأحد – الخميس، 9:00 صباحاً – 5:00 مساءً",
   formTitle:"إرسال استفسار",fName:"اسمك",fNamePlaceholder:"محمد أحمد",fPhone:"رقم الهاتف",fPhonePlaceholder:"01XXXXXXXXX",fLocation:"موقع المشروع",fLocationPlaceholder:"القاهرة / المحافظة",fType:"نوع الاستفسار",fTypeSales:"عرض سعر لمولد",fTypeMaintenance:"تقييم للصيانة",fPlan:"خطة الصيانة",fPlanAssessment:"التقييم أولاً",fPlanStandard:"عقد الصيانة القياسي",fPlanPremium:"عقد الصيانة بريميوم+",fMessage:"الرسالة",fMessagePlaceholder:"اذكر ما تعرفه: الحمل أو الماركة أو ساعات التشغيل (اختياري).",fNote:"شارك التفاصيل المتاحة — الحمل أو الماركة المفضلة أو ساعات التشغيل أو احتياجات الموقع — وسيرشدك فريقنا إلى الخطوة التالية.",fSubmit:"إرسال الاستفسار ←",
-  fDataUse:"نستخدم البيانات التي تقدمها للرد على استفسارك.",fFallbackLabel:"إذا تعذر إرسال النموذج،",fFallbackCall:"اتصل على 012 2968 8688",fFallbackOr:"أو",fFallbackWhatsapp:"راسلنا عبر واتساب",
+  fDataUse:"نستخدم البيانات التي تقدمها للرد على استفسارك.",fFallbackLabel:"إذا تعذر إرسال النموذج،",fFallbackCall:'اتصل على <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"أو",fFallbackWhatsapp:"راسلنا عبر واتساب",
   pdfMobile:"إذا تعذرت المعاينة، افتح ملف PDF في تبويب جديد أو نزّله.",
   footerTagline:"تقديم حلول مولدات هندسية بأداء موثوق ودعم احترافي منذ 2006.",
   footerProducts:"المنتجات",footerCompany:"الشركة",footerSoundproof:"كبائن عازلة للصوت",footerParts:"قطع غيار OEM",
@@ -471,28 +475,41 @@ const PDFS={
   doosan: {file:'/doosan-specs.pdf', title:'Doosan — Technical Specification Sheet',        title_ar:'دوسان — كتيب المواصفات الفنية'},
 };
 
-// ── Reveal on scroll ─────────────────────────────────────────────
-const revealObs = new IntersectionObserver(entries=>{
-  entries.forEach(e=>{ if(e.isIntersecting) e.target.classList.add('visible'); });
-},{threshold:.12});
-document.querySelectorAll('.reveal').forEach(el=>revealObs.observe(el));
-
-// Run the two requested section entrances once, without hiding content at rest.
+// One reveal observer; already-visible content is never hidden on initialization.
+const motionPreference=typeof window.matchMedia==='function'?window.matchMedia('(prefers-reduced-motion: reduce)'):null;
+function finishReveal(el){el.classList.remove('reveal-pending');el.classList.add('visible');setTimeout(()=>el.style.removeProperty('--reveal-delay'),900);}
 if(typeof IntersectionObserver==='function'){
-  const sectionMotion=new IntersectionObserver(entries=>{
-    entries.forEach(entry=>{
-      if(!entry.isIntersecting)return;
-      entry.target.classList.add('section-enter');
-      sectionMotion.unobserve(entry.target);
-    });
-  },{threshold:.15});
-  for(const selector of ['#services .svc-card','#workflow .wf-item']){
-    document.querySelectorAll(selector).forEach((el,index)=>{
-      el.style.setProperty('--section-delay',`${(index% (selector.includes('wf-item')?5:4))*70}ms`);
-      sectionMotion.observe(el);
-    });
-  }
+  const revealObs=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{if(entry.isIntersecting){finishReveal(entry.target);revealObs.unobserve(entry.target);}});
+  },{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>{
+    if(el.matches('#services .svc-card,#workflow .wf-item')&&!motionPreference?.matches&&el.getBoundingClientRect().top>=window.innerHeight){
+      const siblings=Array.from(el.parentElement.children),columns=el.classList.contains('wf-item')?5:4;
+      el.style.setProperty('--reveal-delay',`${(siblings.indexOf(el)%columns)*70}ms`);
+      el.classList.add('reveal-pending');
+    }
+    try{revealObs.observe(el);}catch(_){finishReveal(el);}
+  });
 }
+let clientMotionChoice=null;
+try{const saved=localStorage.getItem('pp-client-motion');if(saved==='playing'||saved==='paused')clientMotionChoice=saved;}catch(_){}
+function refreshClientMotion(){
+  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
+  if(!strip||!button)return;
+  const playing=clientMotionChoice===null?!motionPreference?.matches:clientMotionChoice==='playing';
+  strip.dataset.motion=playing?'playing':'paused';button.dataset.playing=String(playing);
+  document.getElementById('client-motion-label').textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
+  button.hidden=false;
+}
+document.getElementById('client-motion-button')?.addEventListener('click',()=>{
+  clientMotionChoice=document.getElementById('client-strip').dataset.motion==='playing'?'paused':'playing';
+  try{localStorage.setItem('pp-client-motion',clientMotionChoice);}catch(_){}
+  refreshClientMotion();
+});
+motionPreference?.addEventListener?.('change',()=>{
+  if(motionPreference.matches)document.querySelectorAll('.reveal-pending').forEach(finishReveal);
+  refreshClientMotion();
+});
 
 // ── Counter animation ────────────────────────────────────────────
 const counterObs = new IntersectionObserver(entries=>{
@@ -696,6 +713,8 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
+  refreshClientMotion();
+  document.querySelectorAll('[data-current-year]').forEach(el=>el.textContent=String(new Date().getFullYear()));
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
   setSound(selectedSound?selectedSound.value:'open');
@@ -720,6 +739,11 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     if(modal.classList.contains('open')){e.preventDefault();closePdf();}
     closeNotif();
+    if(document.getElementById('fab-options').classList.contains('open')){
+      document.getElementById('fab-options').classList.remove('open');
+      document.querySelector('.fab-trigger').setAttribute('aria-expanded','false');
+      document.querySelector('.fab-trigger').focus();
+    }
     if(menu.classList.contains('open'))toggleMenu();
   }
 });
