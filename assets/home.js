@@ -9,7 +9,6 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
-  clientMotionPause:"Pause image movement",clientMotionPlay:"Play image movement",
   footerRights:'© <span data-current-year>2026</span> Premium Power LLC — All rights reserved',footerAddress:"40 El Hegaz St., Heliopolis, Cairo, Egypt",
   warehouseCity:"Obour City",
   regionName8:"Nationwide",
@@ -207,7 +206,6 @@ en:{
 },
 ar:{
   pageTitle:"مولدات ديزل في مصر | بريميوم باور",
-  clientMotionPause:"إيقاف حركة الصور",clientMotionPlay:"تشغيل حركة الصور",
   footerRights:'© <span data-current-year>2026</span> <bdi>Premium Power LLC</bdi> — جميع الحقوق محفوظة',footerAddress:"٤٠ شارع الحجاز، مصر الجديدة، القاهرة، مصر",
   warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
@@ -491,24 +489,8 @@ if(typeof IntersectionObserver==='function'){
     try{revealObs.observe(el);}catch(_){finishReveal(el);}
   });
 }
-let clientMotionChoice=null;
-try{const saved=localStorage.getItem('pp-client-motion');if(saved==='playing'||saved==='paused')clientMotionChoice=saved;}catch(_){}
-function refreshClientMotion(){
-  const strip=document.getElementById('client-strip'),button=document.getElementById('client-motion-button');
-  if(!strip||!button)return;
-  const playing=clientMotionChoice===null?!motionPreference?.matches:clientMotionChoice==='playing';
-  strip.dataset.motion=playing?'playing':'paused';button.dataset.playing=String(playing);
-  document.getElementById('client-motion-label').textContent=T[lang][playing?'clientMotionPause':'clientMotionPlay'];
-  button.hidden=false;
-}
-document.getElementById('client-motion-button')?.addEventListener('click',()=>{
-  clientMotionChoice=document.getElementById('client-strip').dataset.motion==='playing'?'paused':'playing';
-  try{localStorage.setItem('pp-client-motion',clientMotionChoice);}catch(_){}
-  refreshClientMotion();
-});
 motionPreference?.addEventListener?.('change',()=>{
   if(motionPreference.matches)document.querySelectorAll('.reveal-pending').forEach(finishReveal);
-  refreshClientMotion();
 });
 
 // ── Counter animation ────────────────────────────────────────────
@@ -713,7 +695,6 @@ function switchLanguage(l){
     window.PremiumPowerEnquiry.refreshLanguage();
   }
   renderFAQs();
-  refreshClientMotion();
   document.querySelectorAll('[data-current-year]').forEach(el=>el.textContent=String(new Date().getFullYear()));
   // refresh sound
   const selectedSound=document.querySelector('input[name="sound-level"]:checked');
