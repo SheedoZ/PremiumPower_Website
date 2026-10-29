@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import site_chrome
 """Generate English and Arabic model catalogues with filtering and inline enquiries.
 Ratings come from the repository PDFs. Shared form text comes from index.html.
 Run python3 build-brands.py after editing source data, template or form copy.
@@ -311,16 +312,11 @@ def page(brand, lang, cfg, copy, models, specs, css):
 {schema_html(structured_data(brand, lang, faqs, models))}
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2">
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
+{site_chrome.styles()}
 </head>
-<body data-brand="{e(cfg['marque'])}">
+<body class="inner-page catalogue-page" data-brand="{e(cfg['marque'])}">
 <a href="#main" class="skip">{label('Skip to content','تخطي إلى المحتوى')}</a>
-<header class="bar">
-  <a class="logo pp-brand" href="{home}" aria-label="Premium Power"><img class="pp-brand-mark pp-logo-color" src="/images/premium-power-logo-color.webp" width="720" height="223" alt="Premium Power" fetchpriority="high" decoding="async"></a>
-  <nav class="langs" aria-label="{label('Language','اللغة')}">
-    <a href="/{slug}/" hreflang="en" lang="en"{' aria-current="page"' if not ar else ''}>EN</a>
-    <a href="/ar/{slug}/" hreflang="ar" lang="ar"{' aria-current="page"' if ar else ''}>عربي</a>
-  </nav>
-</header>
+{site_chrome.header(lang, slug, "#contact")}
 <main id="main">
   <nav class="crumbs" aria-label="{label('Breadcrumb','مسار التنقل')}"><a href="{home}">{e(t['home'])}</a> / <a href="{home}#products">{e(t['generators'])}</a> / {e(name)}</nav>
   <section class="hero">
@@ -373,8 +369,9 @@ def page(brand, lang, cfg, copy, models, specs, css):
   </section>
 </main>
 <div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a><a class="btn ghost" id="view-comparison" href="#comparison" hidden>{label('View comparison','عرض المقارنة')}</a></div>
-<footer class="foot"><a href="{home}">{e(t['backHome'])}</a><a href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a><a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
+{site_chrome.footer(lang)}
 <script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261029-1" defer></script><script src="/assets/brand-page.js?v=20261028-2" defer></script>
+{site_chrome.scripts()}
 </body>
 </html>
 """
