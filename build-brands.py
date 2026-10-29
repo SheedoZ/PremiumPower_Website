@@ -304,7 +304,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 {metadata_html(brand, lang, models)}
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="/images/favicon.png">
-<link rel="stylesheet" href="/assets/company-logo.css?v=20261028-2">
+<link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -368,13 +368,13 @@ def page(brand, lang, cfg, copy, models, specs, css):
   <section><h2>{label('Services & support','الخدمات والدعم')}</h2><ul class="provided">{provided}</ul><p class="note"><a href="{home}#calculator">{label('Estimate your required generator capacity','احسب قدرة المولد المطلوبة مبدئيًا')}</a> · <a href="{home}#contact">{label('Discuss installation and site requirements','ناقش متطلبات الموقع والتركيب')}</a> · <a href="{maintenance_url}">{label('Maintenance services and contracts','خدمات وعقود الصيانة')}</a></p></section>
   <section><h2>{e(t['faq'])}</h2><div class="faqs">{faq_html}</div></section>
   <section id="contact" class="enquiry">
-    <div><p class="eyebrow">{label('Let’s plan your power','لنحدد احتياجك من الطاقة')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختر موديلًا من الجدول أو أخبرنا عن مشروعك. يساعدك فريقنا على تأكيد القدرة والتجهيز المناسبين.')}</p><p><a href="tel:+201229688688" dir="ltr">+20 122 968 8688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+    <div><p class="eyebrow">{label('Let’s plan your power','لنحدد احتياجك من الطاقة')}</p><h2>{e(t['quote'])}</h2><p>{label('Choose a model above, or tell us about your project. Our team will help confirm the capacity and configuration.','اختر موديلًا من الجدول أو أخبرنا عن مشروعك. يساعدك فريقنا على تأكيد القدرة والتجهيز المناسبين.')}</p><p><a href="tel:+201229688688" dir="ltr">01229 688 688</a></p><a href="https://wa.me/201229688688" target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
     <div class="contact-form-wrap">{form}<p class="note">{label('We use your details to respond to this enquiry.','نستخدم البيانات التي تقدمها للرد على استفسارك.')} <a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a></p><noscript><p>{label('Please call or use WhatsApp to enquire. Online enquiries require JavaScript.','يرجى الاتصال أو مراسلتنا عبر واتساب. الاستفسار عبر النموذج يحتاج JavaScript.')}</p></noscript></div>
   </section>
 </main>
 <div class="mobile-quote" id="mobile-quote"><a class="btn solid" href="#contact">{e(t['quote'])}</a><a class="btn ghost" href="#models">{label('Models','الموديلات')}</a><a class="btn ghost" id="view-comparison" href="#comparison" hidden>{label('View comparison','عرض المقارنة')}</a></div>
 <footer class="foot"><a href="{home}">{e(t['backHome'])}</a><a href="{maintenance_url}">{label('Maintenance support','خدمات الصيانة والعقود')}</a><a href="{privacy_url}">{label('Privacy notice','إشعار الخصوصية')}</a><span>Premium Power LLC · {label('40 El Hegaz St, Heliopolis, Cairo','٤٠ شارع الحجاز، مصر الجديدة، القاهرة')}</span><a href="/{cfg['pdf']}" download>{e(t['pdf'])}</a></footer>
-<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261028-2" defer></script><script src="/assets/brand-page.js?v=20261028-2" defer></script>
+<script src="/enquiry-config.js?v=20260908-1" defer></script><script src="/enquiry.js?v=20261029-1" defer></script><script src="/assets/brand-page.js?v=20261028-2" defer></script>
 </body>
 </html>
 """
