@@ -236,7 +236,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
     privacy_url = f"{home}privacy/"
 
     if lang == "ar":
-        h1 = f"مولدات {name} الديزل في مصر"
+        h1 = f"مولدات كهرباء {name} الديزل في مصر"
     else:
         h1 = f"{name} Diesel Generators in Egypt"
 
@@ -306,9 +306,7 @@ def page(brand, lang, cfg, copy, models, specs, css):
 <meta name="theme-color" content="#003087">
 <link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+{site_chrome.fonts(lang)}
 {schema_html(structured_data(brand, lang, faqs, models))}
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2">
 <link rel="stylesheet" href="/assets/enquiry.css?v=20261028">

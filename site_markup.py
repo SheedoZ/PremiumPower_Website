@@ -32,7 +32,7 @@ def translate(source, table):
             if not outer:
                 import re
                 updated = raw
-                for attribute in ('placeholder', 'aria-label', 'title'):
+                for attribute in ('placeholder', 'aria-label', 'title', 'alt'):
                     key = attrs.get('data-i18n-' + attribute)
                     if key in table:
                         text = escape(table[key], quote=True)

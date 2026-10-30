@@ -27,6 +27,12 @@ def rewrite(html):
     # Keep the complete model journey in the selected language.
     html = re.sub(r'href="/(perkins-generators-egypt|volvo-penta-generators-egypt|doosan-generators-egypt|maintenance|privacy)/', r'href="/ar/\1/', html)
 
+    # Arabic renders entirely in Cairo, so preload its Arabic subset instead.
+    from site_chrome import fonts
+    if html.count(fonts("en")) != 1:
+        raise ValueError("Homepage font preloads are missing")
+    html = html.replace(fonts("en"), fonts("ar"))
+
     # The page must come up in Arabic without a click.
     html = html.replace("switchLanguage('en');\n", "switchLanguage('ar');\n", 1)
 

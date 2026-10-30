@@ -248,3 +248,73 @@ test('static local navigation, canonical fragments and image references resolve'
     }
   } finally { for (const dom of cache.values()) dom.window.close(); }
 });
+
+test('social previews use the company logo card and no page loads third-party fonts', () => {
+  const card = '/images/og-premium-power.jpg';
+  assert.ok(fs.existsSync(path.join(root, card)));
+  assert.equal(fs.existsSync(path.join(root, 'images/BC.jpg')), false, 'personal business card is not published');
+  for (const page of pages) {
+    const html = fs.readFileSync(path.join(root, page.file), 'utf8');
+    const dom = new JSDOM(html);
+    try {
+      const d = dom.window.document;
+      assert.equal(one(d, 'meta[property="og:image"]', page.file).content, site + card);
+      assert.equal(one(d, 'meta[name="twitter:image"]', page.file).content, site + card);
+      assert.equal(one(d, 'meta[property="og:image:width"]', page.file).content, '1200');
+      assert.equal(one(d, 'meta[property="og:image:height"]', page.file).content, '630');
+      assert.ok(normalize(one(d, 'meta[property="og:image:alt"]', page.file).content));
+      assert.doesNotMatch(html, /fonts\.(googleapis|gstatic)\.com/, `${page.file}: fonts are self-hosted`);
+      const preloads = [...d.querySelectorAll('link[rel="preload"][as="font"]')];
+      assert.ok(preloads.length > 0, `${page.file}: first-screen font is preloaded`);
+      for (const link of preloads) {
+        assert.ok(link.hasAttribute('crossorigin'));
+        assert.ok(fs.existsSync(path.join(root, link.getAttribute('href'))));
+      }
+    } finally { dom.window.close(); }
+  }
+});
+
+test('every page footer links to the three brand catalogues in its own language', () => {
+  for (const page of pages) {
+    const dom = open(page);
+    try {
+      const prefix = page.lang === 'ar' ? '/ar/' : '/';
+      const footer = one(dom.window.document, 'footer', page.file);
+      for (const [slug] of brands) {
+        const link = footer.querySelector(`a[href="${prefix}${slug}/"]`);
+        assert.ok(link, `${page.file}: footer links to ${prefix}${slug}/`);
+        if (page.lang === 'ar') assert.match(link.textContent, /^مولدات /);
+      }
+    } finally { dom.window.close(); }
+  }
+});
+
+test('Arabic pages use Arabic search wording and Arabic image descriptions', () => {
+  for (const page of pages.filter(item => item.lang === 'ar' && item.slug !== 'privacy')) {
+    const dom = open(page);
+    try {
+      const d = dom.window.document;
+      assert.match(d.title + ' ' + d.querySelector('h1').textContent, /مولد(?:ات)? (?:ال)?كهرباء/);
+      for (const image of d.querySelectorAll('img[alt]')) {
+        const alt = normalize(image.getAttribute('alt'));
+        if (alt && !/^(Premium Power|Perkins|Volvo Penta|Doosan)$/.test(alt)) {
+          assert.match(alt, /[؀-ۿ]/, `${page.file}: Arabic alt text for ${image.getAttribute('src')}`);
+        }
+      }
+    } finally { dom.window.close(); }
+  }
+});
+
+test('business structured data lists the published logo, email and both phone numbers', () => {
+  const page = pages.find(item => item.lang === 'en' && !item.slug);
+  const dom = open(page);
+  try {
+    const d = dom.window.document;
+    const [business] = structuredData(d).type('LocalBusiness');
+    assert.ok(fs.existsSync(path.join(root, new URL(business.logo).pathname)));
+    assert.ok(d.querySelector(`a[href="mailto:${business.email}"]`), 'published email agrees with schema');
+    const phones = business.contactPoint.map(point => point.telephone);
+    assert.deepEqual(phones, ['+201229688688', '+201032521321']);
+    for (const phone of phones) assert.ok(d.querySelector(`a[href="tel:${phone}"]`), `published phone ${phone}`);
+  } finally { dom.window.close(); }
+});

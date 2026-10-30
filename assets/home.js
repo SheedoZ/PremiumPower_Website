@@ -9,6 +9,7 @@ let scrollTick = false;
 const T = {
 en:{
   pageTitle:"Diesel Generators in Egypt | Premium Power",
+  perkinsLogoAlt:"Perkins Engine Logo",volvoLogoAlt:"Volvo Penta Logo",doosanLogoAlt:"Doosan Logo",proj1Alt:"Medical Center Backup Power - New Cairo",proj2Alt:"Construction Site Power - New Capital",proj3Alt:"Bank HQ Data Center - Maadi",galleryAlt1:"Blue enclosed diesel generator with side ventilation louvres",galleryAlt2:"Electric generator in a blue canopy with a front control panel",galleryAlt3:"Large blue canopy diesel generator with a digital controller",galleryAlt4:"Canopy generator in blue on a black steel base frame",galleryAlt5:"Open-type diesel generator with radiator and control panel",galleryAlt6:"Compact open-type electric generator on a steel skid",galleryAlt7:"Open-type diesel generator showing the alternator and control panel",galleryAlt8:"Large open-type diesel generator with a blue engine",
   footerRights:'© <span data-current-year>2026</span> Premium Power LLC — All rights reserved',footerAddress:"40 El Hegaz St., Heliopolis, Cairo, Egypt",
   warehouseCity:"Obour City",
   regionName8:"Nationwide",
@@ -197,7 +198,7 @@ en:{
   fDataUse:"We use the details you submit to respond to your enquiry.",fFallbackLabel:"If the form is unavailable,",fFallbackCall:'call <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"or",fFallbackWhatsapp:"message us on WhatsApp",
   pdfMobile:"If the preview is unavailable, open the PDF in a new tab or download it.",
   footerTagline:"Delivering engineering-grade generator solutions with trusted performance and professional support since 2006.",
-  footerProducts:"Products",footerCompany:"Company",footerSoundproof:"Soundproof Canopies",footerParts:"OEM Spare Parts",
+  footerProducts:"Products",footerPerkins:"Perkins Generators",footerVolvo:"Volvo Penta Generators",footerDoosan:"Doosan Generators",footerCompany:"Company",footerSoundproof:"Soundproof Canopies",footerParts:"OEM Spare Parts",
   footerProcess:"Our Process",footerProjects:"Projects",footerWhy:"Why Us",footerContact:"Contact",footerCalc:"Power Calculator",
   notifTitle:"Enquiry submitted",notifClose:"Close",
   formSuccess:"Your enquiry has been submitted. The team will review the details provided for follow-up.",
@@ -205,7 +206,8 @@ en:{
   chatSales:"Sales Inquiry",chatEmergency:"24/7 Emergency",
 },
 ar:{
-  pageTitle:"مولدات ديزل في مصر | بريميوم باور",
+  pageTitle:"مولدات كهرباء ديزل في مصر | بريميوم باور",
+  perkinsLogoAlt:"شعار محركات بيركنز",volvoLogoAlt:"شعار فولفو بنتا",doosanLogoAlt:"شعار دوسان",proj1Alt:"دعم كهرباء احتياطي لمركز طبي - القاهرة الجديدة",proj2Alt:"تشغيل موقع إنشاءات - العاصمة الإدارية",proj3Alt:"مركز بيانات مقر بنك - المعادي",galleryAlt1:"مولد ديزل بكابينة زرقاء وفتحات تهوية جانبية",galleryAlt2:"مولد كهرباء بكابينة زرقاء ولوحة تحكم أمامية",galleryAlt3:"مولد ديزل كبير بكابينة زرقاء ووحدة تحكم رقمية",galleryAlt4:"مولد بكابينة زرقاء على قاعدة معدنية سوداء",galleryAlt5:"مولد ديزل مفتوح مع المبرد ولوحة التحكم",galleryAlt6:"مولد كهرباء مفتوح صغير على قاعدة معدنية",galleryAlt7:"مولد ديزل مفتوح يظهر فيه الألترنيتور ولوحة التحكم",galleryAlt8:"مولد ديزل مفتوح كبير بمحرك أزرق",
   footerRights:'© <span data-current-year>2026</span> <bdi>Premium Power LLC</bdi> — جميع الحقوق محفوظة',footerAddress:"٤٠ شارع الحجاز، مصر الجديدة، القاهرة، مصر",
   warehouseCity:"العبور",
   regionName8:"جميع أنحاء مصر",
@@ -218,14 +220,14 @@ ar:{
   regionName1:"القاهرة",
   heroWarrantyValue:"عام واحد",
   heroMaxOutput:"ك.ف.أ كحد أقصى",
-  pageTitle:"مولدات ديزل في مصر | بريميوم باور",
+  pageTitle:"مولدات كهرباء ديزل في مصر | بريميوم باور",
   perkinsModels:"موديلات بيركنز وقدراتها",
   volvoModels:"موديلات فولفو بنتا وقدراتها",
   doosanModels:"موديلات دوسان وقدراتها",
   skipNav:"انتقل إلى المحتوى الرئيسي",
   heroTag:"وكيل معتمد — مصر",
-  heroLine1:"مولدات",heroLine2:"ديزل",heroLine3:"مصر",
-  heroSub:"حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
+  heroLine1:"مولدات كهرباء",heroLine2:"ديزل",heroLine3:"مصر",
+  heroSub:"حلول مولدات كهرباء ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
   heroCardTitle:"نطاق القدرة",engine:"المحرك",alternator:"المولد",heroSupport:"الدعم",heroWarranty:"الضمان",
   scrollHint:"تمرير",
   btnFindGen:"ابحث عن مولدك",btnContact:"تواصل معنا",btnQuote:"اطلب عرضاً",btnGeneratorQuote:"اطلب عرض سعر لمولد",btnMaintenanceAssessment:"اطلب تقييماً للصيانة",
@@ -394,7 +396,7 @@ ar:{
   fDataUse:"نستخدم البيانات التي تقدمها للرد على استفسارك.",fFallbackLabel:"إذا تعذر إرسال النموذج،",fFallbackCall:'اتصل على <bdi dir="ltr">01229 688 688</bdi>',fFallbackOr:"أو",fFallbackWhatsapp:"راسلنا عبر واتساب",
   pdfMobile:"إذا تعذرت المعاينة، افتح ملف PDF في تبويب جديد أو نزّله.",
   footerTagline:"تقديم حلول مولدات هندسية بأداء موثوق ودعم احترافي منذ 2006.",
-  footerProducts:"المنتجات",footerCompany:"الشركة",footerSoundproof:"كبائن عازلة للصوت",footerParts:"قطع غيار OEM",
+  footerProducts:"المنتجات",footerPerkins:"مولدات بيركنز",footerVolvo:"مولدات فولفو بنتا",footerDoosan:"مولدات دوسان",footerCompany:"الشركة",footerSoundproof:"كبائن عازلة للصوت",footerParts:"قطع غيار OEM",
   footerProcess:"منهجيتنا",footerProjects:"المشاريع",footerWhy:"لماذا نحن",footerContact:"اتصل بنا",footerCalc:"حاسبة القدرة",
   notifTitle:"تم تقديم الاستفسار",notifClose:"إغلاق",
   formSuccess:"تم تقديم استفسارك. سيراجع الفريق التفاصيل المقدمة للمتابعة.",
@@ -463,6 +465,12 @@ const FAQS=[
     "a_en": "Yes — we design and install SCADA and remote monitoring systems using GSM/Ethernet modules linked to BMS infrastructure. Features include cloud-based logging, SMS alerts, and real-time asset monitoring accessible from any device.",
     "q_ar": "هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟",
     "a_ar": "نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز."
+  },
+  {
+    "q_en": "Do you supply electric generators for homes and villas?",
+    "a_en": "Yes. We supply diesel electric generators for homes, villas and residential buildings. Perkins sets are available from 9 kVA, and a soundproof canopy rated to 65 dB at 1 meter suits residential areas. Use the power calculator or contact us to confirm the right capacity.",
+    "q_ar": "هل يوجد مولد كهربا مناسب للبيت أو الفيلا؟",
+    "a_ar": "نعم. نوفر مولدات كهرباء ديزل للمنازل والفيلات والمباني السكنية. تتوفر مولدات بيركنز بقدرات تبدأ من 9 ك.ف.أ، ويمكن إضافة كابينة عازلة للصوت حتى 65 ديسيبل على مسافة متر واحد لتناسب المناطق السكنية. استخدم حاسبة القدرة أو تواصل معنا لتحديد قدرة المولد المناسبة."
   }
 ];
 
@@ -690,6 +698,10 @@ function switchLanguage(l){
   document.querySelectorAll('[data-i18n-aria-label]').forEach(el=>{
     const k=el.getAttribute('data-i18n-aria-label');
     if(t[k]!==undefined) el.setAttribute('aria-label',t[k]);
+  });
+  document.querySelectorAll('[data-i18n-alt]').forEach(el=>{
+    const k=el.getAttribute('data-i18n-alt');
+    if(t[k]!==undefined) el.setAttribute('alt',t[k]);
   });
   if(window.PremiumPowerEnquiry&&typeof window.PremiumPowerEnquiry.refreshLanguage==='function'){
     window.PremiumPowerEnquiry.refreshLanguage();

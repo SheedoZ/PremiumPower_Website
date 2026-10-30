@@ -4,7 +4,7 @@ import re
 from seo import ROOT
 from site_markup import copy_tables, translate
 
-VERSION = "20261029-2"
+VERSION = "20261030-1"
 
 @lru_cache(maxsize=1)
 def source_and_copy():
@@ -14,7 +14,8 @@ def source_and_copy():
 def local_links(markup, lang):
     home = "/ar/" if lang == "ar" else "/"
     markup = re.sub(r'href="#([^"]*)"', lambda m: f'href="{home}#{m[1]}"', markup)
-    for slug in ("maintenance", "privacy"):
+    for slug in ("maintenance", "privacy", "perkins-generators-egypt",
+                 "volvo-penta-generators-egypt", "doosan-generators-egypt"):
         markup = markup.replace(f'href="/{slug}/"', f'href="{home}{slug}/"')
     return markup
 
@@ -50,5 +51,13 @@ def styles():
 def scripts():
     return f'<script src="/assets/site-chrome.js?v={VERSION}" defer></script>'
 
-def fonts():
-    return '<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">'
+# Arabic pages render every element in Cairo; English pages use Bebas Neue headings
+# and Outfit text. Preload only the subset the first screen needs.
+FONT_PRELOADS = {
+    "en": ("BebasNeue-latin.woff2", "Outfit-latin.woff2"),
+    "ar": ("Cairo-0.woff2",),
+}
+
+def fonts(lang):
+    return "\n".join(f'<link rel="preload" href="/assets/fonts/{name}" as="font" type="font/woff2" crossorigin>'
+                     for name in FONT_PRELOADS[lang])

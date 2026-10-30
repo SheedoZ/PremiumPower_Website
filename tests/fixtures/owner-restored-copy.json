@@ -374,16 +374,16 @@
       "regionName8": "Nationwide"
     },
     "ar": {
-      "pageTitle": "مولدات ديزل في مصر | بريميوم باور",
+      "pageTitle": "مولدات كهرباء ديزل في مصر | بريميوم باور",
       "perkinsModels": "موديلات بيركنز وقدراتها",
       "volvoModels": "موديلات فولفو بنتا وقدراتها",
       "doosanModels": "موديلات دوسان وقدراتها",
       "skipNav": "انتقل إلى المحتوى الرئيسي",
       "heroTag": "وكيل معتمد — مصر",
-      "heroLine1": "مولدات",
+      "heroLine1": "مولدات كهرباء",
       "heroLine2": "ديزل",
       "heroLine3": "مصر",
-      "heroSub": "حلول مولدات ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
+      "heroSub": "حلول مولدات كهرباء ديزل هندسية من 8 ك.ف.أ إلى 3000 ك.ف.أ. بيركنز وفولفو بنتا ودوسان — مع تركيب احترافي ودعم على مدار الساعة.",
       "heroCardTitle": "نطاق القدرة",
       "engine": "المحرك",
       "alternator": "المولد",
@@ -768,6 +768,12 @@
       "a_en": "Yes — we design and install SCADA and remote monitoring systems using GSM/Ethernet modules linked to BMS infrastructure. Features include cloud-based logging, SMS alerts, and real-time asset monitoring accessible from any device.",
       "q_ar": "هل يمكنكم التعامل مع تكامل SCADA والمراقبة عن بُعد؟",
       "a_ar": "نعم، نصمم وننصب أنظمة SCADA ومراقبة عن بُعد باستخدام وحدات GSM/Ethernet مرتبطة بأنظمة BMS. تشمل الميزات التسجيل السحابي والتنبيهات عبر SMS والمراقبة الفورية للأصول من أي جهاز."
+    },
+    {
+      "q_en": "Do you supply electric generators for homes and villas?",
+      "a_en": "Yes. We supply diesel electric generators for homes, villas and residential buildings. Perkins sets are available from 9 kVA, and a soundproof canopy rated to 65 dB at 1 meter suits residential areas. Use the power calculator or contact us to confirm the right capacity.",
+      "q_ar": "هل يوجد مولد كهربا مناسب للبيت أو الفيلا؟",
+      "a_ar": "نعم. نوفر مولدات كهرباء ديزل للمنازل والفيلات والمباني السكنية. تتوفر مولدات بيركنز بقدرات تبدأ من 9 ك.ف.أ، ويمكن إضافة كابينة عازلة للصوت حتى 65 ديسيبل على مسافة متر واحد لتناسب المناطق السكنية. استخدم حاسبة القدرة أو تواصل معنا لتحديد قدرة المولد المناسبة."
     }
   ]
 }

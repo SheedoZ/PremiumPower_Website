@@ -42,7 +42,7 @@ COPY = {
         "privacySections": [
             ("What you provide", "The form asks for your name, phone number, project location, enquiry type and message. It can include the selected generator and rating or maintenance plan, the page language, and any optional project or equipment details you choose to add."),
             ("How an enquiry is received", "When you submit the form, these details are sent to Formspree, the service used to receive and store submissions and send notifications. Premium Power uses the enquiry to assess your request and contact you."),
-            ("Other website services", "Pages are hosted on GitHub Pages. Some pages load Google Fonts, Google Maps or illustrative images from Unsplash. These providers receive the technical information needed to serve their content. Following phone, WhatsApp or other external links uses the selected provider's service."),
+            ("Other website services", "Pages are hosted on GitHub Pages. Some pages load Google Maps or illustrative images from Unsplash. These providers receive the technical information needed to serve their content. Following phone, WhatsApp or other external links uses the selected provider's service."),
             ("Questions about your information", "Contact info@premiumpower-eg.com for questions about information you have submitted, including retention, correction or deletion. This page does not specify a company-wide retention period."),
         ],
         "formspree": "Read Formspree's privacy policy", "back": "Back to the website",
@@ -50,8 +50,8 @@ COPY = {
     },
     "ar": {
         "home": "الرئيسية", "maintenance": "صيانة المولدات", "privacy": "خصوصية الاستفسارات",
-        "hero": "صيانة المولدات وخدماتها في مصر",
-        "intro": "خطط لصيانة مولدك الحالي أو اطلب تقييمًا لمشكلة تشغيل. أخبرنا بالمعلومات المتاحة عن المعدات والموقع لنحدد معك الخطوة المناسبة.",
+        "hero": "صيانة مولدات الكهرباء وخدماتها في مصر",
+        "intro": "خطط لصيانة مولد الكهرباء الحالي أو اطلب تقييمًا لمشكلة تشغيل. أخبرنا بالمعلومات المتاحة عن المعدات والموقع لنحدد معك الخطوة المناسبة.",
         "contract": "تخطيط عقد صيانة", "service": "صيانة مولد قائم",
         "contractText": "ناقش جدول زيارات لمولد واحد أو عدة مواقع. يحدد عرض السعر الفحوص والتقارير والدعم المشمول.",
         "serviceText": "اذكر الماركة والقدرة أو المشكلة الحالية إن كانت معروفة. يراجع الفريق الطلب ويؤكد التقييم والعمل المطلوب.",
@@ -83,7 +83,7 @@ COPY = {
         "privacySections": [
             ("البيانات التي تقدمها", "يطلب النموذج اسمك ورقم هاتفك وموقع المشروع ونوع الاستفسار ورسالتك. وقد يشمل المولد المختار وتصنيف قدرته أو باقة الصيانة ولغة الصفحة، وأي تفاصيل اختيارية تضيفها عن المشروع أو المعدات."),
             ("كيفية استقبال الاستفسار", "عند إرسال النموذج، تنتقل هذه البيانات إلى Formspree، وهي الخدمة المستخدمة لاستقبال الاستفسارات وتخزينها وإرسال الإشعارات. تستخدم بريميوم باور الاستفسار لتقييم طلبك والتواصل معك."),
-            ("الخدمات الأخرى في الموقع", "تُستضاف الصفحات على GitHub Pages. تحمل بعض الصفحات خطوط Google Fonts أو خرائط Google Maps أو صورًا توضيحية من Unsplash. يستقبل مقدمو هذه الخدمات المعلومات التقنية اللازمة لعرض محتواهم. وتستخدم روابط الاتصال وواتساب والروابط الخارجية خدمة الجهة التي تختارها."),
+            ("الخدمات الأخرى في الموقع", "تُستضاف الصفحات على GitHub Pages. تحمل بعض الصفحات خرائط Google Maps أو صورًا توضيحية من Unsplash. يستقبل مقدمو هذه الخدمات المعلومات التقنية اللازمة لعرض محتواهم. وتستخدم روابط الاتصال وواتساب والروابط الخارجية خدمة الجهة التي تختارها."),
             ("الاستفسار عن معلوماتك", "تواصل عبر info@premiumpower-eg.com للسؤال عن المعلومات التي قدمتها، بما في ذلك الاحتفاظ بها أو تصحيحها أو حذفها. لا تحدد هذه الصفحة مدة احتفاظ موحدة للشركة."),
         ],
         "formspree": "اقرأ سياسة خصوصية Formspree", "back": "العودة إلى الموقع",
@@ -139,7 +139,7 @@ def page(key, lang):
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 {metadata_html(key, lang)}<meta name="theme-color" content="#003087"><link rel="icon" type="image/png" href="/images/favicon.png">
 <link rel="stylesheet" href="/assets/company-logo.css?v=20261029-1">
-{site_chrome.fonts()}
+{site_chrome.fonts(lang)}
 <link rel="stylesheet" href="/assets/brand-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/service-page.css?v=20261028-2"><link rel="stylesheet" href="/assets/enquiry.css?v=20261028">
 {site_chrome.styles()}
 {schema_html(schema)}</head>
