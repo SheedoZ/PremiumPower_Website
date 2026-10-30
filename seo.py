@@ -10,6 +10,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
 SITE = "https://www.premiumpower-eg.com"
+SOCIAL_IMAGE = {"path": "/images/og-premium-power.jpg", "width": 1200, "height": 630,
+                "alt": {"en": "Premium Power logo", "ar": "شعار بريميوم باور"}}
+LOGO = "/images/premium-power-logo-512.png"
 ROUTES = {
     "home": "",
     "perkins": "perkins-generators-egypt/",
@@ -29,8 +32,8 @@ HOME = {
         "description": "Compare Perkins, Volvo Penta and Doosan diesel generators in Egypt. Explore model ratings, installation, spare parts and maintenance. Request a quote.",
     },
     "ar": {
-        "title": "مولدات ديزل في مصر | بريميوم باور",
-        "description": "قارن مولدات بيركنز وفولفو بنتا ودوسان في مصر. تعرّف على قدرات الموديلات وخدمات التركيب وقطع الغيار والصيانة، واطلب عرض سعر يناسب احتياج مشروعك.",
+        "title": "مولدات كهرباء ديزل في مصر | بريميوم باور",
+        "description": "مولدات كهرباء ديزل من بيركنز وفولفو بنتا ودوسان في مصر. قارن قدرات الموديلات وخدمات التركيب وقطع الغيار والصيانة، واطلب عرض سعر لمولد الكهرباء المناسب.",
     },
 }
 
@@ -38,7 +41,7 @@ HOME = {
 INFO = {
     "maintenance": {
         "en": {"title": "Generator Maintenance in Egypt | Premium Power", "description": "Request a generator maintenance assessment in Egypt. Discuss periodic contracts, service needs, equipment checks and the scope for your site."},
-        "ar": {"title": "صيانة المولدات في مصر | بريميوم باور", "description": "اطلب تقييمًا لصيانة المولدات في مصر. ناقش العقود الدورية واحتياجات الخدمة وفحوص المعدات ونطاق العمل المناسب لموقعك."},
+        "ar": {"title": "صيانة مولدات الكهرباء في مصر | بريميوم باور", "description": "اطلب تقييمًا لصيانة مولد الكهرباء في مصر. ناقش عقود الصيانة الدورية واحتياجات الخدمة وفحوص المعدات ونطاق العمل المناسب لموقعك."},
     },
     "privacy": {
         "en": {"title": "Enquiry Privacy | Premium Power", "description": "How Premium Power website enquiries are collected through Formspree and used to assess and respond to generator and maintenance requests."},
@@ -61,8 +64,8 @@ def metadata(key, lang, models=None):
     lo, hi = f"{min(ratings):g}", f"{max(ratings):g}"
     if lang == "ar":
         return {
-            "title": f"مولدات {name} في مصر | بريميوم باور",
-            "description": f"قارن {len(models)} موديل من مولدات {name} بقدرة مستمرة {lo}–{hi} ك.ف.أ في مصر. راجع قدرات الطوارئ وأكواد المحركات، وحمّل الكتالوج واطلب عرض سعر.",
+            "title": f"مولدات كهرباء {name} في مصر | بريميوم باور",
+            "description": f"قارن {len(models)} موديل من مولدات كهرباء {name} الديزل بقدرة مستمرة {lo}–{hi} ك.ف.أ في مصر. راجع قدرات الطوارئ وأكواد المحركات، وحمّل الكتالوج واطلب عرض سعر.",
         }
     return {
         "title": f"{name} Generators in Egypt | Premium Power",
@@ -83,22 +86,35 @@ def metadata_html(key, lang, models=None):
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{links[lang]}">
 <meta property="og:type" content="website">
-<meta property="og:image" content="{SITE}/images/BC.jpg">
+<meta property="og:image" content="{SITE}{SOCIAL_IMAGE['path']}">
+<meta property="og:image:width" content="{SOCIAL_IMAGE['width']}">
+<meta property="og:image:height" content="{SOCIAL_IMAGE['height']}">
+<meta property="og:image:alt" content="{escape(SOCIAL_IMAGE['alt'][lang], quote=True)}">
 <meta property="og:site_name" content="Premium Power">
 <meta property="og:locale" content="{'ar_EG' if lang == 'ar' else 'en_US'}">
 <meta property="og:locale:alternate" content="{'en_US' if lang == 'ar' else 'ar_EG'}">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{title}">
 <meta name="twitter:description" content="{desc}">
-<meta name="twitter:image" content="{SITE}/images/BC.jpg">'''
+<meta name="twitter:image" content="{SITE}{SOCIAL_IMAGE['path']}">
+<meta name="twitter:image:alt" content="{escape(SOCIAL_IMAGE['alt'][lang], quote=True)}">'''
 
 
 def business():
     # Published company identity, address, contact and office hours from index.html.
+    # Coordinates are omitted until confirmed against the company's map listing.
+    phones = ["+201229688688", "+201032521321"]
     return {
         "@type": "LocalBusiness", "@id": SITE + "/#organization",
-        "name": "Premium Power LLC", "url": SITE + "/",
-        "image": SITE + "/images/logo.png", "telephone": "+201229688688",
+        "name": "Premium Power LLC", "alternateName": ["Premium Power", "بريميوم باور"],
+        "url": SITE + "/", "logo": SITE + LOGO,
+        "image": [SITE + SOCIAL_IMAGE["path"], SITE + LOGO],
+        "description": "Supply, installation and maintenance of Perkins, Volvo Penta and Doosan diesel generators in Egypt.",
+        "telephone": phones[0], "email": "info@premiumpower-eg.com",
+        "contactPoint": [{"@type": "ContactPoint", "telephone": phone, "contactType": "customer service",
+                          "areaServed": "EG", "availableLanguage": ["Arabic", "English"]} for phone in phones],
+        "foundingDate": "2006",
+        "areaServed": {"@type": "Country", "name": "Egypt"},
         "address": {"@type": "PostalAddress", "streetAddress": "40 El Hegaz St., Heliopolis",
                     "addressLocality": "Cairo", "addressCountry": "EG"},
         "openingHoursSpecification": [{"@type": "OpeningHoursSpecification",
